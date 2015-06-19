@@ -4,7 +4,7 @@ class UACollege(Parser):
     def __init__(self, stringToScan, uaColleges):
         self.uaColleges = uaColleges
         self.stringToScan = stringToScan
-        Parser.__init__(self, self.stringToScan, self.uaColleges)
+        Parser.__init__(self, self.stringToScan.lower(), self.uaColleges)
         self.resultList = []
 
     def checkContext(self, contextCriteria):
