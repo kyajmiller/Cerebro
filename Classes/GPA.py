@@ -8,6 +8,8 @@ class GPA(Parser):
         self.attributeId = '1'
         self.requirementValue = ''
         self.logicGroup = '0'
+        self.requirementTypeCode = '>='
+        self.scholarshipPackageRequirementFormat = ''
 
     def checkContext(self, contextCriteria):
         contextChecker = Parser(self.stringToScan.lower(), contextCriteria)
@@ -19,7 +21,11 @@ class GPA(Parser):
                 self.resultList.append(i)
 
         self.resultList = list(set(self.resultList))
+
         self.requirementValue = self.resultList
+        self.requirementValue = ', '.join(self.requirementValue)
         return self.requirementValue
 
-    #def getScholarshipPackageRequirementDetails(self):
+    def getScholarshipPackageRequirementFormat(self):
+        if self.getGPA() != '':
+            self.scholarshipPackageRequirementFormat = 'AttributeId = %s, RequirementTypeCode = %s, RequirementValue = %s, LogicGroup = %s' % (self.attributeId, self.requirementTypeCode, self.getGPA(), self.logicGroup)
