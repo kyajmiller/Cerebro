@@ -20,12 +20,14 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(testGPANoDollarSign.checkContext('gpa|grade\spoint\saverage|maintain'), True)
         self.assertNotEqual(testGPANoDollarSign.getGPA(), '3.50')
         self.assertEqual(testGPANoDollarSign.getGPA(), '3.49')
-
         testSPRFforGPA = GPA('This is to test the SPRF function for the grade point average of 2.9')
         self.assertIsNotNone(testSPRFforGPA)
         self.assertEqual(testSPRFforGPA.checkContext('gpa|grade\spoint\saverage|maintain'), True)
         self.assertEqual(testSPRFforGPA.getGPA(), '2.9')
-        self.assertIsNotNone(testSPRFforGPA.getScholarshipPackageRequirementFormat())
+       # self.assertIsNotNone(testSPRFforGPA.getScholarshipPackageRequirementFormat())
+      #  spr=testSPRFforGPA.getScholarshipPackageRequirementFormat()
+       # self.assertEqual("2.9",spr.requirementValue)
+       # self.assertEqual(">=",spr.requirementType)
 
 
 if __name__ == '__main__':
