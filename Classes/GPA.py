@@ -4,7 +4,7 @@ from Classes.ScholarshipPackageRequirementFormat import ScholarshipPackageRequir
 class GPA(Parser):
     def __init__(self, stringToScan):
         self.stringToScan = stringToScan
-        Parser.__init__(self, self.stringToScan, '[1234]\.\d+')
+        Parser.__init__(self, self.stringToScan, '\s[^$]?[1234]\.\d+')
         self.resultList = []
         self.attributeId = '1'
         self.requirementValue = ''
@@ -19,7 +19,7 @@ class GPA(Parser):
     def getGPA(self):
         if self.checkContext('gpa|grade\spoint\saverage|maintain') and self.doesMatchExist():
             for i in self.getResult():
-                self.resultList.append(i)
+                self.resultList.append(i.strip())
 
         self.resultList = list(set(self.resultList))
 
