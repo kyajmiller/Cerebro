@@ -14,3 +14,9 @@ class HTMLWorker(object):
       result= re.sub('''<html>[\s\S]*<body>''', '', stringToParse)
       result= re.sub('''</body>[\s\S]*</html>''', '', result)
       return re.sub('''</body>''', '', result)
+  @staticmethod
+  def cleanWebPageBeforeProcessing(stringToParse):
+      result=HTMLWorker.removeNonBodyElements(stringToParse)
+      result=HTMLWorker.removeAllJavascript(result)
+      result=HTMLWorker.removeHtmlTags(result)
+      return result
