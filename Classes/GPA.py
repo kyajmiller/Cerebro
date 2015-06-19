@@ -29,3 +29,5 @@ class GPA(Parser):
     def getScholarshipPackageRequirementFormat(self):
         if self.getGPA() != '':
             self.scholarshipPackageRequirementFormat = 'AttributeId = %s, RequirementTypeCode = %s, RequirementValue = %s, LogicGroup = %s' % (self.attributeId, self.requirementTypeCode, self.getGPA(), self.logicGroup)
+
+        return self.scholarshipPackageRequirementFormat
