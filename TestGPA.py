@@ -15,6 +15,12 @@ class TestStringMethods(unittest.TestCase):
         self.assertNotEqual(failgpa.getGPA(), '7.4')
         self.assertEqual(failgpa.getGPA(), '')
 
+        testGPANoDollarSign = GPA('$3.50 is money, but 3.49 is a GPA')
+        self.assertIsNotNone(testGPANoDollarSign)
+        self.assertEqual(testGPANoDollarSign.checkContext('gpa|grade\spoint\saverage|maintain'), True)
+        self.assertNotEqual(testGPANoDollarSign.getGPA(), '3.50')
+        self.assertEqual(testGPANoDollarSign.getGPA(), '3.49')
+
         testSPRFforGPA = GPA('This is to test the SPRF function for the grade point average of 2.9')
         self.assertIsNotNone(testSPRFforGPA)
         self.assertEqual(testSPRFforGPA.checkContext('gpa|grade\spoint\saverage|maintain'), True)
