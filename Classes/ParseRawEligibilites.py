@@ -8,6 +8,6 @@ class ParseRawEligibilites(object):
             isValidObject=isinstance(rawEliligibility,RawEligibityInput)
             if isValidObject:
                 resultListFromParser=ParseRawEligibility(rawEliligibility)
-                self.arrayOfRawEligibilities.append(resultListFromParser)
+                self.arrayOfRawEligibilities.append(resultListFromParser.listOfReturnedScholarshipPackageIds)
 
 
