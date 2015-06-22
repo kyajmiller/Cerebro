@@ -30,11 +30,19 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(testSPRFforGPA.getGPA(), '2.9')
         self.assertIsNotNone(testSPRFforGPA.getScholarshipPackageRequirementFormat())
         test_SPRF = testSPRFforGPA.getScholarshipPackageRequirementFormat()
-        self.assertEqual('1543', test_SPRF.scholarshipPackageId)
-        self.assertEqual('1', test_SPRF.attributeId)
-        self.assertEqual('>=', test_SPRF.requirementType)
-        self.assertEqual('2.9', test_SPRF.requirementValue)
-        self.assertEqual('0', test_SPRF.logicGroup)
+        self.assertEqual(test_SPRF.scholarshipPackageId, '1543')
+        self.assertEqual(test_SPRF.attributeId, '1')
+        self.assertEqual(test_SPRF.requirementType, '>=')
+        self.assertEqual(test_SPRF.requirementValue, '2.9')
+        self.assertEqual(test_SPRF.logicGroup, '0')
+
+    def test_updateLogicGroup(self):
+        testUpdateLogicGroup = GPA('Undergraduates must have a 3.0 GPA, while graduate students must have a 3.25', '5')
+        self.assertIsNotNone(testUpdateLogicGroup)
+        testUpdateLogicGroup.updateLogicGroup()
+        self.assertEqual(testUpdateLogicGroup.logicGroup, '1')
+        test_SPRFLogicGroup = testUpdateLogicGroup.getScholarshipPackageRequirementFormat()
+        self.assertEqual(test_SPRFLogicGroup.logicGroup, '1')
 
 
 
