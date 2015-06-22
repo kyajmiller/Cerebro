@@ -24,6 +24,14 @@ class Majors(Parser):
             for i in self.getResult():
                 self.resultList.append(i)
 
+        if self.checkContext('of\sscience|of\sarts|of\smedicine') and self.doesMatchExist():
+            if 'science' in self.resultList:
+                self.resultList.remove('science')
+            if 'arts' in self.resultList:
+                self.resultList.remove('arts')
+            if 'medicine' in self.resultList:
+                self.resultList.remove('medicine')
+
         self.resultList = list(set(self.resultList))
 
         self.requirementValue = ', '.join(self.resultList)
