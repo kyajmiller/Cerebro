@@ -63,18 +63,18 @@ MajorOptions = '|'.join(MajorOptions)
 
 class TestStringMethods(unittest.TestCase):
     def test_Majors(self):
-        testmajors = Majors('You must be a linguistics major', MajorOptions)
+        testmajors = Majors('You must be a linguistics major', '5', MajorOptions)
         self.assertIsNotNone(testmajors)
-        self.assertEqual(
-            testmajors.checkContext('enrolled in|majoring in|program|major|concentration|pursuing|student'), True)
-        self.assertEqual(testmajors.getMajors(), ['linguistics'])
+        self.assertEqual(True,
+            testmajors.checkContext('enrolled in|majoring in|program|major|concentration|pursuing|student'))
+        self.assertEqual(testmajors.getMajors(), 'linguistics')
 
-        failmajors = Majors('I really like plant science', MajorOptions)
+        failmajors = Majors('I really like plant science', '5', MajorOptions)
         self.assertIsNotNone(failmajors)
-        self.assertEqual(
-            failmajors.checkContext('enrolled in|majoring in|program|major|concentration|pursuing|student'), False)
-        self.assertNotEqual(failmajors.getMajors(), ['plant science'])
-        self.assertEqual(failmajors.getMajors(), [])
+        self.assertEqual(False,
+            failmajors.checkContext('enrolled in|majoring in|program|major|concentration|pursuing|student'))
+        self.assertNotEqual('plant science', failmajors.getMajors())
+        self.assertEqual('', failmajors.getMajors())
 
 
 if __name__ == '__main__':
