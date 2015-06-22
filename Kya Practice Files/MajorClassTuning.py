@@ -5,7 +5,7 @@ import re
 MajorOptions = ['aerospace engineering', 'accounting', 'anthropology', 'arts', 'business management', '\schemistry',
                 'chemical engineering', 'civil engineering', 'communication', 'computing & software systems',
                 'computer engineering',
-                'computer science', 'ecology', 'economics', 'electrical engineering', 'engineering', 'english',
+                'computer science', 'ecology', 'economics', 'electrical engineering', 'english',
                 'environmental engineering', 'environmental sciences', 'entrepreneurship', 'finance', 'geology',
                 'history',
                 'human resource management', 'hydrogeology', 'hydrology', 'information science', 'information systems',
@@ -13,7 +13,7 @@ MajorOptions = ['aerospace engineering', 'accounting', 'anthropology', 'arts', '
                 'library science',
                 'linguistics', 'marketing', 'mathematics', 'mechanical engineering', 'medicine', 'metallurgy', 'mining',
                 'nursing',
-                'physics', 'political science', 'psychology', 'science', 'science technology', 'social sciences',
+                'physics', 'political science', 'psychology', 'science technology', 'social sciences',
                 'sociology',
                 'agricultural & biosystems engineering', 'biosystems engineering', 'bio systems engineering',
                 'software systems',
@@ -56,7 +56,7 @@ MajorOptions = ['aerospace engineering', 'accounting', 'anthropology', 'arts', '
                 'plant science', 'portuguese', 'japanese', 'horticulture', 'nutritional science', 'animal science',
                 'retail',
                 'family and consumer resources', 'family and consumer science', 'engineering management',
-                'engineering mechanics']
+                'engineering mechanics', 'physiology', 'computer engineering']
 
 MajorOptions = list(set(MajorOptions))
 MajorOptions = '|'.join(MajorOptions)
