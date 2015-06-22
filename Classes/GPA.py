@@ -21,6 +21,10 @@ class GPA(Parser):
         if self.checkContext('gpa|grade\spoint\saverage|maintain') and self.doesMatchExist():
             for i in self.getResult():
                 self.resultList.append(i.strip())
+        elif self.doesMatchExist():
+            if not self.checkContext('million|billion|trillion|version'):
+                for i in self.getResult():
+                    self.resultList.append(i.strip())
 
         self.resultList = list(set(self.resultList))
 
