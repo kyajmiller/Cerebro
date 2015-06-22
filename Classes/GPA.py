@@ -2,7 +2,7 @@ from Classes.Parser import Parser
 from Classes.ScholarshipPackageRequirementFormat import ScholarshipPackageRequirement
 
 class GPA(Parser):
-    def __init__(self, stringToScan):
+    def __init__(self, stringToScan, scholarshipPackageId):
         self.stringToScan = stringToScan
         Parser.__init__(self, self.stringToScan, '\s[^$]?[1234]\.\d+')
         self.resultList = []
@@ -10,7 +10,8 @@ class GPA(Parser):
         self.requirementValue = ''
         self.logicGroup = '0'
         self.requirementTypeCode = '>='
-        self.scholarshipPackageId = ''
+        self.scholarshipPackageId = scholarshipPackageId
+        #self.scholarshipPackageId = ''
 
     def checkContext(self, contextCriteria):
         contextChecker = Parser(self.stringToScan.lower(), contextCriteria)
