@@ -22,7 +22,7 @@ class GPA(Parser):
             for i in self.getResult():
                 self.resultList.append(i.strip())
         elif self.doesMatchExist():
-            if not self.checkContext('million|billion|trillion|version'):
+            if not self.checkContext('million|billion|trillion|version|dollar|pound|euro'):
                 for i in self.getResult():
                     self.resultList.append(i.strip())
 
