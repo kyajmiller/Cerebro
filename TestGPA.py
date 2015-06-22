@@ -44,6 +44,18 @@ class TestStringMethods(unittest.TestCase):
         test_SPRFLogicGroup = testUpdateLogicGroup.getScholarshipPackageRequirementFormat()
         self.assertEqual('1', test_SPRFLogicGroup.logicGroup)
 
+    def test_GPAWithoutGPAKeywords(self):
+        testGPANoKeywords = GPA('Must have a 3.80', '5')
+        self.assertIsNotNone(testGPANoKeywords)
+        self.assertEqual(False, testGPANoKeywords.checkContext('gpa|grade\spoint\saverage|maintain'))
+        self.assertEqual(False, testGPANoKeywords.checkContext('million|billion|trillion|version|dollar|pound|euro'))
+        self.assertEqual('3.80', testGPANoKeywords.getGPA())
+        failGPANoKeywords = GPA('Must have 3.80 million dollars', '5')
+        self.assertIsNotNone(failGPANoKeywords)
+        self.assertEqual(False, failGPANoKeywords.checkContext('gpa|grade\spoint\saverage|maintain'))
+        self.assertEqual(True, failGPANoKeywords.checkContext('million|billion|trillion|version|dollar|pound|euro'))
+        self.assertEqual('', failGPANoKeywords.getGPA())
+
 
 if __name__ == '__main__':
     unittest.main()
