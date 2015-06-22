@@ -8,10 +8,10 @@ class Majors(Parser):
         self.stringToScan = stringToScan
         Parser.__init__(self, self.stringToScan.lower(), self.majorOptions)
         self.resultList = []
-        self.attributeId = '1'
+        self.attributeId = '417'
         self.requirementValue = ''
         self.logicGroup = '0'
-        self.requirementTypeCode = '>='
+        self.requirementTypeCode = '*'
         self.scholarshipPackageId = scholarshipPackageId
 
     def checkContext(self, contextCriteria):
