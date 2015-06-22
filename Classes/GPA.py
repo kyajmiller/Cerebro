@@ -1,6 +1,7 @@
 from Classes.Parser import Parser
 from Classes.ScholarshipPackageRequirementFormat import ScholarshipPackageRequirement
 
+
 class GPA(Parser):
     def __init__(self, stringToScan, scholarshipPackageId):
         self.stringToScan = stringToScan
@@ -11,7 +12,6 @@ class GPA(Parser):
         self.logicGroup = '0'
         self.requirementTypeCode = '>='
         self.scholarshipPackageId = scholarshipPackageId
-        #self.scholarshipPackageId = ''
 
     def checkContext(self, contextCriteria):
         contextChecker = Parser(self.stringToScan.lower(), contextCriteria)
@@ -43,6 +43,7 @@ class GPA(Parser):
     def getScholarshipPackageRequirementFormat(self):
         self.updateLogicGroup()
         if self.getGPA() != '':
-            GPA_SPRF = ScholarshipPackageRequirement(self.scholarshipPackageId, self.attributeId, self.requirementTypeCode, self.getGPA(), self.logicGroup)
+            GPA_SPRF = ScholarshipPackageRequirement(self.scholarshipPackageId, self.attributeId,
+                                                     self.requirementTypeCode, self.getGPA(), self.logicGroup)
 
             return GPA_SPRF
