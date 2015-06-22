@@ -18,7 +18,7 @@ class GPA(Parser):
         return contextChecker.doesMatchExist()
 
     def getGPA(self):
-        if self.checkContext('gpa|grade\spoint\saverage|maintain') and self.doesMatchExist():
+        if self.checkContext('gpa|grade\spoint\saverage|maintain\sa') and self.doesMatchExist():
             for i in self.getResult():
                 self.resultList.append(i.strip())
         elif self.doesMatchExist():
