@@ -28,7 +28,20 @@ class GPA(Parser):
         self.requirementValue = ', '.join(self.requirementValue)
         return self.requirementValue
 
+    def updateLogicGroup(self):
+        if self.checkContext('gpa|grade\spoint\saverage|maintain') and self.doesMatchExist():
+            for i in self.getResult():
+                self.resultList.append(i.strip())
+
+        self.resultList = list(set(self.resultList))
+
+        if len(self.resultList) >= 2:
+            self.logicGroup = '1'
+
+        return None
+
     def getScholarshipPackageRequirementFormat(self):
+        self.updateLogicGroup()
         if self.getGPA() != '':
             GPA_SPRF = ScholarshipPackageRequirement(self.scholarshipPackageId, self.attributeId, self.requirementTypeCode, self.getGPA(), self.logicGroup)
 
