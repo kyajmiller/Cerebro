@@ -5,7 +5,7 @@ from Classes.ScholarshipPackageRequirementFormat import ScholarshipPackageRequir
 class GPA(Parser):
     def __init__(self, stringToScan, scholarshipPackageId):
         self.stringToScan = stringToScan
-        Parser.__init__(self, self.stringToScan, '\s[^$]?[1234]\.\d+')
+        Parser.__init__(self, self.stringToScan, '\s[^$\d\.]?[1234]\.\d+')
         self.resultList = []
         self.attributeId = '1'
         self.requirementValue = ''
