@@ -45,6 +45,5 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(test_SPRFLogicGroup.logicGroup, '1')
 
 
-
 if __name__ == '__main__':
     unittest.main()
