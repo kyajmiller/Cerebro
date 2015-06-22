@@ -1,4 +1,5 @@
 from Classes.Parser import Parser
+from Classes.ScholarshipPackageRequirementFormat import ScholarshipPackageRequirement
 
 
 class Majors(Parser):
@@ -27,3 +28,10 @@ class Majors(Parser):
 
         self.requirementValue = ', '.join(self.resultList)
         return self.requirementValue
+
+    def getScholarshipPackageRequirementFormat(self):
+        if self.getMajors() != '':
+            Majors_SPRF = ScholarshipPackageRequirement(self.scholarshipPackageId, self.attributeId,
+                                                        self.requirementTypeCode, self.getMajors(), self.logicGroup)
+
+            return Majors_SPRF
