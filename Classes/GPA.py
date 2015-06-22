@@ -28,8 +28,7 @@ class GPA(Parser):
 
         self.resultList = list(set(self.resultList))
 
-        self.requirementValue = self.resultList
-        self.requirementValue = ', '.join(self.requirementValue)
+        self.requirementValue = ', '.join(self.resultList)
         return self.requirementValue
 
     def updateLogicGroup(self):
