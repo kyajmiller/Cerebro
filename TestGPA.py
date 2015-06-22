@@ -28,7 +28,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertIsNotNone(testSPRFforGPA)
         self.assertEqual(testSPRFforGPA.checkContext('gpa|grade\spoint\saverage|maintain'), True)
         self.assertEqual(testSPRFforGPA.getGPA(), '2.9')
-       # self.assertIsNotNone(testSPRFforGPA.getScholarshipPackageRequirementFormat())
+        self.assertIsNotNone(testSPRFforGPA.getScholarshipPackageRequirementFormat())
       #  spr=testSPRFforGPA.getScholarshipPackageRequirementFormat()
        # self.assertEqual("2.9",spr.requirementValue)
        # self.assertEqual(">=",spr.requirementType)
