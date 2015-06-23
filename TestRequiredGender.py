@@ -8,6 +8,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertIsNotNone(testrequiredgender)
         self.assertEqual(testrequiredgender.getRequiredGender(), ['female'])
 
+    def test_GenderFailure(self):
         failrequiredgender = RequiredGender('There is no gender in this string')
         self.assertIsNotNone(failrequiredgender)
         self.assertEqual(failrequiredgender.getRequiredGender(), [])
