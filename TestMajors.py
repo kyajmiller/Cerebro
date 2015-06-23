@@ -66,21 +66,25 @@ class TestStringMethods(unittest.TestCase):
         testmajors = Majors('You must be a linguistics major', '5', MajorOptions)
         self.assertIsNotNone(testmajors)
         self.assertEqual(True,
-            testmajors.checkContext('enrolled in|majoring in|program|major|concentration|pursuing|student'))
+                         testmajors.checkContext(
+                             'enrolled in|majoring in|program|major|concentration|pursuing|student'))
         self.assertEqual(testmajors.getMajors(), 'linguistics')
 
     def test_Majorsfailure(self):
         failmajors = Majors('I really like plant science', '5', MajorOptions)
         self.assertIsNotNone(failmajors)
         self.assertEqual(False,
-            failmajors.checkContext('enrolled in|majoring in|program|major|concentration|pursuing|student'))
+                         failmajors.checkContext(
+                             'enrolled in|majoring in|program|major|concentration|pursuing|student'))
         self.assertNotEqual('plant science', failmajors.getMajors())
         self.assertEqual('', failmajors.getMajors())
 
     def test_MajorsCreateSPRFClass(self):
-        testSPRFforMajors = Majors('You must be a Japanese major in order to make this SPRF class work.', '2947', MajorOptions)
+        testSPRFforMajors = Majors('You must be a Japanese major in order to make this SPRF class work.', '2947',
+                                   MajorOptions)
         self.assertIsNotNone(testSPRFforMajors)
-        self.assertEqual(True, testSPRFforMajors.checkContext('enrolled in|majoring in|program|major|concentration|pursuing|student'))
+        self.assertEqual(True, testSPRFforMajors.checkContext(
+            'enrolled in|majoring in|program|major|concentration|pursuing|student'))
         self.assertEqual('japanese', testSPRFforMajors.getMajors())
         self.assertIsNotNone(testSPRFforMajors.getScholarshipPackageRequirementFormat())
         test_SPRF = testSPRFforMajors.getScholarshipPackageRequirementFormat()
