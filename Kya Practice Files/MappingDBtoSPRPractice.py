@@ -1,5 +1,7 @@
-from classes.Parser import Parser
+from Classes.Parser import Parser
+from Classes.HTMLWorker import HTMLWorker
 import pyodbc
+import re
 
 def ConnectToTheDatabase():
     global cnxn, cursor
@@ -21,3 +23,11 @@ while 1:
         break
     Eligibilities.append(row.Elgibility)
     ScholarshipIds.append(row.ScholarshipPackageId)
+
+for e in range(len(Eligibilities)):
+    print(ScholarshipIds[e])
+
+    Eligibility = Eligibilities[e]
+    # cleanEligibility = HTMLWorker.cleanWebPageBeforeProcessing(Eligibility)
+    cleanEligibility = re.sub('<.*?>', '', Eligibility)
+    print(cleanEligibility)
