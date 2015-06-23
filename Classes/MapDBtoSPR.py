@@ -1,4 +1,6 @@
 import pyodbc
+import re
+from Classes.GPA import GPA
 
 
 class MapDBtoSPR(object):
@@ -26,3 +28,20 @@ class MapDBtoSPR(object):
             self.scholarshipIds.append(row.ScholarshipPackageId)
 
         return None
+
+    def doGPAParser(self):
+        for i in range(len(self.eligibilities)):
+            scholarshipId = self.scholarshipIds[i]
+            eligibility = self.eligibilities[i]
+            eligibility = re.sub('<.*?>|&nbsp;', '', eligibility)
+
+            # print(eligibility)
+            parseGPA = GPA(eligibility, scholarshipId)
+            print(parseGPA.getGPA())
+
+
+'''
+test = MapDBtoSPR()
+test.populateEligibilitiesandScholarshipIds()
+test.doGPAParser()
+'''
