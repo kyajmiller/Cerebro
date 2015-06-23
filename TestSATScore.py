@@ -5,19 +5,21 @@ class TestStringMethods(unittest.TestCase):
     def test_SATScore(self):
         testsatscore = SATScore('I got a 1600 on my SAT in high school.')
         self.assertIsNotNone(testsatscore)
-        self.assertEqual(testsatscore.checkContext('sat|sat\sscore'), True)
-        self.assertEqual(testsatscore.getSATScore(), ['1600'])
+        self.assertEqual(True, testsatscore.checkContext('sat|sat\sscore'))
+        self.assertEqual(['1600'], testsatscore.getSATScore())
 
+    def test_SATScoreContextFailure(self):
         failsatscore = SATScore('I got a 36 on my ACT test!')
         self.assertIsNotNone(failsatscore)
-        self.assertEqual(failsatscore.checkContext('sat|sat\sscore'), False)
-        self.assertNotEqual(failsatscore.getSATScore(), ['36'])
-        self.assertEqual(failsatscore.getSATScore(), [])
+        self.assertEqual(False, failsatscore.checkContext('sat|sat\sscore'))
+        self.assertNotEqual(['36'], failsatscore.getSATScore())
+        self.assertEqual([], failsatscore.getSATScore())
 
+    def test_SATScoreValueFailure(self):
         notarealsatscore = SATScore('89 is not a real SAT score.')
         self.assertIsNotNone(notarealsatscore)
-        self.assertEqual(notarealsatscore.checkContext('sat|sat\sscore'), True)
-        self.assertNotEqual(notarealsatscore.getSATScore(), ['89'])
+        self.assertEqual(True, notarealsatscore.checkContext('sat|sat\sscore'))
+        self.assertNotEqual(['89'], notarealsatscore.getSATScore())
 
 
 if __name__ == '__main__':
