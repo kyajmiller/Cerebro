@@ -6,6 +6,7 @@ ArizonaCounties = ['Apache', 'Cochise', 'Coconino', 'Gila', 'Graham', 'Greenlee'
 
 ArizonaCounties = '|'.join(ArizonaCounties)
 
+
 class TestStringMethods(unittest.TestCase):
     def test_HighSchoolArizonaCounty(self):
         testhighschoolarizonacounty = HighSchoolArizonaCounty('Must attend highschool in Yuma county.', ArizonaCounties)
@@ -14,6 +15,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(testhighschoolarizonacounty.checkContext('county|counties'), True)
         self.assertEqual(testhighschoolarizonacounty.getHighSchoolArizonaCounty(), ['Yuma'])
 
+    def test_HighSchoolArizonaCountyFailure(self):
         failtesthighschoolarizonacounty = HighSchoolArizonaCounty('Amphi high school is in Tucson', ArizonaCounties)
         self.assertIsNotNone(failtesthighschoolarizonacounty)
         self.assertEqual(failtesthighschoolarizonacounty.checkContext('high\sschool|highschool|hs'), True)
