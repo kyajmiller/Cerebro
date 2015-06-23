@@ -27,26 +27,8 @@ for e in range(len(Eligibilities)):
     Eligibility = Eligibilities[e]
     print(ScholarshipIds[e])
 
-    FormattedEligibilities = []
-    StripULTag = re.sub('<ul>|</ul>', '', Eligibility)
-    Eligibility = StripULTag
-    IndividualEligibilities = Eligibility.split('</li>')
-    for IndividualEligibility in IndividualEligibilities:
-        IndividualEligibility.strip('\r')
-        IndividualEligibility.strip('\n')
-        StripXMLTags = re.sub('<\/*[a-z]*\s*\/*>', '', IndividualEligibility)
-        #need to remove the xml tags first (specificially the end of line) or else the next one will capture the whole
-        #string and delete it
-        StripRemainingTags = re.sub('<.*>', '', StripXMLTags)
-        IndividualEligibility = StripRemainingTags
-        FormattedEligibilities.append(IndividualEligibility)
-
-    JoinEligibilitytoString = ', '.join(FormattedEligibilities)
-    StripApostrophe = re.sub('\'*\"*', '', JoinEligibilitytoString)
-    Stripnbsp = re.sub('&nbsp;', '', StripApostrophe)
-    JoinEligibilitytoString = Stripnbsp
-
-    Eligibility = JoinEligibilitytoString
+    Eligibility = Eligibilities[e]
+    Eligibility = re.sub('<.*?>', '', Eligibility)
 
     testGPA = GPA(Eligibility, ScholarshipIds[e])
     print(Eligibility)
