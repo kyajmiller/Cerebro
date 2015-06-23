@@ -21,6 +21,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertIsNotNone(testaboutme)
         self.assertEqual(testaboutme.getAboutMe(), ['financial need'])
 
+    def test_AboutMeFailure(self):
         failaboutme = AboutMe('This line does not have any of the About Me attributes in it.', ListAboutMeAttributes)
         self.assertIsNotNone(failaboutme)
         self.assertEqual(failaboutme.getAboutMe(), [])
