@@ -72,12 +72,15 @@ class TestStringMethods(unittest.TestCase):
     def test_InterestsAndActivities(self):
         testinterestsandactivities = InterestsAndActivities('Must have archery as a hobby.', ListInterestsandActivities)
         self.assertIsNotNone(testinterestsandactivities)
-        self.assertEqual(testinterestsandactivities.checkContext('interest|activity|career|hobby|hobbies|achievement|demonstrate|involve|activities|commit'), True)
+        self.assertEqual(True, testinterestsandactivities.checkContext(
+            'interest|activity|career|hobby|hobbies|achievement|demonstrate|involve|activities|commit'))
         self.assertEqual(testinterestsandactivities.getInterestsAndActivities(), ['archery'])
 
+    def test_InterestsAndActivitiesFailure(self):
         failinterestsandactivities = InterestsAndActivities('Must have a major in Math.', ListInterestsandActivities)
         self.assertIsNotNone(failinterestsandactivities)
-        self.assertEqual(failinterestsandactivities.checkContext('interest|activity|career|hobby|hobbies|achievement|demonstrate|involve|activities|commit'), False)
+        self.assertEqual(False, failinterestsandactivities.checkContext(
+            'interest|activity|career|hobby|hobbies|achievement|demonstrate|involve|activities|commit'))
         self.assertNotEqual(failinterestsandactivities.getInterestsAndActivities(), ['math'])
         self.assertEqual(failinterestsandactivities.getInterestsAndActivities(), [])
 
