@@ -17,6 +17,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(testethnicity.checkContext('ethnicity|descent|lineage|ancestry|be\sa'), True)
         self.assertEqual(testethnicity.getEthnicity(), ['Alaska Native'])
 
+    def test_EthnicityFailure(self):
         failethnicity = Ethnicity('Must be majoring in East Asian Studies', Demographics)
         self.assertIsNotNone(failethnicity)
         self.assertEqual(failethnicity.checkContext('ethnicity|descent|lineage|ancestry|be\sa'), False)
