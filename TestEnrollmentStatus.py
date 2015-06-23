@@ -8,6 +8,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(testenrollmentstatus.checkContext('enroll|study'), True)
         self.assertEqual(testenrollmentstatus.getEnrollmentStatus(), ['full-time'])
 
+    def test_EnrollmentStatusFailure(self):
         failenrollmentstatus = EnrollmentStatus('I have a part time job.')
         self.assertIsNotNone(failenrollmentstatus)
         self.assertEqual(failenrollmentstatus.checkContext('enroll|study'), False)
