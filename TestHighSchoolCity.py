@@ -66,6 +66,7 @@ MajorUSCities = ['New York City', 'Los Angeles', 'Chicago', 'Houston', 'Philadel
 
 MajorUSCities = '|'.join(MajorUSCities)
 
+
 class TestStringMethods(unittest.TestCase):
     def test_HighSchoolCity(self):
         testhighschoolcity = HighSchoolCity('I went to high school in Virginia Beach, Virginia', MajorUSCities)
@@ -73,6 +74,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(testhighschoolcity.checkContext('high\sschool|highschool|hs'), True)
         self.assertEqual(testhighschoolcity.getHighSchoolCity(), ['Virginia Beach'])
 
+    def test_HighSchoolCityFailure(self):
         failhighschoolcity = HighSchoolCity('I attend college in Tucson, Arizona', MajorUSCities)
         self.assertIsNotNone(failhighschoolcity)
         self.assertEqual(failhighschoolcity.checkContext('high\sschool|highschool|hs'), False)
