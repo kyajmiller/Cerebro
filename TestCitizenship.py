@@ -17,6 +17,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(testcitizenship.checkContext('citizen'), True)
         self.assertEqual(testcitizenship.getCitizenship(), ['United States Citizen'])
 
+    def test_CitizenshipFailure(self):
         failcitizenship = Citizenship("You have to be from Japan.", CountriesNationalities)
         self.assertIsNotNone(failcitizenship)
         self.assertEqual(failcitizenship.checkContext('citizen'), False)
