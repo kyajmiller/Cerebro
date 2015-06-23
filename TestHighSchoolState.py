@@ -18,6 +18,7 @@ States = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 
 
 States = '|\s'.join(States)
 
+
 class TestStringMethods(unittest.TestCase):
     def test_HighSchoolState(self):
         testhighschoolstate = HighSchoolState('I went to high school in Virginia', States)
@@ -25,12 +26,14 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(testhighschoolstate.checkContext('high\sschool|highschool|hs'), True)
         self.assertEqual(testhighschoolstate.getHighSchoolState(), ['Virginia'])
 
+    def test_HighSchoolStateFailure(self):
         failhighschoolstate = HighSchoolState('I went to college in New York', States)
         self.assertIsNotNone(failhighschoolstate)
         self.assertEqual(failhighschoolstate.checkContext('high\sschool|highschool|hs'), False)
         self.assertNotEqual(failhighschoolstate.getHighSchoolState(), ['New York'])
         self.assertEqual(failhighschoolstate.getHighSchoolState(), [])
 
+    def test_HighSchoolStateAbbreviations(self):
         testhighschoolstateabbreviations = HighSchoolState('I also went to highschool in Tucson, AZ', States)
         self.assertIsNotNone(testhighschoolstateabbreviations)
         self.assertEqual(testhighschoolstateabbreviations.checkContext('high\sschool|highschool|hs'), True)
