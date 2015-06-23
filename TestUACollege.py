@@ -16,14 +16,15 @@ class TestStringMethods(unittest.TestCase):
     def test_UACollege(self):
         testuacollege = UACollege('I am in the College of Social and Behavioral Sciences.', UAColleges)
         self.assertIsNotNone(testuacollege)
-        self.assertEqual(testuacollege.checkContext('college|college\sof|school\sof'), True)
-        self.assertEqual(testuacollege.getUACollege(), ['social and behavioral science'])
+        self.assertEqual(True, testuacollege.checkContext('college|college\sof|school\sof'))
+        self.assertEqual(['social and behavioral science'], testuacollege.getUACollege())
 
+    def test_UACollegeFailure(self):
         failuacollege = UACollege('Majoring in optical science', UAColleges)
         self.assertIsNotNone(failuacollege)
-        self.assertEqual(failuacollege.checkContext('college|college\sof|school\sof'), False)
-        self.assertNotEqual(failuacollege.getUACollege(), ['optical science'])
-        self.assertEqual(failuacollege.getUACollege(), [])
+        self.assertEqual(False, failuacollege.checkContext('college|college\sof|school\sof'))
+        self.assertNotEqual(['optical science'], failuacollege.getUACollege())
+        self.assertEqual([], failuacollege.getUACollege())
 
 
 if __name__ == '__main__':
