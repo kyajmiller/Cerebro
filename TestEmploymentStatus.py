@@ -1,6 +1,7 @@
 import unittest
 from Classes.EmploymentStatus import EmploymentStatus
 
+
 class TestStringMethods(unittest.TestCase):
     def test_EmploymentStatus(self):
         testemploymentstatus = EmploymentStatus('Must be working a full time job')
@@ -8,12 +9,14 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(testemploymentstatus.checkContext('work|employ|job'), True)
         self.assertEqual(testemploymentstatus.getEmploymentStatus(), ['full time'])
 
+    def test_EmploymentStatusHours(self):
         testemploymentstatushours = EmploymentStatus('Must be working 20 hours a week')
         self.assertIsNotNone(testemploymentstatushours)
         self.assertEqual(testemploymentstatushours.checkContext('work|employ|job'), True)
         self.assertEqual(testemploymentstatushours.checkContext('hour'), True)
         self.assertEqual(testemploymentstatushours.getEmploymentStatus(), ['20 Hours'])
 
+    def test_EmploymentStatusFailure(self):
         failemploymentstatus = EmploymentStatus('I am enrolled full-time at the UA.')
         self.assertIsNotNone(failemploymentstatus)
         self.assertEqual(failemploymentstatus.checkContext('work|employ|job'), False)
