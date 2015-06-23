@@ -8,6 +8,7 @@ ClassStandingOptions = ['high school senior', 'freshman', 'sophomore', 'junior',
 
 ClassStandingOptions = '|'.join(ClassStandingOptions)
 
+
 class TestStringMethods(unittest.TestCase):
     def test_ClassStanding(self):
         testclassstanding = ClassStanding('Must be a college junior', ClassStandingOptions)
@@ -15,16 +16,19 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(testclassstanding.checkContext('must'), True)
         self.assertEqual(testclassstanding.getClassStanding(), ['junior'])
 
-        testcsagain = ClassStanding('Must be a 3rd year student', ClassStandingOptions)
-        self.assertIsNotNone(testcsagain)
-        self.assertEqual(testcsagain.getClassStanding(), ['3rd Year'])
+    def test_ClassStandingYear(self):
+        testclassstandingyear = ClassStanding('Must be a 3rd year student', ClassStandingOptions)
+        self.assertIsNotNone(testclassstandingyear)
+        self.assertEqual(testclassstandingyear.getClassStanding(), ['3rd Year'])
 
-        morecstesting = ClassStanding('I am a masters student', ClassStandingOptions)
-        self.assertIsNotNone(morecstesting)
-        self.assertEqual(morecstesting.checkClassStandingOptions(), None)
-        self.assertEqual(morecstesting.checkMastersStudent(), ['masters level graduate'])
-        self.assertEqual(morecstesting.getClassStanding(), ['masters level graduate'])
+    def test_ClassStandingContextBased(self):
+        testclassstandingcontext = ClassStanding('I am a masters student', ClassStandingOptions)
+        self.assertIsNotNone(testclassstandingcontext)
+        self.assertEqual(testclassstandingcontext.checkClassStandingOptions(), None)
+        self.assertEqual(testclassstandingcontext.checkMastersStudent(), ['masters level graduate'])
+        self.assertEqual(testclassstandingcontext.getClassStanding(), ['masters level graduate'])
 
+    def test_ClassStandingContextIgnoreCase(self):
         testcsignorecase = ClassStanding('HE IS A PHD STUDENT', ClassStandingOptions)
         self.assertIsNotNone(testcsignorecase)
         self.assertEqual(testcsignorecase.getClassStanding(), ['ph.d. level graduate'])
