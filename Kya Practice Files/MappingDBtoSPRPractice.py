@@ -1,5 +1,7 @@
 from Classes.Parser import Parser
 from Classes.HTMLWorker import HTMLWorker
+from Classes.GPA import GPA
+from Classes.Majors import Majors
 import pyodbc
 import re
 
@@ -10,7 +12,7 @@ def ConnectToTheDatabase():
 
 
 def GetInfoFromDatabase():
-    cursor.execute("SELECT ScholarshipPackageId, Elgibility FROM dbo.DepartmentTestCases WHERE AttributeId =1 OR AttributeId =364")
+    cursor.execute("SELECT ScholarshipPackageId, Elgibility FROM dbo.DepartmentTestCases")
 
 ConnectToTheDatabase()
 GetInfoFromDatabase()
@@ -28,6 +30,11 @@ for e in range(len(Eligibilities)):
     print(ScholarshipIds[e])
 
     Eligibility = Eligibilities[e]
-    # cleanEligibility = HTMLWorker.cleanWebPageBeforeProcessing(Eligibility)
-    cleanEligibility = re.sub('<.*?>', '', Eligibility)
-    print(cleanEligibility)
+    Eligibility = re.sub('<.*?>|&nbsp;', '', Eligibility)
+    print(Eligibility)
+
+    parseGPA = GPA(Eligibility, ScholarshipIds[e])
+    # parseMajor = Majors(Eligibility)
+
+    print(parseGPA.getGPA())
+    # print(parseMajor.getMajors())
