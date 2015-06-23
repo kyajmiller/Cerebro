@@ -28,7 +28,7 @@ for e in range(len(Eligibilities)):
     print(ScholarshipIds[e])
 
     Eligibility = Eligibilities[e]
-    Eligibility = re.sub('<.*?>', '', Eligibility)
+    Eligibility = re.sub('<.*?>|&nbsp;', '', Eligibility)
 
     testGPA = GPA(Eligibility, ScholarshipIds[e])
     print(Eligibility)
