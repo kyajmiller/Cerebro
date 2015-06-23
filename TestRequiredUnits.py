@@ -5,14 +5,15 @@ class TestStringMethods(unittest.TestCase):
     def test_RequiredUnits(self):
         testrequiredunits = RequiredUnits('Have a minimum of 60 units in the major')
         self.assertIsNotNone(testrequiredunits)
-        self.assertEqual(testrequiredunits.checkContext('units?'), True)
-        self.assertEqual(testrequiredunits.getRequiredUnits(), ['60'])
+        self.assertEqual(True, testrequiredunits.checkContext('units?'))
+        self.assertEqual(['60'], testrequiredunits.getRequiredUnits())
 
+    def test_RequiredUnitsFailure(self):
         failrequiredunits = RequiredUnits('It is 110 degrees outside today.')
         self.assertIsNotNone(failrequiredunits)
-        self.assertEqual(failrequiredunits.checkContext('units?'), False)
-        self.assertNotEqual(failrequiredunits.getRequiredUnits(), ['110'])
-        self.assertEqual(failrequiredunits.getRequiredUnits(), [])
+        self.assertEqual(False, failrequiredunits.checkContext('units?'))
+        self.assertNotEqual(['110'], failrequiredunits.getRequiredUnits())
+        self.assertEqual([], failrequiredunits.getRequiredUnits())
 
 
 if __name__ == '__main__':
