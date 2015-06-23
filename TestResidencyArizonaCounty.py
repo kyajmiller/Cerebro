@@ -10,15 +10,16 @@ class TestStringMethods(unittest.TestCase):
     def test_ResidencyArizonaCounty(self):
         testresidencyarizonacounty = ResidencyArizonaCounty('Must live in Maricopa county.', ArizonaCounties)
         self.assertIsNotNone(testresidencyarizonacounty)
-        self.assertEqual(testresidencyarizonacounty.checkContext('resident|reside|residency|live|live\sin'), True)
-        self.assertEqual(testresidencyarizonacounty.checkContext('county|counties'), True)
-        self.assertEqual(testresidencyarizonacounty.getResidencyArizonaCounty(), ['Maricopa'])
+        self.assertEqual(True, testresidencyarizonacounty.checkContext('resident|reside|residency|live|live\sin'))
+        self.assertEqual(True, testresidencyarizonacounty.checkContext('county|counties'))
+        self.assertEqual(['Maricopa'], testresidencyarizonacounty.getResidencyArizonaCounty())
 
+    def test_ResidencyArizonaCountyFailure(self):
         failtestresidencyarizonacounty = ResidencyArizonaCounty('Amphi high school is in Pima county', ArizonaCounties)
         self.assertIsNotNone(failtestresidencyarizonacounty)
-        self.assertEqual(failtestresidencyarizonacounty.checkContext('resident|reside|residency|live|live\sin'), False)
-        self.assertEqual(failtestresidencyarizonacounty.checkContext('county|counties'), True)
-        self.assertEqual(failtestresidencyarizonacounty.getResidencyArizonaCounty(), [])
+        self.assertEqual(False, failtestresidencyarizonacounty.checkContext('resident|reside|residency|live|live\sin'))
+        self.assertEqual(True, failtestresidencyarizonacounty.checkContext('county|counties'))
+        self.assertEqual([], failtestresidencyarizonacounty.getResidencyArizonaCounty())
 
 
 if __name__ == '__main__':
