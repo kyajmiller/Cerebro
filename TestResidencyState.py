@@ -22,19 +22,21 @@ class TestStringMethods(unittest.TestCase):
     def test_ResidencyState(self):
         testresidencystate = ResidencyState('Must be a resident of Texas', States)
         self.assertIsNotNone(testresidencystate)
-        self.assertEqual(testresidencystate.checkContext('resident|reside|residency|live|live\sin'), True)
-        self.assertEqual(testresidencystate.getResidencyState(), ['Texas'])
+        self.assertEqual(True, testresidencystate.checkContext('resident|reside|residency|live|live\sin'))
+        self.assertEqual(['Texas'], testresidencystate.getResidencyState())
 
+    def test_ResidencyStateFailure(self):
         failresidencystate = ResidencyState('I went to college in VT', States)
         self.assertIsNotNone(failresidencystate)
-        self.assertEqual(failresidencystate.checkContext('resident|reside|residency|live|live\sin'), False)
-        self.assertNotEqual(failresidencystate.getResidencyState(), ['VT'])
-        self.assertEqual(failresidencystate.getResidencyState(), [])
+        self.assertEqual(False, failresidencystate.checkContext('resident|reside|residency|live|live\sin'))
+        self.assertNotEqual(['VT'], failresidencystate.getResidencyState())
+        self.assertEqual([], failresidencystate.getResidencyState())
 
+    def test_ResidencyStateAbbreviations(self):
         testresidencystateabbreviations = ResidencyState('I live in Tucson, AZ', States)
         self.assertIsNotNone(testresidencystateabbreviations)
-        self.assertEqual(testresidencystateabbreviations.checkContext('resident|reside|residency|live|live\sin'), True)
-        self.assertEqual(testresidencystateabbreviations.getResidencyState(), ['AZ'])
+        self.assertEqual(True, testresidencystateabbreviations.checkContext('resident|reside|residency|live|live\sin'))
+        self.assertEqual(['AZ'], testresidencystateabbreviations.getResidencyState())
 
 
 if __name__ == '__main__':
