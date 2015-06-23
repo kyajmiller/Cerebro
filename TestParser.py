@@ -10,6 +10,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(testparser.doesMatchExist(), True)
         self.assertEqual(testparser.getResult(), ['test'])
 
+    def test_ParserFailure(self):
         failparser = Parser('This test should return false', 'chicken')
         self.assertIsNotNone(failparser)
         self.assertEqual(failparser.doesMatchExist(), False)
