@@ -22,6 +22,8 @@ class UACollege(Parser):
         if self.checkContext('college|college\sof|school\sof') and self.doesMatchExist():
             for i in self.getResult():
                 self.resultList.append(i)
+        if self.checkContext('enrolled') and self.checkContext('ua south'):
+            self.resultList.append('ua south')
 
         self.resultList = list(set(self.resultList))
 
