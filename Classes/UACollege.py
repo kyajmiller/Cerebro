@@ -27,7 +27,6 @@ class UACollege(Parser):
         if self.checkContext('\scom\s'):
             self.resultList.append('College of Medicine')
 
-
         self.resultList = list(set(self.resultList))
 
         self.requirementValue = ', '.join(self.resultList)
