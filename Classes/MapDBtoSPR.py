@@ -16,7 +16,7 @@ class MapDBtoSPR(object):
         cursor = cnxn.cursor()
 
     def getInfoFromDatabase(self):
-        cursor.execute("SELECT ScholarshipPackageId, Elgibility FROM dbo.DepartmentTestCases")
+        cursor.execute(self.SQLQuery)
 
     def populateEligibilitiesandScholarshipIds(self):
         self.connectToTheDatabase()
@@ -34,8 +34,8 @@ class MapDBtoSPR(object):
     def doGPAParser(self, eligibility, scholarshipId):
         parseGPA = GPA(eligibility, scholarshipId)
         print(parseGPA.getGPA())
-        # if parseGPA.getGPA() != '':
-        # return parseGPA.getScholarshipPackageRequirementFormat()
+        if parseGPA.getGPA() != '':
+            return parseGPA.getScholarshipPackageRequirementFormat()
 
     def loopOverEligibilities(self):
         self.populateEligibilitiesandScholarshipIds()
@@ -48,8 +48,5 @@ class MapDBtoSPR(object):
             self.doGPAParser(eligibility, scholarshipId)
 
 
-'''
-test = MapDBtoSPR()
+test = MapDBtoSPR("SELECT ScholarshipPackageId, Elgibility FROM dbo.DepartmentTestCases")
 test.loopOverEligibilities()
-SELECT ScholarshipPackageId, Elgibility FROM dbo.DepartmentTestCases
-'''
