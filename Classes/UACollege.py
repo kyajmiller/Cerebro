@@ -6,7 +6,7 @@ class UACollege(Parser):
     def __init__(self, stringToScan, scholarshipPackageId, uaColleges):
         self.uaColleges = uaColleges
         self.stringToScan = stringToScan
-        Parser.__init__(self, self.stringToScan.lower(), self.uaColleges)
+        Parser.__init__(self, self.stringToScan, self.uaColleges)
         self.resultList = []
         self.attributeId = '377'
         self.requirementValue = ''
