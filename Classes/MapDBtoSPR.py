@@ -33,9 +33,9 @@ class MapDBtoSPR(object):
 
     def doGPAParser(self, eligibility, scholarshipId):
         parseGPA = GPA(eligibility, scholarshipId)
-        print(parseGPA.getGPA())
         if parseGPA.getGPA() != '':
-            return parseGPA.getScholarshipPackageRequirementFormat()
+            print(parseGPA.getGPA())
+            # return parseGPA.getScholarshipPackageRequirementFormat()
 
     def loopOverEligibilities(self):
         self.populateEligibilitiesandScholarshipIds()
@@ -45,7 +45,11 @@ class MapDBtoSPR(object):
             eligibility = self.eligibilities[i]
             eligibility = re.sub('<.*?>|&nbsp;', '', eligibility)
 
-            self.doGPAParser(eligibility, scholarshipId)
+            splitEligibility = eligibility.split('\n')
+            # print(splitEligibility)
+
+            for eligibility in splitEligibility:
+                self.doGPAParser(eligibility, scholarshipId)
 
 
 test = MapDBtoSPR("SELECT ScholarshipPackageId, Elgibility FROM dbo.DepartmentTestCases")
