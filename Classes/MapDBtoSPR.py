@@ -1,6 +1,7 @@
 import pyodbc
 import re
 from Classes.GPA import GPA
+from Classes.Majors import Majors
 
 
 class MapDBtoSPR(object):
@@ -37,6 +38,11 @@ class MapDBtoSPR(object):
             print(parseGPA.getGPA())
             # return parseGPA.getScholarshipPackageRequirementFormat()
 
+    def doMajorsParser(self, eligibility, scholarshipId):
+        parseMajors = Majors(eligibility, scholarshipId, Majors.majorsListForTesting())
+        if parseMajors.getMajors() != '':
+            print(parseMajors.getMajors())
+
     def loopOverEligibilities(self):
         self.populateEligibilitiesandScholarshipIds()
         for i in range(len(self.eligibilities)):
@@ -45,10 +51,16 @@ class MapDBtoSPR(object):
             eligibility = self.eligibilities[i]
             eligibility = re.sub('<.*?>|&nbsp;', '', eligibility)
 
+            print('\n\n')
+            print(scholarshipId)
+            print(eligibility)
+
             splitEligibility = eligibility.split('\n')
             for eligibility in splitEligibility:
                 self.doGPAParser(eligibility, scholarshipId)
+                self.doMajorsParser(eligibility, scholarshipId)
 
 
-test = MapDBtoSPR("SELECT ScholarshipPackageId, Elgibility FROM dbo.DepartmentTestCases")
+test = MapDBtoSPR(
+    "SELECT ScholarshipPackageId, Elgibility FROM dbo.DepartmentTestCases WHERE AttributeId =5 OR AttributeId =417")
 test.loopOverEligibilities()
