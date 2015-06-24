@@ -35,9 +35,9 @@ class MapDBtoSPR(object):
             eligibility = self.eligibilities[i]
             eligibility = re.sub('<.*?>|&nbsp;', '', eligibility)
 
-            # print(eligibility)
             parseGPA = GPA(eligibility, scholarshipId)
-            print(parseGPA.getGPA())
+            if parseGPA.getGPA() != '':
+                return parseGPA.getScholarshipPackageRequirementFormat()
 
 
 '''
