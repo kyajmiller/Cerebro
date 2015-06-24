@@ -4,9 +4,11 @@ from Classes.GPA import GPA
 
 
 class MapDBtoSPR(object):
-    def __init__(self):
+    def __init__(self, SQLQuery):
+        self.SQLQuery = SQLQuery
         self.eligibilities = []
         self.scholarshipIds = []
+
 
     def connectToTheDatabase(self):
         global cnxn, cursor
@@ -29,19 +31,25 @@ class MapDBtoSPR(object):
 
         return None
 
-    def doGPAParser(self):
+    def doGPAParser(self, eligibility, scholarshipId):
+        parseGPA = GPA(eligibility, scholarshipId)
+        print(parseGPA.getGPA())
+        # if parseGPA.getGPA() != '':
+        # return parseGPA.getScholarshipPackageRequirementFormat()
+
+    def loopOverEligibilities(self):
+        self.populateEligibilitiesandScholarshipIds()
         for i in range(len(self.eligibilities)):
             scholarshipId = self.scholarshipIds[i]
+
             eligibility = self.eligibilities[i]
             eligibility = re.sub('<.*?>|&nbsp;', '', eligibility)
 
-            parseGPA = GPA(eligibility, scholarshipId)
-            if parseGPA.getGPA() != '':
-                return parseGPA.getScholarshipPackageRequirementFormat()
+            self.doGPAParser(eligibility, scholarshipId)
 
 
 '''
 test = MapDBtoSPR()
-test.populateEligibilitiesandScholarshipIds()
-test.doGPAParser()
+test.loopOverEligibilities()
+SELECT ScholarshipPackageId, Elgibility FROM dbo.DepartmentTestCases
 '''
