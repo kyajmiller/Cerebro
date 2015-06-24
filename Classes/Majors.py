@@ -83,7 +83,7 @@ class Majors(Parser):
                         "gender and women's studies", 'general biology', 'general studies', 'genetics',
                         'geographic information science', 'geographic information systems technology', 'geography',
                         'geoscience', 'german studies', 'german', 'global health and development', 'global studies',
-                        'government and public policy', 'goverment and public servive', 'health behavior',
+                        'government and public policy', 'government and public service', 'health behavior',
                         'health promotion',
                         'heritage conservation', 'higher education', 'history and theory of art', 'history',
                         'human language technology', 'hydrology', 'hydrometeorology', 'immunobiology',
