@@ -46,8 +46,6 @@ class MapDBtoSPR(object):
             eligibility = re.sub('<.*?>|&nbsp;', '', eligibility)
 
             splitEligibility = eligibility.split('\n')
-            # print(splitEligibility)
-
             for eligibility in splitEligibility:
                 self.doGPAParser(eligibility, scholarshipId)
 
