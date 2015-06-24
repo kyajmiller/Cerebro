@@ -2,13 +2,13 @@ from Classes.UACollege import UACollege
 import pyodbc
 import re
 
-UAColleges = ['agriculture & life sciences', 'agriculture and life sciences',
-              'architecture, planning & landscape architecture',
-              'architecture planning and landscape architecture', 'education', 'engineering', 'fine arts', 'humanities',
-              'medicine', 'nursing', 'optical science', 'pharmacy', 'science', 'social and behavioral science',
-              'letters, arts and science',
-              'management', 'eller', 'honors', 'law', 'james e. rogers', 'public health', 'outreach college',
-              'graduate college', 'school of art', 'landscape architecture', 'snre', 'ua south']
+UAColleges = ['Agriculture & Life Sciences', 'Agriculture and Life Sciences',
+              'Architecture, Planning & Landscape Architecture',
+              'Architecture Planning and Landscape Architecture', 'Education', 'Engineering', 'Fine Arts', 'Humanities',
+              'Medicine', 'Nursing', 'Optical Science', 'Pharmacy', 'Science', 'Social and Behavioral Sciences',
+              'Letters, Arts and Science',
+              'Management', 'Eller', 'Honors', 'Law', 'James E. Rogers', 'Public Health', 'Outreach College',
+              'Graduate College', 'School of Art', 'Landscape Architecture', 'SNRE', 'COM']
 
 UAColleges = '|'.join(UAColleges)
 
