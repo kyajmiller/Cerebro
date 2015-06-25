@@ -3,7 +3,7 @@ from Classes.ScholarshipPackageRequirementFormat import ScholarshipPackageRequir
 
 
 class GPA(Parser):
-    def __init__(self, stringToScan, scholarshipPackageId):
+    def __init__(self, stringToScan, scholarshipPackageId=0):
         self.stringToScan = stringToScan
         Parser.__init__(self, self.stringToScan, '\s[^$\d\.]?[1234]\.\d+')
         self.resultList = []
