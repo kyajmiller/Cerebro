@@ -20,7 +20,7 @@ class Majors(Parser):
 
     def getMajors(self):
         if self.checkContext(
-                'enrolled in|majoring in|program|major|concentration|pursuing|student') and self.doesMatchExist():
+                'enrolled in|majoring in|program|major|concentration|pursuing|student|study') and self.doesMatchExist():
             for i in self.getResult():
                 self.resultList.append(i)
 
