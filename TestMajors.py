@@ -72,7 +72,7 @@ MajorOptions = '|'.join(MajorOptions)
 
 class TestStringMethods(unittest.TestCase):
     def test_Majors(self):
-        testmajors = Majors('You must be a linguistics major', '5', MajorOptions)
+        testmajors = Majors('You must be a linguistics major', MajorOptions, '5')
         self.assertIsNotNone(testmajors)
         self.assertEqual(True,
                          testmajors.checkContext(
@@ -80,7 +80,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(testmajors.getMajors(), 'linguistics')
 
     def test_Majorsfailure(self):
-        failmajors = Majors('I really like plant science', '5', MajorOptions)
+        failmajors = Majors('I really like plant science', MajorOptions, '5')
         self.assertIsNotNone(failmajors)
         self.assertEqual(False,
                          failmajors.checkContext(
@@ -89,8 +89,8 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual('', failmajors.getMajors())
 
     def test_MajorsCreateSPRFClass(self):
-        testSPRFforMajors = Majors('You must be a Japanese major in order to make this SPRF class work.', '2947',
-                                   MajorOptions)
+        testSPRFforMajors = Majors('You must be a Japanese major in order to make this SPRF class work.', MajorOptions,
+                                   '2947')
         self.assertIsNotNone(testSPRFforMajors)
         self.assertEqual(True, testSPRFforMajors.checkContext(
             'enrolled in|majoring in|program|major|concentration|pursuing|student'))
