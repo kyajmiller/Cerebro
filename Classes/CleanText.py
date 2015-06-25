@@ -4,20 +4,20 @@ import re
 class CleanText(object):
     @staticmethod
     def removeAllTags(stringToClean):
-        return re.sub('<.*?>', '', stringToClean)
+        return re.sub('<.*?>', '', stringToClean, re.DOTALL)
 
     @staticmethod
     def removenbsp(stringToClean):
         return re.sub('&nbsp;', '', stringToClean)
 
     @staticmethod
-    def convertAmp(stringToClean):
+    def convertAmpersand(stringToClean):
         return re.sub('&amp;', '&', stringToClean)
 
     @staticmethod
     def removeNonBodyElements(stringToClean):
-        result = re.sub('<html>.*?<body>', '', stringToClean)
-        result = re.sub('</body>.*?</html>', '', result)
+        result = re.sub('<html>.*?<body>', '', stringToClean, re.DOTALL)
+        result = re.sub('</body>.*?</html>', '', result, re.DOTALL)
         return re.sub('</body>', '', result)
 
     @staticmethod
@@ -25,6 +25,6 @@ class CleanText(object):
         result = CleanText.removeNonBodyElements(stringToClean)
         result = CleanText.removeAllTags(result)
         result = CleanText.removenbsp(result)
-        result = CleanText.convertAmp(result)
+        result = CleanText.convertAmpersand(result)
 
         return result
