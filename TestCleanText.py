@@ -22,11 +22,7 @@ class TestStringMethods(unittest.TestCase):
 
     def test_CleanTextRemoveNonBodyText(self):
         self.assertEqual('I like cats', CleanText.removeNonBodyElements(
-            "<html> This stuff isn't important <body>I like cats</body> This stuff also isn't important   "
-            ""
-            ""
-            ""
-            " </html>"))
+            "<html> This stuff isn't important <body>I like cats</body> This stuff also isn't important     \n \r \n all sorts of stuff </html>"))
 
 if __name__ == '__main__':
     unittest.main()
