@@ -103,6 +103,11 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual('japanese', test_SPRF.requirementValue)
         self.assertEqual('0', test_SPRF.logicGroup)
 
+    def test_MajorsNoScholarshipPackageIdSpecified(self):
+        testSPRFnoSPISpecified = Majors('This scholarship is for creative writing majors', MajorOptions)
+        self.assertIsNotNone(testSPRFnoSPISpecified)
+        self.assertEqual('0', testSPRFnoSPISpecified.scholarshipPackageId)
+
 
 if __name__ == '__main__':
     unittest.main()
