@@ -3,7 +3,7 @@ from Classes.ScholarshipPackageRequirementFormat import ScholarshipPackageRequir
 
 
 class Majors(Parser):
-    def __init__(self, stringToScan, scholarshipPackageId, majorOptions):
+    def __init__(self, stringToScan, majorOptions, scholarshipPackageId='0'):
         self.majorOptions = majorOptions
         self.stringToScan = stringToScan
         Parser.__init__(self, self.stringToScan.lower(), self.majorOptions)
@@ -20,7 +20,7 @@ class Majors(Parser):
 
     def getMajors(self):
         if self.checkContext(
-                'enrolled in|majoring in|program|major|concentration|pursuing|student|study') and self.doesMatchExist():
+                'enrolled in|majoring in|program|major|concentration|pursuing|student|study\sof') and self.doesMatchExist():
             for i in self.getResult():
                 self.resultList.append(i)
 
