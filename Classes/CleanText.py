@@ -4,7 +4,7 @@ import re
 class CleanText(object):
     @staticmethod
     def removeAllTags(stringToClean):
-        return re.sub('<.*?>', '', stringToClean, re.DOTALL)
+        return re.sub('<.*?>', '', stringToClean, flags=re.DOTALL)
 
     @staticmethod
     def removenbsp(stringToClean):
@@ -16,8 +16,8 @@ class CleanText(object):
 
     @staticmethod
     def removeNonBodyElements(stringToClean):
-        result = re.sub('<html>.*?<body>', '', stringToClean, re.DOTALL)
-        result = re.sub('</body>.*?</html>', '', result, re.DOTALL)
+        result = re.sub('<html>.*?<body>', '', stringToClean, flags=re.DOTALL)
+        result = re.sub('</body>.*?</html>', '', result, flags=re.DOTALL)
         return re.sub('</body>', '', result)
 
     @staticmethod
