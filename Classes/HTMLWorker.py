@@ -4,7 +4,7 @@ import re
 class HTMLWorker(object):
     @staticmethod
     def removeHtmlTags(stringToParse):
-        return re.sub('''<\/?\w+((\s+\w+(\s*=\s*(?:".*?"|'.*?'|[^\'">\s]+))?)+\s*|\s*)/?>''', '', stringToParse)
+        return re.sub('''<\/?\w+((\s+\w+(\s*=\s*(?:".*?"|'.*?'|[^\'">\s]+))?)+\s*|\s*)/?>''', ' ', stringToParse)
 
     @staticmethod
     def removeAllJavascript(stringToParse):
