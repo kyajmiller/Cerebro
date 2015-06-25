@@ -9,4 +9,5 @@ class ScholarshipPackageRequirement(object):
     def getStringValue(self):
         stringValue = 'AttributeId = %s, RequirementTypeCode = %s, RequirementValue = %s, LogicGroup = %s' % (
         self.attributeId, self.requirementType, self.requirementValue, self.logicGroup)
+
         return stringValue
