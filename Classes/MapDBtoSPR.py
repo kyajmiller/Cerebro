@@ -2,6 +2,7 @@ import pyodbc
 import re
 from Classes.GPA import GPA
 from Classes.Majors import Majors
+from Classes.UACollege import UACollege
 
 
 class MapDBtoSPR(object):
@@ -35,13 +36,23 @@ class MapDBtoSPR(object):
     def doGPAParser(self, eligibility, scholarshipId):
         parseGPA = GPA(eligibility, scholarshipId)
         if parseGPA.getGPA() != '':
-            print(parseGPA.getGPA())
-            # return parseGPA.getScholarshipPackageRequirementFormat()
+            # print(parseGPA.getGPA())
+            # print(parseGPA.getScholarshipPackageRequirementFormat().getStringValue())
+            return parseGPA.getScholarshipPackageRequirementFormat()
 
     def doMajorsParser(self, eligibility, scholarshipId):
         parseMajors = Majors(eligibility, scholarshipId, Majors.majorsListForTesting())
         if parseMajors.getMajors() != '':
-            print(parseMajors.getMajors())
+            # print(parseMajors.getMajors())
+            # print(parseMajors.getScholarshipPackageRequirementFormat().getStringValue())
+            return parseMajors.getScholarshipPackageRequirementFormat()
+
+    def doUACollege(self, eligibility, scholarshipId):
+        parseUACollege = UACollege(eligibility, scholarshipId, UACollege.uaCollegesListForTesting())
+        if parseUACollege.getUACollege() != '':
+            # print(parseUACollege.getUACollege())
+            # print(parseUACollege.getScholarshipPackageRequirementFormat().getStringValue())
+            return parseUACollege.getScholarshipPackageRequirementFormat()
 
     def loopOverEligibilities(self):
         self.populateEligibilitiesandScholarshipIds()
@@ -59,8 +70,10 @@ class MapDBtoSPR(object):
             for eligibility in splitEligibility:
                 self.doGPAParser(eligibility, scholarshipId)
                 self.doMajorsParser(eligibility, scholarshipId)
+                self.doUACollege(eligibility, scholarshipId)
 
-
+'''
 test = MapDBtoSPR(
-    "SELECT ScholarshipPackageId, Elgibility FROM dbo.DepartmentTestCases WHERE AttributeId =5 OR AttributeId =417")
+    "SELECT ScholarshipPackageId, Elgibility FROM dbo.DepartmentTestCases WHERE AttributeId =5 OR AttributeId =417 OR AttributeId=377")
 test.loopOverEligibilities()
+'''
