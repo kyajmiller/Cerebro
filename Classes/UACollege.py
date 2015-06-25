@@ -3,7 +3,7 @@ from Classes.ScholarshipPackageRequirementFormat import ScholarshipPackageRequir
 
 
 class UACollege(Parser):
-    def __init__(self, stringToScan, scholarshipPackageId, uaColleges):
+    def __init__(self, stringToScan, uaColleges, scholarshipPackageId='0'):
         self.uaColleges = uaColleges
         self.stringToScan = stringToScan
         Parser.__init__(self, self.stringToScan, self.uaColleges)
