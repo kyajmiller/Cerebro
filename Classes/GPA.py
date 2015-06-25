@@ -26,6 +26,10 @@ class GPA(Parser):
                 for i in self.getResult():
                     self.resultList.append(i.strip())
 
+        if self.checkContext('4\.0\sscale') and self.doesMatchExist():
+            if '4.0' in self.resultList:
+                self.resultList.remove('4.0')
+
         self.resultList = list(set(self.resultList))
 
         self.requirementValue = ', '.join(self.resultList)
