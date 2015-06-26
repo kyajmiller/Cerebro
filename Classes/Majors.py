@@ -1,3 +1,4 @@
+import re
 from Classes.Parser import Parser
 from Classes.ScholarshipPackageRequirementFormat import ScholarshipPackageRequirement
 
@@ -31,6 +32,21 @@ class Majors(Parser):
                 self.resultList.remove('arts')
             if 'medicine' in self.resultList:
                 self.resultList.remove('medicine')
+
+        if self.checkContext('engineering'):
+            tokenizeEngineeringString = re.findall(r"[\w']+", self.stringToScan)
+            for i in range(len(tokenizeEngineeringString)):
+                if tokenizeEngineeringString[i] == 'engineering':
+                    engineeringContextSlice = tokenizeEngineeringString[i - 5:i]
+                    concatenateEngineeringWithWord = []
+                    for i in engineeringContextSlice:
+                        concatenateEngineeringWithWord.append('%s engineering' % i)
+
+                    for i in concatenateEngineeringWithWord:
+                        checkEngineeringMajors = Parser(i, self.majorOptions)
+                        if checkEngineeringMajors.doesMatchExist():
+                            for i in checkEngineeringMajors.getResult():
+                                self.resultList.append(i)
 
         self.resultList = list(set(self.resultList))
 
