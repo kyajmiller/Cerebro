@@ -1,0 +1,4 @@
+Test case 3
+Candidate must be a U.S. citizen, majoring in the following or C4I-related fields of electrical, chemical, systems or aerospace engineering; mathematics; physics; science or mathematics education; technology management; management information systems; or computer science. Majors directly related to the support of U.S. intelligence enterprises or national security with relevance to the mission of AFCEA will also be eligible.
+Minimum GPA requirement is 3.0 on 4.0 scale or better.
+Candidates must provide a copy of Certificate of Service, Discharge Form DD214, or facsimile of current Department of Defense or Coast Guard Identification Card.
