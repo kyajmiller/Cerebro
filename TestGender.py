@@ -12,6 +12,7 @@ class TestStringMethods(unittest.TestCase):
         failrequiredgender = Gender('There is no gender in this string')
         self.assertIsNotNone(failrequiredgender)
         self.assertEqual(failrequiredgender.getRequiredGender(), [])
+
     def test_betterGender(self):
         testReq = Gender('This scholarship is for <b>Women </b> only')
         self.assertIsNotNone(testReq)
