@@ -47,6 +47,8 @@ class Majors(Parser):
                         if checkEngineeringMajors.doesMatchExist():
                             for i in checkEngineeringMajors.getResult():
                                 self.resultList.append(i)
+            if 'engineering' in self.resultList:
+                self.resultList.remove('engineering')
 
         self.resultList = list(set(self.resultList))
 
