@@ -56,6 +56,19 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(True, failGPANoKeywords.checkContext('million|billion|trillion|version|dollar|pound|euro'))
         self.assertEqual('', failGPANoKeywords.getGPA())
 
+    def test_verifyMaintains(self):
+        testOfMaintain = GPA('Must maintain a 3.0 gpa', '5')
+        self.assertIsNotNone(testOfMaintain)
+        testOfMaintain = GPA('Must maintain a 3.5', '5')
+        self.assertIsNotNone(testOfMaintain)
+
+    def test_verifyMaintains(self):
+        testOfMaintain = GPA('Must maintain a $3.0 gpa', '5')
+        self.assertIsNotNone(testOfMaintain)
+        self.assertEqual("", testOfMaintain.getGPA())
+        testOfMaintain = GPA('Must maintain a 3.5', '5')
+        self.assertIsNotNone(testOfMaintain)
+
 
 if __name__ == '__main__':
     unittest.main()
