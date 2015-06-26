@@ -39,7 +39,7 @@ class TestStringMethods(unittest.TestCase):
     def test_updateLogicGroup(self):
         testUpdateLogicGroup = GPA('Undergraduates must have a 3.0 GPA, while graduate students must have a 3.25', '5')
         self.assertIsNotNone(testUpdateLogicGroup)
-        testUpdateLogicGroup.updateLogicGroup()
+        testUpdateLogicGroup.getGPA()
         self.assertEqual('1', testUpdateLogicGroup.logicGroup)
         test_SPRFLogicGroup = testUpdateLogicGroup.getScholarshipPackageRequirementFormat()
         self.assertEqual('1', test_SPRFLogicGroup.logicGroup)
