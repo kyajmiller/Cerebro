@@ -1,0 +1,112 @@
+Test 2
+<table cellpadding="0" cellspacing="0" order="0">
+<tbody><tr>
+<td height="862" id="mainbottomleft">
+<h1><em>Actuary of Tomorrow – </em>Stuart A. Robertson Memorial Scholarship </h1>
+<div id="share">
+<span class="st_twitter_hcount" displaytext="Tweet" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stMainServices st-twitter-counter" style="background-image: url(http://w.sharethis.com/images/twitter_counter.png);"> </span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">14</span></span></span></span></span></span><span class="st_facebook_hcount" displaytext="Share" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stMainServices st-facebook-counter" style="background-image: url(http://w.sharethis.com/images/facebook_counter.png);"> </span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">230</span></span></span></span></span></span><span class="st_email_hcount" displaytext="Email" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stMainServices st-email-counter" style="background-image: url(http://w.sharethis.com/images/email_counter.png);"> </span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">178</span></span></span></span></span></span>
+</div>
+<br>
+<p> <span class="style30">The <strong><em>Actuary of Tomorrow</em> <em>–</em> Stuart A. Robertson Memorial Scholarship</strong> recognizes and encourages the academic achievements of undergraduate students pursuing a career in actuarial science.</span></p>
+<p class="style30"><u><strong>Each applicant must fulfill all the requirements listed below:</strong></u></p>
+<ol class="style30" style="margin-bottom: 0;">
+<li>Full-time student entering as a sophomore, junior or senior at a U.S accredited educational institution</li>
+<li>Minimum cumulative GPA of 3.0 (on 4.0 scale)</li>
+<li>Successfully completed <strong>two</strong> actuarial exams</li>
+</ol>
+<p class="style30" style="margin-top: 0;"><u><strong>Award level:</strong></u></p>
+<p class="style30"> $9,000 </p>
+<p class="style18"><u>Dates to remember:</u></p>
+<p class="style30" style="margin-bottom: 0;">Application due date: 6/1/2015</p>
+<p class="style30" style="margin-top: 0;">Scholarship notification date: After 8/3/2015</p>
+<br>
+<p><a href="https://actfnd.academicworks.com/users/sign_up" class="btn-green" target="_blank">APPLY FOR A SCHOLARSHIP</a></p>
+<br>
+<h6 style="margin-bottom: 0;"> </h6>
+<h2 style="margin-top: 0; margin-bottom: 0;"><span class="style29">Meet the<em> Actuary of Tomorrow – </em>Stuart A. Robertson Memorial Scholarship Recipients</span></h2>
+<p style="margin-top: 0; margin-bottom: 0;"> </p>
+<table width="361" border="0" cellpadding="3" cellspacing="0" bordercolor="#CCCCCC" style="margin:0px; padding:0px; border:2px solid #cccccc;">
+<tbody><tr>
+<td valign="top" class="table-scholar"><strong>2014</strong></td>
+<td valign="top" nowrap="" class="table-scholar"><strong>Kathleen Snajder</strong></td>
+<td valign="top" class="table-scholar"><strong>University of Connecticut</strong></td>
+</tr>
+<tr>
+<td valign="top" class="table-scholar">2013</td>
+<td valign="top" nowrap="" class="table-scholar">Chelsea Aton</td>
+<td valign="top" class="table-scholar">Ohio State University</td>
+</tr>
+<tr>
+<td valign="top" class="table-scholar">2013</td>
+<td valign="top" nowrap="" class="table-scholar">Sara Benning</td>
+<td valign="top" class="table-scholar">University of Nebraska - Lincoln</td>
+</tr>
+<tr>
+<td valign="top" class="table-scholar">2012</td>
+<td valign="top" nowrap="" class="table-scholar">Jaclyn Bosiljevac</td>
+<td valign="top" class="table-scholar">Robert Morris University</td>
+</tr>
+<tr>
+<td valign="top" class="table-scholar">2012</td>
+<td valign="top" nowrap="" class="table-scholar">Zachary Fischer</td>
+<td valign="top" class="table-scholar">Brown University</td>
+</tr>
+<tr>
+<td valign="top" class="table-scholar">2011</td>
+<td valign="top" nowrap="" class="table-scholar">Minyu Cao</td>
+<td valign="top" class="table-scholar">Maryville University of St. Louis</td>
+</tr>
+<tr>
+<td width="29" valign="top" class="table-scholar">2010</td>
+<td width="115" valign="top" nowrap="" class="table-scholar">Daniel DiMugno</td>
+<td width="181" valign="top" class="table-scholar">Bryant University</td>
+</tr>
+<tr>
+<td valign="top" class="table-scholar">2009</td>
+<td valign="top" nowrap="" class="table-scholar">Michelle Wahab </td>
+<td valign="top" class="table-scholar">University of Connecticut</td>
+</tr>
+<tr>
+<td valign="top" class="table-scholar">2008</td>
+<td valign="top" nowrap="" class="table-scholar">Colleen McGlaughlin</td>
+<td valign="top" class="table-scholar">University of Iowa</td>
+</tr>
+<tr>
+<td valign="top" class="table-scholar">2007</td>
+<td valign="top" nowrap="" class="table-scholar">Keone A. Wilkie</td>
+<td valign="top" class="table-scholar">St. John's University</td>
+</tr>
+<tr>
+<td valign="top" class="table-scholar">2006</td>
+<td valign="top" nowrap="" class="table-scholar">David Liner</td>
+<td valign="top" class="table-scholar">University of Connecticut</td>
+</tr>
+</tbody></table>
+<p style="margin-top: 0; margin-bottom: 0;"> </p>
+<h2 style="margin-top: 0; margin-bottom: 0;"><span class="style29">About Stuart A. Robertson</span></h2>
+<p class="style29" style="margin-top: 0;"><span style="margin-bottom: 0">Stuart A. Robertson, FSA, MAAA (1918-2005) was a distinguished actuary who, along with Wendell Milliman, co-founded the actuarial and consulting firm Milliman & Robertson (now Milliman, Inc.). </span><span style="margin-bottom: 0">Robertson served as CEO and Chairman of the firm for many years and</span><span style="margin-bottom: 0"> was active in the actuarial profession, serving on the Society of Actuaries Board of Governors and in other capacities. </span></p>
+<p style="margin-bottom: 0;"><span class="style30" style="margin-bottom: 0">The <em>Actuary of Tomorrow – </em>Stuart A. Robertson Memorial Scholarship was established to honor his dedication to excellence and recognize his tremendously positive influence on the professional lives of many colleagues. Funding is provided by Milliman, Inc. and several of Robertson's colleagues and friends. </span></p>
+<p style="margin-top: 0;"><br>
+</p>
+<p>For additional information, contact The Actuarial Foundation at <a href="mailto:Scholarships@ActFnd.org">Scholarships@ActFnd.org</a>.</p>
+<p style="margin-bottom: 0;"><em>The Actuarial Foundation reserves the right to change or discontinue any of the noted scholarship programs at any time and without notice. Award recipients are selected at the sole discretion of the selection committee.</em></p></td>
+<td id="mainbottomright"><p><a href="act-diversity.shtml"><span style="margin: 0px 0px 0px 0px; margin-bottom: 0;"></span></a><a href="scholarships.shtml"><img src="../../images/navbars/schol.jpg" width="146" height="22"></a><br>
+<a href="act-diversity.shtml"><img src="../../images/navbars/diversity-yellow.jpg" width="146" height="21" border="0"></a><br>
+<img src="../../images/navbars/rob-white.jpg" width="146" height="21"><br>
+<a href="carib.shtml"><img src="../../images/navbars/carib_yellow.jpg" width="146" height="22" border="0"></a><br>
+<a href="jcwooddy.shtml"><img src="../../images/navbars/huntington-yellow.jpg" width="146" height="23" border="0"></a><br>
+</p>
+<p><span style="margin: 0px 0px 0px 0px; margin-bottom: 0;"><a href="/programs/actuarial/ElizabethM.Mauro.shtml"><img src="../../images/navbars/reimburse.jpg" width="146" height="22"></a><br>
+<a href="/programs/actuarial/ElizabethM.Mauro.shtml"><img src="../../images/navbars/mauro-yellow.jpg" width="146" height="23" border="0"></a>
+</span></p>
+<p style="margin-bottom: 0;"> <img src="images/kathleen-robertson-2014.jpg" width="131" height="141"><br>
+</p>
+<p class="style17 NewsFooter" style="margin-top:0;margin-bottom:0;"><em>"The opportunities this scholarship provides and this level of support from the community only deepen my motivation to succeed throughout my career. I hope to inspire even more students to develop a passion for actuarial science like my own.</em>"<strong><br>
+</strong></p>
+<p style="margin-top: 0; margin-bottom: 0;"><strong>-Kathleen Snajder, </strong></p>
+<p style="margin-top: 0;"><strong>2014 <em>Actuary of Tomorrow - </em>Stuart A. Robertson Memorial Scholarship and Curtis E. Huntington Memorial Scholarship Recipient</strong></p>
+<p><span class="red"><strong>Make a Difference!</strong></span><br>
+See to it that deserving students like 2014 recipient <span class="NewsFooter style17" style="margin-top:0;margin-bottom:0;">Kathleen Snajder</span> continue to receive this prestigious scholarship. </p>
+<p style="margin-bottom: 0;"><a href="../../donate/index.shtml"><strong>Make your contribution</strong></a> to support the <em>Actuary of Tomorrow</em> <em>–</em> Stuart A. Robertson Memorial Scholarship. </p></td>
+</tr>
+</tbody></table>
