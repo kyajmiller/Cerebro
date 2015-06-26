@@ -16,28 +16,33 @@ class ScanText(object):
     def doGPAParser(self, line):
         parseGPA = GPA(line)
         if parseGPA.getGPA() != '':
-            print(parseGPA.getGPA())
+            # print(parseGPA.getGPA())
             # print(parseGPA.getScholarshipPackageRequirementFormat().getStringValue())
-            # return parseGPA.getScholarshipPackageRequirementFormat()
+            return parseGPA.getScholarshipPackageRequirementFormat()
 
     def doMajorsParser(self, line):
         parseMajors = Majors(line, Majors.majorsListForTesting())
         if parseMajors.getMajors() != '':
-            print(parseMajors.getMajors())
+            # print(parseMajors.getMajors())
             # print(parseMajors.getScholarshipPackageRequirementFormat().getStringValue())
-            # return parseMajors.getScholarshipPackageRequirementFormat()
+            return parseMajors.getScholarshipPackageRequirementFormat()
 
     def doUACollege(self, line):
         parseUACollege = UACollege(line, UACollege.uaCollegesListForTesting())
         if parseUACollege.getUACollege() != '':
-            print(parseUACollege.getUACollege())
+            #print(parseUACollege.getUACollege())
             # print(parseUACollege.getScholarshipPackageRequirementFormat().getStringValue())
-            # return parseUACollege.getScholarshipPackageRequirementFormat()
+            return parseUACollege.getScholarshipPackageRequirementFormat()
+
+    def prepareText(self):
+        self.cleanText()
+        self.textLines = self.textToScan.split('\n')
+
+        return self.textLines
 
     def processText(self):
-        self.cleanText()
+        self.textLines = self.prepareText()
 
-        self.textLines = self.textToScan.split('\n')
         for line in self.textLines:
             self.doGPAParser(line)
             self.doMajorsParser(line)
