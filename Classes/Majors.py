@@ -113,7 +113,7 @@ class Majors(Parser):
                         'library and information science', 'linguistics', 'literacy learning and leadership',
                         'management information systems', 'management', 'marketing', 'master of legal studies',
                         'mathematics',
-                        'math', 'mechanical engineering', 'mexican american studies', 'microbiology and pathobiology',
+                        'mechanical engineering', 'mexican american studies', 'microbiology and pathobiology',
                         'microbiology', 'middle east studies', 'north african studies', 'mining engineering',
                         'mining geological engineering', 'mining geophysical engineering',
                         'mining occupational safety and health', 'molecular and cellular biology',
