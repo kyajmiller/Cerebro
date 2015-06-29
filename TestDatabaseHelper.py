@@ -10,24 +10,20 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(False, DatabaseHelper.UseOnlyFirstRegex(417, 'Cats'))
 
     def test_DatabaseHelperOnlyFirstRegexHelper(self):
-        self.assertEqual(True, DatabaseHelper.getOnlyOneRegexHelper(417, 'Aerospace Engineering'))
-        self.assertEqual(False, DatabaseHelper.getOnlyOneRegexHelper(417, 'Cats'))
+        self.assertEqual(True, DatabaseHelper.useOnlyOneRegexHelper(417, 'Aerospace Engineering'))
+        self.assertEqual(False, DatabaseHelper.useOnlyOneRegexHelper(417, 'Cats'))
 
+    def test_UseOnlyFirstRegexAndRegexHelper(self):
+        self.assertEqual(True, DatabaseHelper.useOnlyFirstRegexAndRegexHelper(417, 'Aerospace Engineering'))
 
-'''
-    def test_DatabaseHelperOnlyOneRegexandRegexHelper(self):
-        self.assertEqual(('Engineering', 'Aerospace'), DatabaseHelper.getOnlyOneRegexAndRegexHelper(417))
+    def test_UseAllRegex(self):
+        self.assertEqual(True, DatabaseHelper.useAllRegex(417, 'Aerospace Engineering'))
 
-    def test_DatabaseHelperAllRegex(self):
-        self.assertEqual(['Engineering', 'Engineering'], DatabaseHelper.getAllRegex(417))
+    def test_UseAllRegexHelper(self):
+        self.assertEqual(True, DatabaseHelper.useAllRegexHelper(417, 'Aerospace Engineering'))
 
-    def test_DatabaseHelperAllRegexHelper(self):
-        self.assertEqual(['Aerospace', 'Biomedical'], DatabaseHelper.getAllRegexHelper(417))
-
-    def test_DatabaseHelperAllRegexAndRegexHelper(self):
-        self.assertEqual((['Engineering', 'Engineering'], ['Aerospace', 'Biomedical']),
-                         DatabaseHelper.getAllRegexAndRegexHelper(417))
-'''
+    def test_UseAllRegexAndRegexHelper(self):
+        self.assertEqual(True, DatabaseHelper.useAllRegexAndRegexHelper(417, 'Aerospace Engineering'))
 
 if __name__ == '__main__':
     unittest.main()
