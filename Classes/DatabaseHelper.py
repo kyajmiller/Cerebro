@@ -84,8 +84,10 @@ class DatabaseHelper(SUDBConnect):
 
         return doBothMatch
 
+
+'''
     @staticmethod
-    def UseOnlyFirstRegexTrueFalse(attributeId, stringToScan, regexMatch=True):
+    def UseOnlyFirstRegexTrueFalse(attributeId, stringToScan, regexMatch):
         DB = SUDBConnect()
         rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx from RegExHelpers')
         searchCriteria = ''
@@ -97,7 +99,7 @@ class DatabaseHelper(SUDBConnect):
             return False
 
     @staticmethod
-    def useOnlyOneRegexHelperTrueFalse(attributeId, stringToScan, regexHelperMatch=True):
+    def useOnlyOneRegexHelperTrueFalse(attributeId, stringToScan, regexHelperMatch):
         DB = SUDBConnect()
         rows = DB.getRows(' Select ' + str(attributeId) + ' , RegExHelper from RegExHelpers')
         searchCriteria = ''
@@ -107,3 +109,4 @@ class DatabaseHelper(SUDBConnect):
             return True
         else:
             return False
+'''
