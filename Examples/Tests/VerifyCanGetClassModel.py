@@ -1,16 +1,21 @@
 import unittest
-from ..ClassModels.DumbClass import DumbClass
-from ..ClassModels.TestThis import  TestThis
+import sys
+sys.path.append('../ClassModels')
+
+from DumbClass import DumbClass
+from TestThis import  TestThis
 
 
 class TestStringMethods(unittest.TestCase):
 
   def test_upper(self):
       self.assertEqual('foo'.upper(), 'FOO')
+      print('test_upper')
 
   def test_isupper(self):
       self.assertTrue('FOO'.isupper())
       self.assertFalse('Foo'.isupper())
+      print('isUpper')
 
   def test_split(self):
       s = 'hello world'
