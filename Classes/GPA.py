@@ -1,9 +1,3 @@
-import sys
-sys.path.append('Examples')
-sys.path.append('Examples/ClassModels')
-from TestItOutNow import TestItOutNow
-from DumbClass import DumbClass
-
 
 from Classes.Parser import Parser
 from Classes.ScholarshipPackageRequirementFormat import ScholarshipPackageRequirement
@@ -19,11 +13,6 @@ class GPA(Parser):
         self.logicGroup = '0'
         self.requirementTypeCode = '>='
         self.scholarshipPackageId = scholarshipPackageId
-        x =TestItOutNow()
-        x.test()
-        y=DumbClass("test")
-        print(y.getVal())
-
 
     def checkContext(self, contextCriteria):
         contextChecker = Parser(self.stringToScan.lower(), contextCriteria)
