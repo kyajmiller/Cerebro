@@ -9,8 +9,6 @@ class DatabaseHelper(SUDBConnect):
         rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx from RegExHelpers')
         if len(rows) >= 1:
             return rows[0].RegEx
-        else:
-            return ''
 
     @staticmethod
     def getOnlyOneRegexHelper(attributeId):
@@ -18,11 +16,31 @@ class DatabaseHelper(SUDBConnect):
         rows = DB.getRows(' Select ' + str(attributeId) + ' , RegExHelper from RegExHelpers')
         if len(rows) >= 1:
             return rows[0].RegEx
-        else:
-            return ''
 
     @staticmethod
     def getOnlyOneRegexAndRegexHelper(attributeId):
         DB = SUDBConnect()
         rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
         if len(rows) >= 1:
+            return (rows[0].RegEx, rows[0].RegExHelper)
+
+    @staticmethod
+    def getAllRegex(attributeId):
+        DB = SUDBConnect()
+        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx from RegExHelpers')
+        if len(rows) >= 1:
+            return rows.RegEx
+
+    @staticmethod
+    def getAllRegexHelper(attributeId):
+        DB = SUDBConnect()
+        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegExHelper from RegExHelpers')
+        if len(rows) >= 1:
+            return rows.RegExHelper
+
+    @staticmethod
+    def getAllRegexAndRegexHelper(attributeId):
+        DB = SUDBConnect()
+        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
+        if len(rows) >= 1:
+            return (rows.RegEx, rows.RegExHelper)
