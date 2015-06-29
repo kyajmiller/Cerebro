@@ -22,7 +22,7 @@ class ScanText(object):
 
     def doMajorsParser(self):
         for line in self.textLines:
-            parseMajors = Majors(line, Majors.majorsListForTesting())
+            parseMajors = Majors(line, Majors.majorsRegexForTesting())
             if parseMajors.getMajors() != '':
                 return parseMajors.getScholarshipPackageRequirementFormat()
 
