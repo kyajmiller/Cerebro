@@ -3,11 +3,14 @@ from Classes.DatabaseHelper import DatabaseHelper
 
 
 class TestStringMethods(unittest.TestCase):
-    def test_DatabaseHelperOnlyOneRegex(self):
-        testdatabasehelper = DatabaseHelper.getOnlyOneRegex(417)
+    def test_DatabaseHelperOnlyFirstRegex(self):
+        testdatabasehelper = DatabaseHelper.UseOnlyFirstRegex(417, 'Aerospace Engineering')
         self.assertIsNotNone(testdatabasehelper)
-        self.assertEqual('Engineering', DatabaseHelper.getOnlyOneRegex(417))
+        self.assertEqual(True, DatabaseHelper.UseOnlyFirstRegex(417, 'Aerospace Engineering'))
+        self.assertEqual(False, DatabaseHelper.UseOnlyFirstRegex(417, 'Cats'))
 
+
+'''
     def test_DatabaseHelperOnlyOneRegexHelper(self):
         self.assertEqual('Aerospace', DatabaseHelper.getOnlyOneRegexHelper(417))
 
@@ -23,7 +26,7 @@ class TestStringMethods(unittest.TestCase):
     def test_DatabaseHelperAllRegexAndRegexHelper(self):
         self.assertEqual((['Engineering', 'Engineering'], ['Aerospace', 'Biomedical']),
                          DatabaseHelper.getAllRegexAndRegexHelper(417))
-
+'''
 
 if __name__ == '__main__':
     unittest.main()
