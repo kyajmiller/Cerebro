@@ -2,10 +2,11 @@ import unittest
 from Classes.PullOneRegExAndVerify import PullOneRegExAndVerify
 
 
-class TestStringMethods(unittest.TestCase):
+class TestPullOneRegExAndVerify(unittest.TestCase):
     def test_RequiredUnits(self):
-        result = PullOneRegExAndVerify("this has engineering", 417)
-        self.assertEqual(417, result.attributeId)
+        result = PullOneRegExAndVerify("this has Engineering", 417)
+        self.assertEqual(417, result.attributeId, "The world is watching'")
+        self.assertEqual(True, result.IsMatched)
 
 
 if __name__ == '__main__':
