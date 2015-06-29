@@ -15,6 +15,8 @@ class TestStringMethods(unittest.TestCase):
 
     def test_UseOnlyFirstRegexAndRegexHelper(self):
         self.assertEqual(True, DatabaseHelper.useOnlyFirstRegexAndRegexHelper(417, 'Aerospace Engineering'))
+        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexAndRegexHelper(417, 'Aerospace Cats'))
+        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexAndRegexHelper(417, 'Engineering Cats'))
 
     def test_UseAllRegex(self):
         self.assertEqual(True, DatabaseHelper.useAllRegex(417, 'Aerospace Engineering'))
@@ -24,6 +26,8 @@ class TestStringMethods(unittest.TestCase):
 
     def test_UseAllRegexAndRegexHelper(self):
         self.assertEqual(True, DatabaseHelper.useAllRegexAndRegexHelper(417, 'Aerospace Engineering'))
+        self.assertEqual(False, DatabaseHelper.useAllRegexAndRegexHelper(417, 'Aerospace Cats'))
+        self.assertEqual(False, DatabaseHelper.useAllRegexAndRegexHelper(417, 'Engineering Cats'))
 
 if __name__ == '__main__':
     unittest.main()
