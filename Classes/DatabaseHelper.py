@@ -11,47 +11,61 @@ class DatabaseHelper(SUDBConnect):
         searchCriteria = ''
         if len(rows) >= 1:
             searchCriteria = rows[0].RegEx
-        # trueParser = ', '.join(Parser(stringToScan, searchCriteria).getResult())
+
         return Parser(stringToScan, searchCriteria).doesMatchExist()
 
     @staticmethod
-    def getOnlyOneRegexHelper(attributeId, stringToScan):
+    def useOnlyOneRegexHelper(attributeId, stringToScan):
         DB = SUDBConnect()
         rows = DB.getRows(' Select ' + str(attributeId) + ' , RegExHelper from RegExHelpers')
         searchCriteria = ''
         if len(rows) >= 1:
             searchCriteria = rows[0].RegExHelper
+
         return Parser(stringToScan, searchCriteria).doesMatchExist()
 
     @staticmethod
-    def getOnlyOneRegexAndRegexHelper(attributeId):
+    def useOnlyFirstRegexAndRegexHelper(attributeId, stringToScan):
         DB = SUDBConnect()
         rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
+        searchCriteriaRegex = ''
+        searchCriteriaRegexHelper = ''
+        doBothMatch = False
         if len(rows) >= 1:
-            return (rows[0].RegEx, rows[0].RegExHelper)
+            searchCriteriaRegex = rows[0].RegEx
+            searchCriteriaRegexHelper = rows[0].RegExHelper
+        if Parser(stringToScan, searchCriteriaRegex).doesMatchExist() and Parser(stringToScan,
+                                                                                 searchCriteriaRegexHelper).doesMatchExist():
+            doBothMatch = True
+
+        return doBothMatch
 
     @staticmethod
-    def getAllRegex(attributeId):
+    def useAllRegex(attributeId, stringToScan):
         DB = SUDBConnect()
         rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx from RegExHelpers')
         regExArray = []
         if len(rows) >= 1:
             for row in rows:
                 regExArray.append(row.RegEx)
-            return regExArray
+        searchCriteria = '|'.join(list(set(regExArray)))
+
+        return Parser(stringToScan, searchCriteria).doesMatchExist()
 
     @staticmethod
-    def getAllRegexHelper(attributeId):
+    def useAllRegexHelper(attributeId, stringToScan):
         DB = SUDBConnect()
         rows = DB.getRows(' Select ' + str(attributeId) + ' , RegExHelper from RegExHelpers')
         regExHelperArray = []
         if len(rows) >= 1:
             for row in rows:
                 regExHelperArray.append(row.RegExHelper)
-            return regExHelperArray
+        searchCriteria = '|'.join(list(set(regExHelperArray)))
+
+        return Parser(stringToScan, searchCriteria).doesMatchExist()
 
     @staticmethod
-    def getAllRegexAndRegexHelper(attributeId):
+    def useAllRegexAndRegexHelper(attributeId, stringToScan):
         DB = SUDBConnect()
         rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
         regExArray = []
@@ -60,4 +74,36 @@ class DatabaseHelper(SUDBConnect):
             for row in rows:
                 regExArray.append(row.RegEx)
                 regExHelperArray.append(row.RegExHelper)
-            return (regExArray, regExHelperArray)
+        searchCriteriaRegex = '|'.join(regExArray)
+        searchCriteriaRegexHelper = '|'.join(regExHelperArray)
+        doBothMatch = False
+
+        if Parser(stringToScan, searchCriteriaRegex).doesMatchExist() and Parser(stringToScan,
+                                                                                 searchCriteriaRegexHelper):
+            doBothMatch = True
+
+        return doBothMatch
+
+    @staticmethod
+    def UseOnlyFirstRegexTrueFalse(attributeId, stringToScan, regexMatch=True):
+        DB = SUDBConnect()
+        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx from RegExHelpers')
+        searchCriteria = ''
+        if len(rows) >= 1:
+            searchCriteria = rows[0].RegEx
+        if regexMatch == Parser(stringToScan, searchCriteria).doesMatchExist():
+            return True
+        else:
+            return False
+
+    @staticmethod
+    def useOnlyOneRegexHelperTrueFalse(attributeId, stringToScan, regexHelperMatch=True):
+        DB = SUDBConnect()
+        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegExHelper from RegExHelpers')
+        searchCriteria = ''
+        if len(rows) >= 1:
+            searchCriteria = rows[0].RegExHelper
+        if regexHelperMatch == Parser(stringToScan, searchCriteria).doesMatchExist():
+            return True
+        else:
+            return False
