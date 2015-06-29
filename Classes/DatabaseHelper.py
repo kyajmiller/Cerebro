@@ -15,11 +15,13 @@ class DatabaseHelper(SUDBConnect):
         return Parser(stringToScan, searchCriteria).doesMatchExist()
 
     @staticmethod
-    def getOnlyOneRegexHelper(attributeId):
+    def getOnlyOneRegexHelper(attributeId, stringToScan):
         DB = SUDBConnect()
         rows = DB.getRows(' Select ' + str(attributeId) + ' , RegExHelper from RegExHelpers')
+        searchCriteria = ''
         if len(rows) >= 1:
-            return rows[0].RegExHelper
+            searchCriteria = rows[0].RegExHelper
+        return Parser(stringToScan, searchCriteria).doesMatchExist()
 
     @staticmethod
     def getOnlyOneRegexAndRegexHelper(attributeId):
