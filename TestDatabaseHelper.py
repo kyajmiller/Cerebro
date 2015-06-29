@@ -9,11 +9,12 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(True, DatabaseHelper.UseOnlyFirstRegex(417, 'Aerospace Engineering'))
         self.assertEqual(False, DatabaseHelper.UseOnlyFirstRegex(417, 'Cats'))
 
+    def test_DatabaseHelperOnlyFirstRegexHelper(self):
+        self.assertEqual(True, DatabaseHelper.getOnlyOneRegexHelper(417, 'Aerospace Engineering'))
+        self.assertEqual(False, DatabaseHelper.getOnlyOneRegexHelper(417, 'Cats'))
+
 
 '''
-    def test_DatabaseHelperOnlyOneRegexHelper(self):
-        self.assertEqual('Aerospace', DatabaseHelper.getOnlyOneRegexHelper(417))
-
     def test_DatabaseHelperOnlyOneRegexandRegexHelper(self):
         self.assertEqual(('Engineering', 'Aerospace'), DatabaseHelper.getOnlyOneRegexAndRegexHelper(417))
 
