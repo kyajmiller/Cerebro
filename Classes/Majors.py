@@ -4,10 +4,10 @@ from Classes.ScholarshipPackageRequirementFormat import ScholarshipPackageRequir
 
 
 class Majors(Parser):
-    def __init__(self, stringToScan, majorOptions, scholarshipPackageId='0'):
-        self.majorOptions = majorOptions
+    def __init__(self, stringToScan, majorsRegex, scholarshipPackageId='0'):
+        self.majorsRegex = majorsRegex
         self.stringToScan = stringToScan
-        Parser.__init__(self, self.stringToScan.lower(), self.majorOptions)
+        Parser.__init__(self, self.stringToScan.lower(), self.majorsRegex)
         self.resultList = []
         self.attributeId = '417'
         self.requirementValue = ''
@@ -43,7 +43,7 @@ class Majors(Parser):
                         concatenateEngineeringWithWord.append('%s engineering' % i)
 
                     for i in concatenateEngineeringWithWord:
-                        checkEngineeringMajors = Parser(i, self.majorOptions)
+                        checkEngineeringMajors = Parser(i, self.majorsRegex)
                         if checkEngineeringMajors.doesMatchExist():
                             for i in checkEngineeringMajors.getResult():
                                 self.resultList.append(i)
@@ -63,8 +63,8 @@ class Majors(Parser):
             return Majors_SPRF
 
     @staticmethod
-    def majorsListForTesting():
-        MajorOptions = ['accounting', 'adult gerontology acute care', 'nurse practitioner certificate',
+    def majorsRegexForTesting():
+        MajorsArray = ['accounting', 'adult gerontology acute care', 'nurse practitioner certificate',
                         'advanced clinical pharmacy practice', 'aerospace engineering', 'africana studies',
                         'agribusiness economics', 'agribusiness management', 'agricultural and biosystems engineering',
                         'agricultural and resource economics', 'agricultural education',
@@ -151,7 +151,7 @@ class Majors(Parser):
                         'veterinary science', 'water policy', 'water, society, and policy', 'watershed management',
                         'wildlife and fisheries science', 'network administration', 'japanese']
 
-        MajorOptions = list(set(MajorOptions))
-        MajorOptions = '|'.join(MajorOptions)
+        MajorsArray = list(set(MajorsArray))
+        MajorsRegex = '|'.join(MajorsArray)
 
-        return MajorOptions
+        return MajorsRegex
