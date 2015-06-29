@@ -1,4 +1,6 @@
 import re
+import pyodbc
+from Classes.SUDBConnect import SUDBConnect
 
 class Parser(object):
     def __init__(self, stringToScan, searchCriteria):
