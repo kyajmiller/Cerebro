@@ -4,8 +4,6 @@ from Classes.DatabaseHelper import DatabaseHelper
 
 class TestStringMethods(unittest.TestCase):
     def test_DatabaseHelperOnlyFirstRegex(self):
-        testdatabasehelper = DatabaseHelper.UseOnlyFirstRegex(417, 'Aerospace Engineering')
-        self.assertIsNotNone(testdatabasehelper)
         self.assertEqual(True, DatabaseHelper.UseOnlyFirstRegex(417, 'Aerospace Engineering'))
         self.assertEqual(False, DatabaseHelper.UseOnlyFirstRegex(417, 'Cats'))
 
