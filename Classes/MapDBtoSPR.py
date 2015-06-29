@@ -41,7 +41,7 @@ class MapDBtoSPR(object):
             return parseGPA.getScholarshipPackageRequirementFormat()
 
     def doMajorsParser(self, eligibility, scholarshipId):
-        parseMajors = Majors(eligibility, scholarshipId, Majors.majorsListForTesting())
+        parseMajors = Majors(eligibility, scholarshipId, Majors.majorsRegexForTesting())
         if parseMajors.getMajors() != '':
             # print(parseMajors.getMajors())
             # print(parseMajors.getScholarshipPackageRequirementFormat().getStringValue())
