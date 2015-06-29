@@ -1,5 +1,6 @@
 from Classes.Parser import Parser
 from Classes.SUDBConnect import SUDBConnect
+from Classes.DatabaseHelper import DatabaseHelper
 
 
 class PullOneRegExAndVerify(Parser, SUDBConnect):
@@ -8,12 +9,6 @@ class PullOneRegExAndVerify(Parser, SUDBConnect):
         self.attributeId = attributeId
         self.IsMatched = False
         self.stringToScan = stringToScan
-        DB = SUDBConnect()
-        rows = DB.getRows(' select ' + str(attributeId) + ' , regEx from RegExHelpers')
-        self.searchCriteria = ''
-        if len(rows) > 0:
-            self.searchCriteria = rows[0].regEx
-        else:
-            self.searchCriteria = ''
+        self.searchCriteria = DatabaseHelper.getOnlyOneRegex(self.attributeId)
         Parser.__init__(self, stringToScan, self.searchCriteria)
         self.IsMatched = self.doesMatchExist()
