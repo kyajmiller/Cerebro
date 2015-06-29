@@ -2,11 +2,14 @@ import re
 import pyodbc
 from Classes.SUDBConnect import SUDBConnect
 
+
 class Parser(object):
     def __init__(self, stringToScan, searchCriteria):
         self.searchCriteria = searchCriteria
         self.stringToScan = stringToScan
         self.result = []
+        self.IsMatch = self.doesMatchExist()
+        self.getResult()
 
     def doesMatchExist(self):
         findMatch = re.findall(self.searchCriteria, self.stringToScan)
