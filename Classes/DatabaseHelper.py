@@ -79,7 +79,7 @@ class DatabaseHelper(SUDBConnect):
         doBothMatch = False
 
         if Parser(stringToScan, searchCriteriaRegex).doesMatchExist() and Parser(stringToScan,
-                                                                                 searchCriteriaRegexHelper):
+                                                                                 searchCriteriaRegexHelper).doesMatchExist():
             doBothMatch = True
 
         return doBothMatch
