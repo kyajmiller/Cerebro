@@ -39,17 +39,23 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(True, DatabaseHelper.useOnlyFirstRegexHelperTrue(417, 'Aerospace'))
         self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexHelperTrue(417, 'Cat'))
 
-    def test_UseOnlyFirstRegexTrueAndRegexHelperTrue(self):
-        self.assertEqual(True, DatabaseHelper.useOnlyFirstRegexTrueAndRegexHelperTrue(417, 'Aerospace Engineering'))
-        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexTrueAndRegexHelperTrue(417, 'Engineering'))
-        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexTrueAndRegexHelperTrue(417, 'Aerospace'))
-        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexTrueAndRegexHelperTrue(417, 'Cat'))
+    def test_UseOnlyFirstRegexTrueRegexHelperTrue(self):
+        self.assertEqual(True, DatabaseHelper.useOnlyFirstRegexTrueRegexHelperTrue(417, 'Aerospace Engineering'))
+        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexTrueRegexHelperTrue(417, 'Engineering'))
+        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexTrueRegexHelperTrue(417, 'Aerospace'))
+        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexTrueRegexHelperTrue(417, 'Cat'))
 
-    def test_UseOnlyFirstRegexTrueAndRegexHelperFalse(self):
-        self.assertEqual(True, DatabaseHelper.useOnlyFirstRegexTrueAndRegexHelperFalse(417, 'Cat Engineering'))
-        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexTrueAndRegexHelperFalse(417, 'Aerospace Engineering'))
-        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexTrueAndRegexHelperFalse(417, 'Aerospace Pigeon'))
-        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexTrueAndRegexHelperFalse(417, 'Cat Pigeon'))
+    def test_UseOnlyFirstRegexTrueRegexHelperFalse(self):
+        self.assertEqual(True, DatabaseHelper.useOnlyFirstRegexTrueRegexHelperFalse(417, 'Cat Engineering'))
+        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexTrueRegexHelperFalse(417, 'Aerospace Engineering'))
+        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexTrueRegexHelperFalse(417, 'Aerospace Pigeon'))
+        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexTrueRegexHelperFalse(417, 'Cat Pigeon'))
+
+    def test_UseOnlyFirstRegexFalseRegexHelperTrue(self):
+        self.assertEqual(True, DatabaseHelper.useOnlyFirstRegexFalseRegexHelperTrue(417, 'Aerospace Pigeon'))
+        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexFalseRegexHelperTrue(417, 'Aerospace Engineering'))
+        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexFalseRegexHelperTrue(417, 'Cat Engineering'))
+        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexFalseRegexHelperTrue(417, 'Cat Pigeon'))
 
 '''
     def test_UseOnlyFirstRegexOrRegexHelper(self):
