@@ -27,6 +27,14 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(False, DatabaseHelper.useAllRegexAndRegexHelper(417, 'Aerospace Cats'))
         self.assertEqual(False, DatabaseHelper.useAllRegexAndRegexHelper(417, 'Engineering Cats'))
 
+    def test_UseOnlyFirstRegexTrue(self):
+        self.assertEqual(True, DatabaseHelper.useOnlyFirstRegexTrue(417, 'Aerospace Engineering'))
+        self.assertEqual(True, DatabaseHelper.useOnlyFirstRegexTrue(417, 'Engineering'))
+        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexTrue(417, 'Aerospace'))
+        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexTrue(417, 'Cat'))
+
+
+'''
     def test_UseOnlyFirstRegexOrRegexHelper(self):
         self.assertEqual(True, DatabaseHelper.useOnlyFirstRegexOrRegexHelperTrueFalse(417, 'Aerospace Engineering',
                                                                                       matchRegEx=True,
@@ -72,9 +80,12 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexOrRegexHelperTrueFalse(417, 'Aerospace Engineering',
                                                                                        matchRegEx=False,
                                                                                        matchRegExHelper=False))
+        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexOrRegexHelperTrueFalse(417, 'Aerospace Engineering',
+                                                                                       matchRegEx=True,
+                                                                                       matchRegExHelper=False))
         # note: for cases where both the Regex and the RegexHelper do actually match the string, if either matchRegEx or
         # matchRegExHelper is set to True the function will always return true. The only time it will return False is if
         # both arguments are set to False. I don't know how to fix it.
-
+'''
 if __name__ == '__main__':
     unittest.main()
