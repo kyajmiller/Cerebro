@@ -84,8 +84,6 @@ class DatabaseHelper(SUDBConnect):
 
         return doBothMatch
 
-
-
     @staticmethod
     def useOnlyFirstRegexOrRegexHelperTrueFalse(attributeId, stringToScan, matchRegEx=True, matchRegExHelper=None):
         DB = SUDBConnect()
