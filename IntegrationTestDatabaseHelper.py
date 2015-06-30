@@ -40,12 +40,16 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(False,
                          DatabaseHelper.useOnlyFirstRegexOrRegexHelperTrueFalse(417, 'Engineering', matchRegEx=True,
                                                                                 matchRegExHelper=True))
+        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexOrRegexHelperTrueFalse(417, 'Cat', matchRegEx=True,
+                                                                                       matchRegExHelper=None))
 
         self.assertEqual(True, DatabaseHelper.useOnlyFirstRegexOrRegexHelperTrueFalse(417, 'Aerospace', matchRegEx=None, matchRegExHelper=True))
         self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexOrRegexHelperTrueFalse(417, 'Aerospace', matchRegEx=None, matchRegExHelper=False))
         self.assertEqual(False,
                          DatabaseHelper.useOnlyFirstRegexOrRegexHelperTrueFalse(417, 'Aerospace', matchRegEx=True,
                                                                                 matchRegExHelper=True))
+        self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexOrRegexHelperTrueFalse(417, 'Cat', matchRegEx=None,
+                                                                                       matchRegExHelper=True))
 
         self.assertEqual(True, DatabaseHelper.useOnlyFirstRegexOrRegexHelperTrueFalse(417, 'Cat Engineering', matchRegEx=True, matchRegExHelper=False))
         self.assertEqual(False, DatabaseHelper.useOnlyFirstRegexOrRegexHelperTrueFalse(417, 'Cat Engineering', matchRegEx=False, matchRegExHelper=True))
