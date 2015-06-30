@@ -84,6 +84,8 @@ class DatabaseHelper(SUDBConnect):
 
         return doBothMatch
 
+
+'''
     @staticmethod
     def useOnlyFirstRegexOrRegexHelperTrueFalse(attributeId, stringToScan, matchRegEx=True, matchRegExHelper=None):
         DB = SUDBConnect()
@@ -109,21 +111,29 @@ class DatabaseHelper(SUDBConnect):
             else:
                 return False
         elif matchRegEx == True and matchRegExHelper == True:
-            if Parser(stringToScan, regEx).doesMatchExist() == True and Parser(stringToScan,
-                                                                               regExHelper).doesMatchExist() == True:
-                return True
-            else:
-                return False
-        elif matchRegEx == True and matchRegExHelper == False:
-            if Parser(stringToScan, regEx).doesMatchExist() == True and Parser(stringToScan,
-                                                                               regExHelper).doesMatchExist() == False:
-                return True
-            else:
-                return False
-        elif matchRegEx == False and matchRegExHelper == True:
             if Parser(stringToScan, regEx).doesMatchExist() == False and Parser(stringToScan,
-                                                                                regExHelper).doesMatchExist() == True:
+                                                                               regExHelper).doesMatchExist() == True:
+                return False
+            elif Parser(stringToScan, regEx).doesMatchExist() == True and Parser(stringToScan, regExHelper).doesMatchExist() == False:
+                return False
+            elif Parser(stringToScan, regEx).doesMatchExist() == False and Parser(stringToScan, regExHelper).doesMatchExist() == False:
+                return False
+            else:
                 return True
+        elif matchRegEx == True and matchRegExHelper == False:
+            if Parser(stringToScan, regEx).doesMatchExist() == False and Parser(stringToScan,
+                                                                               regExHelper).doesMatchExist() == False:
+                return False
+            elif Parser(stringToScan, regEx).doesMatchExist() == False and Parser(stringToScan, regExHelper).doesMatchExist() == True:
+                return False
+            else:
+                return True
+        elif matchRegEx == False and matchRegExHelper == True:
+            if Parser(stringToScan, regEx).doesMatchExist() == True and Parser(stringToScan,
+                                                                                regExHelper).doesMatchExist() == True:
+                return False
+            elif Parser(stringToScan, regEx).doesMatchExist() == True and Parser(stringToScan, regExHelper).doesMatchExist() == False:
+                return False
             else:
                 return False
         elif matchRegEx == False and matchRegExHelper == False:
@@ -134,3 +144,4 @@ class DatabaseHelper(SUDBConnect):
                 return False
         else:
             return False
+'''
