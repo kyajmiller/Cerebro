@@ -85,11 +85,22 @@ class DatabaseHelper(SUDBConnect):
         return doBothMatch
 
     @staticmethod
+    def useOnlyFirstRegexTrue(attributeId, stringToScan):
+        DB = SUDBConnect()
+        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
+        regEx = ''
+        if len(rows) >= 1:
+            regEx = rows[0].RegEx
+        return Parser(stringToScan, regEx).doesMatchExist()
+
+    @staticmethod
     def useOnlyFirstRegexOrRegexHelperTrueFalse(attributeId, stringToScan, matchRegEx=True, matchRegExHelper=None):
         DB = SUDBConnect()
         rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
         regEx = ''
         regExHelper = ''
+        matchOne = False
+        matchTwo = False
         if len(rows) >= 1:
             regEx = rows[0].RegEx
             regExHelper = rows[0].RegExHelper
