@@ -168,6 +168,28 @@ class DatabaseHelper(SUDBConnect):
                                                                               regExHelper).doesMatchExist() == False:
             return False
 
+    @staticmethod
+    def useOnlyFirstRegexFalseRegexHelperFalse(attributeId, stringToScan):
+        DB = SUDBConnect()
+        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
+        regEx = ''
+        regExHelper = ''
+        if len(rows) >= 1:
+            regEx = rows[0].RegEx
+            regExHelper = rows[0].RegExHelper
+        if Parser(stringToScan, regEx).doesMatchExist() == True and Parser(stringToScan,
+                                                                           regExHelper).doesMatchExist() == True:
+            return False
+        elif Parser(stringToScan, regEx).doesMatchExist() == True and Parser(stringToScan,
+                                                                             regExHelper).doesMatchExist() == False:
+            return False
+        elif Parser(stringToScan, regEx).doesMatchExist() == False and Parser(stringToScan,
+                                                                              regExHelper).doesMatchExist() == True:
+            return False
+        elif Parser(stringToScan, regEx).doesMatchExist() == False and Parser(stringToScan,
+                                                                              regExHelper).doesMatchExist() == False:
+            return True
+
 '''
     @staticmethod
     def useOnlyFirstRegexOrRegexHelperTrueFalse(attributeId, stringToScan, matchRegEx=True, matchRegExHelper=None):
