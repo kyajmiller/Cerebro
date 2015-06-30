@@ -94,6 +94,61 @@ class DatabaseHelper(SUDBConnect):
         return Parser(stringToScan, regEx).doesMatchExist()
 
     @staticmethod
+    def useOnlyFirstRegexHelperTrue(attributeId, stringToScan):
+        DB = SUDBConnect()
+        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
+        regExHelper = ''
+        if len(rows) >= 1:
+            regExHelper = rows[0].RegExHelper
+        return Parser(stringToScan, regExHelper).doesMatchExist()
+
+    @staticmethod
+    def useOnlyFirstRegexTrueAndRegexHelperTrue(attributeId, stringToScan):
+        DB = SUDBConnect()
+        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
+        regEx = ''
+        regExHelper = ''
+        if len(rows) >= 1:
+            regEx = rows[0].RegEx
+            regExHelper = rows[0].RegExHelper
+        if Parser(stringToScan, regEx).doesMatchExist() == True and Parser(stringToScan,
+                                                                           regExHelper).doesMatchExist() == True:
+            return True
+        elif Parser(stringToScan, regEx).doesMatchExist() == True and Parser(stringToScan,
+                                                                             regExHelper).doesMatchExist() == False:
+            return False
+        elif Parser(stringToScan, regEx).doesMatchExist() == False and Parser(stringToScan,
+                                                                              regExHelper).doesMatchExist() == True:
+            return False
+        elif Parser(stringToScan, regEx).doesMatchExist() == False and Parser(stringToScan,
+                                                                              regExHelper).doesMatchExist() == False:
+            return False
+
+    @staticmethod
+    def useOnlyFirstRegexTrueAndRegexHelperFalse(attributeId, stringToScan):
+        DB = SUDBConnect()
+        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
+        regEx = ''
+        regExHelper = ''
+        if len(rows) >= 1:
+            regEx = rows[0].RegEx
+            regExHelper = rows[0].RegExHelper
+        if Parser(stringToScan, regEx).doesMatchExist() == True and Parser(stringToScan,
+                                                                           regExHelper).doesMatchExist() == True:
+            return False
+        elif Parser(stringToScan, regEx).doesMatchExist() == True and Parser(stringToScan,
+                                                                             regExHelper).doesMatchExist() == False:
+            return True
+        elif Parser(stringToScan, regEx).doesMatchExist() == False and Parser(stringToScan,
+                                                                              regExHelper).doesMatchExist() == True:
+            return False
+        elif Parser(stringToScan, regEx).doesMatchExist() == False and Parser(stringToScan,
+                                                                              regExHelper).doesMatchExist() == False:
+            return False
+
+
+'''
+    @staticmethod
     def useOnlyFirstRegexOrRegexHelperTrueFalse(attributeId, stringToScan, matchRegEx=True, matchRegExHelper=None):
         DB = SUDBConnect()
         rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
@@ -149,3 +204,4 @@ class DatabaseHelper(SUDBConnect):
                 return False
         else:
             return False
+'''
