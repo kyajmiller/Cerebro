@@ -1,0 +1,95 @@
+New Notes file, old Notes file died in the great Profile disappearance of July 2, 2015. RIP.
+
+7/2 Notes:
+-Compy profile died (who knows), lost old notes, new notes file now
+-Hopefully Mike not too mad about losing old notes, will try to recreate notes by memory but they'll suck
+-All notes from 6/12 to 7/1 are gone, pretty bad lol
+
+So what did I do (recreation 6/22-7/1)
+6/22
+-Learned that unit tests should have their own separate functions, makes it easier to break them up and run one section at a time
+-Added arguments to SPRF Class; wrote unit tests to make sure that GPA is passing the correct stuff when making an instance of the SPRF class
+-GPA now takes more arguments
+-UpdateLogicGroup function now checks for the length of the GPA results array; if more than one GPA value found, LogicGroup is set to 1; default is 0
+-Added anti-context checks for GPA; unit tests for this
+-Updated GPA regex
+-Worked on Majors class
+
+6/23
+-Rewrote cleaning class by simplifying the regex <.*?>
+-Worked on MapDBtoSPR Class (because I was really bad at understanding what Don-E intended for the class to actually do)
+--Decided to go for the long haul, made a class that would connect to the database, pull out the eligibilities and scholarshippackageids,
+populate respective lists, loop through eligibilities, clean each one, extract relevant information
+and then return the information. It worked well enough! Worked on real world test cases too.
+
+6/24
+-Added a function to Majors, getScholarshipPackageRequirementFormat, also unit tests
+-Worked on UACollege class, added more context checking
+-Updated GPA regex to accept g.p.a
+-Read about Flask servers, made a basic Flask server (it doesn't do much though)
+-MapDBtoSPR Class now takes a SQL Query so you can specify which table and which lines to pull out instead of having a default grab
+-MapDBtoSPR can now parse GPA and Majors
+
+6/25
+-Worked more on UAColleges class, updated context checking
+-Added functionality to SPRF class (mostly for testing purposes, wanted a function to return a string version of the class so you could see it)
+-Ran into a wall when trying to write a unit test for MapDBtoSPR Class, this is when I realized that it's probably not what Don-E wanted me to do lol
+-Officially wrote the CleanText class (HTML Worker but better, I think); unit testing
+-Updated CleanText functions to use re.DOTALL
+-Wrote a new class that's basically a clone of MapDBtoSPR but works by reading in a text file instead of an SQL query; ScanText
+-Tested ScanText on ScholarshipTest1.txt, works!
+-Set default values of scholarshipPackageId in various parsers to 0
+-I learned about default and optional arguments in functions! This is cool.
+-Updated GPA context checker to remove 4.0 if finds '4.0 scale'
+--For example, if the string is 'must have a 3.5 on a 4.0 scale' it should only return 3.5, not 3.5 and 4.0
+
+6/26
+-Ran ScanText on ScholarshipTest2 and ScholarshipTest3, works!
+-Can verify that the CleanText Class works as intended, as ScholarshipTest2 was filled with html/xml tags and the cleaner worked perfectly!
+-Cleaner still needs to be tested on javascript stuff
+-Needed to figure out how to make Majors parser work on lists of related majors
+--Example: 'systems, mining, aerospace and civil engineering' needs to return system engineering, mining engineering, aerospace engineering, and civil engineering, while the current system would only return civil engineering
+--Solution: tokenize the string, grab previous five words/tokens appearing before 'engineering', concatenate each one of those with 'engineering', scan each new token with Majors parser, add the results
+--NLP stuff to the rescue!
+--Had to add a line of code to remove 'engineering' from the results if it didn't already exist before this loop, as it was adding it in unnecessarily
+-Learned what Don-E actually intended for MapDBtoSPR class to actually do, lol
+--Class is supposed to take an attributeId, access the database using a SQL Query created from that attribute Id, returns the proper regular expression from the table
+--The table that the SQL Query is accessing has a row with the attributeId, regex, regexHelper, Fast Find value
+--Eventually we want this class to take the attribute Id, loop through the Major Parser using the regexes on each row in the database, if a particular regex matches then return the fast find value of the major
+--For now though, I will start by writing a class that takes the attribute Id and a test string, calls the database, pulls down the regex and the regexhelpers, and then returns True or False if a match is found
+-Removed UpdateLogicGroup from GPA, just added in that functionality to another existing function; unit tests to reflect this
+
+6/29
+-Working on Database Helper! (the class that takes attributeID, gets regex, runs regex search, returns TF)
+-Added basic functions to return first regex, first regex helper, all regexes, all regex helpers; unit tests
+-Wanted to write a function that would allow you to declare whether you wanted the regex or regex helper to return True or False, but it's not working as intended
+
+6/30
+-Rewrote the True/False function, everything is working as intended but the True+True condition is broken some how by returning True no matter what, even if not True
+-Ended up disabling it because it's annoying me
+-Don-E took a look at the function, we decided it was overcomplicated and too long so impossible to pinpoint what exactly was broken, so I had to rewrite the function into a bunch of smaller, separate functions
+--Functions called things like useOnlyFirstRegexTrueRegexHelperFalse, which checks to see if the first regex is True and the regex helper is False, and returns True if these conditions are met
+--All of these work, which is a sign that smaller functions are just straight up better because things work like they're supposed to; if things aren't overcomplicated you are less likely to make errors
+--I still don't know why the original one wasn't working, but okay
+
+7/1
+-Time to learn about Django - watch ALL the tutorials!
+-Going to need to rewatch these again and do the exercises to follow along, because I'm realizing that I'm the sort of person where if I don't have a hands on example, the information doesn't stick
+-After watching the first tutorial series, I'm bored and want to do more coding
+-Learned about Selenium
+--Selenium is a program that facilitates the creation of regression testing by recording what actions are taken when on a page and returns those actions in a programming format, which you can copy into your own regression test and will automate the steps you wanna take for each test
+--For now, we will just be using Selenium to rip source code from the page, which will then be used for parsing out scholarship information
+--Will later on use it for regression testing, as intended, but for now we don't have a web app so that's irrelevant
+-Programming task: write a class that takes a URL, goes to the page, returns the page_source
+--it works!; unit tests
+
+7/2
+-After compy profile died and spent several hours trying (and failing) to recover it, had to rewrite notes and try to set stuff back up
+--Some of my user settings for each program are weird now, will try to fix them as they become issues later
+-Going to spend rest of the work day watching more Django tutorials, will make sure to do the exercises as they come up!
+
+
+
+
+
+
