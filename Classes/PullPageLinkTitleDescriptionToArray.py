@@ -44,4 +44,7 @@ class PullPageLinkTitleDescriptionToArray(object):
 
         return self.allurlsonpage
 
-    def dictTitleDescriptionLinks(self):
+    def arrayTitleDescriptionPageURLLinks(self):
+        titleDescriptionPageURLLinks = [self.getTitle(), self.getDescription(), self.getPageURL(),
+                                        self.getAllURLsOnPage()]
+        return titleDescriptionPageURLLinks
