@@ -37,3 +37,10 @@ class PullPageLinkTitleDescriptionToArray(object):
                 self.pageurl = findPageURL.group(1)
 
         return self.pageurl
+
+    def getAllURLsOnPage(self):
+        findAllURLS = re.findall('<a href="(.*?)"', self.htmlSource)
+        if findAllURLS:
+            self.allurlsonpage = findAllURLS
+
+        return self.allurlsonpage
