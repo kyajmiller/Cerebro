@@ -14,5 +14,10 @@ class TestStringMethods(unittest.TestCase):
         self.assertNotEqual('', testPullPageLinkTitleDescriptionToArray.getDescription())
         self.assertGreater(len(testPullPageLinkTitleDescriptionToArray.getDescription()), 10)
 
+    def test_PullPageLinkTitleDescriptionToArrayGetPageURL(self):
+        testPullPageLinkTitleDescriptionToArray = PullPageLinkTitleDescriptionToArray(
+            RipPage.getPageSource('http://grandcanyon.com'))
+        self.assertGreater(len(testPullPageLinkTitleDescriptionToArray.getPageURL()), 10)
+
 if __name__ == '__main__':
     unittest.main()
