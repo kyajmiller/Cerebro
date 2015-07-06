@@ -19,5 +19,11 @@ class TestStringMethods(unittest.TestCase):
             RipPage.getPageSource('http://grandcanyon.com'))
         self.assertGreater(len(testPullPageLinkTitleDescriptionToArray.getPageURL()), 10)
 
+    def test_PullPageLinkTitleDescriptionToArrayGetAllURLsOnPage(self):
+        testPullPageLinkTitleDescriptionToArray = PullPageLinkTitleDescriptionToArray(
+            RipPage.getPageSource('http://grandcanyon.com'))
+        self.assertGreater(len(testPullPageLinkTitleDescriptionToArray.getAllURLsOnPage()), 1)
+        print(testPullPageLinkTitleDescriptionToArray.getAllURLsOnPage())
+
 if __name__ == '__main__':
     unittest.main()
