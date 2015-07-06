@@ -108,6 +108,12 @@ and then return the information. It worked well enough! Worked on real world tes
 --can't actually pull result links from the google source page, it don't work like that
 --the source page for google only has information native to that page, the dynamic stuff doesn't exist here
 
+-Wrote class PullPageLinkTitleDescriptionIntoArray, which does about what you'd expect it to do - it pulls the page url, title and description
+from the html source code and returns an array containing those items
+-The return of this class is then fed into the new class (that I also wrote) called InsertScholarshipArrayIntoDatabase, which connects to the
+database and inserts the required thangs where they're supposed to be
+--The unit test for this was hella tedious, do not recommend.
+
 
 
 
