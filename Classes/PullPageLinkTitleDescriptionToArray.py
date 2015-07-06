@@ -27,4 +27,13 @@ class PullPageLinkTitleDescriptionToArray(object):
 
         return self.description
 
+    def getPageURL(self):
+        findPageURL = re.search('<link href="(.*?)" rel="canonical"', self.htmlSource)
+        if findPageURL:
+            self.pageurl = findPageURL.group(1)
+        else:
+            findPageURL = re.search('<link rel="canonical" href="(.*?)"', self.htmlSource)
+            if findPageURL:
+                self.pageurl = findPageURL.group(1)
 
+        return self.pageurl
