@@ -2,7 +2,7 @@ import re
 from Classes.RipPage import RipPage
 
 
-class PullPageLinkTitleDescriptionToArray(object):
+class PullPageLinkTitleDescriptionToDict(object):
     def __init__(self, htmlSource):
         self.htmlSource = htmlSource
         self.title = ''
@@ -44,3 +44,5 @@ class PullPageLinkTitleDescriptionToArray(object):
             self.allurlsonpage = findAllURLS
 
         return self.allurlsonpage
+
+    def
