@@ -88,6 +88,28 @@ and then return the information. It worked well enough! Worked on real world tes
 --Some of my user settings for each program are weird now, will try to fix them as they become issues later
 -Going to spend rest of the work day watching more Django tutorials, will make sure to do the exercises as they come up!
 
+7/6 Notes:
+-URLs in the HTML source code seem to be reliably tagged with <a href="">, so try to make a regex:
+--something like <a\shref="(.*?)"
+--should make sure that the regex can span multiple lines, have seen examples where the a and href will be on different lines
+--investigate this: <link href="" rel="canonical" /> maybe this is how the actual url of the page is displayed?
+---This does seem to be the case, another example was <link rel='canonical' href=""/>
+---In both pages I've looked at so far, there's only one instance of rel="canonical" so this seems good
+---Nevermind, checked another page, didn't have this at all, might be inconsistent
+--page url could also be found as <base href="">
+-The page title might actually just be between <title></title> xml tags, should look at more pages to find out
+--What about <meta property="og:title" or <meta property="og:description
+-Description may be under <meta name="description" content=""/>
+--Or <meta content="" name="description"/>
+
+-If pulling directly from google results this will need to work differently
+--each link in the results is in <a data-href=""> and the title will be between >(title)</a>
+--the associated "description" for each result will be in the following <span class="st">blah</span>
+--can't actually pull result links from the google source page, it don't work like that
+--the source page for google only has information native to that page, the dynamic stuff doesn't exist here
+
+
+
 
 
 
