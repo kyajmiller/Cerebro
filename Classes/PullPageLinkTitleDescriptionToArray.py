@@ -13,5 +13,18 @@ class PullPageLinkTitleDescriptionToArray(object):
     def getTitle(self):
         findTitle = re.search('<title>(.*?)</title>', self.htmlSource)
         if findTitle:
-            return findTitle.group(1)
+            self.title = findTitle.group(1)
+            return self.title
+
+    def getDescription(self):
+        findDescription = re.search('<meta name="description" content="(.*?)"', self.htmlSource)
+        if findDescription:
+            self.description = findDescription.group(1)
+        else:
+            findDescription = re.search('<meta content="(.*?)" name="description', self.htmlSource)
+            if findDescription:
+                self.description = findDescription.group(1)
+
+        return self.description
+
 
