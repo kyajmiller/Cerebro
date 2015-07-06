@@ -3,28 +3,28 @@ from Classes.PullPageLinkTitleDescriptionToArray import PullPageLinkTitleDescrip
 from Classes.RipPage import RipPage
 
 class TestStringMethods(unittest.TestCase):
-    def test_PullPageLinkTitleDescriptionToDictGetTitle(self):
-        testPullPageLinkTitleDescriptionToDict = PullPageLinkTitleDescriptionToArray(
+    def test_PullPageLinkTitleDescriptionToArrayGetTitle(self):
+        testPullPageLinkTitleDescriptionToArray = PullPageLinkTitleDescriptionToArray(
             RipPage.getPageSource('https://www.google.com/'))
-        self.assertIsNotNone(testPullPageLinkTitleDescriptionToDict.getTitle())
-        self.assertEqual('Google', testPullPageLinkTitleDescriptionToDict.getTitle())
+        self.assertIsNotNone(testPullPageLinkTitleDescriptionToArray.getTitle())
+        self.assertEqual('Google', testPullPageLinkTitleDescriptionToArray.getTitle())
 
-    def test_PullPageLinkTitleDescriptionToDictGetDescription(self):
-        testPullPageLinkTitleDescriptionToDict = PullPageLinkTitleDescriptionToArray(
+    def test_PullPageLinkTitleDescriptionToArrayGetDescription(self):
+        testPullPageLinkTitleDescriptionToArray = PullPageLinkTitleDescriptionToArray(
             RipPage.getPageSource('https://www.google.com/'))
-        self.assertNotEqual('', testPullPageLinkTitleDescriptionToDict.getDescription())
-        self.assertGreater(len(testPullPageLinkTitleDescriptionToDict.getDescription()), 10)
+        self.assertNotEqual('', testPullPageLinkTitleDescriptionToArray.getDescription())
+        self.assertGreater(len(testPullPageLinkTitleDescriptionToArray.getDescription()), 10)
 
-    def test_PullPageLinkTitleDescriptionToDictGetPageURL(self):
-        testPullPageLinkTitleDescriptionToDict = PullPageLinkTitleDescriptionToArray(
+    def test_PullPageLinkTitleDescriptionToArrayGetPageURL(self):
+        testPullPageLinkTitleDescriptionToArray = PullPageLinkTitleDescriptionToArray(
             RipPage.getPageSource('http://grandcanyon.com'))
-        self.assertGreater(len(testPullPageLinkTitleDescriptionToDict.getPageURL()), 10)
+        self.assertGreater(len(testPullPageLinkTitleDescriptionToArray.getPageURL()), 10)
 
-    def test_PullPageLinkTitleDescriptionToDictGetAllURLsOnPage(self):
-        testPullPageLinkTitleDescriptionToDict = PullPageLinkTitleDescriptionToArray(
+    def test_PullPageLinkTitleDescriptionToArrayGetAllURLsOnPage(self):
+        testPullPageLinkTitleDescriptionToArray = PullPageLinkTitleDescriptionToArray(
             RipPage.getPageSource('http://grandcanyon.com'))
-        self.assertGreater(len(testPullPageLinkTitleDescriptionToDict.getAllURLsOnPage()), 1)
-        print(testPullPageLinkTitleDescriptionToDict.getAllURLsOnPage())
+        self.assertGreater(len(testPullPageLinkTitleDescriptionToArray.getAllURLsOnPage()), 1)
+        print(testPullPageLinkTitleDescriptionToArray.getAllURLsOnPage())
 
 if __name__ == '__main__':
     unittest.main()
