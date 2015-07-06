@@ -1,9 +1,11 @@
 import re
+from Classes.RipPage import RipPage
 
 
 class PullPageLinkTitleDescriptionToArray(object):
-    def __init__(self, htmlSource):
-        self.htmlSource = htmlSource
+    def __init__(self, url):
+        self.url = url
+        self.htmlSource = RipPage.getPageSource(self.url)
         self.title = ''
         self.pageurl = ''
         self.allurlsonpage = []
