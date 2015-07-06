@@ -23,15 +23,16 @@ class TestStringMethods(unittest.TestCase):
 
     def test_PullPageLinkTitleDescriptionToArray(self):
         testPullPageLinkTitleDescriptionToArray = PullPageLinkTitleDescriptionToArray('http://grandcanyon.com')
-        self.assertEqual(4, len(testPullPageLinkTitleDescriptionToArray.arrayPageLinkTitleDescription()))
+        self.assertEqual(4, len(testPullPageLinkTitleDescriptionToArray.doArray()))
         self.assertEqual(testPullPageLinkTitleDescriptionToArray.pageurl,
-                         testPullPageLinkTitleDescriptionToArray.arrayPageLinkTitleDescription()[0])
+                         testPullPageLinkTitleDescriptionToArray.doArray()[0])
         self.assertEqual(testPullPageLinkTitleDescriptionToArray.title,
-                         testPullPageLinkTitleDescriptionToArray.arrayPageLinkTitleDescription()[1])
+                         testPullPageLinkTitleDescriptionToArray.doArray()[1])
         self.assertEqual(testPullPageLinkTitleDescriptionToArray.description,
-                         testPullPageLinkTitleDescriptionToArray.arrayPageLinkTitleDescription()[2])
+                         testPullPageLinkTitleDescriptionToArray.doArray()[2])
         self.assertEqual(testPullPageLinkTitleDescriptionToArray.allurlsonpage,
-                         testPullPageLinkTitleDescriptionToArray.arrayPageLinkTitleDescription()[3])
+                         testPullPageLinkTitleDescriptionToArray.doArray()[3])
+        print(testPullPageLinkTitleDescriptionToArray.doArray())
 
 if __name__ == '__main__':
     unittest.main()
