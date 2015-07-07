@@ -18,4 +18,4 @@ class PopulateEmptyLinkBodyUsingDatabaseLinkUrl(object):
                 linkbody = RipPage.getPageSource(link)
                 cleanLinkBody = CleanText.cleanALLtheText(linkbody)
                 self.db.insertUpdateOrDelete(
-                    "update dbo.LinkCrawlerHrefs set LinkBody = '" + cleanLinkBody + "' where LinkUrl = '" + link + "'")
+                    "UPDATE dbo.LinkCrawlerHrefs SET LinkBody='" + cleanLinkBody + "' WHERE LinkUrl='" + link + "'")
