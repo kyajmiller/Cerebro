@@ -21,6 +21,10 @@ class CleanText(object):
         return re.sub('</body>', '', result)
 
     @staticmethod
+    def removeScriptAndJavascript(stringToClean):
+        return re.sub('<script.*?/script>', '', flags=re.DOTALL)
+
+    @staticmethod
     def cleanALLtheText(stringToClean):
         result = CleanText.removeNonBodyElements(stringToClean)
         result = CleanText.removeAllTags(result)
