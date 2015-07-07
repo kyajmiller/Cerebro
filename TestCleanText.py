@@ -28,5 +28,9 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual('There is no Javascript in this string', CleanText.removeScriptAndJavascript(
             '<script>meowmeowmeow</script>There is no Javascript in this string'))
 
+    def test_CleanTextRemoveStyle(self):
+        self.assertEqual('All of the style stuff is gone',
+                         CleanText.removeStyle('<style blah blah>StyleStuff</style>All of the style stuff is gone'))
+
 if __name__ == '__main__':
     unittest.main()
