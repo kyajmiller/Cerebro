@@ -43,7 +43,7 @@ class CleanText(object):
         result = re.sub('\r', '', stringToClean)
         result = re.sub('\n\n+', '\n', result)
         result = re.sub('\t', '', result)
-        result = re.sub('\s\s+', '', result)
+        result = re.sub('\s\s+', ' ', result)
         return result
 
     @staticmethod
