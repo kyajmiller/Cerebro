@@ -16,17 +16,21 @@ class CleanText(object):
 
     @staticmethod
     def removeNonBodyElements(stringToClean):
-        result = re.sub('<html>.*?<body>', '', stringToClean, flags=re.DOTALL)
+        result = re.sub('<html>.*?<body.*?>', '', stringToClean, flags=re.DOTALL)
         result = re.sub('</body>.*?</html>', '', result, flags=re.DOTALL)
         return re.sub('</body>', '', result)
 
     @staticmethod
     def removeScriptAndJavascript(stringToClean):
-        return re.sub('<script.*?/script>', '', flags=re.DOTALL)
+        result = re.sub('<script.*?/script>', '', stringToClean, flags=re.DOTALL)
+        result = re.sub('javascript.*?/javascript>', '', result, flags=re.DOTALL)
+
+        return result
 
     @staticmethod
     def cleanALLtheText(stringToClean):
         result = CleanText.removeNonBodyElements(stringToClean)
+        result = CleanText.removeScriptAndJavascript(result)
         result = CleanText.removeAllTags(result)
         result = CleanText.removenbsp(result)
         result = CleanText.convertAmpersand(result)
