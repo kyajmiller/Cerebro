@@ -28,8 +28,13 @@ class CleanText(object):
         return result
 
     @staticmethod
+    def removeStyle(stringToClean):
+        return re.sub('<style.*?</style>', '', stringToClean, flags=re.DOTALL)
+
+    @staticmethod
     def cleanALLtheText(stringToClean):
         result = CleanText.removeNonBodyElements(stringToClean)
+        result = CleanText.removeStyle(result)
         result = CleanText.removeScriptAndJavascript(result)
         result = CleanText.removeAllTags(result)
         result = CleanText.removenbsp(result)
