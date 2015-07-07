@@ -12,5 +12,6 @@ class RipPage(object):
         driver = webdriver.Firefox()
         driver.get(url)
         htmlSource = driver.page_source
+        driver.quit()
 
         return htmlSource
