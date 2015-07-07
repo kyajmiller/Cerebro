@@ -114,6 +114,15 @@ from the html source code and returns an array containing those items
 database and inserts the required thangs where they're supposed to be
 --The unit test for this was hella tedious, do not recommend.
 
+7/7 Notes:
+-Need to build a class that access the same table as InsertScholarshipArrayIntoDatabase, which pulls out the LinkUrl, calls RipPage to get
+the HTML source, and reinserts the HTML source into the LinkBody cell of the same row
+-Need to finish writing last week's report for Mike
+-Ran into a big issue: the CleanText/HTMLWorker classes are a little too oversimplified. They make the assumption that every page will have some sort of <html></html> and <body></body> sort of things
+-The body tags wouldn't be that big of a deal if the pages weren't organized by nice div elements, but they are so fml.
+-Will need to rewrite the text cleaning classes so that they actually work on stuff instead of just idealized stuff. Need to figure out a way to just get the text that actually appears on the page
+-Learned that SQL is hideously picky. Doesn't like when there's single quotes in the string. Need to create functionality in CleanText that will turn all single quotes ' into '' so it doesn't make SQL mad.
+
 
 
 
