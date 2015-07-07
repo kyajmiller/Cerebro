@@ -24,7 +24,6 @@ class CleanText(object):
     def removeScriptAndJavascript(stringToClean):
         result = re.sub('<script.*?/script>', '', stringToClean, flags=re.DOTALL)
         result = re.sub('javascript.*?/javascript>', '', result, flags=re.DOTALL)
-
         return result
 
     @staticmethod
@@ -36,6 +35,18 @@ class CleanText(object):
         return re.sub('<noscript.*?</noscript>', '', stringToClean, flags=re.DOTALL)
 
     @staticmethod
+    def replaceSingleQuotesWithTwoSingleQuotes(stringToClean):
+        return re.sub("'", "''", stringToClean)
+
+    @staticmethod
+    def removeWhiteSpaces(stringToClean):
+        result = re.sub('\r', '', stringToClean)
+        result = re.sub('\n\n+', '\n', result)
+        result = re.sub('\t', '', result)
+        result = re.sub('\s\s+', '', result)
+        return result
+
+    @staticmethod
     def cleanALLtheText(stringToClean):
         result = CleanText.removeNonBodyElements(stringToClean)
         result = CleanText.removeStyle(result)
@@ -44,5 +55,7 @@ class CleanText(object):
         result = CleanText.removeAllTags(result)
         result = CleanText.removenbsp(result)
         result = CleanText.convertAmpersand(result)
+        result = CleanText.replaceSingleQuotesWithTwoSingleQuotes(result)
+        result = CleanText.removeWhiteSpaces(result)
 
         return result
