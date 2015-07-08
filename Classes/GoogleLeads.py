@@ -11,7 +11,7 @@ class GoogleLeads(object):
         self.searchTerm = searchTerm
         self.driver = webdriver.Firefox()
         self.base_url = 'https://www.google.com/'
-        self.arrayOfArraysOfResults = []
+        self.arrayOfGoogleLeads = []
 
     def goToGoogleAndGetResults(self):
         driver = self.driver
@@ -32,10 +32,10 @@ class GoogleLeads(object):
                 elementDescription = arrayOfDescriptions[i].text
 
                 singleResultArray = [elementTitle, elementLink, elementDescription]
-                self.arrayOfArraysOfResults.append(singleResultArray)
+                self.arrayOfGoogleLeads.append(singleResultArray)
 
             driver.quit()
 
-            return self.arrayOfArraysOfResults
+            return self.arrayOfGoogleLeads
         else:
             print('no')
