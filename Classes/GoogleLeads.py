@@ -1,3 +1,4 @@
+import re
 from selenium import webdriver
 
 
@@ -28,9 +29,21 @@ class GoogleLeads(object):
 
                 singleResultArray = [elementTitle, elementLink, elementDescription]
                 self.arrayOfGoogleLeads.append(singleResultArray)
-
-            driver.quit()
-
-            return self.arrayOfGoogleLeads
         else:
-            print('no')
+
+            arrayOfMatchedDivParts = driver.find_elements_by_xpath(
+                "//h3[contains(concat(' ', @class, ' '), 'r')]/following-sibling::div/div")
+            for element in arrayOfMatchedDivParts:
+                elementParts = element.text.split('\n')
+                elementLink = elementParts[0]
+                if not re.search('http://|https://', elementLink):
+                    elementLink = 'http://' + elementLink
+                elementTitle = elementParts[1]
+                elementDescription = elementParts[2]
+
+                singleResultArray = [elementTitle, elementLink, elementDescription]
+                self.arrayOfGoogleLeads.append(singleResultArray)
+
+        driver.quit()
+
+        return self.arrayOfGoogleLeads
