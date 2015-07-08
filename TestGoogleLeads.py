@@ -8,6 +8,10 @@ class TestStringMethods(unittest.TestCase):
         self.assertIsNotNone(testgoogleleadsarray[0])
         self.assertEqual(3, len(testgoogleleadsarray[0]))
 
+    def test_GoogleLeadsElseStatement(self):
+        testgoogleleadsuneventhangs = GoogleLeads('engineering').goToGoogleAndGetResults()
+
+
 
 if __name__ == '__main__':
     unittest.main()
