@@ -32,5 +32,10 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual('All of the style stuff is gone',
                          CleanText.removeStyle('<style blah blah>StyleStuff</style>All of the style stuff is gone'))
 
+    def test_CleanTextReplaceSingleQuotes(self):
+        self.assertEqual("There''s some extra single quotes in this line",
+                         CleanText.replaceSingleQuotesWithTwoSingleQuotes(
+                             "There's some extra single quotes in this line"))
+
 if __name__ == '__main__':
     unittest.main()
