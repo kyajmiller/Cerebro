@@ -123,6 +123,36 @@ the HTML source, and reinserts the HTML source into the LinkBody cell of the sam
 -Will need to rewrite the text cleaning classes so that they actually work on stuff instead of just idealized stuff. Need to figure out a way to just get the text that actually appears on the page
 -Learned that SQL is hideously picky. Doesn't like when there's single quotes in the string. Need to create functionality in CleanText that will turn all single quotes ' into '' so it doesn't make SQL mad.
 
+7/8 Notes:
+-Finish doing unit tests for PopulateEmptyLinkBodyUsingDatabaseLinkUrl
+-Write new unit tests for the new functions in CleanText
+-TIL: I'm not very smart
+-Task for today: GoogleLeads
+-New class (rewrite of PullPageLinkTitleDescriptiontoArray) GoogleLeads
+--arguments: SearchTerm
+--uses Selenium: goes to google, enters SearchTerm, click, blah blah
+--from results page: uses xpath on each result to get link/description/title of each result
+--puts link/description/title into array
+--appends each of these array into a LeadResults array
+--returns LeadResults
+-New class: ProcessGoogleLeads
+--arguments: LeadResults (from GoogleLeads)
+--loops through each LeadArray in LeadResults
+--calls InsertGoogleLeads
+-New class: InsertGoogleLeads (rewrite of InsertScholarshipArrayIntoDatabase)
+--arguments: LeadArray
+--basically does the same thing that InsertScholarshipArrayIntoDatabase does, it's just called something different
+
+-if want to be able to use Chrome driver in Selenium, need to add Chrome driver executeable to path, do it later
+-Ran into an issue with GoogleLeads pulling out Titles/Links that don't have Descriptions with them, which leads to an uneven number of both lists; which in turn leads to a mismatch when trying to make the arrays
+--Difficulty with figuring out how to force xpath to extract only titles/links that have a description(span) as a sibling, but it's being annoying as hell; Don-E will work on figuring out how to do this and will
+get back to me on this
+--Until we can fix this, implemented a check in GoogleLeads to make sure that there's an even number of titles/links/descriptions pulled out; otherwise break
+--we really do need to have a way to enforce that each title/link is with its correct thing or else all hell will break loose if there's ever an instance where there's an even number of all three
+but for whatever reason they're not actually all nice and associated with each other in the order that they appear in the page
+-When accessing urls through Selenium, it absolutely must always have an http:// or https:// of some sort in front of it or else Selenium's gonna lose its mind. Make sure you do a check so that it will always return this cause otherwise it's bad
+--Attach a http:// to all things that don't have it or else
+
 
 
 
