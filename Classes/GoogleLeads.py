@@ -25,14 +25,17 @@ class GoogleLeads(object):
         arrayOfLinks = driver.find_elements_by_xpath("//h3[contains(concat(' ', @class, ' '), 'r')]/a")
         arrayOfDescriptions = driver.find_elements_by_xpath("//span[contains(concat(' ', @class, ' '), 'st')]")
 
-        driver.quit()
+        if len(arrayOfTitles) == len(arrayOfLinks) == len(arrayOfDescriptions):
+            for i in range(len(arrayOfTitles)):
+                elementTitle = arrayOfTitles[i].text
+                elementLink = arrayOfLinks[i].text
+                elementDescription = arrayOfDescriptions[i].text
 
-        for i in range(len(arrayOfTitles)):
-            elementTitle = arrayOfTitles[i].text
-            elementLink = arrayOfLinks[i].text
-            elementDescription = arrayOfDescriptions[i].text
+                singleResultArray = [elementTitle, elementLink, elementDescription]
+                self.arrayOfArraysOfResults.append(singleResultArray)
 
-            singleResultArray = [elementTitle, elementLink, elementDescription]
-            self.arrayOfArraysOfResults.append(singleResultArray)
+            driver.quit()
 
-        return self.arrayOfArraysOfResults
+            return self.arrayOfArraysOfResults
+        else:
+            print('no')
