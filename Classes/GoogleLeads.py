@@ -60,7 +60,7 @@ class GoogleLeads(object):
                 elementLink = elementParts[0]
                 elementDescription = elementParts[1]
 
-            if not re.search('http://|https://', elementLink):
+            if not re.search('^https?://', elementLink):
                 elementLink = 'http://' + elementLink
 
             singleResultArray = [elementTitle, elementLink, elementDescription]
