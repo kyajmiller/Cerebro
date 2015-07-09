@@ -9,4 +9,4 @@ class InsertGoogleLeadArrayToGoogleLeadsDatabase(object):
         link = self.googleLeadArray[1]
         description = self.googleLeadArray[2]
         db.insertUpdateOrDelete(
-            "INSERT INTO dbo.GoogleLeads ( GoogleLeadId, KeyTerm, Title, Link, Description, LinkBody, DateLeadGenerated, DateBodyGenerated) VALUES  ( 0, '', '" + title + "', '" + link + "', '" + description + "', '', GETDATE(), ''")
+            "INSERT INTO dbo.GoogleLeads (GoogleLeadId, KeyTerm, Title, Link, Description, LinkBody, DateLeadGenerated, DateBodyGenerated) VALUES (0 , '', '" + title + "', '" + link + "', '" + description + "', '', GETDATE(), GETDATE())")
