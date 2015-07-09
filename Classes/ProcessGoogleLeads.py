@@ -1,4 +1,4 @@
-from Classes.InsertGoogleLeadArrayToGoogleLeadsDatabase import InsertGoogleLeadArrayToGoogleLeadsDatabase
+from Classes.InsertGoogleLeadArrayIntoGoogleLeadsDatabase import InsertGoogleLeadArrayIntoGoogleLeadsDatabase
 
 
 class ProcessGoogleLeads(object):
@@ -6,4 +6,4 @@ class ProcessGoogleLeads(object):
         self.arrayOfGoogleLeadsArrays = arrayOfGoogleLeadsArrays
 
         for googleLeadArray in self.arrayOfGoogleLeadsArrays:
-            InsertGoogleLeadArrayToGoogleLeadsDatabase.doInsert(googleLeadArray)
+            InsertGoogleLeadArrayIntoGoogleLeadsDatabase(googleLeadArray)
