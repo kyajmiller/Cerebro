@@ -1,7 +1,7 @@
 from Classes.SUDBConnect import SUDBConnect
 
 
-class InsertGoogleLeadArrayToGoogleLeadsDatabase(object):
+class InsertGoogleLeadArrayIntoGoogleLeadsDatabase(object):
     def __init__(self, googleLeadArray):
         self.googleLeadArray = googleLeadArray
         db = SUDBConnect()
