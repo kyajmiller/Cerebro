@@ -154,9 +154,19 @@ but for whatever reason they're not actually all nice and associated with each o
 --Attach a http:// to all things that don't have it or else
 
 
+7/9 Notes:
+-So we figured out an xpath that will pull out the title, link and description of each result all grouped together, separated by newline
+--Can split this string on newline, creates an array of link, title, description
+--It's not as nice as the other way, as the title isn't as descriptive for some reason, but it works and is a way to enforce the correct matching
+--It also only pulls out the text portion of the url and not the actual complete url. Need to append http:// to those that don't have it already attached at the front or else Selenium won't work
+---Need to test if this is an issue with the normal links pulled out.
+--Sometimes it doesn't pull out a title at all. fml. Need to add a check so that if it pulls out three elements, element[1] is the title, and if only two elements then there is no title and element[1] is the description
+-Just realized that the xpath I was using to pull out the array of links isn't actually returning any links, just link titles, need to fix this asap
+--So I found the xpath that gets the link, but it's an attribute and not an element itself, which is making selenium unhappy; need to figure out how to use selenium to pick out attributes
+--Fixed it! Change the arrayOfTitles to the xpath originally used for arrayOfLinks, run a loop over each element in arrayOfTitles, element.get_attribute('href'), append that to the new arrayOfLinks, yay
+-GoogleLeads seems relatively finished now, will probably encounter some more problems but don't worry about it for now
 
-
-
+-Start work on ProcessGoogleLeads
 
 
 
