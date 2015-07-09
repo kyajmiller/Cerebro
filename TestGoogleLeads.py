@@ -15,7 +15,5 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(3, len(testgoogleleadsuneventhangs[0]))
         self.assertTrue(re.search('^https?://', testgoogleleadsuneventhangs[0][1]))
 
-
-
 if __name__ == '__main__':
     unittest.main()
