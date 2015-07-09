@@ -1,5 +1,6 @@
 import re
 from selenium import webdriver
+from Classes.CleanText import CleanText
 
 
 class GoogleLeads(object):
@@ -40,7 +41,8 @@ class GoogleLeads(object):
             elementLink = self.arrayOfLinks[i]
             elementDescription = self.arrayOfDescriptions[i].text
 
-            singleResultArray = [elementTitle, elementLink, elementDescription]
+            singleResultArray = [elementTitle, elementLink,
+                                 CleanText.replaceSingleQuotesWithTwoSingleQuotes(elementDescription)]
             self.arrayOfGoogleLeads.append(singleResultArray)
 
     def doSingleArraysForUnevenNumberElements(self):
@@ -63,5 +65,6 @@ class GoogleLeads(object):
             if not re.search('^https?://', elementLink):
                 elementLink = 'http://' + elementLink
 
-            singleResultArray = [elementTitle, elementLink, elementDescription]
+            singleResultArray = [elementTitle, elementLink,
+                                 CleanText.replaceSingleQuotesWithTwoSingleQuotes(elementDescription)]
             self.arrayOfGoogleLeads.append(singleResultArray)
