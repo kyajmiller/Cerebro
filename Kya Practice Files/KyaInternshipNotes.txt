@@ -167,6 +167,13 @@ but for whatever reason they're not actually all nice and associated with each o
 -GoogleLeads seems relatively finished now, will probably encounter some more problems but don't worry about it for now
 
 -Start work on ProcessGoogleLeads
+--ProcessGoogleLeads was ridiculously easy? It's four lines... need unit testing
+--I really don't want to do unit testing on an database thing with no way to actually delete what I'm going to be putting in there
+--Might make a copy of the hrefs database for testing purposes, make an optional argument so I can specify that I want to use the testing databse but otherwise have it do the actual one by default so I don't end up having to change too much of it later.
+-Need to make an equivalent of PopulateEmptyLinkBodyUsingDatabaseLinkUrl for the dbo.GoogleLeads
+--Wrote class GoogleLeadsUpdateEmptyLinkBody, unit tests, works perfectly
+
+-In the meantime, Don-E wants me to make something similiar to the GoogleLeads classes but that can run on scholarship search sites/scholarship pages
 
 
 
