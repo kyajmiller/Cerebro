@@ -44,15 +44,24 @@ class GoogleLeads(object):
             self.arrayOfGoogleLeads.append(singleResultArray)
 
     def doSingleArraysForUnevenNumberElements(self):
-        arrayOfMatchedDivParts = self.driver.find_elements_by_xpath(
+        stringOfMatchedDivParts = self.driver.find_elements_by_xpath(
             "//h3[contains(concat(' ', @class, ' '), 'r')]/following-sibling::div/div")
-        for element in arrayOfMatchedDivParts:
-            elementParts = element.text.split('\n')
-            elementLink = elementParts[0]
+        for element in stringOfMatchedDivParts:
+            elementParts = element.text.split('\n', 2)
+            elementTitle = ''
+            elementLink = ''
+            elementDescription = ''
+
+            if len(elementParts) == 3:
+                elementLink = elementParts[0]
+                elementTitle = elementParts[1]
+                elementDescription = elementParts[2]
+            elif len(elementParts) == 2:
+                elementLink = elementParts[0]
+                elementDescription = elementParts[1]
+
             if not re.search('http://|https://', elementLink):
                 elementLink = 'http://' + elementLink
-            elementTitle = elementParts[1]
-            elementDescription = elementParts[2]
 
             singleResultArray = [elementTitle, elementLink, elementDescription]
             self.arrayOfGoogleLeads.append(singleResultArray)
