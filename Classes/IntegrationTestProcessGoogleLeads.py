@@ -8,7 +8,7 @@ from Classes.SUDBConnect import SUDBConnect
 class TestStringMethods(unittest.TestCase):
     def test_ProcessGoogleLeads(self):
         # don't run this test too much, it doesn't have a tear-down method to delete what it inserts
-        ProcessGoogleLeads(GoogleLeads('engineering scholarships').goToGoogleAndGetResults())
+        ProcessGoogleLeads(GoogleLeads('engineering scholarships').processSearchResultsAndReturnArrayOfGoogleLeads())
         db = SUDBConnect()
         rows = db.getRows(
             "select * from dbo.GoogleLeads where Link='https://colleges.niche.com/scholarships/major/engineering-all-areas/'")
