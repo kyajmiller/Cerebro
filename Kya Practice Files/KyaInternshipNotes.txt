@@ -176,5 +176,28 @@ but for whatever reason they're not actually all nice and associated with each o
 -In the meantime, Don-E wants me to make something similiar to the GoogleLeads classes but that can run on scholarship search sites/scholarship pages
 
 
+7/10 Notes:
+-Try a test on GoogleLeads, let's see what happens
+--Both ProcessGoogleLeads and GoogleLeadsUpdateEmptyLinkbody work perfectly!
+---need to figure out a reliable tear-down method for the unit test, because you can't just run the unit test willnilly or else there's going to be a crap ton of duplicates
+-Make the GoogleLeads-esque thing that works on other websites. Needs to do relatively the same thing (get results, get the links + titles+ descriptions, store stuff, update database with page stuff)
+-Need to add functionality to GoogleLeads to be able to go to multiple results pages
+--Two options for this:
+--Can either use a while loop with an incrementing value and have a driver command like driver.find_element_by_link_text("7").click()
+---This one might be a little more complicated to implement but could work on websites other than just google. Hopefully on other searchy websites they don't have links with number text outside of their search results stuff
+--Or use a command that just clicks the next button driver.find_element_by_xpath("//a[@id='pnnext']/span[2]").click()
+---This one slightly more simple (no loops needed for incrementation), but will be specific to google
+--Either one will need a check to make sure the link actually exists so that it doesn't break the program with an icky error message.
+---Use find_elements to do this, will return an empty list if it doesn't find anything, check if find_elements = [], if not then go
+--Put a limit on how many next pages it goes to (10)
 
+So far, something like this doesn't work for some reason. It's kind of icky.
+currentPage = 1
+    while currentPage <= 10:
+        self.getGoogleLeadsArrays()
+        if self.checkIfNextPage() == True:
+            self.goToNextPage()
+            currentPage += 1
+-It's giving an error when trying to find the href attribute of the links that 'element not found in the cache'
+-
 
