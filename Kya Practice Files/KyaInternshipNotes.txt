@@ -199,5 +199,11 @@ currentPage = 1
             self.goToNextPage()
             currentPage += 1
 -It's giving an error when trying to find the href attribute of the links that 'element not found in the cache'
--
+-changing the list name doesn't help, omg
+-Don-E fixed it lol.
+--Workaround = once at next page, store the current url, close the current driver, open a new driver, make it go to that url, ???, profit
+-So we pissed off google. Google doesn't like being searched via bots. fml.
+-IP spoofing?
 
+-Other than that, the google thing appears to be pretty much finished. There might be an issue with the insertion method but I really can't test it like this
+-things to do on monday: make the non google version of the googleleads thing. Would start it now but I'm tired and this is hard
