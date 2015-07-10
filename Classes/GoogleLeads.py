@@ -12,14 +12,13 @@ class GoogleLeads(object):
         self.arrayOfLinks = []
         self.arrayOfDescriptions = []
         self.arrayOfGoogleLeads = []
-
-    def goToGoogleAndGetSearchResults(self):
         self.driver.get(self.base_url + '/?gws_rd=ssl')
         self.driver.find_element_by_id('lst-ib').clear()
         self.driver.find_element_by_id('lst-ib').send_keys(self.searchTerm)
         self.driver.find_element_by_name('btnG').click()
         self.driver.implicitly_wait(2)
 
+    def goToGoogleAndGetSearchResults(self):
         self.getGoogleLeadsArrays()
 
         self.driver.quit()
