@@ -21,19 +21,12 @@ class GoogleLeads(object):
     def processSearchResultsAndReturnArrayOfGoogleLeads(self):
         self.getGoogleLeadsArrays()
 
-        # if self.checkIfNextPage() == True:
-        #    self.goToNextPage()
-        #    self.getGoogleLeadsArrays()
-
-        '''
-        #I want it to do something like this:
         currentPage = 1
         while currentPage <= 10:
             self.getGoogleLeadsArrays()
             if self.checkIfNextPage() == True:
                 self.goToNextPage()
                 currentPage += 1
-        '''
 
         self.driver.quit()
 
@@ -82,6 +75,10 @@ class GoogleLeads(object):
 
     def goToNextPage(self):
         self.driver.find_element_by_xpath("//a[@id='pnnext']/span[2]").click()
+        currentUrl = self.driver.current_url
+        self.driver.quit()
+        self.driver = webdriver.Firefox()
+        self.driver.get(currentUrl)
         self.driver.implicitly_wait(2)
 
     def getGoogleLeadsArrays(self):
