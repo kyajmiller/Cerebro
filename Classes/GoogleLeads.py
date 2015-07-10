@@ -21,6 +21,20 @@ class GoogleLeads(object):
     def processSearchResultsAndReturnArrayOfGoogleLeads(self):
         self.getGoogleLeadsArrays()
 
+        # if self.checkIfNextPage() == True:
+        #    self.goToNextPage()
+        #    self.getGoogleLeadsArrays()
+
+        '''
+        #I want it to do something like this:
+        currentPage = 1
+        while currentPage <= 10:
+            self.getGoogleLeadsArrays()
+            if self.checkIfNextPage() == True:
+                self.goToNextPage()
+                currentPage += 1
+        '''
+
         self.driver.quit()
 
         return self.arrayOfGoogleLeads
