@@ -18,7 +18,7 @@ class GoogleLeads(object):
         self.driver.find_element_by_name('btnG').click()
         self.driver.implicitly_wait(2)
 
-    def goToGoogleAndGetSearchResults(self):
+    def processSearchResultsAndReturnArrayOfGoogleLeads(self):
         self.getGoogleLeadsArrays()
 
         self.driver.quit()
