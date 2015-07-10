@@ -13,23 +13,14 @@ class GoogleLeads(object):
         self.arrayOfDescriptions = []
         self.arrayOfGoogleLeads = []
 
-    def goToGoogleAndGetResults(self):
+    def goToGoogleAndGetSearchResults(self):
         self.driver.get(self.base_url + '/?gws_rd=ssl')
         self.driver.find_element_by_id('lst-ib').clear()
         self.driver.find_element_by_id('lst-ib').send_keys(self.searchTerm)
         self.driver.find_element_by_name('btnG').click()
         self.driver.implicitly_wait(2)
 
-        self.arrayOfTitles = self.driver.find_elements_by_xpath("//h3[contains(concat(' ', @class, ' '), 'r')]/a")
-        for i in self.arrayOfTitles:
-            self.arrayOfLinks.append(i.get_attribute('href'))
-        self.arrayOfDescriptions = self.driver.find_elements_by_xpath(
-            "//span[contains(concat(' ', @class, ' '), 'st')]")
-
-        if len(self.arrayOfTitles) == len(self.arrayOfLinks) == len(self.arrayOfDescriptions):
-            self.doSingleArraysForSameNumberElements()
-        else:
-            self.doSingleArraysForUnevenNumberElements()
+        self.getGoogleLeadsArrays()
 
         self.driver.quit()
 
@@ -68,3 +59,26 @@ class GoogleLeads(object):
             singleResultArray = [elementTitle, elementLink,
                                  CleanText.replaceSingleQuotesWithTwoSingleQuotes(elementDescription)]
             self.arrayOfGoogleLeads.append(singleResultArray)
+
+    def checkIfNextPage(self):
+        checkIfNextButtonExists = self.driver.find_elements_by_xpath("//a[@id='pnnext']/span[2]")
+        if checkIfNextButtonExists != []:
+            return True
+        else:
+            return False
+
+    def goToNextPage(self):
+        self.driver.find_element_by_xpath("//a[@id='pnnext']/span[2]").click()
+        self.driver.implicitly_wait(2)
+
+    def getGoogleLeadsArrays(self):
+        self.arrayOfTitles = self.driver.find_elements_by_xpath("//h3[contains(concat(' ', @class, ' '), 'r')]/a")
+        for i in self.arrayOfTitles:
+            self.arrayOfLinks.append(i.get_attribute('href'))
+        self.arrayOfDescriptions = self.driver.find_elements_by_xpath(
+            "//span[contains(concat(' ', @class, ' '), 'st')]")
+
+        if len(self.arrayOfTitles) == len(self.arrayOfLinks) == len(self.arrayOfDescriptions):
+            self.doSingleArraysForSameNumberElements()
+        else:
+            self.doSingleArraysForUnevenNumberElements()
