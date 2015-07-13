@@ -207,3 +207,51 @@ currentPage = 1
 
 -Other than that, the google thing appears to be pretty much finished. There might be an issue with the insertion method but I really can't test it like this
 -things to do on monday: make the non google version of the googleleads thing. Would start it now but I'm tired and this is hard
+
+7/13 Notes:
+-Try to find a work around for whatever's making Google mad with the old thing.
+--I honestly think that what's flagging Google is the blatantly non-human behavior of the driver. Real people don't access a results page of google by using a url that takes them to the exact page of some exact search term.
+--Real people go to google, send their search query, and in the case they want to go to some exact page they click the page number at the bottom of the results page
+--So either find a way to make it work by keeping everything all in the same driver window and just have it click next (the most humanish option), or if you absolutely have to have multiple driver windows, have it repeat the steps (go to google, send keys, etc) everytime.
+--Second option might not work still as it is still multiple browser windows accessing multiple results pages, but it is still less weird than what it's currently doing.
+-Explicit waits don't work for this because if you do something like waiting until it locates the element to proceed, it gets really angry if there's more than one element in the xpath, which is really really stupid
+
+-Got it to work without having to declare multiple browser windows! Ended up making it have to go back to the default page and then reaccess the results page. It's weird but okay
+--For some fucking reason it's really weird about how it wants to do these things.
+--Can't just have it go back to the default page, send the keys, and then click the link number. It doesn't like this.
+--What it does like is from current page, go to next page, compare urls (???) if they're different, then go back to default page, send keys, wait a bit, click the next button, wait a bit
+---I have no idea how I would make this loop properly but fuuuuuuck
+---If I legit will have to keep a counter to make it click next a certain number of times to access each next page of results, I guess it would work, but it would be slow as hell
+----Okay, you can't make it click the next button multiple times, it doesn't like that
+-------GOOGLE WHY
+-------WHY ARE YOU SO WEIRD I DON'T LIKE THIS WTF
+-I give up. It goes to page two. We don't need page 3-10. People don't usually care about stuff after page two anyway.
+-At the very least, this shouldn't make google freak out about weird activity because it's only accessing two pages at a time instead of ten, which is good. If they still have a problem with it it's because they're ridiculously anal.
+
+-No more work on GoogleLeads. It's done, I'm satisfied with it. Finally start working on the non-Google thing.
+
+-First Website to work with: Pivot
+-Need to make an account (will have to have the program log into the account, so make a default one that doesn't care about anything)
+--Or maybe not? just access via http://pivot.cos.com/funding_main
+-The xpath to grab each of the results on the page: "//a[@class = 'pivot_track_link results-title-link']"
+--link = href, title = text
+-Steps:
+    go to page, enter keys, go
+    grab all of the results on the page, put in array (link + title)
+        maybe repeat for a couple of results pages, for now just stick with one
+    for each link/title given, go into the link, grab the website url ("//a[@title = 'Web page opens in new window']").href
+    need to figure out how to grab the abstract text, doesn't really have a distinct xpath so it might be weird
+
+-NVM: Do GrantForward instead of Pivot. Basically do the same stuff
+-https://www.grantforward.com/index
+-grab results using ("//a[@class = 'grant-url']")
+-Title = .text
+-Results Link = .href
+-grab results description using ("//div[@class = 'description']")
+-match them together
+-then go into the results link, get the website of the grant using ("//a[@class = 'source-link btn btn-warning']") .href
+
+
+
+
+
