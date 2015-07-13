@@ -61,6 +61,7 @@ class GoogleLeads(object):
 
     def getGoogleLeadsArrays(self):
         self.arrayOfTitles = self.driver.find_elements_by_xpath("//h3[contains(concat(' ', @class, ' '), 'r')]/a")
+        self.arrayOfLinks = []
         for i in self.arrayOfTitles:
             self.arrayOfLinks.append(i.get_attribute('href'))
         self.arrayOfDescriptions = self.driver.find_elements_by_xpath(
