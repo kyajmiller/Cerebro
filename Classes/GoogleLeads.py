@@ -21,12 +21,16 @@ class GoogleLeads(object):
     def processSearchResultsAndReturnArrayOfGoogleLeads(self):
         self.getGoogleLeadsArrays()
 
+        self.goToNextPage()
+        self.getGoogleLeadsArrays()
+        '''
         currentPage = 1
         while currentPage <= 10:
             self.getGoogleLeadsArrays()
             if self.checkIfNextPage() == True:
                 self.goToNextPage()
                 currentPage += 1
+        '''
 
         self.driver.quit()
 
@@ -73,13 +77,45 @@ class GoogleLeads(object):
         else:
             return False
 
-    def goToNextPage(self):
+    def goToNextPageDifferentDriver(self):
+        # this works but it makes google mad with all the browser windows
         self.driver.find_element_by_xpath("//a[@id='pnnext']/span[2]").click()
         currentUrl = self.driver.current_url
         self.driver.quit()
         self.driver = webdriver.Firefox()
         self.driver.get(currentUrl)
         self.driver.implicitly_wait(2)
+
+    def goToNextPage(self):
+        # this works
+        oldurl = self.driver.current_url
+        self.driver.find_element_by_xpath("//a[@id='pnnext']/span[2]").click()
+        self.driver.implicitly_wait(2)
+        newurl = self.driver.current_url
+        if newurl != oldurl:
+            self.driver.get(self.base_url + '/?gws_rd=ssl')
+            self.driver.find_element_by_id('lst-ib').clear()
+            self.driver.find_element_by_id('lst-ib').send_keys(self.searchTerm)
+            self.driver.find_element_by_name('btnG').click()
+            self.driver.implicitly_wait(2)
+            self.driver.find_element_by_xpath("//a[@id='pnnext']/span[2]").click()
+            self.driver.implicitly_wait(2)
+
+    def goToResultsPageNumber(self, pageNumber):
+        # this doesn't work, which is inconvenient
+        oldurl = self.driver.current_url
+        self.driver.get(self.base_url + '/?gws_rd=ssl')
+        self.driver.find_element_by_id('lst-ib').clear()
+        self.driver.find_element_by_id('lst-ib').send_keys(self.searchTerm)
+        self.driver.find_element_by_name('btnG').click()
+        self.driver.implicitly_wait(2)
+        self.driver.find_element_by_link_text(str(pageNumber)).click()
+        self.driver.implicitly_wait(2)
+
+
+
+        # if newurl != oldurl:
+        #    self.getGoogleLeadsArrays()
 
     def getGoogleLeadsArrays(self):
         self.arrayOfTitles = self.driver.find_elements_by_xpath("//h3[contains(concat(' ', @class, ' '), 'r')]/a")
@@ -88,7 +124,7 @@ class GoogleLeads(object):
         self.arrayOfDescriptions = self.driver.find_elements_by_xpath(
             "//span[contains(concat(' ', @class, ' '), 'st')]")
 
-        if len(self.arrayOfTitles) == len(self.arrayOfLinks) == len(self.arrayOfDescriptions):
+        if len(self.arrayOfTitles) == len(self.arrayOfDescriptions):
             self.doSingleArraysForSameNumberElements()
         else:
             self.doSingleArraysForUnevenNumberElements()
