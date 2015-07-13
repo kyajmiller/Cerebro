@@ -20,8 +20,9 @@ class GoogleLeads(object):
 
     def processSearchResultsAndReturnArrayOfGoogleLeads(self):
         self.getGoogleLeadsArrays()
-        self.goToSecondPage()
-        self.getGoogleLeadsArrays()
+        if self.checkIfNextPage() == True:
+            self.goToSecondPage()
+            self.getGoogleLeadsArrays()
 
         '''
         currentPage = 1
