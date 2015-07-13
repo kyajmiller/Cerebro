@@ -20,9 +20,9 @@ class GoogleLeads(object):
 
     def processSearchResultsAndReturnArrayOfGoogleLeads(self):
         self.getGoogleLeadsArrays()
-
-        self.goToNextPage()
+        self.goToSecondPage()
         self.getGoogleLeadsArrays()
+
         '''
         currentPage = 1
         while currentPage <= 10:
@@ -77,16 +77,7 @@ class GoogleLeads(object):
         else:
             return False
 
-    def goToNextPageDifferentDriver(self):
-        # this works but it makes google mad with all the browser windows
-        self.driver.find_element_by_xpath("//a[@id='pnnext']/span[2]").click()
-        currentUrl = self.driver.current_url
-        self.driver.quit()
-        self.driver = webdriver.Firefox()
-        self.driver.get(currentUrl)
-        self.driver.implicitly_wait(2)
-
-    def goToNextPage(self):
+    def goToSecondPage(self):
         # this works
         oldurl = self.driver.current_url
         self.driver.find_element_by_xpath("//a[@id='pnnext']/span[2]").click()
@@ -101,6 +92,16 @@ class GoogleLeads(object):
             self.driver.find_element_by_xpath("//a[@id='pnnext']/span[2]").click()
             self.driver.implicitly_wait(2)
 
+    '''
+    def goToNextPageDifferentDriver(self):
+        # this works but it makes google mad with all the browser windows
+        self.driver.find_element_by_xpath("//a[@id='pnnext']/span[2]").click()
+        currentUrl = self.driver.current_url
+        self.driver.quit()
+        self.driver = webdriver.Firefox()
+        self.driver.get(currentUrl)
+        self.driver.implicitly_wait(2)
+
     def goToResultsPageNumber(self, pageNumber):
         # this doesn't work, which is inconvenient
         oldurl = self.driver.current_url
@@ -111,11 +112,7 @@ class GoogleLeads(object):
         self.driver.implicitly_wait(2)
         self.driver.find_element_by_link_text(str(pageNumber)).click()
         self.driver.implicitly_wait(2)
-
-
-
-        # if newurl != oldurl:
-        #    self.getGoogleLeadsArrays()
+    '''
 
     def getGoogleLeadsArrays(self):
         self.arrayOfTitles = self.driver.find_elements_by_xpath("//h3[contains(concat(' ', @class, ' '), 'r')]/a")
