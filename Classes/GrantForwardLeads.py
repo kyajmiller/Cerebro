@@ -25,14 +25,8 @@ class GrantForwardLeads(object):
 
     def processSearchResultsAndMakeLeadArray(self):
         self.getTitlesAndLinksFromSearchResults()
-        for i in self.arrayOfResultsPageArrays:
-            title = i[0]
-            resultPageLink = i[1]
-            description = i[2]
-            sourceWebsiteLink = self.goToResultPageAndGetSourceWebsite(resultPageLink)
-
-            singleLeadArray = [title, sourceWebsiteLink, description]
-            self.arrayOfGrantForwardLeads.append(singleLeadArray)
+        for singleArray in self.arrayOfResultsPageArrays:
+            self.makeLeadArrayAndAddToGrantForwardLeads(singleArray)
 
         self.driver.quit()
 
@@ -43,6 +37,16 @@ class GrantForwardLeads(object):
             print(i)
             # print(self.arrayOfGrantForwardLeads)
         '''
+
+    def makeLeadArrayAndAddToGrantForwardLeads(self, singleArray):
+        title = singleArray[0]
+        resultPageLink = singleArray[1]
+        description = singleArray[2]
+        sourceWebsiteLink = self.goToResultPageAndGetSourceWebsite(resultPageLink)
+
+        singleLeadArray = [title, sourceWebsiteLink, description]
+
+        self.arrayOfGrantForwardLeads.append(singleLeadArray)
 
     def getTitlesAndLinksFromSearchResults(self):
         self.arrayOfTitles = self.driver.find_elements_by_xpath("//a[@class = 'grant-url']")
