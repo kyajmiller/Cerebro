@@ -1,4 +1,3 @@
-import re
 from selenium import webdriver
 from Classes.CleanText import CleanText
 
@@ -26,9 +25,13 @@ class GrantForwardLeads(object):
     def processSearchResultsAndMakeLeadArray(self):
         self.getTitlesAndLinksFromSearchResults()
 
-        if self.checkIfNextPage() == True:
+        isThereNextPage = self.checkIfNextPage()
+        pageCount = 2
+        while isThereNextPage == True and pageCount <= 10:
             self.goToNextPage()
             self.getTitlesAndLinksFromSearchResults()
+            isThereNextPage = self.checkIfNextPage()
+            pageCount += 1
 
         for singleArray in self.arrayOfResultsPageArrays:
             self.makeLeadArrayAndAddToGrantForwardLeads(singleArray)
@@ -36,6 +39,22 @@ class GrantForwardLeads(object):
         self.driver.quit()
 
         return self.arrayOfGrantForwardLeads
+
+    def getTitlesAndLinksFromSearchResults(self):
+        self.arrayOfTitles = self.driver.find_elements_by_xpath("//a[@class = 'grant-url']")
+        self.arrayOfResultsPagesLinks = []
+        for i in self.arrayOfTitles:
+            self.arrayOfResultsPagesLinks.append(i.get_attribute('href'))
+        self.arrayOfDescriptionsDiv = self.driver.find_elements_by_xpath("//div[@class = 'description']")
+        for i in self.arrayOfDescriptionsDiv:
+            self.arrayOfDescriptionsText.append(CleanText.cleanALLtheText(i.get_attribute('textContent')))
+
+        for i in range(len(self.arrayOfTitles)):
+            title = self.arrayOfTitles[i].text
+            resultPageLink = self.arrayOfResultsPagesLinks[i]
+            description = self.arrayOfDescriptionsText[i].strip()
+            singleResultArray = [title, resultPageLink, description]
+            self.arrayOfResultsPageArrays.append(singleResultArray)
 
     def makeLeadArrayAndAddToGrantForwardLeads(self, singleArray):
         title = singleArray[0]
@@ -46,22 +65,6 @@ class GrantForwardLeads(object):
         singleLeadArray = [title, sourceWebsiteLink, description]
 
         self.arrayOfGrantForwardLeads.append(singleLeadArray)
-
-    def getTitlesAndLinksFromSearchResults(self):
-        self.arrayOfTitles = self.driver.find_elements_by_xpath("//a[@class = 'grant-url']")
-        self.arrayOfResultsPagesLinks = []
-        for i in self.arrayOfTitles:
-            self.arrayOfResultsPagesLinks.append(i.get_attribute('href'))
-        self.arrayOfDescriptionsDiv = self.driver.find_elements_by_xpath("//div[@class = 'description']")
-        for i in self.arrayOfDescriptionsDiv:
-            self.arrayOfDescriptionsText.append(i.get_attribute('textContent'))
-
-        for i in range(len(self.arrayOfTitles)):
-            title = self.arrayOfTitles[i].text
-            resultPageLink = self.arrayOfResultsPagesLinks[i]
-            description = self.arrayOfDescriptionsText[i].strip()
-            singleResultArray = [title, resultPageLink, description]
-            self.arrayOfResultsPageArrays.append(singleResultArray)
 
     def goToResultPageAndGetSourceWebsite(self, resultPageLink):
         self.driver.get(resultPageLink)
@@ -81,5 +84,3 @@ class GrantForwardLeads(object):
     def goToNextPage(self):
         self.driver.find_element_by_xpath("(//a[contains(text(), 'Next')])[1]").click()
         self.driver.implicitly_wait(2)
-
-# GrantForwardLeads('engineering').processSearchResultsAndMakeLeadArray()
