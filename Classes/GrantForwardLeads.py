@@ -36,9 +36,13 @@ class GrantForwardLeads(object):
 
         self.driver.quit()
 
+        return self.arrayOfGrantForwardLeads
+
+        '''
         for i in self.arrayOfGrantForwardLeads:
             print(i)
             # print(self.arrayOfGrantForwardLeads)
+        '''
 
     def getTitlesAndLinksFromSearchResults(self):
         self.arrayOfTitles = self.driver.find_elements_by_xpath("//a[@class = 'grant-url']")
@@ -64,5 +68,4 @@ class GrantForwardLeads(object):
         sourceWebsiteLink = sourceButtonDiv.get_attribute('href')
         return sourceWebsiteLink
 
-
-GrantForwardLeads('engineering').processSearchResultsAndMakeLeadArray()
+# GrantForwardLeads('engineering').processSearchResultsAndMakeLeadArray()
