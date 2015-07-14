@@ -26,8 +26,9 @@ class GrantForwardLeads(object):
     def processSearchResultsAndMakeLeadArray(self):
         self.getTitlesAndLinksFromSearchResults()
 
-        # self.driver.find_element_by_link_text(u"Next »").click()
-        # self.driver.implicitly_wait(2)
+        if self.checkIfNextPage() == True:
+            self.goToNextPage()
+            self.getTitlesAndLinksFromSearchResults()
 
         for singleArray in self.arrayOfResultsPageArrays:
             self.makeLeadArrayAndAddToGrantForwardLeads(singleArray)
@@ -35,12 +36,6 @@ class GrantForwardLeads(object):
         self.driver.quit()
 
         return self.arrayOfGrantForwardLeads
-
-        '''
-        for i in self.arrayOfGrantForwardLeads:
-            print(i)
-            # print(self.arrayOfGrantForwardLeads)
-        '''
 
     def makeLeadArrayAndAddToGrantForwardLeads(self, singleArray):
         title = singleArray[0]
