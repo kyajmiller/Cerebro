@@ -25,6 +25,10 @@ class GrantForwardLeads(object):
 
     def processSearchResultsAndMakeLeadArray(self):
         self.getTitlesAndLinksFromSearchResults()
+
+        # self.driver.find_element_by_link_text(u"Next »").click()
+        # self.driver.implicitly_wait(2)
+
         for singleArray in self.arrayOfResultsPageArrays:
             self.makeLeadArrayAndAddToGrantForwardLeads(singleArray)
 
@@ -71,5 +75,16 @@ class GrantForwardLeads(object):
         sourceButtonDiv = self.driver.find_element_by_xpath("//a[@class = 'source-link btn btn-warning']")
         sourceWebsiteLink = sourceButtonDiv.get_attribute('href')
         return sourceWebsiteLink
+
+    def checkIfNextPage(self):
+        checkNextPage = self.driver.find_elements_by_xpath("(//a[contains(text(), 'Next')])[1]")
+        if checkNextPage != []:
+            return True
+        else:
+            return False
+
+    def goToNextPage(self):
+        self.driver.find_element_by_xpath("(//a[contains(text(), 'Next')])[1]").click()
+        self.driver.implicitly_wait(2)
 
 # GrantForwardLeads('engineering').processSearchResultsAndMakeLeadArray()
