@@ -5,7 +5,7 @@ from Classes.GrantForwardLeads import GrantForwardLeads
 
 class TestStringMethods(unittest.TestCase):
     def test_GrantForwardLeads(self):
-        testGrantForwardLeads = GrantForwardLeads('engineering').processSearchResultsAndMakeLeadArray()
+        testGrantForwardLeads = GrantForwardLeads('engineering', isTest=True).processSearchResultsAndMakeLeadArray()
         self.assertIsNotNone(testGrantForwardLeads)
         firstArray = testGrantForwardLeads[0]
         self.assertEqual(len(firstArray), 11)
