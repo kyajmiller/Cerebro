@@ -2,7 +2,8 @@ from Classes.SUDBConnect import SUDBConnect
 
 
 class GetFastFindMajorsList(object):
-    def __init__(self):
+    @staticmethod
+    def getList():
         fastFindMajorsList = []
         db = SUDBConnect()
         rows = db.getRows(
