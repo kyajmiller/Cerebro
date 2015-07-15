@@ -251,7 +251,33 @@ currentPage = 1
 -match them together
 -then go into the results link, get the website of the grant using ("//a[@class = 'source-link btn btn-warning']") .href
 
+7/14 Notes:
+-Continue working on GrantForwardLeads
+-Need to verify that GrantForwardLeads should just pull out the exact same stuff as GoogleLeads or if Don-E wants more stuff extracted
+-Wrote unit test to verify that GrantForwardLeads works, pulls out the title, description and source website link
+-Now work on a way to get it to go to the next page of results and pull out the resultspagesarrays for those too
+-The original way that selenium chose to access the Next button on the pages isn't compatible with my python interpreter (because the Next button contains a unicode item that it really doesn't like)
+-New way to access the Next button: "(//a[contains(text(), 'Next')])[1]"
+-The next page button works perfectly well. It's too bad Google couldn't have worked so nicely. Time to make a loop for this.
+--The loop works, need to put a limit on how many next pages it'll go to; limited it to pull only the first ten pages.
+-GrantForwardLeads is done, just waiting for Don-E to make the database and then I can write the code to put the stuff in the database
 
-
-
+-Don-E wants the following things pulled from GrantForward:
+    keyword (presumably the search query used)
+    url (the link to the result page on the grant forward website)
+    name
+    description - ("//div[@id = 'field-description']/div[@class = 'content-collapsed']") textContent
+    sponsor - ("//div[@class = 'sponsor-content']/div/a") text
+    amount - ("//div[@id = 'field-amount_info']/div[@class = 'content-collapsed']") textContent
+    eligibility - ("//div[@id = 'field-eligibility']/div[@class = 'content-collapsed']") textContent
+    submission info - ("//div[@id = 'field-submission_info']/div[@class = 'content-collapsed']") textContent
+    categories - ("//div[@id = 'field-subjects']/ul") textContent
+    opportunity source link (the website link)
+    opportunity source text (the text from the website link)
+-so more things to extract, more things to do with GrantForwardLeads
+-ultimately, I want the GrantForwardLeads to return an array in the following format:
+[keyword, url, name, description, sponsor, amount, eligibility, submissioninfo, categories, opportunitysourcelink, opportunitysourcetext]
+-need to make checks for each element on the page, chances are they might not exist for that particular page
+-GrantForwardLeads appears to be mostly finished for the time being, it loops through the results and gets the stuff
+-Wanted to put the rip page functionality in GrantForwardLeads so that I wouldn't have to make another class to populate it later, but it's being weird for some reason
 
