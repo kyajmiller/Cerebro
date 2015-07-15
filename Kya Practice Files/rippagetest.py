@@ -9,5 +9,6 @@ from Classes.CleanText import CleanText
 ripped = RipPage.getPageSource('http://webapps.acs.org/findawards/detail.jsp?ContentId=CNBP_031057')
 arr = bytearray(ripped, "utf-8")
 print(str(arr))
-ripped2 = str(arr)
+ripped2=str(arr)
 print(ripped2)
+
