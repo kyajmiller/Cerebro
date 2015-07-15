@@ -25,7 +25,7 @@ class GrantForwardLeads(object):
 
     def processSearchResultsAndMakeLeadArray(self):
         self.getTitlesAndLinksFromSearchResults()
-        '''
+
         isThereNextPage = self.checkIfNextPage()
         pageCount = 2
         while isThereNextPage == True and pageCount <= 10:
@@ -33,7 +33,7 @@ class GrantForwardLeads(object):
             self.getTitlesAndLinksFromSearchResults()
             isThereNextPage = self.checkIfNextPage()
             pageCount += 1
-        '''
+
         for singleArray in self.arrayOfResultsPageArrays:
             self.makeLeadArrayAndAddToGrantForwardLeads(singleArray)
 
@@ -66,10 +66,10 @@ class GrantForwardLeads(object):
         submissionInfo = CleanText.cleanALLtheText(resultPageInfo[4])
         categories = CleanText.cleanALLtheText(resultPageInfo[5])
         opportunitySourceLink = resultPageInfo[6]
-        # opportunitysourceText = CleanText.cleanALLtheText(RipPage.getPageSource(opportunitySourceLink))
+        opportunitysourceText = CleanText.cleanALLtheText(RipPage.getPageSource(opportunitySourceLink))
 
         singleLeadArray = [keyword, url, name, description, sponsor, amount, eligibility, submissionInfo, categories,
-                           opportunitySourceLink]
+                           opportunitySourceLink, opportunitysourceText]
 
         self.arrayOfGrantForwardLeads.append(singleLeadArray)
 
@@ -138,6 +138,8 @@ class GrantForwardLeads(object):
             return False
 
 
+'''
 test = GrantForwardLeads('engineering').processSearchResultsAndMakeLeadArray()
 for i in test[0]:
     print(i)
+'''
