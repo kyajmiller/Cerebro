@@ -8,8 +8,8 @@ class TestStringMethods(unittest.TestCase):
         testGrantForwardLeads = GrantForwardLeads('engineering').processSearchResultsAndMakeLeadArray()
         self.assertIsNotNone(testGrantForwardLeads)
         firstArray = testGrantForwardLeads[0]
-        self.assertEqual(len(firstArray), 3)
-        firstArrayLink = firstArray[1]
+        self.assertEqual(len(firstArray), 11)
+        firstArrayLink = firstArray[9]
         self.assertTrue(re.search('^https?://', firstArrayLink))
 
 
