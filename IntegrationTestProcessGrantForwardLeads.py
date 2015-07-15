@@ -7,10 +7,10 @@ from Classes.SUDBConnect import SUDBConnect
 class TestStringMethods(unittest.TestCase):
     def test_ProcessGrantForwardLeads(self):
         ProcessGrantForwardLeads(
-            GrantForwardLeads('engineering').processSearchResultsAndMakeLeadArray())
+            GrantForwardLeads('engineering', isTest=True).processSearchResultsAndMakeLeadArray())
         db = SUDBConnect()
         rows = db.getRows("select * from dbo.GrantForwardItems")
-        self.assertGreater(len(rows), 10)
+        self.assertGreaterEqual(len(rows), 10)
 
 
 if __name__ == '__main__':
