@@ -12,3 +12,4 @@ print(str(arr))
 ripped2=str(arr)
 print(ripped2)
 
+print(CleanText.cleanALLtheText(ripped2))
