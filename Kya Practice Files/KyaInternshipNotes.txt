@@ -281,3 +281,13 @@ currentPage = 1
 -GrantForwardLeads appears to be mostly finished for the time being, it loops through the results and gets the stuff
 -Wanted to put the rip page functionality in GrantForwardLeads so that I wouldn't have to make another class to populate it later, but it's being weird for some reason
 
+7/15 Notes:
+-GrantForwardLeads and its associated classes (InsertGrantForwardLeadsBlah and ProcessGrantForwardLeads) are finished!
+--something unresolved: removing non-unicode stuff from the ripped page. Needs to be fixed eventually. For now it's whatever. Just don't try to print the ripped page to console.
+--Also: for the insert function, need to do a check against existing items in the database - if an item already exists with the same keyword/url as the current item, don't put it in!
+-New programming task: make a class that goes through the majors database, pulls out each major, then feeds it into GrantForwardLeads (big loop)
+-Class 1: GetFastFindMajorsList
+--Go to database, use sql query to get majors, put majors in a list, return the list
+--Done, unit test works, yay
+Class 2: RunMajorsListOnGrantForward
+--take majors list, for each major in list, call ProcessGrantForwardLeads (which does the stuff)
