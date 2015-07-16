@@ -12,9 +12,6 @@ class GrantForwardLeads(object):
 
         self.arrayOfTitles = []
         self.arrayOfResultsPagesLinks = []
-        self.arrayOfDescriptionsDiv = []
-        self.arrayOfDescriptionsText = []
-        self.arrayOfWebsiteLinks = []
         self.arrayOfGrantForwardLeads = []
         self.arrayOfResultsPageArrays = []
 
