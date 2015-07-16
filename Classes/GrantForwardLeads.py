@@ -31,8 +31,8 @@ class GrantForwardLeads(object):
                 isThereNextPage = self.checkIfNextPage()
                 pageCount += 1
 
-        for singleArray in self.arrayOfResultsPageArrays:
-            self.makeLeadArrayAndAddToGrantForwardLeads(singleArray)
+        for singleResultArray in self.arrayOfResultsPageArrays:
+            self.makeLeadArrayAndAddToGrantForwardLeads(singleResultArray)
 
         self.driver.quit()
 
@@ -50,9 +50,9 @@ class GrantForwardLeads(object):
             singleResultArray = [title, resultPageLink]
             self.arrayOfResultsPageArrays.append(singleResultArray)
 
-    def makeLeadArrayAndAddToGrantForwardLeads(self, singleArray):
-        name = CleanText.cleanALLtheText(singleArray[0])
-        url = singleArray[1]
+    def makeLeadArrayAndAddToGrantForwardLeads(self, singleResultArray):
+        name = CleanText.cleanALLtheText(singleResultArray[0])
+        url = singleResultArray[1]
         resultPageInfo = self.goToResultPageAndPullInformation(url)
 
         keyword = CleanText.cleanALLtheText(self.searchTerm)
