@@ -56,14 +56,14 @@ class GrantForwardLeads(object):
             self.arrayOfResultsPageArrays.append(singleResultArray)
 
     def makeLeadArrayAndAddToGrantForwardLeads(self, singleArray):
-        name = singleArray[0]
+        name = CleanText.cleanALLtheText(singleArray[0])
         url = singleArray[1]
         resultPageInfo = self.goToResultPageAndPullInformation(url)
 
-        keyword = self.searchTerm
+        keyword = CleanText.cleanALLtheText(self.searchTerm)
         description = CleanText.cleanALLtheText(resultPageInfo[0])
         sponsor = CleanText.cleanALLtheText(resultPageInfo[1])
-        amount = resultPageInfo[2]
+        amount = CleanText.cleanALLtheText(resultPageInfo[2])
         eligibility = CleanText.cleanALLtheText(resultPageInfo[3])
         submissionInfo = CleanText.cleanALLtheText(resultPageInfo[4])
         categories = CleanText.cleanALLtheText(resultPageInfo[5])
