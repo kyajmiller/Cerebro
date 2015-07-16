@@ -9,7 +9,7 @@ class GrantForwardRunMajorsList(object):
         self.fastFindMajorsList = GetFastFindMajorsList.getList()
 
         if self.isTest:
-            for major in self.fastFindMajorsList[:4]:
+            for major in self.fastFindMajorsList[:5]:
                 majorSpecificGrantForwardLeads = GrantForwardLeads(major).processSearchResultsAndMakeLeadArray()
                 ProcessGrantForwardLeads(majorSpecificGrantForwardLeads)
         else:
