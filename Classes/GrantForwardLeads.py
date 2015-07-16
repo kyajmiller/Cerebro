@@ -11,7 +11,6 @@ class GrantForwardLeads(object):
         self.base_url = 'https://www.grantforward.com/'
 
         self.arrayOfTitles = []
-        self.arrayOfResultsPagesLinks = []
         self.arrayOfGrantForwardLeads = []
         self.arrayOfResultsPageArrays = []
 
