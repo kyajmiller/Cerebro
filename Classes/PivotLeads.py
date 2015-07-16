@@ -142,9 +142,3 @@ class PivotLeads(object):
             return True
         else:
             return False
-
-
-
-
-PivotLeads('linguistics')
-
