@@ -10,7 +10,6 @@ class GrantForwardLeads(object):
         self.driver = webdriver.Firefox()
         self.base_url = 'https://www.grantforward.com/'
 
-        self.arrayOfTitles = []
         self.arrayOfGrantForwardLeads = []
         self.arrayOfResultsPageArrays = []
 
