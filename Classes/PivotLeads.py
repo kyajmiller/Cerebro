@@ -56,6 +56,22 @@ class PivotLeads(object):
         url = singleResultArray[1]
         resultPageInfo = self.goToResultPageAndPullInformation(url)
 
+        keyword = CleanText.cleanALLtheText(self.searchTerm)
+        abstract = CleanText.cleanALLtheText(resultPageInfo[6])
+        sponsor = CleanText.cleanALLtheText(resultPageInfo[1])
+        amount = CleanText.cleanALLtheText(resultPageInfo[2])
+        applicantType = CleanText.cleanALLtheText(resultPageInfo[3])
+        citizenshipResidency = CleanText.cleanALLtheText(resultPageInfo[4])
+        activityLocation = CleanText.cleanALLtheText(resultPageInfo[5])
+        eligibility = CleanText.cleanALLtheText(resultPageInfo[7])
+        categories = CleanText.cleanALLtheText(resultPageInfo[8])
+        sourceWebsite = resultPageInfo[0]
+        sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(sourceWebsite))
+
+        singleLeadArray = [keyword, url, name, abstract, sponsor, amount, applicantType, citizenshipResidency, activityLocation, eligibility, categories, sourceWebsite, sourceText]
+
+        self.arrayOfPivotLeads.append(singleLeadArray)
+
     def goToResultPageAndPullInformation(self, resultPageLink):
         self.driver.get(resultPageLink)
         self.driver.implicitly_wait(2)
