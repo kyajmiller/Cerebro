@@ -68,7 +68,8 @@ class PivotLeads(object):
         sourceWebsite = resultPageInfo[0]
         sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(sourceWebsite))
 
-        singleLeadArray = [keyword, url, name, abstract, sponsor, amount, applicantType, citizenshipResidency, activityLocation, eligibility, categories, sourceWebsite, sourceText]
+        singleLeadArray = [keyword, url, name, abstract, sponsor, amount, applicantType, citizenshipResidency,
+                           activityLocation, eligibility, categories, sourceWebsite, sourceText]
 
         self.arrayOfPivotLeads.append(singleLeadArray)
 
@@ -90,38 +91,51 @@ class PivotLeads(object):
             sourceWebsite = sourceWebsiteDiv.get_attribute('href')
 
         if self.checkIfElementExists("//div[@class = 'span2']/span[text() = 'Sponsor']/../../div[@class = 'span6']"):
-            sponsorDiv = self.driver.find_element_by_xpath("//div[@class = 'span2']/span[text() = 'Sponsor']/../../div[@class = 'span6']")
+            sponsorDiv = self.driver.find_element_by_xpath(
+                "//div[@class = 'span2']/span[text() = 'Sponsor']/../../div[@class = 'span6']")
             sponsor = sponsorDiv.get_attribute('textContent')
 
         if self.checkIfElementExists("//div[@class = 'span2']/span[text() = 'Amount']/../../div[@class = 'span6']"):
-            amountDiv = self.driver.find_element_by_xpath("//div[@class = 'span2']/span[text() = 'Amount']/../../div[@class = 'span6']")
+            amountDiv = self.driver.find_element_by_xpath(
+                "//div[@class = 'span2']/span[text() = 'Amount']/../../div[@class = 'span6']")
             amount = amountDiv.get_attribute('textContent')
 
-        if self.checkIfElementExists("//div[@class = 'span2']/span[text() = 'Applicant Type']/../../div[@class = 'span5']"):
-            applicantTypeDiv = self.driver.find_element_by_xpath("//div[@class = 'span2']/span[text() = 'Applicant Type']/../../div[@class = 'span5']")
+        if self.checkIfElementExists(
+                "//div[@class = 'span2']/span[text() = 'Applicant Type']/../../div[@class = 'span5']"):
+            applicantTypeDiv = self.driver.find_element_by_xpath(
+                "//div[@class = 'span2']/span[text() = 'Applicant Type']/../../div[@class = 'span5']")
             applicantType = applicantTypeDiv.get_attribute('textContent')
 
-        if self.checkIfElementExists("//div[@class = 'span2']/span[text() = 'Citizenship or Residency']/../../div[@class = 'span6']"):
-            citizenshipResidencyDiv = self.driver.find_element_by_xpath("//div[@class = 'span2']/span[text() = 'Citizenship or Residency']/../../div[@class = 'span6']")
+        if self.checkIfElementExists(
+                "//div[@class = 'span2']/span[text() = 'Citizenship or Residency']/../../div[@class = 'span6']"):
+            citizenshipResidencyDiv = self.driver.find_element_by_xpath(
+                "//div[@class = 'span2']/span[text() = 'Citizenship or Residency']/../../div[@class = 'span6']")
             citizenshipResidency = citizenshipResidencyDiv.get_attribute('textContent')
 
-        if self.checkIfElementExists("//div[@class = 'span2']/span[text() = 'Activity location']/../../div[@class = 'span6']"):
-            activityLocationDiv = self.driver.find_element_by_xpath("//div[@class = 'span2']/span[text() = 'Activity location']/../../div[@class = 'span6']")
+        if self.checkIfElementExists(
+                "//div[@class = 'span2']/span[text() = 'Activity location']/../../div[@class = 'span6']"):
+            activityLocationDiv = self.driver.find_element_by_xpath(
+                "//div[@class = 'span2']/span[text() = 'Activity location']/../../div[@class = 'span6']")
             activityLocation = activityLocationDiv.get_attribute('textContent')
 
         if self.checkIfElementExists("//div[@class = 'span2']/span[text() = 'Abstract']/../../div[@class = 'span6']"):
-            abstractDiv = self.driver.find_element_by_xpath("//div[@class = 'span2']/span[text() = 'Abstract']/../../div[@class = 'span6']")
+            abstractDiv = self.driver.find_element_by_xpath(
+                "//div[@class = 'span2']/span[text() = 'Abstract']/../../div[@class = 'span6']")
             abstract = abstractDiv.get_attribute('textContent')
 
-        if self.checkIfElementExists("//div[@class = 'span2']/span[text() = 'Eligibility']/../../div[@class = 'span6']"):
-            eligibilityDiv = self.driver.find_element_by_xpath("//div[@class = 'span2']/span[text() = 'Eligibility']/../../div[@class = 'span6']")
+        if self.checkIfElementExists(
+                "//div[@class = 'span2']/span[text() = 'Eligibility']/../../div[@class = 'span6']"):
+            eligibilityDiv = self.driver.find_element_by_xpath(
+                "//div[@class = 'span2']/span[text() = 'Eligibility']/../../div[@class = 'span6']")
             eligibility = eligibilityDiv.get_attribute('textContent')
 
         if self.checkIfElementExists("//div[@class = 'span2']/span[text() = 'Keywords']/../../div[@class = 'span6']"):
-            categoriesDiv = self.driver.find_element_by_xpath("//div[@class = 'span2']/span[text() = 'Keywords']/../../div[@class = 'span6']")
+            categoriesDiv = self.driver.find_element_by_xpath(
+                "//div[@class = 'span2']/span[text() = 'Keywords']/../../div[@class = 'span6']")
             categories = categoriesDiv.get_attribute('textContent')
 
-        resultPageInfo = [sourceWebsite, sponsor, amount, applicantType, citizenshipResidency, activityLocation, abstract, eligibility, categories]
+        resultPageInfo = [sourceWebsite, sponsor, amount, applicantType, citizenshipResidency, activityLocation,
+                          abstract, eligibility, categories]
 
         return resultPageInfo
 
