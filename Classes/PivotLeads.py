@@ -10,7 +10,7 @@ class PivotLeads(object):
         self.driver = webdriver.Firefox()
         self.base_url = 'http://pivot.cos.com/'
 
-        self.arrayOfResultsPagesArrays = []
+        self.arrayOfResultsPageArrays = []
         self.arrayOfPivotLeads = []
 
         self.driver.get(self.base_url + '/funding_main')
@@ -22,8 +22,21 @@ class PivotLeads(object):
     def processSearchResultsAndMakeLeadArray(self):
         self.getTitlesAndLinksFromSearchResults()
 
-        if not self.isTest:
+        if self.isTest != True:
             isThereNextPage = self.checkIfNextPage()
+            pageCount = 2
+            while isThereNextPage == True and pageCount <= 10:
+                self.goToNextPage()
+                self.getTitlesAndLinksFromSearchResults()
+                isThereNextPage = self.checkIfNextPage()
+                pageCount += 1
+
+        for singleArray in self.arrayOfResultsPageArrays:
+            self.makeLeadArrayAndAddToGrantForwardLeads(singleArray)
+
+        self.driver.quit()
+
+        return self.arrayOfPivotLeads
 
     def getTitlesAndLinksFromSearchResults(self):
         self.arrayOfTitles = self.driver.find_elements_by_xpath("//a[@class = 'pivot_track_link results-title-link']")
@@ -36,7 +49,10 @@ class PivotLeads(object):
             title = self.arrayOfTitles[i].text
             resultPageLink = self.arrayOfResultsPagesLinks[i]
             singleResultArray = [title, resultPageLink]
-            self.arrayOfResultsPagesArrays.append(singleResultArray)
+            self.arrayOfResultsPageArrays.append(singleResultArray)
+
+    def makeLeadArrayAndAddToGrantForwardLeads(self, singleArray):
+        pass
 
     def checkIfNextPage(self):
         checkNextPage = self.driver.find_elements_by_link_text('Next')
@@ -55,6 +71,8 @@ class PivotLeads(object):
             return True
         else:
             return False
+
+
 
 
 PivotLeads('linguistics')
