@@ -291,3 +291,40 @@ currentPage = 1
 --Done, unit test works, yay
 Class 2: RunMajorsListOnGrantForward
 --take majors list, for each major in list, call ProcessGrantForwardLeads (which does the stuff)
+
+7/16 Notes:
+-Start working on GrantForwardRunMajorsList
+--Running tests, takes ages, I set it to only loop over the first five items on the majors list, but that's still like 500 grants
+--Did a test run of GrantForwardRunMajorsList, it works as intended
+
+-Recreate this system for Pivot too now.
+--Copy of previous notes on Pivot:
+-First Website to work with: Pivot
+-Need to make an account (will have to have the program log into the account, so make a default one that doesn't care about anything)
+--Or maybe not? just access via http://pivot.cos.com/funding_main
+-The xpath to grab each of the results on the page: "//a[@class = 'pivot_track_link results-title-link']"
+--link = href, title = text
+-Steps:
+    go to page, enter keys, go
+    grab all of the results on the page, put in array (link + title)
+        maybe repeat for a couple of results pages, for now just stick with one
+    for each link/title given, go into the link, grab the website url ("//a[@title = 'Web page opens in new window']").href
+    need to figure out how to grab the abstract text, doesn't really have a distinct xpath so it might be weird
+
+-I really hate pivot for deciding to give all of the structures on their pages generic names that I can't reliably use to pull out content. fml
+-I can easily say that after doing this internship I am very experienced with using xpath.
+
+xpaths for information:
+-Source website = "//a[@title = 'Web page opens in new window']" .textContent
+-Sponsor = "//div[@class = 'span2']/span[text() = 'Sponsor']/../../div[@class = 'span6']" .textContent
+-Amount = "//div[@class = 'span2']/span[text() = 'Amount']/../../div[@class = 'span6']" .textContent
+-ApplicantType = "//div[@class = 'span2']/span[text() = 'Applicant Type']/../../div[@class = 'span5']" .textContent
+-CitizenshipResidency = "//div[@class = 'span2']/span[text() = 'Citizenship or Residency']/../../div[@class = 'span6']" .textContent
+-ActivityLocation = "//div[@class = 'span2']/span[text() = 'Activity location']/../../div[@class = 'span6']" .textContent
+-Abstract = "//div[@class = 'span2']/span[text() = 'Abstract']/../../div[@class = 'span6']" .textContent
+-Eligibility = "//div[@class = 'span2']/span[text() = 'Eligibility']/../../div[@class = 'span6']" .textContent
+-Categories = "//div[@class = 'span2']/span[text() = 'Keywords']/../../div[@class = 'span6']" .textContent
+
+-For some reason, one of the websites is forcing firefox to open in safemode, which makes my unit tests not work...
+
+
