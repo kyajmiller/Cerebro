@@ -31,8 +31,8 @@ class PivotLeads(object):
                 isThereNextPage = self.checkIfNextPage()
                 pageCount += 1
 
-        for singleArray in self.arrayOfResultsPageArrays:
-            self.makeLeadArrayAndAddToGrantForwardLeads(singleArray)
+        for singleResultArray in self.arrayOfResultsPageArrays:
+            self.makeLeadArrayAndAddToGrantForwardLeads(singleResultArray)
 
         self.driver.quit()
 
@@ -51,8 +51,63 @@ class PivotLeads(object):
             singleResultArray = [title, resultPageLink]
             self.arrayOfResultsPageArrays.append(singleResultArray)
 
-    def makeLeadArrayAndAddToGrantForwardLeads(self, singleArray):
-        pass
+    def makeLeadArrayAndAddToGrantForwardLeads(self, singleResultArray):
+        name = CleanText.cleanALLtheText(singleResultArray[0])
+        url = singleResultArray[1]
+        resultPageInfo = self.goToResultPageAndPullInformation(url)
+
+    def goToResultPageAndPullInformation(self, resultPageLink):
+        self.driver.get(resultPageLink)
+        self.driver.implicitly_wait(2)
+        sourceWebsite = ''
+        sponsor = ''
+        amount = ''
+        applicantType = ''
+        citizenshipResidency = ''
+        activityLocation = ''
+        abstract = ''
+        eligibility = ''
+        categories = ''
+
+        if self.checkIfElementExists("//a[@title = 'Web page opens in new window']"):
+            sourceWebsiteDiv = self.driver.find_element_by_xpath("//a[@title = 'Web page opens in new window']")
+            sourceWebsite = sourceWebsiteDiv.get_attribute('href')
+
+        if self.checkIfElementExists("//div[@class = 'span2']/span[text() = 'Sponsor']/../../div[@class = 'span6']"):
+            sponsorDiv = self.driver.find_element_by_xpath("//div[@class = 'span2']/span[text() = 'Sponsor']/../../div[@class = 'span6']")
+            sponsor = sponsorDiv.get_attribute('textContent')
+
+        if self.checkIfElementExists("//div[@class = 'span2']/span[text() = 'Amount']/../../div[@class = 'span6']"):
+            amountDiv = self.driver.find_element_by_xpath("//div[@class = 'span2']/span[text() = 'Amount']/../../div[@class = 'span6']")
+            amount = amountDiv.get_attribute('textContent')
+
+        if self.checkIfElementExists("//div[@class = 'span2']/span[text() = 'Applicant Type']/../../div[@class = 'span5']"):
+            applicantTypeDiv = self.driver.find_element_by_xpath("//div[@class = 'span2']/span[text() = 'Applicant Type']/../../div[@class = 'span5']")
+            applicantType = applicantTypeDiv.get_attribute('textContent')
+
+        if self.checkIfElementExists("//div[@class = 'span2']/span[text() = 'Citizenship or Residency']/../../div[@class = 'span6']"):
+            citizenshipResidencyDiv = self.driver.find_element_by_xpath("//div[@class = 'span2']/span[text() = 'Citizenship or Residency']/../../div[@class = 'span6']")
+            citizenshipResidency = citizenshipResidencyDiv.get_attribute('textContent')
+
+        if self.checkIfElementExists("//div[@class = 'span2']/span[text() = 'Activity location']/../../div[@class = 'span6']"):
+            activityLocationDiv = self.driver.find_element_by_xpath("//div[@class = 'span2']/span[text() = 'Activity location']/../../div[@class = 'span6']")
+            activityLocation = activityLocationDiv.get_attribute('textContent')
+
+        if self.checkIfElementExists("//div[@class = 'span2']/span[text() = 'Abstract']/../../div[@class = 'span6']"):
+            abstractDiv = self.driver.find_element_by_xpath("//div[@class = 'span2']/span[text() = 'Abstract']/../../div[@class = 'span6']")
+            abstract = abstractDiv.get_attribute('textContent')
+
+        if self.checkIfElementExists("//div[@class = 'span2']/span[text() = 'Eligibility']/../../div[@class = 'span6']"):
+            eligibilityDiv = self.driver.find_element_by_xpath("//div[@class = 'span2']/span[text() = 'Eligibility']/../../div[@class = 'span6']")
+            eligibility = eligibilityDiv.get_attribute('textContent')
+
+        if self.checkIfElementExists("//div[@class = 'span2']/span[text() = 'Keywords']/../../div[@class = 'span6']"):
+            categoriesDiv = self.driver.find_element_by_xpath("//div[@class = 'span2']/span[text() = 'Keywords']/../../div[@class = 'span6']")
+            categories = categoriesDiv.get_attribute('textContent')
+
+        resultPageInfo = [sourceWebsite, sponsor, amount, applicantType, citizenshipResidency, activityLocation, abstract, eligibility, categories]
+
+        return resultPageInfo
 
     def checkIfNextPage(self):
         checkNextPage = self.driver.find_elements_by_link_text('Next')
