@@ -12,6 +12,10 @@ class TestStringMethods(unittest.TestCase):
         rows = db.getRows("select * from dbo.GrantForwardItems")
         self.assertGreaterEqual(len(rows), 10)
 
+    def test_ProcessGrantForwardLeadsNoResults(self):
+        ProcessGrantForwardLeads(
+            GrantForwardLeads('Anthropology MA)').processSearchResultsAndMakeLeadArray())
+
 
 if __name__ == '__main__':
     unittest.main()
