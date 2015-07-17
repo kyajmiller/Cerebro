@@ -6,7 +6,7 @@ from Classes.ProcessGrantForwardLeads import ProcessGrantForwardLeads
 class GrantForwardRunMajorsList(object):
     def __init__(self, isTest=False):
         self.isTest = isTest
-        self.fastFindMajorsList = GetFastFindMajorsList.getList()
+        self.fastFindMajorsList = GetFastFindMajorsList.getList('GrantForwardItems')
 
         if self.isTest:
             for major in self.fastFindMajorsList[:5]:
