@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.common.exceptions import ElementNotVisibleException
 from Classes.CleanText import CleanText
 from Classes.RipPage import RipPage
 
@@ -22,17 +23,18 @@ class GrantForwardLeads(object):
     def processSearchResultsAndMakeLeadArray(self):
         self.getTitlesAndLinksFromSearchResults()
 
-        if self.isTest != True:
-            isThereNextPage = self.checkIfNextPage()
-            pageCount = 2
-            while isThereNextPage == True and pageCount <= 10:
-                self.goToNextPage()
-                self.getTitlesAndLinksFromSearchResults()
+        if self.arrayOfResultsPagesLinks != []:
+            if self.isTest != True:
                 isThereNextPage = self.checkIfNextPage()
-                pageCount += 1
+                pageCount = 2
+                while isThereNextPage == True and pageCount <= 10:
+                    self.goToNextPage()
+                    self.getTitlesAndLinksFromSearchResults()
+                    isThereNextPage = self.checkIfNextPage()
+                    pageCount += 1
 
-        for singleResultArray in self.arrayOfResultsPageArrays:
-            self.makeLeadArrayAndAddToGrantForwardLeads(singleResultArray)
+            for singleResultArray in self.arrayOfResultsPageArrays:
+                self.makeLeadArrayAndAddToGrantForwardLeads(singleResultArray)
 
         self.driver.quit()
 
@@ -124,8 +126,12 @@ class GrantForwardLeads(object):
             return False
 
     def goToNextPage(self):
-        self.driver.find_element_by_xpath("(//a[contains(text(), 'Next')])[1]").click()
-        self.driver.implicitly_wait(2)
+        try:
+            self.driver.find_element_by_xpath("(//a[contains(text(), 'Next')])[1]").click()
+            self.driver.implicitly_wait(2)
+        except ElementNotVisibleException:
+            self.driver.implicitly_wait(2)
+
 
     def checkIfElementExists(self, xpath):
         checkElementExists = self.driver.find_elements_by_xpath(xpath)
