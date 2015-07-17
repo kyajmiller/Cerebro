@@ -15,7 +15,7 @@ class GetFastFindMajorsList(object):
             rows = db.getRows("SELECT DISTINCT Keyword FROM dbo.GrantForwardItems")
             existingKeywordsInTable = []
             for row in rows:
-                existingKeywordsInTable.append(row.Keyword)
+                existingKeywordsInTable.append(' ' + row.Keyword)
 
             for major in existingKeywordsInTable:
                 if major in fastFindMajorsList:
