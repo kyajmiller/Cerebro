@@ -327,4 +327,17 @@ xpaths for information:
 
 -For some reason, one of the websites is forcing firefox to open in safemode, which makes my unit tests not work...
 
+7/17 Notes:
+-Set GrantForwardRunMajorsList to run over night, it didn't get very far, was killed by page timeout
+--Need a way to get around this sort of thing, so that if one page doesn't work, it'll skip that whole thing and just go on to the next one
+--Maybe use a try/except statement
+---This seems to have worked, as current tests have been able to past the point where it broke previously
+-Hopefully, unless the internet goes down over the weekend, it should have no problem running. It will probably take a couple of days to get through the entire list, as I've already run it for almost six hours and it's still not out of the A's yet
+-Need to fix the GetFastFindMajorsList so that it checks against what's currently in the GrantForwardItems keywords
+--tested it, for some reason it only removes the very first item and puts it on the back of the list
+--not sure if it's because the keyword got distorted somehow, when being inserted into the database, but who knows
+
+-Potential issue with the GrantForwardLeads - we want to avoid adding duplicates to the system - right now it checks if the same URL exists under the same keyword
+-but the same scholarship(same id) might get in there twice if it has a slightly different url; don't know if there's someway to extract the grant-id other than by extracting it from the url
+-might need to do this though.
 
