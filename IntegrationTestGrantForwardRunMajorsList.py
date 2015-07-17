@@ -14,6 +14,17 @@ class TestStringMethods(unittest.TestCase):
         rows = db.getRows("select * from dbo.GrantForwardItems")
         self.assertGreaterEqual(len(rows), 100)
 
+    def test_GrantForwardRunMajorsListActuallyDoIt(self):
+        # set up
+        db = SUDBConnect()
+
+        # run
+        GrantForwardRunMajorsList()
+
+        # test
+        rows = db.getRows("select * from dbo.GrantForwardItems")
+        self.assertGreaterEqual(len(rows), 100)
+
 
 if __name__ == '__main__':
     unittest.main()
