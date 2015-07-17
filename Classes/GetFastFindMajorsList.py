@@ -17,10 +17,12 @@ class GetFastFindMajorsList(object):
             for row in rows:
                 existingKeywordsInTable.append(row.Keyword)
 
-            for major in fastFindMajorsList:
-                if major in existingKeywordsInTable:
+            for major in existingKeywordsInTable:
+                if major in fastFindMajorsList:
                     fastFindMajorsList.remove(major)
-                fastFindMajorsList.append(major)
+                    fastFindMajorsList.append(major)
+
+        '''
 
         if tableName == 'PivotLeads':
             rows = db.getRows("SELECT DISTINCT Keyword FROM dbo.PivotLeads")
@@ -28,9 +30,10 @@ class GetFastFindMajorsList(object):
             for row in rows:
                 existingKeywordsInTable.append(row.Keyword)
 
-            for major in fastFindMajorsList:
-                if major in existingKeywordsInTable:
+            for major in existingKeywordsInTable:
+                if major in fastFindMajorsList:
                     fastFindMajorsList.remove(major)
-                fastFindMajorsList.append(major)
+                    fastFindMajorsList.append(major)
+        '''
 
         return fastFindMajorsList
