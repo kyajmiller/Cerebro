@@ -341,3 +341,23 @@ xpaths for information:
 -but the same scholarship(same id) might get in there twice if it has a slightly different url; don't know if there's someway to extract the grant-id other than by extracting it from the url
 -might need to do this though.
 
+7/20 Notes:
+-Need to type up report for Mike
+-Program pretty much ran for ~36 hours before dying this time (only died because lost connection to the SQL database). This is pretty much successful. Will run it again later when leave for the night.
+--Perhaps see if there's a way to keep the SQL connection open constantly to avoid that happening again.
+--Is there a way to pause running a program in pycharm? I'm sure if this program keeps running over night it'll still be running when I come in tomorrow, and I don't want to have to completely kill it in order to be able to use my computer.
+
+-Continue working on Pivot today.
+-Talk to Ken about staying on longer.
+-Write a script to fix spacing in the database.
+
+-Pivot unit test works, seems to have solved the starting Firefox in safemode thing.
+-Wrote the process pivot leads
+-Wrote InsertPivotLeadsintopivotleadsdb
+-Wrote appropriate unit tests
+-updated get fast find majors list to have separate functions for each list type I want
+-wrote the code to automate the system as it runs over the list of majors
+-doing the test run
+-make sure get back thing from emily
+
+
