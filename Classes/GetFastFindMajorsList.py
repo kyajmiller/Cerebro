@@ -3,7 +3,7 @@ from Classes.SUDBConnect import SUDBConnect
 
 class GetFastFindMajorsList(object):
     @staticmethod
-    def getList(tableName=None):
+    def getDefaultList():
         fastFindMajorsList = []
         db = SUDBConnect()
         rows = db.getRows(
@@ -11,29 +11,46 @@ class GetFastFindMajorsList(object):
         for row in rows:
             fastFindMajorsList.append(row.Major)
 
-        if tableName == 'GrantForwardItems':
-            rows = db.getRows("SELECT DISTINCT Keyword FROM dbo.GrantForwardItems")
-            existingKeywordsInTable = []
-            for row in rows:
-                existingKeywordsInTable.append(' ' + row.Keyword)
+        return fastFindMajorsList
 
-            for major in existingKeywordsInTable:
-                if major in fastFindMajorsList:
-                    fastFindMajorsList.remove(major)
-                    fastFindMajorsList.append(major)
+    @staticmethod
+    def getGrantForwardItemsList():
+        fastFindMajorsList = []
+        db = SUDBConnect()
+        rows = db.getRows(
+            "select replace( ValueShown, '(' + OtherValuesToCheck + ')', '') as Major from dbo.FastFindLists where AttributeId=417")
+        for row in rows:
+            fastFindMajorsList.append(row.Major)
 
-        '''
+        rows = db.getRows("SELECT DISTINCT Keyword FROM dbo.GrantForwardItems")
+        existingKeywordsInTable = []
+        for row in rows:
+            existingKeywordsInTable.append(' ' + row.Keyword)
 
-        if tableName == 'PivotLeads':
-            rows = db.getRows("SELECT DISTINCT Keyword FROM dbo.PivotLeads")
-            existingKeywordsInTable = []
-            for row in rows:
-                existingKeywordsInTable.append(row.Keyword)
+        for major in existingKeywordsInTable:
+            if major in fastFindMajorsList:
+                fastFindMajorsList.remove(major)
+                fastFindMajorsList.append(major)
 
-            for major in existingKeywordsInTable:
-                if major in fastFindMajorsList:
-                    fastFindMajorsList.remove(major)
-                    fastFindMajorsList.append(major)
-        '''
+        return fastFindMajorsList
+
+    @staticmethod
+    def getPivotLeadsList():
+        fastFindMajorsList = []
+        db = SUDBConnect()
+        rows = db.getRows(
+            "select replace( ValueShown, '(' + OtherValuesToCheck + ')', '') as Major from dbo.FastFindLists where AttributeId=417")
+        for row in rows:
+            fastFindMajorsList.append(row.Major)
+
+        rows = db.getRows("SELECT DISTINCT Keyword FROM dbo.PivotLeads")
+        existingKeywordsInTable = []
+        for row in rows:
+            existingKeywordsInTable.append(' ' + row.Keyword)
+
+        for major in existingKeywordsInTable:
+            if major in fastFindMajorsList:
+                fastFindMajorsList.remove(major)
+                fastFindMajorsList.append(major)
 
         return fastFindMajorsList
