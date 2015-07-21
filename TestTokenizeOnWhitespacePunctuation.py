@@ -21,7 +21,7 @@ class TestStringMethods(unittest.TestCase):
         testtokenize = TokenizeOnWhitespacePunctuation(teststring)
         self.assertEqual(bigrams, testtokenize.getBigrams())
 
-    def test_TokenizeOnWhitespacePunctuationBoth(self):
+    def test_TokenizeOnWhitespacePunctuationBothUnigramsBigrams(self):
         # set up
         teststring = 'I like cats and birds.'
         both = ['I', 'like', 'cats', 'and', 'birds', 'I like', 'like cats', 'cats and', 'and birds']
