@@ -4,6 +4,7 @@ from Classes.SUDBConnect import SUDBConnect
 
 
 class TestStringMethods(unittest.TestCase):
+    '''
     def test_PivotLeadsRunMajorsList(self):
         # set up
         db = SUDBConnect()
@@ -14,7 +15,7 @@ class TestStringMethods(unittest.TestCase):
         # test
         rows = db.getRows("select * from dbo.PivotLeads")
         self.assertGreaterEqual(len(rows), 100)
-
+    '''
     def test_PivotLeadsRunMajorsListActuallyDoIt(self):
         # set up
         db = SUDBConnect()
