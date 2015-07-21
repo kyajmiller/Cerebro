@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import unittest
 from Classes.CleanText import CleanText
 
@@ -36,6 +38,10 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual("There''s some extra single quotes in this line",
                          CleanText.replaceSingleQuotesWithTwoSingleQuotes(
                              "There's some extra single quotes in this line"))
+
+    def test_RemoveMoreLess(self):
+        self.assertEqual("There is less and there is more",
+                         CleanText.removeMoreLess('There is « lessless and there is moremore »'))
 
 if __name__ == '__main__':
     unittest.main()
