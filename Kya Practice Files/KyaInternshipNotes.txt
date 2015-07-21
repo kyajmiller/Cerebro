@@ -360,4 +360,36 @@ xpaths for information:
 -doing the test run
 -make sure get back thing from emily
 
+7/21 Notes:
+-Is there a way to save the progress of a program? I dislike having to completely kill the program every time I want to actually use my computer
+-Pivot program runs perfectly fine so long as you don't accidentally hit the shift key and send firefox into safe mode, was still running when I got here today
+
+-So Pivot and GrantForward scraping programs are pretty much done, everyone is happy
+-Ken wants each thing to be labeled by what it actually is (scholarship, fellowship, grant, research funding, etc etc)
+--Need to build a classifier to do these things
+
+-Step 1: Training data
+--Need to build training set
+--How big is enough?
+--How to tag the training set
+--What do use as the training set? Perhaps the descriptions/abstract
+--Is there any information that I can pull from the pages that will give me further info?
+
+Step 2: Feature Selection
+-Want at least unigrams and bigrams
+
+Step 3: Build classifier
+-Can probably use scikit learn toolkit
+-Either NB or Perceptron, see which one gives better results on the training
+
+Step 4: Train the classifier
+-How do you save training info? I don't want to have to train the classifier every time it needs to run, that's kind of ridiculous
+-What's a good accuracy threshold? Should be at least 75% if possible
+
+Step 5: Classify stuff
+-How to save results? Perhaps stick them in the database somewhere when done
+-I'll need a bigger labeled set so I can have labeled testing to check my results on
+
+My life just got harder
+
 
