@@ -20,10 +20,3 @@ class MostCommonPivotTagsTokens(object):
         self.tokenizeData()
         mostCommon = FreqDist(self.tokens).most_common(self.topNumber)
         return mostCommon
-
-    '''
-    @staticmethod
-    def getMostCommonTokens():
-        pivotTagsAbstractEligibilityCombos = GetPivotTagsConcatenateAbstractEligibility.getList()
-        for aeCombo in pivotTagsAbstractEligibilityCombos:
-    '''
