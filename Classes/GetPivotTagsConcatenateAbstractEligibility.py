@@ -1,26 +1,26 @@
 from Classes.SUDBConnect import SUDBConnect
+from Classes.CleanText import CleanText
 
 
 class GetPivotTagsConcatenateAbstractEligibility(object):
-    def __init__(self):
-        self.db = SUDBConnect()
-        self.abstracts = []
-        self.eligibilities = []
-        self.comboAbstractsEligibilities = []
+    @staticmethod
+    def getList():
+        db = SUDBConnect()
+        abstracts = []
+        eligibilities = []
+        comboAbstractsEligibilities = []
 
-        rows = self.db.getRows("select * from dbo.PivotTags")
+        rows = db.getRows("select * from dbo.PivotTags")
         for row in rows:
-            self.abstracts.append(row.Abstract)
-            self.eligibilities.append(row.Eligibility)
+            abstracts.append(row.Abstract)
+            eligibilities.append(row.Eligibility)
 
-    def conatenateAbstractsEligibilities(self):
-        for i in range(len(self.abstracts)):
-            abstract = self.abstracts[i]
-            eligibility = self.eligibilities[i]
+        for i in range(len(abstracts)):
+            abstract = abstracts[i]
+            eligibility = eligibilities[i]
 
             comboAbstractEligibility = '%s %s' % (abstract, eligibility)
-            self.comboAbstractsEligibilities.append(comboAbstractEligibility)
+            comboAbstractEligibility = CleanText.cleanALLtheText(comboAbstractEligibility)
+            comboAbstractsEligibilities.append(comboAbstractEligibility)
 
-    def getList(self):
-        self.conatenateAbstractsEligibilities()
-        return self.comboAbstractsEligibilities
+        return comboAbstractsEligibilities
