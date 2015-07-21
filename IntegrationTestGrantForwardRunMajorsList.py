@@ -3,6 +3,7 @@ from Classes.GrantForwardRunMajorsList import GrantForwardRunMajorsList
 from Classes.SUDBConnect import SUDBConnect
 
 class TestStringMethods(unittest.TestCase):
+    '''
     def test_GrantForwardRunMajorsList(self):
         #set up
         db = SUDBConnect()
@@ -13,6 +14,7 @@ class TestStringMethods(unittest.TestCase):
         #test
         rows = db.getRows("select * from dbo.GrantForwardItems")
         self.assertGreaterEqual(len(rows), 100)
+    '''
 
     def test_GrantForwardRunMajorsListActuallyDoIt(self):
         # set up
