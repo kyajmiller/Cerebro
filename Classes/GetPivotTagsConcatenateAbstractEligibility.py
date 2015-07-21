@@ -1,7 +1,7 @@
 from Classes.SUDBConnect import SUDBConnect
 
 
-class GetPivotTagsConcatenateEligibilityAbstract(object):
+class GetPivotTagsConcatenateAbstractEligibility(object):
     def __init__(self):
         self.db = SUDBConnect()
         self.abstracts = []
