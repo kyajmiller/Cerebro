@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import re
 
 
@@ -48,6 +50,12 @@ class CleanText(object):
         return result
 
     @staticmethod
+    def removeMoreLess(stringToClean):
+        result = re.sub('«\sless', '', stringToClean)
+        result = re.sub('more\s»', '', result)
+        return result
+
+    @staticmethod
     def cleanALLtheText(stringToClean):
         result = CleanText.removeNonBodyElements(stringToClean)
         result = CleanText.removeStyle(result)
@@ -57,6 +65,7 @@ class CleanText(object):
         result = CleanText.removenbsp(result)
         result = CleanText.convertAmpersand(result)
         result = CleanText.replaceSingleQuotesWithTwoSingleQuotes(result)
+        result = CleanText.removeMoreLess(result)
         result = CleanText.removeWhiteSpaces(result)
 
         return result
