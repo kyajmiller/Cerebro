@@ -392,4 +392,19 @@ Step 5: Classify stuff
 
 My life just got harder
 
+So, before I can start tagging the training set, I need to figure out what the tags should be
+-What are the most common terms found in my training data? Maybe that will give me insight
+--Training data: use abstract + eligibility info
+Steps:
+1. Connect to database, get rows from PivotTags, get Eligibility and Abstract, concatenate, append concatenated item to list, return list of items
+2. Class to run loop over each item in list, feed into Tokenize, get unigrams and bigrams, then combine all of them into one massive list
+3. Tokenize will tokenize on whitespace and punctuation, return list of unigrams, bigrams
+3.1 Might want to filter out stop words
+4. Use FreqDist.most_common from nltk to get most common items
+
+-need to set up taskmanager to run stuff automatically
+-tomorrow will really need to set up a stopword filter, current tests of MostCommon are basically just nothing but stopwords
+-also need to filter capitalization
+
+
 
