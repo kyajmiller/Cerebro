@@ -1,13 +1,12 @@
-import nltk
 from nltk import FreqDist
-from Classes.GetPivotTagsConcatenateAbstractEligibility import GetPivotTagsConcatenateAbstractEligibility
+from Classes.GetPivotTagsConcatenateTitleAbstractEligibility import GetPivotTagsConcatenateTitleAbstractEligibility
 from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
 
 
 class MostCommonPivotTagsTokens(object):
     def __init__(self, topNumber):
         self.topNumber = topNumber
-        self.pivotTagsData = GetPivotTagsConcatenateAbstractEligibility.getList()
+        self.pivotTagsData = GetPivotTagsConcatenateTitleAbstractEligibility.getList()
         self.tokens = []
 
     def tokenizeData(self):
