@@ -1,11 +1,12 @@
 import unittest
 from Classes.MostCommonPivotTagsTokens import MostCommonPivotTagsTokens
-from nltk import FreqDist
 
 
 class TestStringMethods(unittest.TestCase):
     def test_MostCommonPivotTagsTokens(self):
-        testMostCommon = MostCommonPivotTagsTokens(20).getMostCommon()
+        testMostCommon = MostCommonPivotTagsTokens(100).getMostCommon()
+        for wordWithFrequencyTuple in testMostCommon:
+            print(wordWithFrequencyTuple[0])
 
 
 if __name__ == '__main__':
