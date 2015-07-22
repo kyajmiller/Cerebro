@@ -13,10 +13,10 @@ class TokenizeOnWhitespacePunctuation(object):
         self.bothUnigramsBigrams = []
 
     def getUnigrams(self):
-        self.unigrams = re.findall(r"[\w']+", self.stringToTokenize)
-        for word in self.unigrams:
-            if word in self.listOfStopwords:
-                self.unigrams.remove(word)
+        unfileredUnigrams = re.findall(r"[\w']+", self.stringToTokenize)
+        for word in unfileredUnigrams:
+            if word not in self.listOfStopwords:
+                self.unigrams.append(word)
         return self.unigrams
 
     def getBigrams(self):
