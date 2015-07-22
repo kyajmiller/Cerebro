@@ -1,9 +1,13 @@
 import re
+import nltk
+from nltk.corpus import stopwords
 
 
 class TokenizeOnWhitespacePunctuation(object):
     def __init__(self, stringToTokenize):
-        self.stringToTokenize = stringToTokenize
+        self.stringToTokenize = stringToTokenize.lower()
+
+        self.listOfStopwords = stopwords.words('english')
 
         self.unigrams = []
         self.bigrams = []
@@ -11,6 +15,9 @@ class TokenizeOnWhitespacePunctuation(object):
 
     def getUnigrams(self):
         self.unigrams = re.findall(r"[\w']+", self.stringToTokenize)
+        for word in self.unigrams:
+            if word in self.listOfStopwords:
+                self.unigrams.remove(word)
         return self.unigrams
 
     def getBigrams(self):
