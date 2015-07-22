@@ -2,10 +2,11 @@ from Classes.SUDBConnect import SUDBConnect
 from Classes.CleanText import CleanText
 
 
-class GetPivotTagsConcatenateAbstractEligibility(object):
+class GetPivotTagsConcatenateTitleAbstractEligibility(object):
     @staticmethod
     def getList():
         db = SUDBConnect()
+        titles = []
         abstracts = []
         eligibilities = []
         comboAbstractsEligibilities = []
@@ -14,12 +15,14 @@ class GetPivotTagsConcatenateAbstractEligibility(object):
         for row in rows:
             abstracts.append(row.Abstract)
             eligibilities.append(row.Eligibility)
+            titles.append(row.Name)
 
         for i in range(len(abstracts)):
             abstract = abstracts[i]
             eligibility = eligibilities[i]
+            title = titles[i]
 
-            comboAbstractEligibility = '%s %s' % (abstract, eligibility)
+            comboAbstractEligibility = '%s %s %s' % (title, abstract, eligibility)
             comboAbstractEligibility = CleanText.cleanALLtheText(comboAbstractEligibility)
             comboAbstractsEligibilities.append(comboAbstractEligibility)
 
