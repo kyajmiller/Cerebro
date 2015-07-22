@@ -407,4 +407,21 @@ Steps:
 -also need to filter capitalization
 
 
+7/22 Notes:
+-start working on implementing stop words and capitalization filter for Tokenize
+-once finished, rerun the test, see what the words are
+-research popular scholarship types
+
+-finished implementing the capitalization filter and the stopwords list, not really sure what labels I should use though
+-obvious labels (from the results): research, grant, fellowship, scholarship, internship
+-Okay, from the looks of it (and the small amount of labeling I've done so far), these scholarship things tend to state pretty blatantly what they are in either the title or description
+-Will label all 500 in this database then figure out what to do
+-Will probably not build a machine learning classifier as it looks to be really unnecessary, will probably go with a lexicon based classifier which is a lot more simple
+--Scan title for keywords, if keyword in title, then label; if not, scan abstract, then scan eligibility
+--Some label keywords have more weight than others. If something is called a 'research fellowship' it should be labeled a fellowship over research
+--Scholarship > Fellowship > Grant > Research > Award
+--Might do a count feature
+-ugh though. What do do about 'research grant' - it's a grant, but it's research; just call it grant, cause it's technically a grant
+
+
 
