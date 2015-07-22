@@ -19,6 +19,5 @@ class MostCommonPivotTagsTokens(object):
     def getMostCommon(self):
         self.tokenizeData()
         freqDist = FreqDist(self.tokens)
-        print(freqDist)
         mostCommon = freqDist.most_common(self.topNumber)
-        print(mostCommon)
+        return mostCommon
