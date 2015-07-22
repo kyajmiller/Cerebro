@@ -39,6 +39,7 @@ class StopwordsList(object):
                          'was', 'way', 'ways', 'we', 'well', 'wells', 'went', 'were', 'what', 'when', 'where',
                          'whether', 'which', 'while', 'who', 'whole', 'whose', 'why', 'will', 'with', 'within',
                          'without', 'work', 'worked', 'working', 'works', 'would', 'year', 'years', 'yet', 'you',
-                         'young', 'younger', 'youngest', 'you', 'yours']
+                         'young', 'younger', 'youngest', 'you', 'yours', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+                         'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
         return stopwordsList
