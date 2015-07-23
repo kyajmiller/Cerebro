@@ -16,19 +16,19 @@ class KeywordBasedFundingTypeClassifier(object):
         unigrams = TokenizeOnWhitespacePunctuation.getUnigrams(opportunity)
 
         if self.checkScholarshipKeywords(unigrams):
-            tag = 'scholarship'
+            tag = 'Scholarship'
         elif self.checkFellowshipKeywords(unigrams):
-            tag = 'fellowship'
+            tag = 'Fellowship'
         elif self.checkInternshipKeywords(unigrams):
-            tag = 'internship'
+            tag = 'Internship'
         elif self.checkGrantKeywords(unigrams):
-            tag = 'grant'
+            tag = 'Grant'
         elif self.checkAwardKeywords(unigrams):
-            tag = 'award'
+            tag = 'Award'
         elif self.checkResearchKeywords(unigrams):
-            tag = 'research'
+            tag = 'Research'
         else:
-            tag = 'other'
+            tag = 'Other'
 
         return tag
 
