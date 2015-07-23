@@ -33,6 +33,16 @@ class GetPivotTagsTitleAbstractEligibility(object):
             eligibilities.append(row.Eligibility)
         return eligibilities
 
+    @staticmethod
+    def getTag():
+        db = SUDBConnect()
+        tags = []
+
+        rows = db.getRows("select Tag from dbo.PivotTags")
+        for row in rows:
+            tags.append(row.Tag)
+        return tags
+
 
     @staticmethod
     def getListConcatenatedItems():
