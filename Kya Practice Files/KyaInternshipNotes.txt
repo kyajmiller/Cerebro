@@ -424,4 +424,36 @@ Steps:
 -ugh though. What do do about 'research grant' - it's a grant, but it's research; just call it grant, cause it's technically a grant
 
 
+7/23 Notes:
+-finished labeling the 500 test cases
+-updated GetPivotTagsTitleAbstractEligibility to return not just a concatenated string of the title, abstract, and eligibility, but also them in a tuple if desired
+-time to work on the classifier
+--stuff has been tagged, and the tokenizer class pretty much does all the feature selection I want for the classifier, will add features to count keywords
+--might not even need the bigrams
+--run a search over the unigrams, if see 'scholarship' then it's a scholarship, if see fellowship then fellowship, if see grant then grant, etc
+-I want the classifier to be able to run over other stuff besides just this test, so have it import the data
+
+Steps:
+-Import the data = string (concatenated title, abstract, eligibility)
+--would import the tag, but the whole point is to assign tags to the strings, so outside of these first few tests cases there won't be a tag
+--will make another class that compares the assigned tag to the actual tag for this test case
+
+-get the unigrams
+
+-declare the counters for the tags: scholarship, fellowship, internship, grant, research
+-scan the unigrams:
+--if scholarship in unigrams, tag = scholarship
+--elif fellowship/fellow in unigrams, tag = fellowship
+--elif internship/intern in unigrams, tag = internship
+--elif grant in unigrams, tag = grant
+--elif award/prize in unigrams, tag = award
+--elif research in unigrams, tag = research
+--else, tag = other
+-append the tag to list
+
+-then, check list of predicted tags versus list of actual tags
+--calculate accuracy, precision, recall, f1
+
+
+
 
