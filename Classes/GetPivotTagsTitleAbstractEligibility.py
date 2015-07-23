@@ -2,9 +2,9 @@ from Classes.SUDBConnect import SUDBConnect
 from Classes.CleanText import CleanText
 
 
-class GetPivotTagsConcatenateTitleAbstractEligibility(object):
+class GetPivotTagsTitleAbstractEligibility(object):
     @staticmethod
-    def getList():
+    def getListConcatenatedItems():
         db = SUDBConnect()
         titles = []
         abstracts = []
