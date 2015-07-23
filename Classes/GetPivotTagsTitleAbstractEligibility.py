@@ -36,17 +36,10 @@ class GetPivotTagsTitleAbstractEligibility(object):
 
     @staticmethod
     def getListConcatenatedItems():
-        db = SUDBConnect()
-        titles = []
-        abstracts = []
-        eligibilities = []
+        titles = GetPivotTagsTitleAbstractEligibility.getTitles()
+        abstracts = GetPivotTagsTitleAbstractEligibility.getAbstracts()
+        eligibilities = GetPivotTagsTitleAbstractEligibility.getEligibilities()
         comboAbstractsEligibilities = []
-
-        rows = db.getRows("select * from dbo.PivotTags")
-        for row in rows:
-            abstracts.append(row.Abstract)
-            eligibilities.append(row.Eligibility)
-            titles.append(row.Name)
 
         for i in range(len(abstracts)):
             abstract = abstracts[i]
