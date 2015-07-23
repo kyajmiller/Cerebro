@@ -51,3 +51,20 @@ class GetPivotTagsTitleAbstractEligibility(object):
             comboAbstractsEligibilities.append(comboAbstractEligibility)
 
         return comboAbstractsEligibilities
+
+    @staticmethod
+    def getListofListofItems():
+        titles = GetPivotTagsTitleAbstractEligibility.getTitles()
+        abstracts = GetPivotTagsTitleAbstractEligibility.getAbstracts()
+        eligibilities = GetPivotTagsTitleAbstractEligibility.getEligibilities()
+        wholeList = []
+
+        for i in range(len(abstracts)):
+            abstract = CleanText.cleanALLtheText(abstracts[i])
+            eligibility = CleanText.cleanALLtheText(eligibilities[i])
+            title = CleanText.cleanALLtheText(titles[i])
+
+            listOfItems = [title, abstract, eligibility]
+            wholeList.append(listOfItems)
+
+        return wholeList
