@@ -1,14 +1,14 @@
 import unittest
-from Classes.GetPivotTagsConcatenateTitleAbstractEligibility import GetPivotTagsConcatenateTitleAbstractEligibility
+from Classes.GetPivotTagsTitleAbstractEligibility import GetPivotTagsTitleAbstractEligibility
 from Classes.SUDBConnect import SUDBConnect
 from Classes.CleanText import CleanText
 
 
 class TestStringMethods(unittest.TestCase):
-    def test_GetPivotTagsConcatenateTitleAbstractEligibility(self):
+    def test_GetPivotTagsTitleAbstractEligibilityConcatenatedItems(self):
         # set up
         db = SUDBConnect()
-        testConcatenatAbstractEligibility = GetPivotTagsConcatenateTitleAbstractEligibility.getList()
+        testConcatenatAbstractEligibility = GetPivotTagsTitleAbstractEligibility.getListConcatenatedItems()
         firstItem = testConcatenatAbstractEligibility[0]
 
         # test
