@@ -1,5 +1,4 @@
 from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
-from Classes.GetPivotTagsTitleAbstractEligibility import GetPivotTagsTitleAbstractEligibility
 
 
 class ClassifyFundingTypeKeywordBased(object):
