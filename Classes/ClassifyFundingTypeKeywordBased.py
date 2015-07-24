@@ -18,12 +18,12 @@ class ClassifyFundingTypeKeywordBased(object):
     def classifyOpportunity(self, opportunity):
         unigrams = TokenizeOnWhitespacePunctuation(opportunity, applyStopwords=True).getUnigrams()
 
-        if self.checkScholarshipKeywords(unigrams):
-            tag = 'Scholarship'
-        elif self.checkFellowshipKeywords(unigrams):
+        if self.checkFellowshipKeywords(unigrams):
             tag = 'Fellowship'
         elif self.checkInternshipKeywords(unigrams):
             tag = 'Internship'
+        elif self.checkScholarshipKeywords(unigrams):
+            tag = 'Scholarship'
         elif self.checkGrantKeywords(unigrams):
             tag = 'Grant'
         elif self.checkAwardKeywords(unigrams):
@@ -56,7 +56,7 @@ class ClassifyFundingTypeKeywordBased(object):
         return keywordExists
 
     def checkInternshipKeywords(self, unigrams):
-        internshipKeywords = ['internship', 'internships', 'intern', 'interns']
+        internshipKeywords = ['internship', 'internships', 'intern', 'interns', 'apprenticeship']
         keywordExists = False
 
         for keyword in internshipKeywords:
