@@ -17,7 +17,7 @@ class ClassifyFundingTypeKeywordBased(object):
             self.predictedTags.append(tag)
 
     def classifyOpportunity(self, opportunity):
-        unigrams = TokenizeOnWhitespacePunctuation.getUnigrams(opportunity)
+        unigrams = TokenizeOnWhitespacePunctuation(opportunity, applyStopwords=True).getUnigrams()
 
         if self.checkScholarshipKeywords(unigrams):
             tag = 'Scholarship'
