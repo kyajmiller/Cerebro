@@ -454,6 +454,23 @@ Steps:
 -then, check list of predicted tags versus list of actual tags
 --calculate accuracy, precision, recall, f1
 
+7/24 Notes:
+-So I got banned from Pivot. Lol.
+-Don-E satisfied with the direction of the fundingtypes classifier
+-Today test and tune funding types classifier, see how accurate it is
+-Want to be able to pull out deadlines for scholarships
+-Wrote a unit test to see if the ClassifyFundingTypeKeywordBased works, it does work on the dummy tests
+--just not sure if it's working on the actual thing, might be taking forever because it's so big
+-Finally tested the Keyword Classifier (it had problems, I accidentally wrote a neverending loop)
+--Has a 73% accuracy rating
+--That's not terrible, but ehhhhhh
+-So, comparing the predicted tags against the actual tags, some trends:
+--Fellowship is pretty much perfect, only ones that aren't correctly tagged are tagged as scholarships
+--Scholarships tags overzealously, but all of the scholarships are correctly tagged except for one listed as Grant
+--Internships needs to be ranked higher over fellowships, otherwise good. One incorrectly labeled as Award because called apprenticeship
+-Some of the mismatches are my error in tagging
+--Need a way to force it to check title over abstract/eligibility for scholarship/fellowship/internship/grant
+
 
 
 
