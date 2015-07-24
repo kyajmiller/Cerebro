@@ -7,6 +7,10 @@ class KeywordBasedFundingTypeClassifier(object):
         self.listOfOpportunitiesToBeClassified = listOfOpportunitiesToBeClassified
         self.predictedTags = []
 
+    def returnPredictedTags(self):
+        self.loopThroughOpportunitiesAndClassify()
+        return self.predictedTags
+
     def loopThroughOpportunitiesAndClassify(self):
         for opportunity in self.listOfOpportunitiesToBeClassified:
             tag = self.classifyOpportunity(opportunity)
