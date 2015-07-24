@@ -39,10 +39,9 @@ class ClassifyFundingTypeKeywordBased(object):
         scholarshipKeywords = ['scholarship', 'scholarships']
         keywordExists = False
 
-        while keywordExists == False:
-            for keyword in scholarshipKeywords:
-                if keyword in unigrams:
-                    keywordExists = True
+        for keyword in scholarshipKeywords:
+            if keyword in unigrams:
+                keywordExists = True
 
         return keywordExists
 
@@ -50,10 +49,9 @@ class ClassifyFundingTypeKeywordBased(object):
         fellowshipKeywords = ['fellowship', 'fellowships', 'fellow', 'fellows']
         keywordExists = False
 
-        while keywordExists == False:
-            for keyword in fellowshipKeywords:
-                if keyword in unigrams:
-                    keywordExists = True
+        for keyword in fellowshipKeywords:
+            if keyword in unigrams:
+                keywordExists = True
 
         return keywordExists
 
@@ -61,10 +59,9 @@ class ClassifyFundingTypeKeywordBased(object):
         internshipKeywords = ['internship', 'internships', 'intern', 'interns']
         keywordExists = False
 
-        while keywordExists == False:
-            for keyword in internshipKeywords:
-                if keyword in unigrams:
-                    keywordExists = True
+        for keyword in internshipKeywords:
+            if keyword in unigrams:
+                keywordExists = True
 
         return keywordExists
 
@@ -72,10 +69,9 @@ class ClassifyFundingTypeKeywordBased(object):
         grantKeywords = ['grant', 'grants', 'grantee', 'grantees']
         keywordExists = False
 
-        while keywordExists == False:
-            for keyword in grantKeywords:
-                if keyword in unigrams:
-                    keywordExists = True
+        for keyword in grantKeywords:
+            if keyword in unigrams:
+                keywordExists = True
 
         return keywordExists
 
@@ -83,10 +79,9 @@ class ClassifyFundingTypeKeywordBased(object):
         awardKeywords = ['award', 'awards', 'prize', 'prizes', 'awarded']
         keywordExists = False
 
-        while keywordExists == False:
-            for keyword in awardKeywords:
-                if keyword in unigrams:
-                    keywordExists = True
+        for keyword in awardKeywords:
+            if keyword in unigrams:
+                keywordExists = True
 
         return keywordExists
 
@@ -94,9 +89,8 @@ class ClassifyFundingTypeKeywordBased(object):
         researchKeywords = ['research', 'researcher', 'researchers', 'study', 'studying']
         keywordExists = False
 
-        while keywordExists == False:
-            for keyword in researchKeywords:
-                if keyword in unigrams:
-                    keywordExists = True
+        for keyword in researchKeywords:
+            if keyword in unigrams:
+                keywordExists = True
 
         return keywordExists
