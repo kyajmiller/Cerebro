@@ -4,7 +4,7 @@ from Classes.GetPivotTagsTitleAbstractEligibility import GetPivotTagsTitleAbstra
 
 
 class TestStringMethods(unittest.TestCase):
-    def test_returnPredictedTags(self):
+    def test_returnPredictedTagsFakeOpportunity(self):
         fakeopportunity = ['this is a fake opportunity for a scholarship']
         testclassify = ClassifyFundingTypeKeywordBased(fakeopportunity)
         predictedtag = testclassify.returnPredictedTags()[0]
