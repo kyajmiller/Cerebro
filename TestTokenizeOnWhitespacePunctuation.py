@@ -30,6 +30,15 @@ class TestStringMethods(unittest.TestCase):
         testtokenize = TokenizeOnWhitespacePunctuation(teststring)
         self.assertEqual(both, testtokenize.getBothUnigramsBigrams())
 
+    def test_unigramsApplyStopwords(self):
+        # set up
+        teststring = 'I like cats and birds.'
+        unigrams = ['cats', 'birds']
+
+        # test
+        testtokenize = TokenizeOnWhitespacePunctuation(teststring, applyStopwords=True)
+        self.assertEqual(unigrams, testtokenize.getUnigrams())
+
 
 if __name__ == '__main__':
     unittest.main()
