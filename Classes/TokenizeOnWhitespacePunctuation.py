@@ -3,7 +3,8 @@ from Classes.StopwordsList import StopwordsList
 
 
 class TokenizeOnWhitespacePunctuation(object):
-    def __init__(self, stringToTokenize):
+    def __init__(self, stringToTokenize, applyStopwords=False):
+        self.applyStopwords = applyStopwords
         self.stringToTokenize = stringToTokenize.lower()
 
         self.listOfStopwords = StopwordsList.stopwords()
@@ -13,13 +14,18 @@ class TokenizeOnWhitespacePunctuation(object):
         self.bothUnigramsBigrams = []
 
     def getUnigrams(self):
+        self.unigrams = []
         unfileredUnigrams = re.findall(r"[\w']+", self.stringToTokenize)
         for word in unfileredUnigrams:
-            if word not in self.listOfStopwords:
+            if self.applyStopwords == True:
+                if word not in self.listOfStopwords:
+                    self.unigrams.append(word)
+            else:
                 self.unigrams.append(word)
         return self.unigrams
 
     def getBigrams(self):
+        self.bigrams = []
         self.getUnigrams()
         for i in range(len(self.unigrams) - 1):
             currentToken = self.unigrams[i]
