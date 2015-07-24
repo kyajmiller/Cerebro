@@ -2,7 +2,7 @@ from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuat
 from Classes.GetPivotTagsTitleAbstractEligibility import GetPivotTagsTitleAbstractEligibility
 
 
-class KeywordBasedFundingTypeClassifier(object):
+class ClassifyFundingTypeKeywordBased(object):
     def __init__(self, listOfOpportunitiesToBeClassified):
         self.listOfOpportunitiesToBeClassified = listOfOpportunitiesToBeClassified
         self.predictedTags = []
