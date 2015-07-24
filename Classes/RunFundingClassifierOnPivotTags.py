@@ -1,11 +1,12 @@
 from Classes.ClassifyFundingTypeKeywordBased import ClassifyFundingTypeKeywordBased
 from Classes.GetPivotTagsTitleAbstractEligibility import GetPivotTagsTitleAbstractEligibility
 from Classes.ComputeAccuracy import ComputeAccuracy
+from Classes.SUDBConnect import SUDBConnect
 
 
 class RunFundingClassifierOnPivotTags(object):
     @staticmethod
-    def getAccuracy():
+    def getOverallAccuracy():
         pivotDataList = GetPivotTagsTitleAbstractEligibility.getListConcatenatedItems()
         expectedTags = GetPivotTagsTitleAbstractEligibility.getTags()
         predictedTags = ClassifyFundingTypeKeywordBased(pivotDataList).returnPredictedTags()
@@ -13,5 +14,14 @@ class RunFundingClassifierOnPivotTags(object):
         accuracy = ComputeAccuracy(expectedTags, predictedTags).calculateAccuracy()
         print(accuracy)
 
+    @staticmethod
+    def insertPredictedTagsIntoDatabase():
+        pivotDataList = GetPivotTagsTitleAbstractEligibility.getListConcatenatedItems()
+        predictedTags = ClassifyFundingTypeKeywordBased(pivotDataList).returnPredictedTags()
+        db = SUDBConnect()
 
-testclass = RunFundingClassifierOnPivotTags.getAccuracy()
+        for i in range(len(predictedTags)):
+            predictedTag = predictedTags[i]
+            pivotTagId = str(i + 1)
+            db.insertUpdateOrDelete(
+                "update dbo.PivotTags set Predicted='" + predictedTag + "' where PivotTagId='" + pivotTagId + "'")
