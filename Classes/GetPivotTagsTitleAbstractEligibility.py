@@ -34,7 +34,7 @@ class GetPivotTagsTitleAbstractEligibility(object):
         return eligibilities
 
     @staticmethod
-    def getTag():
+    def getTags():
         db = SUDBConnect()
         tags = []
 
