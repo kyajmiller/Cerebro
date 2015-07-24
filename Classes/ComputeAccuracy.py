@@ -18,4 +18,5 @@ class ComputeAccuracy(object):
     def calculateAccuracy(self):
         self.getStats()
         self.accuracy = self.matches / self.total
+        self.accuracy = str(self.accuracy * 100) + '%'
         return self.accuracy
