@@ -101,7 +101,3 @@ class ClassifyFundingTypeKeywordBased(object):
                     keywordExists = True
 
         return keywordExists
-
-
-testclass = GetPivotTagsTitleAbstractEligibility.getListConcatenatedItems()
-testclasstags = GetPivotTagsTitleAbstractEligibility.getTitles()
