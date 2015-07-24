@@ -1,6 +1,5 @@
 import unittest
 from Classes.ClassifyFundingTypeKeywordBased import ClassifyFundingTypeKeywordBased
-from Classes.GetPivotTagsTitleAbstractEligibility import GetPivotTagsTitleAbstractEligibility
 
 
 class TestStringMethods(unittest.TestCase):
