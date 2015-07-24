@@ -6,7 +6,7 @@ class TestStringMethods(unittest.TestCase):
     def test_TokenizeOnWhitespacePunctuationUnigrams(self):
         # set up
         teststring = 'I like cats and birds.'
-        unigrams = ['I', 'like', 'cats', 'and', 'birds']
+        unigrams = ['i', 'like', 'cats', 'and', 'birds']
 
         # test
         testtokenize = TokenizeOnWhitespacePunctuation(teststring)
@@ -15,7 +15,7 @@ class TestStringMethods(unittest.TestCase):
     def test_TokenizeOnWhitespacePunctuationBigrams(self):
         # set up
         teststring = 'I like cats and birds.'
-        bigrams = ['I like', 'like cats', 'cats and', 'and birds']
+        bigrams = ['i like', 'like cats', 'cats and', 'and birds']
 
         # test
         testtokenize = TokenizeOnWhitespacePunctuation(teststring)
@@ -24,7 +24,7 @@ class TestStringMethods(unittest.TestCase):
     def test_TokenizeOnWhitespacePunctuationBothUnigramsBigrams(self):
         # set up
         teststring = 'I like cats and birds.'
-        both = ['I', 'like', 'cats', 'and', 'birds', 'I like', 'like cats', 'cats and', 'and birds']
+        both = ['i', 'like', 'cats', 'and', 'birds', 'i like', 'like cats', 'cats and', 'and birds']
 
         # test
         testtokenize = TokenizeOnWhitespacePunctuation(teststring)
