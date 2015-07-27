@@ -11,24 +11,39 @@ class ClassifyFundingTypeKeywordBased(object):
         return self.predictedTags
 
     def loopThroughOpportunitiesAndClassify(self):
-        for opportunity in self.listOfOpportunitiesToBeClassified:
-            tag = self.classifyOpportunity(opportunity)
+        for titleAbstract in self.listOfOpportunitiesToBeClassified:
+            title = titleAbstract[0]
+            abstract = titleAbstract[1]
+            tag = self.classifyOpportunity(title, abstract)
             self.predictedTags.append(tag)
 
-    def classifyOpportunity(self, opportunity):
-        unigrams = TokenizeOnWhitespacePunctuation(opportunity, applyStopwords=True).getUnigrams()
+    def classifyOpportunity(self, title, abstract):
+        unigramsTitle = TokenizeOnWhitespacePunctuation(title, applyStopwords=True).getUnigrams()
+        unigramsAbstract = TokenizeOnWhitespacePunctuation(abstract, applyStopwords=True).getUnigrams()
 
-        if self.checkFellowshipKeywords(unigrams):
+        if self.checkFellowshipKeywords(unigramsTitle):
             tag = 'Fellowship'
-        elif self.checkInternshipKeywords(unigrams):
+        elif self.checkInternshipKeywords(unigramsTitle):
             tag = 'Internship'
-        elif self.checkScholarshipKeywords(unigrams):
+        elif self.checkScholarshipKeywords(unigramsTitle):
             tag = 'Scholarship'
-        elif self.checkGrantKeywords(unigrams):
+        elif self.checkGrantKeywords(unigramsTitle):
             tag = 'Grant'
-        elif self.checkAwardKeywords(unigrams):
+        elif self.checkFellowshipKeywords(unigramsAbstract):
+            tag = 'Fellowship'
+        elif self.checkInternshipKeywords(unigramsAbstract):
+            tag = 'Internship'
+        elif self.checkScholarshipKeywords(unigramsAbstract):
+            tag = 'Scholarship'
+        elif self.checkGrantKeywords(unigramsAbstract):
+            tag = 'Grant'
+        elif self.checkAwardKeywords(unigramsTitle):
             tag = 'Award'
-        elif self.checkResearchKeywords(unigrams):
+        elif self.checkAwardKeywords(unigramsAbstract):
+            tag = 'Award'
+        elif self.checkResearchKeywords(unigramsTitle):
+            tag = 'Research'
+        elif self.checkResearchKeywords(unigramsAbstract):
             tag = 'Research'
         else:
             tag = 'Other'
