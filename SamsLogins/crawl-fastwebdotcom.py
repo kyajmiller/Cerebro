@@ -36,7 +36,7 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
         Awards = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[2]/p[2]')
         for item in Providers:
             print(item.get_attribute('textContent'))
-            
+
         print( "URLS: \n" + str(URLS) + "\nProviders: \n" + str(Providers) + "\nAwards: \n" + str(Awards))
 
     
