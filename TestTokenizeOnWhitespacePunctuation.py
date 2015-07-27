@@ -57,6 +57,15 @@ class TestStringMethods(unittest.TestCase):
         testtokenize = TokenizeOnWhitespacePunctuation(teststring, applyStopwords=True)
         self.assertEqual(both, testtokenize.getBothUnigramsBigrams())
 
+    def test_RemoveUrls(self):
+        # set up
+        teststring = 'I like cats cats.org'
+        unigrams = ['i', 'like', 'cats']
+
+        # test
+        testtokenize = TokenizeOnWhitespacePunctuation(teststring)
+        self.assertEqual(unigrams, testtokenize.getUnigrams())
+
 
 if __name__ == '__main__':
     unittest.main()
