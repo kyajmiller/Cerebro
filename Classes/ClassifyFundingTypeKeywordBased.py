@@ -21,7 +21,7 @@ class ClassifyFundingTypeKeywordBased(object):
         unigramsTitle = TokenizeOnWhitespacePunctuation(title, applyStopwords=True).getUnigrams()
         unigramsAbstract = TokenizeOnWhitespacePunctuation(abstract, applyStopwords=True).getUnigrams()
 
-        if self.checkFellowshipKeywords(unigramsTitle):
+        if self.checkFellowshipKeywordsTitle(unigramsTitle):
             tag = 'Fellowship'
         elif self.checkInternshipKeywords(unigramsTitle):
             tag = 'Internship'
@@ -33,14 +33,12 @@ class ClassifyFundingTypeKeywordBased(object):
             tag = 'Fellowship'
         elif self.checkInternshipKeywords(unigramsAbstract):
             tag = 'Internship'
-        elif self.checkScholarshipKeywords(unigramsAbstract):
-            tag = 'Scholarship'
         elif self.checkGrantKeywords(unigramsAbstract):
             tag = 'Grant'
         elif self.checkAwardKeywords(unigramsTitle):
             tag = 'Award'
-        elif self.checkAwardKeywords(unigramsAbstract):
-            tag = 'Award'
+        elif self.checkScholarshipKeywords(unigramsAbstract):
+            tag = 'Scholarship'
         elif self.checkResearchKeywords(unigramsTitle):
             tag = 'Research'
         elif self.checkResearchKeywords(unigramsAbstract):
@@ -61,6 +59,16 @@ class ClassifyFundingTypeKeywordBased(object):
         return keywordExists
 
     def checkFellowshipKeywords(self, unigrams):
+        fellowshipKeywords = ['fellowship', 'fellowships', 'fellow']
+        keywordExists = False
+
+        for keyword in fellowshipKeywords:
+            if keyword in unigrams:
+                keywordExists = True
+
+        return keywordExists
+
+    def checkFellowshipKeywordsTitle(self, unigrams):
         fellowshipKeywords = ['fellowship', 'fellowships', 'fellow', 'fellows']
         keywordExists = False
 
@@ -91,7 +99,7 @@ class ClassifyFundingTypeKeywordBased(object):
         return keywordExists
 
     def checkAwardKeywords(self, unigrams):
-        awardKeywords = ['award', 'awards', 'prize', 'prizes', 'awarded']
+        awardKeywords = ['award', 'awards', 'prize', 'prizes', 'medal']
         keywordExists = False
 
         for keyword in awardKeywords:
