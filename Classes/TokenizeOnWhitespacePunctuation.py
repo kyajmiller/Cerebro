@@ -13,8 +13,12 @@ class TokenizeOnWhitespacePunctuation(object):
         self.bigrams = []
         self.bothUnigramsBigrams = []
 
+    def removeUrls(self):
+        self.stringToTokenize = re.sub('[\w]+\.[\w]+', '', self.stringToTokenize)
+
     def getUnigrams(self):
         self.unigrams = []
+        self.removeUrls()
         unfileredUnigrams = re.findall(r"[\w']+", self.stringToTokenize)
         for word in unfileredUnigrams:
             if self.applyStopwords == True:
