@@ -14,7 +14,7 @@ class TokenizeOnWhitespacePunctuation(object):
         self.bothUnigramsBigrams = []
 
     def removeUrls(self):
-        self.stringToTokenize = re.sub('[\w]+\.[\w]+', '', self.stringToTokenize)
+        self.stringToTokenize = re.sub('\w+\.\w+', '', self.stringToTokenize)
 
     def getUnigrams(self):
         self.unigrams = []
