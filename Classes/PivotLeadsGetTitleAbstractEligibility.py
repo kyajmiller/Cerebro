@@ -4,41 +4,42 @@ from Classes.CleanText import CleanText
 
 class PivotLeadsGetTitleAbstractEligibility(object):
     @staticmethod
-    def getTitles():
+    def getTitles(keyword):
+        keyword = keyword
         db = SUDBConnect()
         titles = []
 
-        rows = db.getRows("select Name from dbo.PivotLeads")
+        rows = db.getRows("select Name from dbo.PivotLeads where Keyword='" + keyword + "'")
         for row in rows:
             titles.append(row.Name)
         return titles
 
     @staticmethod
-    def getAbstracts():
+    def getAbstracts(keyword):
         db = SUDBConnect()
         abstracts = []
 
-        rows = db.getRows("select Abstract from dbo.PivotLeads")
+        rows = db.getRows("select Abstract from dbo.PivotLeads where Keyword='" + keyword + "'")
         for row in rows:
             abstracts.append(row.Abstract)
         return abstracts
 
     @staticmethod
-    def getEligibilities():
+    def getEligibilities(keyword):
         db = SUDBConnect()
         eligibilities = []
 
-        rows = db.getRows("select Eligibility from dbo.PivotLeads")
+        rows = db.getRows("select Eligibility from dbo.PivotLeads where Keyword='" + keyword + "'")
         for row in rows:
             eligibilities.append(row.Eligibility)
         return eligibilities
 
     @staticmethod
-    def getTags():
+    def getTags(keyword):
         db = SUDBConnect()
         tags = []
 
-        rows = db.getRows("select Tag from dbo.PivotLeads")
+        rows = db.getRows("select Tag from dbo.PivotLeads where Keyword='" + keyword + "'")
         for row in rows:
             tags.append(row.Tag)
         return tags
@@ -54,10 +55,20 @@ class PivotLeadsGetTitleAbstractEligibility(object):
         return keywords
 
     @staticmethod
-    def getListConcatenatedItems():
-        titles = PivotLeadsGetTitleAbstractEligibility.getTitles()
-        abstracts = PivotLeadsGetTitleAbstractEligibility.getAbstracts()
-        eligibilities = PivotLeadsGetTitleAbstractEligibility.getEligibilities()
+    def getPivotLeadId(keyword):
+        db = SUDBConnect()
+        keyword = keyword
+        pivotLeadIds = []
+        rows = db.getRows("select PivotLeadId from dbo.PivotLeads where Keyword='" + keyword + "'")
+        for row in rows:
+            pivotLeadIds.append(row.PivotLeadId)
+        return pivotLeadIds
+
+    @staticmethod
+    def getListConcatenatedItems(keyword):
+        titles = PivotLeadsGetTitleAbstractEligibility.getTitles(keyword)
+        abstracts = PivotLeadsGetTitleAbstractEligibility.getAbstracts(keyword)
+        eligibilities = PivotLeadsGetTitleAbstractEligibility.getEligibilities(keyword)
         comboAbstractsEligibilities = []
 
         for i in range(len(abstracts)):
@@ -72,18 +83,20 @@ class PivotLeadsGetTitleAbstractEligibility(object):
         return comboAbstractsEligibilities
 
     @staticmethod
-    def getListofListofItems():
-        titles = PivotLeadsGetTitleAbstractEligibility.getTitles()
-        abstracts = PivotLeadsGetTitleAbstractEligibility.getAbstracts()
-        eligibilities = PivotLeadsGetTitleAbstractEligibility.getEligibilities()
+    def getListofListofItems(keyword):
+        titles = PivotLeadsGetTitleAbstractEligibility.getTitles(keyword)
+        abstracts = PivotLeadsGetTitleAbstractEligibility.getAbstracts(keyword)
+        eligibilities = PivotLeadsGetTitleAbstractEligibility.getEligibilities(keyword)
+        pivotLeadIds = PivotLeadsGetTitleAbstractEligibility.getPivotLeadId(keyword)
         wholeList = []
 
         for i in range(len(abstracts)):
             abstract = CleanText.cleanALLtheText(abstracts[i])
             eligibility = CleanText.cleanALLtheText(eligibilities[i])
             title = CleanText.cleanALLtheText(titles[i])
+            pivotLeadId = str(pivotLeadIds[i])
 
-            listOfItems = [title, abstract, eligibility]
+            listOfItems = [title, abstract, eligibility, pivotLeadId]
             wholeList.append(listOfItems)
 
         return wholeList
