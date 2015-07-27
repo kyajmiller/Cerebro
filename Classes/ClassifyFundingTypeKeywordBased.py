@@ -29,7 +29,7 @@ class ClassifyFundingTypeKeywordBased(object):
             tag = 'Scholarship'
         elif self.checkGrantKeywords(unigramsTitle):
             tag = 'Grant'
-        elif self.checkFellowshipKeywords(unigramsAbstract):
+        elif self.checkFellowshipKeywordsAbstract(unigramsAbstract):
             tag = 'Fellowship'
         elif self.checkInternshipKeywords(unigramsAbstract):
             tag = 'Internship'
@@ -58,7 +58,7 @@ class ClassifyFundingTypeKeywordBased(object):
 
         return keywordExists
 
-    def checkFellowshipKeywords(self, unigrams):
+    def checkFellowshipKeywordsAbstract(self, unigrams):
         fellowshipKeywords = ['fellowship', 'fellowships', 'fellow']
         keywordExists = False
 
