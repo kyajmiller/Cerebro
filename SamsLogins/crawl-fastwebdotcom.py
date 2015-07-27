@@ -13,7 +13,7 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
-        self.base_url = "https://www.fastweb.com"
+        self.base_url = "http://www.fastweb.com"
         self.verificationErrors = []
         self.accept_next_alert = True
     def testIsOne(self):
@@ -21,17 +21,19 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
         print("1 is equal to 1")
 
     def test_fastweb_dot_com_login(self):
-         driver.get("https://www.fastweb.com/college-scholarships/scholarships?filter=Matched")
-        '''driver = self.driver
+        driver = self.driver
         driver.get(self.base_url + "/login")
         driver.find_element_by_id("login").clear()
         driver.find_element_by_id("login").send_keys("crawlyjones@gmail.com")
         driver.find_element_by_id("password").clear()
         driver.find_element_by_id("password").send_keys("sasgcoders")
         driver.find_element_by_id("user_form_submit").click()
-        driver.e
-        driver.get("https://www.google.com")
-        print("Login successful")'''
+        print("Login successful")
+        URLS = self.driver.find_elements_by_xpath('//table/tbody/tr/td/h3/a')
+        Providers = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[1]/p[2]')
+        Awards = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[2]/p[2]')
+        print( "URLS: " + URLS + "Providers: " + Providers + "Awards: " + Awards)
+
     
     def is_element_present(self, how, what):
         return True
