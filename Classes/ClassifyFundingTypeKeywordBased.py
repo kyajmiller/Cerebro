@@ -109,7 +109,7 @@ class ClassifyFundingTypeKeywordBased(object):
         return keywordExists
 
     def checkResearchKeywords(self, unigrams):
-        researchKeywords = ['research', 'researcher', 'researchers', 'study', 'studying']
+        researchKeywords = ['research', 'researcher', 'researchers', 'study', 'studying', 'studies']
         keywordExists = False
 
         for keyword in researchKeywords:
