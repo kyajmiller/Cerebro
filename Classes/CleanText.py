@@ -6,7 +6,7 @@ import re
 class CleanText(object):
     @staticmethod
     def removeAllTags(stringToClean):
-        return re.sub('<.*?>', '', stringToClean, flags=re.DOTALL)
+        return re.sub('<.*?>', ' ', stringToClean, flags=re.DOTALL)
 
     @staticmethod
     def removenbsp(stringToClean):
@@ -18,23 +18,23 @@ class CleanText(object):
 
     @staticmethod
     def removeNonBodyElements(stringToClean):
-        result = re.sub('<html>.*?<body.*?>', '', stringToClean, flags=re.DOTALL)
-        result = re.sub('</body>.*?</html>', '', result, flags=re.DOTALL)
-        return re.sub('</body>', '', result)
+        result = re.sub('<html>.*?<body.*?>', ' ', stringToClean, flags=re.DOTALL)
+        result = re.sub('</body>.*?</html>', ' ', result, flags=re.DOTALL)
+        return re.sub('</body>', ' ', result)
 
     @staticmethod
     def removeScriptAndJavascript(stringToClean):
-        result = re.sub('<script.*?/script>', '', stringToClean, flags=re.DOTALL)
-        result = re.sub('javascript.*?/javascript>', '', result, flags=re.DOTALL)
+        result = re.sub('<script.*?/script>', ' ', stringToClean, flags=re.DOTALL)
+        result = re.sub('javascript.*?/javascript>', ' ', result, flags=re.DOTALL)
         return result
 
     @staticmethod
     def removeStyle(stringToClean):
-        return re.sub('<style.*?</style>', '', stringToClean, flags=re.DOTALL)
+        return re.sub('<style.*?</style>', ' ', stringToClean, flags=re.DOTALL)
 
     @staticmethod
     def removeNoscript(stringToClean):
-        return re.sub('<noscript.*?</noscript>', '', stringToClean, flags=re.DOTALL)
+        return re.sub('<noscript.*?</noscript>', ' ', stringToClean, flags=re.DOTALL)
 
     @staticmethod
     def replaceSingleQuotesWithTwoSingleQuotes(stringToClean):
@@ -42,11 +42,12 @@ class CleanText(object):
 
     @staticmethod
     def removeWhiteSpaces(stringToClean):
-        result = re.sub('\r', '', stringToClean)
-        result = re.sub('\n\n+', '\n', result)
-        result = re.sub('\t', '', result)
-        result = re.sub('\s\s+', ' ', result)
-        result = re.sub('^\s', '', result)
+        result = re.sub(r'\r', '', stringToClean)
+        result = re.sub(r'\n\n+', '\n', result)
+        result = re.sub(r'\t', '', result)
+        result = re.sub(r'\s\s+', ' ', result)
+        result = re.sub(r'^\s', '', result)
+        result = re.sub(r'\s$', '', result)
         return result
 
     @staticmethod
