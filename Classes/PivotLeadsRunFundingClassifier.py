@@ -1,6 +1,7 @@
 from Classes.ClassifyFundingTypeKeywordBased import ClassifyFundingTypeKeywordBased
 from Classes.PivotLeadsGetTitleAbstractEligibility import PivotLeadsGetTitleAbstractEligibility
 from Classes.SUDBConnect import SUDBConnect
+from Classes.CleanText import CleanText
 
 
 class PivotLeadsRunFundingClassifier(object):
@@ -8,6 +9,7 @@ class PivotLeadsRunFundingClassifier(object):
     def getPredictedTagsInsertIntoDatabase():
         keywordsList = PivotLeadsGetTitleAbstractEligibility.getKeywords()
         for keyword in keywordsList:
+            keyword = CleanText.cleanALLtheText(keyword)
             rowDataList = PivotLeadsGetTitleAbstractEligibility.getListofListofItems(keyword)
             predictedTags = ClassifyFundingTypeKeywordBased(rowDataList).returnPredictedTags()
             listPivotLeadIds = []
