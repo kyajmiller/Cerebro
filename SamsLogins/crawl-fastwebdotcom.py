@@ -16,11 +16,6 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
         self.base_url = "http://www.fastweb.com"
         self.verificationErrors = []
         self.accept_next_alert = True
-    def testIsOne(self):
-        self.assertEqual(1,1)
-        print("1 is equal to 1")
-
-    def test_fastweb_dot_com_login(self):
         driver = self.driver
         driver.get(self.base_url + "/login")
         driver.find_element_by_id("login").clear()
@@ -28,11 +23,21 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
         driver.find_element_by_id("password").clear()
         driver.find_element_by_id("password").send_keys("sasgcoders")
         driver.find_element_by_id("user_form_submit").click()
+        driver.get("http://www.fastweb.com/college-scholarships/scholarships?filter=Matched&page=1")
         print("Login successful")
+    def testIsOne(self):
+        self.assertEqual(1,1)
+        print("1 is equal to 1")
+
+    def test_fastweb_dot_com_login(self):
+
         URLS = self.driver.find_elements_by_xpath('//table/tbody/tr/td/h3/a')
         Providers = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[1]/p[2]')
         Awards = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[2]/p[2]')
-        print( "URLS: " + URLS + "Providers: " + Providers + "Awards: " + Awards)
+        for item in Providers:
+            print(item.get_attribute('textContent'))
+            
+        print( "URLS: \n" + str(URLS) + "\nProviders: \n" + str(Providers) + "\nAwards: \n" + str(Awards))
 
     
     def is_element_present(self, how, what):
