@@ -7,7 +7,7 @@ from Classes.SUDBConnect import SUDBConnect
 class RunFundingClassifierOnPivotTags(object):
     @staticmethod
     def getOverallAccuracy():
-        pivotDataList = GetPivotTagsTitleAbstractEligibility.getListConcatenatedItems()
+        pivotDataList = GetPivotTagsTitleAbstractEligibility.getListofListofItems()
         expectedTags = GetPivotTagsTitleAbstractEligibility.getTags()
         predictedTags = ClassifyFundingTypeKeywordBased(pivotDataList).returnPredictedTags()
 
@@ -16,7 +16,7 @@ class RunFundingClassifierOnPivotTags(object):
 
     @staticmethod
     def insertPredictedTagsIntoDatabase():
-        pivotDataList = GetPivotTagsTitleAbstractEligibility.getListConcatenatedItems()
+        pivotDataList = GetPivotTagsTitleAbstractEligibility.getListofListofItems()
         predictedTags = ClassifyFundingTypeKeywordBased(pivotDataList).returnPredictedTags()
         db = SUDBConnect()
 
