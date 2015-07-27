@@ -44,6 +44,16 @@ class PivotLeadsGetTitleAbstractEligibility(object):
         return tags
 
     @staticmethod
+    def getKeywords():
+        db = SUDBConnect()
+        keywords = []
+        rows = db.getRows("select distinct Keyword from dbo.PivotLeads")
+        for row in rows:
+            keywords.append(row.Keyword)
+
+        return keywords
+
+    @staticmethod
     def getListConcatenatedItems():
         titles = PivotLeadsGetTitleAbstractEligibility.getTitles()
         abstracts = PivotLeadsGetTitleAbstractEligibility.getAbstracts()
