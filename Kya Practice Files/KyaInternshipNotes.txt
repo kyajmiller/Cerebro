@@ -471,6 +471,22 @@ Steps:
 -Some of the mismatches are my error in tagging
 --Need a way to force it to check title over abstract/eligibility for scholarship/fellowship/internship/grant
 
-
-
+7/27 Notes:
+-More work on the classifier
+-Need to make it work such that it checks the title before checking the abstract, if finds keyword in title then that's it
+--Will probably make the program feed in the title and abstract+eligibility separately and then write a heirarchy based on that
+-Conflicting keyword existence
+--This is the one issue where doing a lexicon based tagging works really poorly. The tagger picks up on any instance of the keyword regardless of context
+--Could do bigrams but in order for it to work properly I would have to keep in stopwords, which could be weird. Even then, this would be irrelevant for a keyword search
+--Fix heirarchy, maybe add in particular words to the keywords list, and then maybe be prepared to not have completely perfect accuracy
+-Might need to not even look at the eligibility information at all for this classifier, as there might be conflicting information
+--Might mention that you can't be receiving a different grant, which doesn't help
+--Rarely they might mention that the award is a grant in the eligibility; might need to make a counter for keywords if have to search the eligibility, or just don't search it at all... ugh
+-After having fixed my mistakes in tagging, and reworking the classifier to run over just the title and abstract (separately), and rearranged the heirarchy, brought up accuracy to 94.8%
+-Time to run the classifier over the entirety of PivotLeads
+-Wrote class of staticmethods to get information from PivotLeads (title, abstract, eligibility, pivotLeadsId)
+-Wrote the script to run the classifier over the pivot leads rows, loops through each keyword in the database and stores the associated tags
+--Didn't want to make the program have to store 19k tags at once, sounds mean
+---It actually runs really quickly
+-Added 'studies' to researchKeywords, brought up accuracy to 95.4%, I'm really satisfied with this
 
