@@ -72,6 +72,20 @@ class PivotLeadsGetDatabaseInfo(object):
                 pivotLeadIds.append(row.PivotLeadId)
         return pivotLeadIds
 
+    def getSourceText(self):
+        sourceTexts = []
+
+        if self.tag:
+            rows = self.db.getRows(
+                "select SourceText from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
+            for row in rows:
+                sourceTexts.append(row.SourceText)
+        else:
+            rows = self.db.getRows("select SourceText from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+            for row in rows:
+                sourceTexts.append(row.SourceText)
+        return sourceTexts
+
     def getListStringConcatenatedTitleAbstractEligibility(self):
         comboTitleAbstractsEligibilitiesList = []
 
