@@ -2,7 +2,7 @@ from Classes.SUDBConnect import SUDBConnect
 from Classes.CleanText import CleanText
 
 
-class PivotLeadsGetTitleAbstractEligibility(object):
+class PivotLeadsGetDatabaseInfo(object):
     @staticmethod
     def getTitles(keyword):
         keyword = keyword
@@ -66,9 +66,9 @@ class PivotLeadsGetTitleAbstractEligibility(object):
 
     @staticmethod
     def getListConcatenatedItems(keyword):
-        titles = PivotLeadsGetTitleAbstractEligibility.getTitles(keyword)
-        abstracts = PivotLeadsGetTitleAbstractEligibility.getAbstracts(keyword)
-        eligibilities = PivotLeadsGetTitleAbstractEligibility.getEligibilities(keyword)
+        titles = PivotLeadsGetDatabaseInfo.getTitles(keyword)
+        abstracts = PivotLeadsGetDatabaseInfo.getAbstracts(keyword)
+        eligibilities = PivotLeadsGetDatabaseInfo.getEligibilities(keyword)
         comboAbstractsEligibilities = []
 
         for i in range(len(abstracts)):
@@ -84,10 +84,10 @@ class PivotLeadsGetTitleAbstractEligibility(object):
 
     @staticmethod
     def getListofListofItems(keyword):
-        titles = PivotLeadsGetTitleAbstractEligibility.getTitles(keyword)
-        abstracts = PivotLeadsGetTitleAbstractEligibility.getAbstracts(keyword)
-        eligibilities = PivotLeadsGetTitleAbstractEligibility.getEligibilities(keyword)
-        pivotLeadIds = PivotLeadsGetTitleAbstractEligibility.getPivotLeadId(keyword)
+        titles = PivotLeadsGetDatabaseInfo.getTitles(keyword)
+        abstracts = PivotLeadsGetDatabaseInfo.getAbstracts(keyword)
+        eligibilities = PivotLeadsGetDatabaseInfo.getEligibilities(keyword)
+        pivotLeadIds = PivotLeadsGetDatabaseInfo.getPivotLeadId(keyword)
         wholeList = []
 
         for i in range(len(abstracts)):
