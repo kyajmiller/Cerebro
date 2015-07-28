@@ -1,4 +1,4 @@
-import SamsLogins.FastWebResults as FastWebResults
+import SamsLogins.FastWebResults as FWR
 import unittest
 
 
@@ -13,6 +13,13 @@ class TestStringMethods(unittest.TestCase):
 
   def test_importToFastTrackWeb(self):
       self.assertEqual(1,1)
+      names=["test","test2"]
+      searchTerms=[]
+      providers=[]
+      awards=[]
+     # fastResults= FWR.FastWebResults(names,searchTerms,providers,awards)
+     # fastResults.addScholarshipToObject()
+     # self.assertEqual("test",FWR.names[0])
 
 
 
