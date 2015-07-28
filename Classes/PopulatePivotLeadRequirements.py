@@ -16,9 +16,9 @@ class PopulatePivotLeadRequirements(object):
 
     def loopThroughListOfMajorsAndDoStuff(self):
         for major in self.listOfMajors:
-            listOfPivotLeadsIds = PivotLeadsGetDatabaseInfo.getPivotLeadId(major, self.tag)
-            listOfConcatenatedAbstractEligibilities = PivotLeadsGetDatabaseInfo.getListStringConcatendatedAbstractEligibility(
-                major, self.tag)
+            pivotLeadsDatabaseInfo = PivotLeadsGetDatabaseInfo(major, self.tag)
+            listOfPivotLeadsIds = pivotLeadsDatabaseInfo.getPivotLeadId()
+            listOfConcatenatedAbstractEligibilities = pivotLeadsDatabaseInfo.getListStringConcatendatedAbstractEligibility()
 
             for i in range(len(listOfPivotLeadsIds)):
                 pivotLeadId = listOfPivotLeadsIds[i]
