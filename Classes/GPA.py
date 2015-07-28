@@ -26,6 +26,7 @@ class GPA(Parser):
         elif self.doesMatchExist():
             if not self.checkContext('million|billion|trillion|version|dollar|pound|euro'):
                 for i in self.getResult():
+                    i = re.sub('\(', '', i)
                     self.resultList.append(i.strip())
 
         if self.checkContext('4\.0\sscale') and self.doesMatchExist():
