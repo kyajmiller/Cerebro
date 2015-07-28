@@ -3,7 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
-import xml.etree.ElementTree as xp
 
 
 import unittest, time, re
@@ -27,28 +26,56 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
         print("Login successful")
     def testIsOne(self):
         self.assertEqual(1,1)
-        print("1 is equal to 1")
+        print("1 is equal to 1, nothing broke")
 
     def test_fastweb_dot_com_login(self):
 
-        URLS = self.driver.find_elements_by_xpath('//table/tbody/tr/td/h3/a')
+        nameObjects = self.driver.find_elements_by_xpath('//table/tbody/tr/td/h3/a')
         providerObjects = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[1]/p[2]')
-        Awards = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[2]/p[2]')
+        awardObjects = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[2]/p[2]')
+        deadlineObjects = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[3]/p[2]')
+        pageObjects = self.driver.find_elements_by_xpath('//div[@class="pagination right"]/a')
+        names=[]
         providers=[]
+        awards=[]
+        urls=[]
+        deadlines=[]
 
+        print("\n\nNAMES:")
+        for item in nameObjects:
+            names.append(item.text)
+        for item in names:
+            print(item)
+
+        print("\n\nPROVIDERS:")
         for item in providerObjects:
             providers.append(item.text)
         for item in providers:
             print(item)
-            #print( "URLS: \n" + str(URLS) + "\nProviders: \n" + str(Providers) + "\nAwards: \n" + str(Awards))
 
-    
-    def is_element_present(self, how, what):
-        return True
-    
+        print("\n\nAWARDS:")
+        for item in awardObjects:
+            awards.append(item.text)
+        for item in awards:
+            print(item)
+
+        print("\n\nDEADLINES:")
+        for item in deadlineObjects:
+            deadlines.append(item.text)
+        for item in deadlines:
+            print(item)
+
+        print("\n\nURLS:")
+        for item in nameObjects:
+            urls.append(item.get_attribute('href'))
+        for item in urls:
+            print(item)
+
+        print("\n\nNUMBER OF PAGES: " + str(len(pageObjects)))
+
     def is_alert_present(self):
         return True
-    
+
     def close_alert_and_get_its_text(self):
         try:
             alert = self.driver.switch_to_alert()
@@ -63,9 +90,6 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
-
-    def fastweb_dot_com_crawl(self):
-        print("Crawling...")
 
 
 if __name__ == "__main__":
