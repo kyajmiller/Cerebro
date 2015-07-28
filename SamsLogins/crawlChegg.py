@@ -25,7 +25,7 @@ class CrawlChegg(unittest.TestCase):
 
     def test_crawl_chegg(self):
         names = []
-        urls = []
+        cheggurls = []
         deadlines = []
         amounts = []
 
@@ -35,7 +35,7 @@ class CrawlChegg(unittest.TestCase):
 
         for item in linkObjects:
             names.append(item.text)
-            urls.append(item.get_attribute('href'))
+            cheggurls.append(item.get_attribute('href'))
 
         for item in deadlineObjects:
             deadlines.append(item.text)
@@ -46,7 +46,7 @@ class CrawlChegg(unittest.TestCase):
         for item in names:
             print(item)
 
-        for item in urls:
+        for item in cheggurls:
             print(item)
 
         for item in deadlines:
