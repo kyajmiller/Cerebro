@@ -65,22 +65,22 @@ class PivotLeadsGetDatabaseInfo(object):
         return pivotLeadIds
 
     @staticmethod
-    def getListConcatenatedItems(keyword):
+    def getListConcatenatedTitleAbstractEligibility(keyword):
         titles = PivotLeadsGetDatabaseInfo.getTitles(keyword)
         abstracts = PivotLeadsGetDatabaseInfo.getAbstracts(keyword)
         eligibilities = PivotLeadsGetDatabaseInfo.getEligibilities(keyword)
-        comboAbstractsEligibilities = []
+        comboTitleAbstractsEligibilitiesList = []
 
         for i in range(len(abstracts)):
             abstract = abstracts[i]
             eligibility = eligibilities[i]
             title = titles[i]
 
-            comboAbstractEligibility = '%s %s %s' % (title, abstract, eligibility)
-            comboAbstractEligibility = CleanText.cleanALLtheText(comboAbstractEligibility)
-            comboAbstractsEligibilities.append(comboAbstractEligibility)
+            comboTitleAbstractEligibility = '%s %s %s' % (title, abstract, eligibility)
+            comboTitleAbstractEligibility = CleanText.cleanALLtheText(comboTitleAbstractEligibility)
+            comboTitleAbstractsEligibilitiesList.append(comboTitleAbstractEligibility)
 
-        return comboAbstractsEligibilities
+        return comboTitleAbstractsEligibilitiesList
 
     @staticmethod
     def getTitleAbstractEligibilityPivotLeadIdList(keyword):
@@ -100,3 +100,19 @@ class PivotLeadsGetDatabaseInfo(object):
             wholeList.append(listOfItems)
 
         return wholeList
+
+    @staticmethod
+    def getConcatenatedAbstractEligibility(keyword):
+        abstracts = PivotLeadsGetDatabaseInfo.getTitles(keyword)
+        eligibilities = PivotLeadsGetDatabaseInfo.getEligibilities(keyword)
+        comboAbstractsEligibilitiesList = []
+
+        for i in range(len(abstracts)):
+            abstract = abstracts[i]
+            eligibility = eligibilities[i]
+
+            comboAbstractEligibility = '%s %s' % (abstract, eligibility)
+            comboAbstractEligibility = CleanText.cleanALLtheText(comboAbstractEligibility)
+            comboAbstractsEligibilitiesList.append(comboAbstractEligibility)
+
+        return comboAbstractsEligibilitiesList
