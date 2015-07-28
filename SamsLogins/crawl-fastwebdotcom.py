@@ -6,7 +6,6 @@ from selenium.webdriver.support.ui import Select
 
 
 import unittest, time, re
-import xml.etree.ElementTree as pxp
 
 class SeleniumPythonFastwebdotcom(unittest.TestCase):
     def setUp(self):
