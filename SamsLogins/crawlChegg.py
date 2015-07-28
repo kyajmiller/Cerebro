@@ -24,7 +24,41 @@ class CrawlChegg(unittest.TestCase):
 
 
     def test_crawl_chegg(self):
-        print(self.driver.find_elements_by_xpath('//section/div/div[4]/a[2]'))
+        names = []
+        urls = []
+        deadlines = []
+        amounts = []
+
+        linkObjects = self.driver.find_elements_by_xpath('//section/div/div[4]/a[2]')
+        deadlineObjects = self.driver.find_elements_by_xpath('//section/div/div[2]')
+        amountObjects = self.driver.find_elements_by_xpath('//section/div/div[1]')
+
+        for item in linkObjects:
+            names.append(item.text)
+            urls.append(item.get_attribute('href'))
+
+        for item in deadlineObjects:
+            deadlines.append(item.text)
+
+        for item in amountObjects:
+            amounts.append(item.text)
+
+        for item in names:
+            print(item)
+
+        for item in urls:
+            print(item)
+
+        for item in deadlines:
+            print(item)
+
+        for item in amounts:
+            print(item)
+
+
+
+
+
 
 
     def is_element_present(self, how, what):
