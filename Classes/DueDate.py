@@ -16,10 +16,11 @@ class DueDate(Parser):
         return contextChecker.doesMatchExist()
 
     def getDueDate(self):
-        if self.checkContext('due\sdate|application\swindow|deadline|dead\sline|close\sdate') and self.doesMatchExist():
+        if self.checkContext(
+                'due\sdate|application\swindow|deadline|dead\sline|close\sdate|close') and self.doesMatchExist():
             for i in self.getResult():
                 self.resultList.append(i)
 
         self.resultList = list(set(self.resultList))
-        self.dueDate = ', '.join(self.resultList)
+        self.dueDate = self.resultList
         return self.dueDate
