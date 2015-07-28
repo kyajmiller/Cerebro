@@ -9,29 +9,38 @@ class PopulatePivotLeadRequirements(object):
     def __init__(self, listOfMajors):
         self.listOfMajors = listOfMajors
         self.db = SUDBConnect()
+        self.tag = 'Scholarship'
         self.sentenceTokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+
+        self.loopThroughListOfMajorsAndDoStuff()
 
     def loopThroughListOfMajorsAndDoStuff(self):
         for major in self.listOfMajors:
-            listOfPivotLeadsIds = PivotLeadsGetDatabaseInfo.getPivotLeadId(major)
+            listOfPivotLeadsIds = PivotLeadsGetDatabaseInfo.getPivotLeadId(major, self.tag)
             listOfConcatenatedAbstractEligibilities = PivotLeadsGetDatabaseInfo.getListStringConcatendatedAbstractEligibility(
-                major)
+                major, self.tag)
 
             for i in range(len(listOfPivotLeadsIds)):
                 pivotLeadId = listOfPivotLeadsIds[i]
                 abstractEligibility = listOfConcatenatedAbstractEligibilities[i].strip()
                 tokenizedSentences = self.tokenizeAbstractEligibilityIntoSentences(abstractEligibility)
 
-                gpa = ''
+                gpa = []
                 dueDate = ''
 
                 for sentence in tokenizedSentences:
                     maybeGPA = GPA(sentence).getGPA()
                     if maybeGPA != '':
-                        gpa = maybeGPA
+                        gpa.append(maybeGPA)
 
-                print(gpa)
+                gpa = ', '.join(gpa)
+
+                print(pivotLeadId, gpa)
 
     def tokenizeAbstractEligibilityIntoSentences(self, abstractEligibility):
         sentences = self.sentenceTokenizer.tokenize(abstractEligibility)
         return sentences
+
+
+listOfMajors = ['Accounting']
+PopulatePivotLeadRequirements(listOfMajors)
