@@ -19,18 +19,12 @@ class CrawlChegg(unittest.TestCase):
         driver.find_element_by_name("password").clear()
         driver.find_element_by_name("password").send_keys("SASGcoders626")
         driver.find_element_by_name("login").click()
-        driver.get(self.base_url + "https://www.chegg.com/scholarships")
+        driver.get("https://www.chegg.com/scholarships")
+        print("It's not broken yet :D")
 
 
     def test_crawl_chegg(self):
-        driver = self.driver
-        driver.get(self.base_url + "/auth?action=login&reset_password=0")
-        driver.find_element_by_name("email").clear()
-        driver.find_element_by_name("email").send_keys("crawlyjones@gmail.com")
-        driver.find_element_by_name("password").clear()
-        driver.find_element_by_name("password").send_keys("SASGcoders626")
-        driver.find_element_by_name("login").click()
-        driver.get(self.base_url + "https://www.chegg.com/scholarships")
+        print(self.driver.find_elements_by_xpath('//section/div/div[4]/a[2]'))
 
 
     def is_element_present(self, how, what):
