@@ -9,8 +9,8 @@ class TestStringMethods(unittest.TestCase):
         # set up
         db = SUDBConnect()
         keyword = 'Accounting'
-        testConcatenatedTitleAbstractEligibility = PivotLeadsGetDatabaseInfo.getListStringConcatenatedTitleAbstractEligibility(
-            keyword)
+        testConcatenatedTitleAbstractEligibility = PivotLeadsGetDatabaseInfo(
+            keyword).getListStringConcatenatedTitleAbstractEligibility()
         firstItem = testConcatenatedTitleAbstractEligibility[0]
 
         # test
@@ -27,8 +27,8 @@ class TestStringMethods(unittest.TestCase):
         # set up
         db = SUDBConnect()
         keyword = 'Accounting'
-        testListTitleAbstractEligibilityPivotId = PivotLeadsGetDatabaseInfo.getTitleAbstractEligibilityPivotLeadIdList(
-            keyword)
+        testListTitleAbstractEligibilityPivotId = PivotLeadsGetDatabaseInfo(
+            keyword).getTitleAbstractEligibilityPivotLeadIdList()
         firstList = testListTitleAbstractEligibilityPivotId[0]
         testTitle = firstList[0]
         testAbstract = firstList[1]
