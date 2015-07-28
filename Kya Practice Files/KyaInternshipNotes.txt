@@ -490,3 +490,28 @@ Steps:
 ---It actually runs really quickly
 -Added 'studies' to researchKeywords, brought up accuracy to 95.4%, I'm really satisfied with this
 
+7/28 Notes:
+-New task: write a program that scans through each row of PivotLeads (where Tag='Scholarship'),
+--extracts the abstract/eligibility, scans through with parsers, and returns the GPA, Due Date, and Major
+--inserts the GPA, due date and major into PivotLeadRequirements, also the PivotLeadId from the PivotLeads table
+---when doing the insert, for each value pulled out insert new row: AttributeId, AttributeValue
+--Make sure the program can take a list of values to run
+-Converted PivotLeadsGetDatabaseInfo from a bunch of static methods to a normal class that takes a keyword and an optional tag value
+-fuck my life. I wish I would have thought to have pulled out the due dates for these scholarships on the nicely formatted pivot page before getting banned from pivot. Would have been infinitely more convenient than having to attempt a regex search
+
+Due date context keywords:
+-due date
+-application window
+-close
+-deadline
+-close date
+
+-need to figure out a good regex to get dates
+((January|February|March|April|May|June|July|August|September|October|November|December)|([01][0-9]\/))(\s[123]?[0-9](st|nd|rd|th)?[,\/]?(\d{2})?\s)?(\d{4})?
+this one should work for dates formatted either like January 15 2015, January 15, 2015, January 2015, 01/15/2015
+hopefully I don't get any weird date formats popping out
+-The regex is being weird. It's interpreting the parentheses in the regex as separate groups when I want the whole thing to be a single group. Have to figure out how to fix this
+--Putting a parentheses around the whole thing does work to make it capture the entire date as a single group, but it still also returns the individual groups
+--I could limit it by making it only return the very first result, but how can I be sure that the first result is the full one (it could be something else for all I know)
+--How to force greedy matching python
+
