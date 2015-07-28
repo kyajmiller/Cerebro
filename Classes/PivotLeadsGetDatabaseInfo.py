@@ -83,7 +83,7 @@ class PivotLeadsGetDatabaseInfo(object):
         return comboAbstractsEligibilities
 
     @staticmethod
-    def getListofListofItems(keyword):
+    def getTitleAbstractEligibilityPivotLeadIdList(keyword):
         titles = PivotLeadsGetDatabaseInfo.getTitles(keyword)
         abstracts = PivotLeadsGetDatabaseInfo.getAbstracts(keyword)
         eligibilities = PivotLeadsGetDatabaseInfo.getEligibilities(keyword)
