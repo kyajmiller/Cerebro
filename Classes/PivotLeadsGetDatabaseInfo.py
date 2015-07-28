@@ -4,34 +4,50 @@ from Classes.CleanText import CleanText
 
 class PivotLeadsGetDatabaseInfo(object):
     @staticmethod
-    def getTitles(keyword):
-        keyword = keyword
+    def getTitles(keyword, tag=None):
         db = SUDBConnect()
         titles = []
 
-        rows = db.getRows("select Name from dbo.PivotLeads where Keyword='" + keyword + "'")
-        for row in rows:
-            titles.append(row.Name)
+        if tag:
+            rows = db.getRows("select Name from dbo.PivotLeads where Keyword='" + keyword + "' and Tag='" + tag + "'")
+            for row in rows:
+                titles.append(row.Name)
+        else:
+            rows = db.getRows("select Name from dbo.PivotLeads where Keyword='" + keyword + "'")
+            for row in rows:
+                titles.append(row.Name)
         return titles
 
     @staticmethod
-    def getAbstracts(keyword):
+    def getAbstracts(keyword, tag=None):
         db = SUDBConnect()
         abstracts = []
 
-        rows = db.getRows("select Abstract from dbo.PivotLeads where Keyword='" + keyword + "'")
-        for row in rows:
-            abstracts.append(row.Abstract)
+        if tag:
+            rows = db.getRows(
+                "select Abstract from dbo.PivotLeads where Keyword='" + keyword + "' and Tag='" + tag + "'")
+            for row in rows:
+                abstracts.append(row.Abstract)
+        else:
+            rows = db.getRows("select Abstract from dbo.PivotLeads where Keyword='" + keyword + "'")
+            for row in rows:
+                abstracts.append(row.Abstract)
         return abstracts
 
     @staticmethod
-    def getEligibilities(keyword):
+    def getEligibilities(keyword, tag=None):
         db = SUDBConnect()
         eligibilities = []
 
-        rows = db.getRows("select Eligibility from dbo.PivotLeads where Keyword='" + keyword + "'")
-        for row in rows:
-            eligibilities.append(row.Eligibility)
+        if tag:
+            rows = db.getRows(
+                "select Eligibility from dbo.PivotLeads where Keyword='" + keyword + "' and Tag='" + tag + "'")
+            for row in rows:
+                eligibilities.append(row.Eligibility)
+        else:
+            rows = db.getRows("select Eligibility from dbo.PivotLeads where Keyword='" + keyword + "'")
+            for row in rows:
+                eligibilities.append(row.Eligibility)
         return eligibilities
 
     @staticmethod
@@ -55,64 +71,115 @@ class PivotLeadsGetDatabaseInfo(object):
         return keywords
 
     @staticmethod
-    def getPivotLeadId(keyword):
+    def getPivotLeadId(keyword, tag=None):
         db = SUDBConnect()
         keyword = keyword
         pivotLeadIds = []
-        rows = db.getRows("select PivotLeadId from dbo.PivotLeads where Keyword='" + keyword + "'")
-        for row in rows:
-            pivotLeadIds.append(row.PivotLeadId)
+
+        if tag:
+            rows = db.getRows(
+                "select PivotLeadId from dbo.PivotLeads where Keyword='" + keyword + "' and Tag='" + tag + "'")
+            for row in rows:
+                pivotLeadIds.append(row.PivotLeadId)
+        else:
+            rows = db.getRows("select PivotLeadId from dbo.PivotLeads where Keyword='" + keyword + "'")
+            for row in rows:
+                pivotLeadIds.append(row.PivotLeadId)
         return pivotLeadIds
 
     @staticmethod
-    def getListStringConcatenatedTitleAbstractEligibility(keyword):
-        titles = PivotLeadsGetDatabaseInfo.getTitles(keyword)
-        abstracts = PivotLeadsGetDatabaseInfo.getAbstracts(keyword)
-        eligibilities = PivotLeadsGetDatabaseInfo.getEligibilities(keyword)
+    def getListStringConcatenatedTitleAbstractEligibility(keyword, tag=None):
         comboTitleAbstractsEligibilitiesList = []
 
-        for i in range(len(abstracts)):
-            abstract = abstracts[i]
-            eligibility = eligibilities[i]
-            title = titles[i]
+        if tag:
+            titles = PivotLeadsGetDatabaseInfo.getTitles(keyword, tag)
+            abstracts = PivotLeadsGetDatabaseInfo.getAbstracts(keyword, tag)
+            eligibilities = PivotLeadsGetDatabaseInfo.getEligibilities(keyword, tag)
 
-            comboTitleAbstractEligibility = '%s %s %s' % (title, abstract, eligibility)
-            comboTitleAbstractEligibility = CleanText.cleanALLtheText(comboTitleAbstractEligibility)
-            comboTitleAbstractsEligibilitiesList.append(comboTitleAbstractEligibility)
+            for i in range(len(abstracts)):
+                abstract = abstracts[i]
+                eligibility = eligibilities[i]
+                title = titles[i]
+
+                comboTitleAbstractEligibility = '%s %s %s' % (title, abstract, eligibility)
+                comboTitleAbstractEligibility = CleanText.cleanALLtheText(comboTitleAbstractEligibility)
+                comboTitleAbstractsEligibilitiesList.append(comboTitleAbstractEligibility)
+        else:
+            titles = PivotLeadsGetDatabaseInfo.getTitles(keyword)
+            abstracts = PivotLeadsGetDatabaseInfo.getAbstracts(keyword)
+            eligibilities = PivotLeadsGetDatabaseInfo.getEligibilities(keyword)
+
+            for i in range(len(abstracts)):
+                abstract = abstracts[i]
+                eligibility = eligibilities[i]
+                title = titles[i]
+
+                comboTitleAbstractEligibility = '%s %s %s' % (title, abstract, eligibility)
+                comboTitleAbstractEligibility = CleanText.cleanALLtheText(comboTitleAbstractEligibility)
+                comboTitleAbstractsEligibilitiesList.append(comboTitleAbstractEligibility)
 
         return comboTitleAbstractsEligibilitiesList
 
     @staticmethod
-    def getTitleAbstractEligibilityPivotLeadIdList(keyword):
-        titles = PivotLeadsGetDatabaseInfo.getTitles(keyword)
-        abstracts = PivotLeadsGetDatabaseInfo.getAbstracts(keyword)
-        eligibilities = PivotLeadsGetDatabaseInfo.getEligibilities(keyword)
-        pivotLeadIds = PivotLeadsGetDatabaseInfo.getPivotLeadId(keyword)
+    def getTitleAbstractEligibilityPivotLeadIdList(keyword, tag=None):
         wholeList = []
 
-        for i in range(len(abstracts)):
-            abstract = CleanText.cleanALLtheText(abstracts[i])
-            eligibility = CleanText.cleanALLtheText(eligibilities[i])
-            title = CleanText.cleanALLtheText(titles[i])
-            pivotLeadId = str(pivotLeadIds[i])
+        if tag:
+            titles = PivotLeadsGetDatabaseInfo.getTitles(keyword, tag)
+            abstracts = PivotLeadsGetDatabaseInfo.getAbstracts(keyword, tag)
+            eligibilities = PivotLeadsGetDatabaseInfo.getEligibilities(keyword, tag)
+            pivotLeadIds = PivotLeadsGetDatabaseInfo.getPivotLeadId(keyword, tag)
 
-            listOfItems = [title, abstract, eligibility, pivotLeadId]
-            wholeList.append(listOfItems)
+            for i in range(len(abstracts)):
+                abstract = CleanText.cleanALLtheText(abstracts[i])
+                eligibility = CleanText.cleanALLtheText(eligibilities[i])
+                title = CleanText.cleanALLtheText(titles[i])
+                pivotLeadId = str(pivotLeadIds[i])
+
+                listOfItems = [title, abstract, eligibility, pivotLeadId]
+                wholeList.append(listOfItems)
+        else:
+            titles = PivotLeadsGetDatabaseInfo.getTitles(keyword)
+            abstracts = PivotLeadsGetDatabaseInfo.getAbstracts(keyword)
+            eligibilities = PivotLeadsGetDatabaseInfo.getEligibilities(keyword)
+            pivotLeadIds = PivotLeadsGetDatabaseInfo.getPivotLeadId(keyword)
+
+            for i in range(len(abstracts)):
+                abstract = CleanText.cleanALLtheText(abstracts[i])
+                eligibility = CleanText.cleanALLtheText(eligibilities[i])
+                title = CleanText.cleanALLtheText(titles[i])
+                pivotLeadId = str(pivotLeadIds[i])
+
+                listOfItems = [title, abstract, eligibility, pivotLeadId]
+                wholeList.append(listOfItems)
 
         return wholeList
 
     @staticmethod
-    def getListStringConcatendatedAbstractEligibility(keyword):
-        abstracts = PivotLeadsGetDatabaseInfo.getTitles(keyword)
-        eligibilities = PivotLeadsGetDatabaseInfo.getEligibilities(keyword)
+    def getListStringConcatendatedAbstractEligibility(keyword, tag=None):
         comboAbstractsEligibilitiesList = []
 
-        for i in range(len(abstracts)):
-            abstract = abstracts[i]
-            eligibility = eligibilities[i]
+        if tag:
+            abstracts = PivotLeadsGetDatabaseInfo.getTitles(keyword, tag)
+            eligibilities = PivotLeadsGetDatabaseInfo.getEligibilities(keyword, tag)
 
-            comboAbstractEligibility = '%s %s' % (abstract, eligibility)
-            comboAbstractEligibility = CleanText.cleanALLtheText(comboAbstractEligibility)
-            comboAbstractsEligibilitiesList.append(comboAbstractEligibility)
+            for i in range(len(abstracts)):
+                abstract = abstracts[i]
+                eligibility = eligibilities[i]
+
+                comboAbstractEligibility = '%s %s' % (abstract, eligibility)
+                comboAbstractEligibility = CleanText.cleanALLtheText(comboAbstractEligibility)
+                comboAbstractsEligibilitiesList.append(comboAbstractEligibility)
+        else:
+            abstracts = PivotLeadsGetDatabaseInfo.getTitles(keyword)
+            eligibilities = PivotLeadsGetDatabaseInfo.getEligibilities(keyword)
+
+            for i in range(len(abstracts)):
+                abstract = abstracts[i]
+                eligibility = eligibilities[i]
+
+                comboAbstractEligibility = '%s %s' % (abstract, eligibility)
+                comboAbstractEligibility = CleanText.cleanALLtheText(comboAbstractEligibility)
+                comboAbstractsEligibilitiesList.append(comboAbstractEligibility)
 
         return comboAbstractsEligibilitiesList
