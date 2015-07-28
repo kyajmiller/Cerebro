@@ -9,7 +9,7 @@ class GPA(Parser):
         Parser.__init__(self, self.stringToScan, '\s[^$\d\.]?[1234]\.\d+')
         self.resultList = []
         self.attributeId = '1'
-        self.requirementValue = ''
+        self.gpa = ''
         self.logicGroup = '0'
         self.requirementTypeCode = '>='
         self.scholarshipPackageId = scholarshipPackageId
@@ -36,8 +36,8 @@ class GPA(Parser):
         if len(self.resultList) >= 2:
             self.logicGroup = '1'
 
-        self.requirementValue = ', '.join(self.resultList)
-        return self.requirementValue
+        self.gpa = ', '.join(self.resultList)
+        return self.gpa
 
     def getScholarshipPackageRequirementFormat(self):
         self.getGPA()
