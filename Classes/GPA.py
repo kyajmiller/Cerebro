@@ -14,8 +14,8 @@ class GPA(Parser):
         self.requirementTypeCode = '>='
         self.scholarshipPackageId = scholarshipPackageId
 
-    def checkContext(self, contextCriteria):
-        contextChecker = Parser(self.stringToScan.lower(), contextCriteria)
+    def checkContext(self, contextRegex):
+        contextChecker = Parser(self.stringToScan.lower(), contextRegex)
         return contextChecker.doesMatchExist()
 
     def getGPA(self):
