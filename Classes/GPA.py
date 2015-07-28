@@ -1,3 +1,4 @@
+import re
 from Classes.Parser import Parser
 from Classes.ScholarshipPackageRequirementFormat import ScholarshipPackageRequirement
 
@@ -20,6 +21,7 @@ class GPA(Parser):
     def getGPA(self):
         if self.checkContext('g\.?p\.?a\.?|grade\spoint\saverage|maintain\sa') and self.doesMatchExist():
             for i in self.getResult():
+                i = re.sub('\(', '', i)
                 self.resultList.append(i.strip())
         elif self.doesMatchExist():
             if not self.checkContext('million|billion|trillion|version|dollar|pound|euro'):
