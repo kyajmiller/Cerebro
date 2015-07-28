@@ -1,5 +1,5 @@
 import unittest
-from Classes.PivotLeadsGetTitleAbstractEligibility import PivotLeadsGetTitleAbstractEligibility
+from Classes.PivotLeadsGetDatabaseInfo import PivotLeadsGetDatabaseInfo
 from Classes.CleanText import CleanText
 from Classes.SUDBConnect import SUDBConnect
 
@@ -9,7 +9,7 @@ class TestStringMethods(unittest.TestCase):
         # set up
         db = SUDBConnect()
         keyword = 'Accounting'
-        testConcatenatedTitleAbstractEligibility = PivotLeadsGetTitleAbstractEligibility.getListConcatenatedItems(
+        testConcatenatedTitleAbstractEligibility = PivotLeadsGetDatabaseInfo.getListStringConcatenatedTitleAbstractEligibility(
             keyword)
         firstItem = testConcatenatedTitleAbstractEligibility[0]
 
@@ -27,7 +27,8 @@ class TestStringMethods(unittest.TestCase):
         # set up
         db = SUDBConnect()
         keyword = 'Accounting'
-        testListTitleAbstractEligibilityPivotId = PivotLeadsGetTitleAbstractEligibility.getListofListofItems(keyword)
+        testListTitleAbstractEligibilityPivotId = PivotLeadsGetDatabaseInfo.getTitleAbstractEligibilityPivotLeadIdList(
+            keyword)
         firstList = testListTitleAbstractEligibilityPivotId[0]
         testTitle = firstList[0]
         testAbstract = firstList[1]

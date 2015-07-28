@@ -1,4 +1,4 @@
-
+import re
 from Classes.Parser import Parser
 from Classes.ScholarshipPackageRequirementFormat import ScholarshipPackageRequirement
 
@@ -9,7 +9,7 @@ class GPA(Parser):
         Parser.__init__(self, self.stringToScan, '\s[^$\d\.]?[1234]\.\d+')
         self.resultList = []
         self.attributeId = '1'
-        self.requirementValue = ''
+        self.gpa = ''
         self.logicGroup = '0'
         self.requirementTypeCode = '>='
         self.scholarshipPackageId = scholarshipPackageId
@@ -21,10 +21,12 @@ class GPA(Parser):
     def getGPA(self):
         if self.checkContext('g\.?p\.?a\.?|grade\spoint\saverage|maintain\sa') and self.doesMatchExist():
             for i in self.getResult():
+                i = re.sub('\(', '', i)
                 self.resultList.append(i.strip())
         elif self.doesMatchExist():
             if not self.checkContext('million|billion|trillion|version|dollar|pound|euro'):
                 for i in self.getResult():
+                    i = re.sub('\(', '', i)
                     self.resultList.append(i.strip())
 
         if self.checkContext('4\.0\sscale') and self.doesMatchExist():
@@ -36,8 +38,8 @@ class GPA(Parser):
         if len(self.resultList) >= 2:
             self.logicGroup = '1'
 
-        self.requirementValue = ', '.join(self.resultList)
-        return self.requirementValue
+        self.gpa = ', '.join(self.resultList)
+        return self.gpa
 
     def getScholarshipPackageRequirementFormat(self):
         self.getGPA()
