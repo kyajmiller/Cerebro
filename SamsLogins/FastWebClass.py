@@ -1,10 +1,9 @@
+class FastWebClass(object):
+    def __init__(self, name = "", provider = "", award = "", fastwebUrl = "", deadline = "", website = "", awardType = "", numberAvailable = "", major = "", additionalInfo = "" ):
+        self.name=name
 
 
-class FastWebPage(object):
-    def __init__(self, searchTerm):
-        self.Tag=""
-        self.WebSiteUrl=""
-        self.Provider=""
     def showSam(self):
         self.Provider="test"
+
 
