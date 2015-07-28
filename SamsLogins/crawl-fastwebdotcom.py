@@ -40,6 +40,14 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
         awards=[]
         urls=[]
         deadlines=[]
+        websites=[]
+        awardType=[]
+        numberAvailable=[]
+        fieldsOfStudy=[]
+        additionalInformation=[]
+
+# get urls, providers, awards, and deadline
+        print("\n\nNUMBER OF SCHOLARSHIPS ON THIS PAGE: " + str(len(nameObjects)))
 
         print("\n\nNAMES:")
         for item in nameObjects:
@@ -71,7 +79,23 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
         for item in urls:
             print(item)
 
+        #follow the links
+
+        for item in urls:
+            self.driver.get(item)
+            print("visiting " + str(item))
+            newAwardType = self.driver.find_elements_by_xpath('//div[@class="clear no_inner_box"]/ul/li[1]/p[@class="data"]')[0]
+            awardType.append(newAwardType.text)
+
+        print("\n\nAWARD TYPES:")
+        for item in awardType:
+            print(item)
+
+
+
+#number of pages on the thing
         print("\n\nNUMBER OF PAGES: " + str(len(pageObjects)))
+
 
     def is_alert_present(self):
         return True
