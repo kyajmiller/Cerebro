@@ -1,4 +1,3 @@
-
 from Classes.Parser import Parser
 from Classes.ScholarshipPackageRequirementFormat import ScholarshipPackageRequirement
 
