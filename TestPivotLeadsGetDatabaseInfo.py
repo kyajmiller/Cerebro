@@ -9,7 +9,7 @@ class TestStringMethods(unittest.TestCase):
         # set up
         db = SUDBConnect()
         keyword = 'Accounting'
-        testConcatenatedTitleAbstractEligibility = PivotLeadsGetDatabaseInfo.getListConcatenatedItems(
+        testConcatenatedTitleAbstractEligibility = PivotLeadsGetDatabaseInfo.getListStringConcatenatedTitleAbstractEligibility(
             keyword)
         firstItem = testConcatenatedTitleAbstractEligibility[0]
 
