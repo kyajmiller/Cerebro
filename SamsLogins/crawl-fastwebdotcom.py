@@ -97,6 +97,9 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
             #additionalInfo
             newAdditionalInfo = self.driver.find_elements_by_xpath('//div[@class="clear no_inner_box"]/ul/li[4]/p[@class="data major"]')[0]
             additionalInfo.append(newAdditionalInfo.text)
+            #websites
+            newWebsite = self.driver.find_elements_by_xpath('//div[@class="clear no_inner_box"]/ul/li[5]/p[@class="data"]/a')[0]
+            websites.append(newWebsite.get_attribute('href'))
 
 
         print("\n\nAWARD TYPES:")
@@ -113,6 +116,10 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
 
         print("\n\nADDITIONAL INFO:")
         for item in additionalInfo:
+            print(item)
+
+        print("\n\nWEBSITES:")
+        for item in websites:
             print(item)
 
 #number of pages on the thing
