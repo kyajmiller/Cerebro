@@ -65,7 +65,7 @@ class PivotLeadsGetDatabaseInfo(object):
         return pivotLeadIds
 
     @staticmethod
-    def getListConcatenatedTitleAbstractEligibility(keyword):
+    def getListStringConcatenatedTitleAbstractEligibility(keyword):
         titles = PivotLeadsGetDatabaseInfo.getTitles(keyword)
         abstracts = PivotLeadsGetDatabaseInfo.getAbstracts(keyword)
         eligibilities = PivotLeadsGetDatabaseInfo.getEligibilities(keyword)
@@ -102,7 +102,7 @@ class PivotLeadsGetDatabaseInfo(object):
         return wholeList
 
     @staticmethod
-    def getConcatenatedAbstractEligibility(keyword):
+    def getListStringConcatendatedAbstractEligibility(keyword):
         abstracts = PivotLeadsGetDatabaseInfo.getTitles(keyword)
         eligibilities = PivotLeadsGetDatabaseInfo.getEligibilities(keyword)
         comboAbstractsEligibilitiesList = []
