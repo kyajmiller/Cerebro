@@ -44,7 +44,7 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
         awardType=[]
         numberAvailable=[]
         fieldsOfStudy=[]
-        additionalInformation=[]
+        additionalInfo=[]
 
 # get urls, providers, awards, and deadline
         print("\n\nNUMBER OF SCHOLARSHIPS ON THIS PAGE: " + str(len(nameObjects)))
@@ -82,16 +82,38 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
         #follow the links
 
         for item in urls:
+            #visit URL
             self.driver.get(item)
             print("visiting " + str(item))
+            #awardType
             newAwardType = self.driver.find_elements_by_xpath('//div[@class="clear no_inner_box"]/ul/li[1]/p[@class="data"]')[0]
             awardType.append(newAwardType.text)
+            #numberAvailable
+            newNumberAvailable = self.driver.find_elements_by_xpath('//div[@class="clear no_inner_box"]/ul/li[2]/p[@class="data"]')[0]
+            numberAvailable.append(newNumberAvailable.text)
+            #fieldsOfStudy
+            newFieldsOfStudy = self.driver.find_elements_by_xpath('//div[@class="clear no_inner_box"]/ul/li[3]/p[@class="data major"]')[0]
+            fieldsOfStudy.append(newFieldsOfStudy.text)
+            #additionalInfo
+            newAdditionalInfo = self.driver.find_elements_by_xpath('//div[@class="clear no_inner_box"]/ul/li[4]/p[@class="data major"]')[0]
+            additionalInfo.append(newAdditionalInfo.text)
+
 
         print("\n\nAWARD TYPES:")
         for item in awardType:
             print(item)
 
+        print("\n\nNUMBERS AVAILABLE:")
+        for item in numberAvailable:
+            print(item)
 
+        print("\n\nFIELDS OF STUDY:")
+        for item in fieldsOfStudy:
+            print(item)
+
+        print("\n\nADDITIONAL INFO:")
+        for item in additionalInfo:
+            print(item)
 
 #number of pages on the thing
         print("\n\nNUMBER OF PAGES: " + str(len(pageObjects)))
