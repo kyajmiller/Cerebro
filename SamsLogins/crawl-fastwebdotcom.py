@@ -32,12 +32,15 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
     def test_fastweb_dot_com_login(self):
 
         URLS = self.driver.find_elements_by_xpath('//table/tbody/tr/td/h3/a')
-        Providers = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[1]/p[2]')
+        providerObjects = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[1]/p[2]')
         Awards = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[2]/p[2]')
-        for item in Providers:
-            print(item.get_attribute('textContent'))
+        providers=[]
 
-        print( "URLS: \n" + str(URLS) + "\nProviders: \n" + str(Providers) + "\nAwards: \n" + str(Awards))
+        for item in providerObjects:
+            providers.append(item.text)
+        for item in providers:
+            print(item)
+            #print( "URLS: \n" + str(URLS) + "\nProviders: \n" + str(Providers) + "\nAwards: \n" + str(Awards))
 
     
     def is_element_present(self, how, what):
