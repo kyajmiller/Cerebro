@@ -30,11 +30,6 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
 
     def test_fastweb_dot_com_login(self):
 
-        nameObjects = self.driver.find_elements_by_xpath('//table/tbody/tr/td/h3/a')
-        providerObjects = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[1]/p[2]')
-        awardObjects = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[2]/p[2]')
-        deadlineObjects = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[3]/p[2]')
-        pageObjects = self.driver.find_elements_by_xpath('//div[@class="pagination right"]/a')
         names=[]
         providers=[]
         awards=[]
@@ -45,41 +40,44 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
         numberAvailable=[]
         fieldsOfStudy=[]
         additionalInfo=[]
+        pageObjects = self.driver.find_elements_by_xpath('//div[@class="pagination right"]/a')
+        numPages = len(pageObjects)
+        print("\n\nNUMBER OF PAGES: " + str(numPages))
 
-# get urls, providers, awards, and deadline
-        print("\n\nNUMBER OF SCHOLARSHIPS ON THIS PAGE: " + str(len(nameObjects)))
 
-        print("\n\nNAMES:")
-        for item in nameObjects:
-            names.append(item.text)
-        for item in names:
-            print(item)
+        for currentPage in range(1,numPages+1):
+            currentPageUrl = "http://www.fastweb.com/college-scholarships/scholarships?filter=Matched&page=" + str(currentPage)
+            self.driver.get(currentPageUrl)
+            print("\n\n################################\nCurrently crawling page " + str(currentPage) + ".")
 
-        print("\n\nPROVIDERS:")
-        for item in providerObjects:
-            providers.append(item.text)
-        for item in providers:
-            print(item)
+            nameObjects = self.driver.find_elements_by_xpath('//table/tbody/tr/td/h3/a')
+            providerObjects = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[1]/p[2]')
+            awardObjects = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[2]/p[2]')
+            deadlineObjects = self.driver.find_elements_by_xpath('//table/tbody/tr/td/div[3]/p[2]')
 
-        print("\n\nAWARDS:")
-        for item in awardObjects:
-            awards.append(item.text)
-        for item in awards:
-            print(item)
+            print("\n\nNUMBER OF SCHOLARSHIPS ON THIS PAGE: " + str(len(nameObjects)))
 
-        print("\n\nDEADLINES:")
-        for item in deadlineObjects:
-            deadlines.append(item.text)
-        for item in deadlines:
-            print(item)
+            print("Scanning names...")
+            for item in nameObjects:
+                names.append(item.text)
 
-        print("\n\nURLS:")
-        for item in nameObjects:
-            urls.append(item.get_attribute('href'))
-        for item in urls:
-            print(item)
+            print("Scanning providers...")
+            for item in providerObjects:
+                providers.append(item.text)
 
-        #follow the links
+            print("Scanning awards...")
+            for item in awardObjects:
+                awards.append(item.text)
+
+            print("Scanning deadlines...")
+            for item in deadlineObjects:
+                deadlines.append(item.text)
+
+            print("Scanning urls...")
+            for item in nameObjects:
+                urls.append(item.get_attribute('href'))
+
+        #end the for loop, now time to print
 
         for item in urls:
             #visit URL
@@ -101,6 +99,25 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
             newWebsite = self.driver.find_elements_by_xpath('//div[@class="clear no_inner_box"]/ul/li[5]/p[@class="data"]/a')[0]
             websites.append(newWebsite.get_attribute('href'))
 
+        print("\n\nNAMES:")
+        for item in names:
+            print(item)
+
+        print("\n\nPROVIDERS:")
+        for item in providers:
+            print(item)
+
+        print("\n\nAWARDS:")
+        for item in awards:
+            print(item)
+
+        print("\n\nDEADLINES:")
+        for item in deadlines:
+            print(item)
+
+        print("\n\nURLS:")
+        for item in urls:
+            print(item)
 
         print("\n\nAWARD TYPES:")
         for item in awardType:
@@ -122,8 +139,6 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
         for item in websites:
             print(item)
 
-#number of pages on the thing
-        print("\n\nNUMBER OF PAGES: " + str(len(pageObjects)))
 
 
     def is_alert_present(self):
