@@ -33,6 +33,7 @@ class DueDate(object):
             self.resultList.append(checkNumbers.group())
 
     def getDueDate(self):
+        self.resultList = []
         if self.checkDueDateContext():
             self.checkMonthDayYearFormat()
             self.checkMonthYearFormat()
