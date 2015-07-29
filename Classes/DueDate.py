@@ -32,6 +32,18 @@ class DueDate(object):
         if checkNumbers:
             self.resultList.append(checkNumbers.group())
 
+    def formatDateMonthDayYear(self, monthDayYearDate):
+        pattern = '(January|February|March|April|May|June|July|August|September|October|November|December)\s([0-3]?[0-9]),?\s(\d{4})'
+        findMonthDayYear = re.search(pattern, monthDayYearDate)
+        if findMonthDayYear:
+            month = findMonthDayYear.group(1)
+            day = findMonthDayYear.group(2)
+            year = findMonthDayYear.group(3)
+
+            formattedDate = '%s %s %s' % (day, month, year)
+
+            return formattedDate
+
     def getDueDate(self):
         self.resultList = []
         if self.checkDueDateContext():
