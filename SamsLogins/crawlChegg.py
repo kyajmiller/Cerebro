@@ -21,6 +21,8 @@ class CrawlChegg(unittest.TestCase):
         driver.find_element_by_name("login").click()
         driver.get("https://www.chegg.com/scholarships")
         print("It's not broken yet :D")
+        print(self.driver.current_url)
+
 
 
     def test_crawl_chegg(self):
@@ -28,20 +30,54 @@ class CrawlChegg(unittest.TestCase):
         cheggurls = []
         deadlines = []
         amounts = []
+        numberAwards = []
+        scholarshipEligibility = []
+        providerNames = []
 
         linkObjects = self.driver.find_elements_by_xpath('//section/div/div[4]/a[2]')
         deadlineObjects = self.driver.find_elements_by_xpath('//section/div/div[2]')
         amountObjects = self.driver.find_elements_by_xpath('//section/div/div[1]')
-
-        for item in linkObjects:
-            names.append(item.text)
-            cheggurls.append(item.get_attribute('href'))
 
         for item in deadlineObjects:
             deadlines.append(item.text)
 
         for item in amountObjects:
             amounts.append(item.text)
+
+        for item in linkObjects:
+            names.append(item.text)
+            cheggurls.append(item.get_attribute('href'))
+
+        for item in cheggurls:
+            self.driver.get(item)
+            currentUrlSplitList= self.driver.current_url.split('/')
+            print(self.driver.current_url)
+            print(currentUrlSplitList[len(currentUrlSplitList)-1])
+            if currentUrlSplitList[len(currentUrlSplitList)-1] != "apply":
+                if self.is_element_present(By.XPATH, "/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/div[5]/div[1]/div[4]/span"):
+                    numberAwardsObjects = self.driver.find_elements_by_xpath('/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/div[5]/div[1]/div[4]/span')[0]
+                    numberAwards.append(numberAwardsObjects.text)
+                else:
+                    numberAwards.append("unspecified")
+                if self.is_element_present(By.XPATH, "/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/div[5]/div[2]/div[2]/span"):
+                    scholarshipEligibilityObjects = self.driver.find_elements_by_xpath('/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/div[5]/div[2]/div[2]/span')[0]
+                    scholarshipEligibility.append(scholarshipEligibilityObjects.text)
+                else:
+                    scholarshipEligibility.append("unspecified")
+                if self.is_element_present(By.XPATH, "/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/div[5]/div[2]/div[5]/div[2]"):
+                    providerNameObjects = self.driver.find_elements_by_xpath('/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/div[5]/div[2]/div[5]/div[2]')[0]
+                    providerNames.append(providerNameObjects.text)
+                else:
+                    providerNames.append("unspecified")
+            else:
+                print('passed for now')
+                numberAwards.append("blank")
+                scholarshipEligibility.append("blank")
+                providerNames.append("blank")
+
+
+
+
 
         for item in names:
             print(item)
@@ -55,6 +91,14 @@ class CrawlChegg(unittest.TestCase):
         for item in amounts:
             print(item)
 
+        for item in scholarshipEligibility:
+            print(item)
+
+        for item in numberAwards:
+            print(item)
+
+        for item in providerNames:
+            print(item)
 
 
 

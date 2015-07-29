@@ -139,7 +139,6 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
             print(item)
 
 
-
     def is_alert_present(self):
         return True
 
