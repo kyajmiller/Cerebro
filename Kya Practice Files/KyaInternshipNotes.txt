@@ -515,3 +515,20 @@ hopefully I don't get any weird date formats popping out
 --I could limit it by making it only return the very first result, but how can I be sure that the first result is the full one (it could be something else for all I know)
 --How to force greedy matching python
 
+7/29 Notes:
+-Need to work more on the dates regex
+--might need to just have multiple different regex for the different formats instead of just one big one...
+Month + year: (January|February|March|April|May|June|July|August|September|October|November|December)\s\d{4}
+Month + day + year : (January|February|March|April|May|June|July|August|September|October|November|December)\s[0-3]?[0-9],?\s\d{4}
+mm/dd/yyyy: [01][0-9]\/[0-3][0-9]\/[12]\d{3}
+Month + day (not perfect): (January|February|March|April|May|June|July|August|September|October|November|December)\s[0-3]?[0-9][^\d]
+-rewrote the DueDate class so that instead of relying on Parser it functions independently.
+-The issue before was in the differences between how re.search and re.findall work. Re.search will greedy match the regex, and return the greediest match as the group.
+--Re.findall will return all the capture groups as their own result
+--So what I needed was re.search; Parser uses re.findall, so it was easier to just write small functions that use re.search for DueDate
+-Works as intended now
+-Updated PopulatePivotLeadRequirements so that it now gets both due date and GPA; due date and GPA have separate functions
+--Having separate functions will make it a lot easier if Don-E wants me to update the class to extract more things
+-Updated DueDate to format the dates it extracts into a nice, consistent format
+-Not going to try running the program until tomorrow because not sure how Don-E wants to feed it the major lists
+
