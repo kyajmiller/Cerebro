@@ -6,7 +6,7 @@ class TestStringMethods(unittest.TestCase):
     def test_DueDate(self):
         testDueDate = DueDate('The application window closes on August 1, 2015.')
         self.assertIsNotNone(testDueDate)
-        self.assertEqual('August 1, 2015', testDueDate.getDueDate())
+        self.assertEqual('1 August 2015', testDueDate.getDueDate())
 
     def test_formatDate(self):
         testDueDate = DueDate('The application window closes on August 1, 2015.')
