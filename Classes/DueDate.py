@@ -2,25 +2,42 @@ import re
 from Classes.Parser import Parser
 
 
-class DueDate(Parser):
+class DueDate(object):
     def __init__(self, stringToScan):
         self.stringToScan = stringToScan
-        self.dateRegex = '(((January|February|March|April|May|June|July|August|September|October|November|December)|([01][0-9]\/))(\s[123]?[0-9](st|nd|rd|th)?[,\/]?(\d{2})?\s)?(\d{4})?)'
-        Parser.__init__(self, self.stringToScan, self.dateRegex)
+        self.regexMonthDayYear = '(January|February|March|April|May|June|July|August|September|October|November|December)\s[0-3]?[0-9],?\s\d{4}'
+        self.regexMonthYear = '(January|February|March|April|May|June|July|August|September|October|November|December)\s\d{4}'
+        self.regexMMDDYYYY = '[01][0-9]\/[0-3][0-9]\/[12]\d{3}'
 
         self.resultList = []
         self.dueDate = ''
 
-    def checkContext(self, contextRegex):
+    def checkDueDateContext(self):
+        contextRegex = 'due\sdate|application\swindow|deadline|dead\sline|close\sdate|close'
         contextChecker = Parser(self.stringToScan.lower(), contextRegex)
         return contextChecker.doesMatchExist()
 
-    def getDueDate(self):
-        if self.checkContext(
-                'due\sdate|application\swindow|deadline|dead\sline|close\sdate|close') and self.doesMatchExist():
-            for i in self.getResult():
-                self.resultList.append(i[0])
+    def checkMonthDayYearFormat(self):
+        checkMonthDayYear = re.search(self.regexMonthDayYear, self.stringToScan)
+        if checkMonthDayYear:
+            self.resultList.append(checkMonthDayYear.group())
 
-        self.resultList = list(set(self.resultList))
-        self.dueDate = self.resultList
+    def checkMonthYearFormat(self):
+        checkMonthYear = re.search(self.regexMonthYear, self.stringToScan)
+        if checkMonthYear:
+            self.resultList.append(checkMonthYear.group())
+
+    def checkNumbersFormat(self):
+        checkNumbers = re.search(self.regexMMDDYYYY, self.stringToScan)
+        if checkNumbers:
+            self.resultList.append(checkNumbers.group())
+
+    def getDueDate(self):
+        self.resultList = []
+        if self.checkDueDateContext():
+            self.checkMonthDayYearFormat()
+            self.checkMonthYearFormat()
+            self.checkNumbersFormat()
+
+        self.dueDate = ', '.join(self.resultList)
         return self.dueDate
