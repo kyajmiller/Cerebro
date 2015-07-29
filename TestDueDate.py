@@ -13,7 +13,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertIsNotNone(testDueDate)
         dateToFormat = 'August 1, 2015'
         formattedDate = testDueDate.formatDateMonthDayYear(dateToFormat)
-        print(formattedDate)
+        self.assertEqual('1 August 2015', formattedDate)
 
 if __name__ == '__main__':
     unittest.main()
