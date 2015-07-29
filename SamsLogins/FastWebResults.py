@@ -1,4 +1,4 @@
-import SamsLogins.FastWebClass as FastWebClass
+import SamsLogins.FastWebClass as fastWebClass
 
 class FastWebResults(object):
     def __init__(self, searchTerms, names,providers,awards):
@@ -11,6 +11,6 @@ class FastWebResults(object):
     def addScholarshipToObject(self):
         for page in range(0,len(self.searchTerms)):
             print(page)
-            newScholarship =  FastWebClass(self.names[page],self.searchTerms[page])
+            newScholarship =  fastWebClass.FastWebClass(self.names[page],self.searchTerms[page])
             self.FastWebPages.append(newScholarship)
 
