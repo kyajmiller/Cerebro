@@ -12,16 +12,6 @@ class FastWebClass(object):
         self.additionalInfo=additionalInfo
 
 
-    def showSam(self):
-        self.Provider="test"
-
-    def test_simple(self):
-        self.assertEqual(1,1)
-        test="meow"
-        print(test)
-        FastWebClass.name="Bob"
-        print(FastWebClass.name)
-
 
 
 

@@ -11,6 +11,6 @@ class FastWebResults(object):
     def addScholarshipToObject(self):
         for page in range(0,len(self.searchTerms)):
             print(page)
-            newScholarship =  FastWebClass(self.names[page])
+            newScholarship =  FastWebClass(self.names[page],self.searchTerms[page])
             self.FastWebPages.append(newScholarship)
 
