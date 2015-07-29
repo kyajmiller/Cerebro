@@ -20,7 +20,9 @@ class DueDate(object):
     def checkMonthDayYearFormat(self):
         checkMonthDayYear = re.search(self.regexMonthDayYear, self.stringToScan)
         if checkMonthDayYear:
-            self.resultList.append(checkMonthDayYear.group())
+            rawDate = checkMonthDayYear.group()
+            formattedDate = self.formatDateMonthDayYear(rawDate)
+            self.resultList.append(formattedDate)
 
     def checkMonthYearFormat(self):
         checkMonthYear = re.search(self.regexMonthYear, self.stringToScan)
@@ -50,6 +52,9 @@ class DueDate(object):
             self.checkMonthDayYearFormat()
             self.checkMonthYearFormat()
             self.checkNumbersFormat()
+
+        # for i in self.resultList:
+        #    i = self.formatDateMonthDayYear(i)
 
         self.dueDate = ', '.join(self.resultList)
         return self.dueDate
