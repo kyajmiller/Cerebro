@@ -5,24 +5,6 @@ from Classes.SUDBConnect import SUDBConnect
 
 
 class TestStringMethods(unittest.TestCase):
-    def test_GetConcatenatedItemsString(self):
-        # set up
-        db = SUDBConnect()
-        keyword = 'Accounting'
-        testConcatenatedTitleAbstractEligibility = PivotLeadsGetDatabaseInfo(
-            keyword).getListStringConcatenatedTitleAbstractEligibility()
-        firstItem = testConcatenatedTitleAbstractEligibility[0]
-
-        # test
-        rows = db.getRows("select * from dbo.PivotLeads where Keyword='" + keyword + "'")
-        title = rows[0].Name
-        abstract = rows[0].Abstract
-        eligibility = rows[0].Eligibility
-        combo = '%s %s %s' % (title, abstract, eligibility)
-        combo = CleanText.cleanALLtheText(combo)
-
-        self.assertEqual(combo, firstItem)
-
     def test_ListOfItemsList(self):
         # set up
         db = SUDBConnect()
