@@ -1,0 +1,23 @@
+from Programs.Pivot.Pivot_PopulatePivotLeadRequirements import PopulatePivotLeadRequirements
+from Programs.Pivot.Pivot_PivotLeadsGetDatabaseInfo import PivotLeadsGetDatabaseInfo
+
+
+class RunPopulatePivotLeadRequirementsOverMajorsList(object):
+    def __init__(self, numberOfMajors='All'):
+        self.numberOfMajors = numberOfMajors
+
+    def getMajorsList(self):
+        completeMajorsList = PivotLeadsGetDatabaseInfo.getKeywords(tag='Scholarship')
+
+        if self.numberOfMajors == 'All':
+            majorsSlice = completeMajorsList[:]
+        else:
+            majorsSlice = completeMajorsList[:self.numberOfMajors]
+
+        return majorsSlice
+
+    def run(self):
+        listOfMajors = self.getMajorsList()
+        PopulatePivotLeadRequirements(listOfMajors)
+
+        # RunPopulatePivotLeadRequirementsOverMajorsList(1).run()
