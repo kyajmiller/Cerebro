@@ -28,24 +28,18 @@ class TestStringMethods(unittest.TestCase):
         db = SUDBConnect()
         keyword = 'Accounting'
         testListTitleAbstractEligibilityPivotId = PivotLeadsGetDatabaseInfo(
-            keyword).getTitleAbstractEligibilityPivotLeadIdList()
+            keyword).getTitleAbstractList()
         firstList = testListTitleAbstractEligibilityPivotId[0]
         testTitle = firstList[0]
         testAbstract = firstList[1]
-        testEligibility = firstList[2]
-        testPivotLeadId = firstList[3]
 
         # test
         rows = db.getRows("select * from dbo.PivotLeads where Keyword='" + keyword + "'")
         title = CleanText.cleanALLtheText(rows[0].Name)
         abstract = CleanText.cleanALLtheText(rows[0].Abstract)
-        eligibility = CleanText.cleanALLtheText(rows[0].Eligibility)
-        pivotLeadId = str(rows[0].PivotLeadId)
 
         self.assertEqual(title, testTitle)
         self.assertEqual(abstract, testAbstract)
-        self.assertEqual(eligibility, testEligibility)
-        self.assertEqual(pivotLeadId, testPivotLeadId)
 
 
 if __name__ == '__main__':
