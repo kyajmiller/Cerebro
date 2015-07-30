@@ -22,7 +22,7 @@ class PopulatePivotLeadRequirements(object):
             listOfSourceTexts = pivotLeadsDatabaseInfo.getSourceText()
 
             for i in range(len(listOfPivotLeadsIds)):
-                pivotLeadId = listOfPivotLeadsIds[i]
+                pivotLeadId = str(listOfPivotLeadsIds[i])
 
                 abstractEligibility = listOfConcatenatedAbstractEligibilities[i].strip()
                 abstractEligibilitySentences = self.tokenizeAbstractEligibilityIntoSentences(abstractEligibility)
@@ -33,7 +33,8 @@ class PopulatePivotLeadRequirements(object):
                 gpa = self.getGPAFromAbstractEligibility(abstractEligibilitySentences)
                 dueDate = self.getDueDateFromSourceText(sourceTextSentences)
 
-                self.populatePivotLeadRequirements(pivotLeadId, major, gpa, dueDate)
+                # self.populatePivotLeadRequirements(pivotLeadId, major, gpa, dueDate)
+                print(pivotLeadId, major, gpa, dueDate)
 
     def getGPAFromAbstractEligibility(self, abstractEligibilitySentences):
         gpa = []
@@ -48,17 +49,15 @@ class PopulatePivotLeadRequirements(object):
         return gpa
 
     def getDueDateFromSourceText(self, sourceTextSentences):
-        dueDates = []
+        dueDate = ''
 
         for sentence in sourceTextSentences:
-            maybeDueDate = DueDate(sentence).getDueDate()
-            if maybeDueDate != '':
-                dueDates.append(maybeDueDate)
+            if len(sentence) <= 1000:
+                maybeDueDate = DueDate(sentence).getDueDate()
+                if maybeDueDate != '':
+                    dueDate = maybeDueDate
 
-        dueDates = list(set(dueDates))
-        dueDates = ', '.join(dueDates)
-
-        return dueDates
+        return dueDate
 
     def tokenizeAbstractEligibilityIntoSentences(self, abstractEligibility):
         sentences = self.sentenceTokenizer.tokenize(abstractEligibility)
@@ -90,3 +89,7 @@ class PopulatePivotLeadRequirements(object):
     def insertDueDateIntoPivotLeads(self, pivotLeadId, dueDate):
         self.db.insertUpdateOrDelete(
             "update dbo.PivotLeads set DueDate='" + dueDate + "' where PivotLeadId='" + pivotLeadId + "'")
+
+
+majorsList = ['Accounting']
+PopulatePivotLeadRequirements(majorsList)
