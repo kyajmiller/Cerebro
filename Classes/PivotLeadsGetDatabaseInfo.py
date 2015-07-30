@@ -57,7 +57,7 @@ class PivotLeadsGetDatabaseInfo(object):
             rows = self.db.getRows(
                 "select PivotLeadId from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
-                pivotLeadIds.append(row.PivotLeadId)
+                pivotLeadIds.append(str(row.PivotLeadId))
         else:
             rows = self.db.getRows("select PivotLeadId from dbo.PivotLeads where Keyword='" + self.keyword + "'")
             for row in rows:
