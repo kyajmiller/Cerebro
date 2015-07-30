@@ -68,3 +68,66 @@ class GrantForwardItemsGetDatabaseInfo(object):
                 grantForwardItemIds.append(row.GrantForwardItemId)
 
         return grantForwardItemIds
+
+    def getSourceTexts(self):
+        sourceTexts = []
+
+        if self.tag:
+            rows = self.db.getRows(
+                "select OpportunitySourceText from dbo.GrantForwardItems where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
+            for row in rows:
+                sourceTexts.append(row.OpportunitySourceText)
+        else:
+            rows = self.db.getRows(
+                "select OpportunitySourceText from dbo.GrantForwardItems where Keyword='" + self.keyword + "'")
+            for row in rows:
+                sourceTexts.append(row.OpportunitySourceText)
+
+        return sourceTexts
+
+    def getListStringConcatenatedDescriptionEligibility(self):
+        listComboDescriptionsEligibilities = []
+
+        descriptions = self.getDescriptions()
+        eligibilities = self.getEligibilities()
+
+        for i in range(len(descriptions)):
+            description = descriptions[i]
+            eligibility = eligibilities[i]
+
+            comboDescriptionEligibility = '%s %s' % (description, eligibility)
+            comboDescriptionEligibility = CleanText.cleanALLtheText(comboDescriptionEligibility)
+            listComboDescriptionsEligibilities.append(comboDescriptionEligibility)
+
+        return listComboDescriptionsEligibilities
+
+    def getTitleDescriptionList(self):
+        wholeList = []
+
+        titles = self.getTitles()
+        descriptions = self.getDescriptions()
+
+        for i in range(len(titles)):
+            title = titles[i]
+            description = descriptions[i]
+
+            listOfItems = [title, description]
+            wholeList.append(listOfItems)
+
+        return wholeList
+
+    @staticmethod
+    def getKeywords(tag=None):
+        db = SUDBConnect()
+        keywords = []
+
+        if tag:
+            rows = db.getRows("select distinct Keyword from dbo.GrantForwardItems where Tag='" + tag + "'")
+            for row in rows:
+                keywords.append(row.Keyword)
+        else:
+            rows = db.getRows("select distinct Keyword from dbo.GrantForwardItems")
+            for row in rows:
+                keywords.append(row.Keyword)
+
+        return keywords
