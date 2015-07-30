@@ -1,18 +1,16 @@
-import random
 from Classes.PopulatePivotLeadRequirements import PopulatePivotLeadRequirements
 from Classes.PivotLeadsGetDatabaseInfo import PivotLeadsGetDatabaseInfo
 
 
 class RunPopulatePivotLeadRequirementsOverMajorsList(object):
-    def __init__(self, numberOfMajors='All', randomSliceStart=False):
-        self.randomSliceStart = randomSliceStart
+    def __init__(self, numberOfMajors='All'):
         self.numberOfMajors = numberOfMajors
 
         self.listOfMajors = self.getMajorsList()
+        PopulatePivotLeadRequirements(self.listOfMajors)
 
     def getMajorsList(self):
         completeMajorsList = PivotLeadsGetDatabaseInfo.getKeywords(tag='Scholarship')
-        majorsSlice = []
 
         if self.numberOfMajors == 'All':
             majorsSlice = completeMajorsList[:]
@@ -20,5 +18,3 @@ class RunPopulatePivotLeadRequirementsOverMajorsList(object):
             majorsSlice = completeMajorsList[:self.numberOfMajors]
 
         return majorsSlice
-
-    def runPopulatePivotLeadRequirements(self):
