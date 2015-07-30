@@ -140,11 +140,16 @@ class PivotLeadsGetDatabaseInfo(object):
         return wholeList
 
     @staticmethod
-    def getKeywords():
+    def getKeywords(tag=None):
         db = SUDBConnect()
         keywords = []
-        rows = db.getRows("select distinct Keyword from dbo.PivotLeads")
-        for row in rows:
-            keywords.append(row.Keyword)
+        if tag:
+            rows = db.getRows("select distinct Keyword from dbo.PivotLeads where Tag='" + tag + "'")
+            for row in rows:
+                keywords.append(row.Keyword)
+        else:
+            rows = db.getRows("select distinct Keyword from dbo.PivotLeads")
+            for row in rows:
+                keywords.append(row.Keyword)
 
         return keywords
