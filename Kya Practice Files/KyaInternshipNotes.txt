@@ -532,3 +532,26 @@ Month + day (not perfect): (January|February|March|April|May|June|July|August|Se
 -Updated DueDate to format the dates it extracts into a nice, consistent format
 -Not going to try running the program until tomorrow because not sure how Don-E wants to feed it the major lists
 
+7/30 Notes:
+-PopulatePivotLeadRequirements needs a helper class that gets the listOfMajors and feeds it into PopulatePivotLeadsRequirements.
+--Can use the PivotLeadsGetDatabaseInfo to get the list of existing keywords with the scholarship tag
+-Issues with Inserting DueDates into the PivotLeads table - needs a single date
+--So when the parser is pulling out more than one date, it needs to make a decision for which one to keep
+---One immediate issue is that the source text is weird as hell, makes the sentence parser unhappy; need to limit sentence searching for sentences with less than a certain amount of characters in order to avoid pulling out dates from non-sentences
+--Either make a static upper limit on sentence character length, or have the function compute an average to go on
+--Setting it to 1000 upper limit (which is ridiculous) seems to be okay
+---What to do about sentences such as the following:
+'The scholarship deadline dates for academic year September 2016-May 2017 are : January 15, 2016 '
+---I don't want it to pull out the academic year thing
+---Might need to make a priority system: the most specific date wins out
+---Something like MDY > MY
+
+-So the PopulatePivotLeadsRequirements works fine
+-Now basically do the same process for GrantForwardItems:
+--Step 1: Tag grant forward items (copy PivotLeadsRunFundingClassifier, PivotLeadsGetDatabaseInfo)
+--Step 2: PopulateGrantForwardLeadsRequirements (copy PopulatePivotLeadsRequirements)
+
+-deleted a couple of unnecessary functions from PivotLeadsGetDatabaseInfo, also fixed some stuff in its dependencies
+-Rewriting code is tedious
+
+
