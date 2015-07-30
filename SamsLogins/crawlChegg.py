@@ -54,24 +54,26 @@ class CrawlChegg(unittest.TestCase):
             print(self.driver.current_url)
             print(currentUrlSplitList[len(currentUrlSplitList)-1])
             if currentUrlSplitList[len(currentUrlSplitList)-1] != "apply":
-                if self.is_element_present(By.XPATH, "/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/div[5]/div[1]/div[4]/span"):
+               # if (By.XPATH, "/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/div[5]/div[1]/div[4]/span")exists:
                     numberAwardsObjects = self.driver.find_elements_by_xpath('/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/div[5]/div[1]/div[4]/span')[0]
                     numberAwards.append(numberAwardsObjects.text)
-                else:
+               # else:
                     numberAwards.append("unspecified")
-                if self.is_element_present(By.XPATH, "/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/div[5]/div[2]/div[2]/span"):
+                #if self.is_element_present(By.XPATH, "/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/div[5]/div[2]/div[2]/span"):
                     scholarshipEligibilityObjects = self.driver.find_elements_by_xpath('/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/div[5]/div[2]/div[2]/span')[0]
                     scholarshipEligibility.append(scholarshipEligibilityObjects.text)
-                else:
+               # else:
                     scholarshipEligibility.append("unspecified")
-                if self.is_element_present(By.XPATH, "/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/div[5]/div[2]/div[5]/div[2]"):
+                #if self.is_element_present(By.XPATH, "/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/div[5]/div[2]/div[5]/div[2]"):
                     providerNameObjects = self.driver.find_elements_by_xpath('/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/div[5]/div[2]/div[5]/div[2]')[0]
                     providerNames.append(providerNameObjects.text)
-                else:
+                #else:
                     providerNames.append("unspecified")
             else:
                 print('passed for now')
-                numberAwards.append("blank")
+               #This needs a prescence detector because otherwise when Chegg (inevitably) glitches out there will be problems.
+                if self.is_element_present(By.XPATH, '/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/main/div[2]/section[1]/div[1]/div[1]/div[2]'):
+                    numberAwards.append(self.driver.find_elements_by_xpath('/html/body/div[3]/div[5]/div[2]/div[2]/div[2]/main/div[2]/section[1]/div[1]/div[1]/div[2]')[0])
                 scholarshipEligibility.append("blank")
                 providerNames.append("blank")
 
