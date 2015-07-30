@@ -8,7 +8,7 @@ class GrantForwardItemsRunFundingClassifier(object):
     @staticmethod
     def getPredictedTagsInsertIntoDatabase():
         keywordsList = GrantForwardItemsGetDatabaseInfo.getKeywords()
-        db = SUDBConnect
+        db = SUDBConnect()
 
         for keyword in keywordsList:
             keyword = CleanText.cleanALLtheText(keyword)
@@ -21,3 +21,6 @@ class GrantForwardItemsRunFundingClassifier(object):
                 grantForwardItemId = listGrantForwardItemIds[i]
                 db.insertUpdateOrDelete(
                     "update dbo.GrantForwardItems set Tag='" + tag + "' where GrantForwardItemId='" + grantForwardItemId + "'")
+
+
+GrantForwardItemsRunFundingClassifier.getPredictedTagsInsertIntoDatabase()
