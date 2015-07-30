@@ -33,7 +33,7 @@ class PopulatePivotLeadRequirements(object):
                 gpa = self.getGPAFromAbstractEligibility(abstractEligibilitySentences)
                 dueDate = self.getDueDateFromSourceText(sourceTextSentences)
 
-                self.populatePivotLeadRequirements(pivotLeadId, major, gpa, dueDate)
+                self.doDatabaseInserts(pivotLeadId, major, gpa, dueDate)
 
     def getGPAFromAbstractEligibility(self, abstractEligibilitySentences):
         gpa = []
@@ -62,7 +62,7 @@ class PopulatePivotLeadRequirements(object):
         sentences = self.sentenceTokenizer.tokenize(stringToTokenize)
         return sentences
 
-    def populatePivotLeadRequirements(self, pivotLeadId, major, gpa, dueDate):
+    def doDatabaseInserts(self, pivotLeadId, major, gpa, dueDate):
         self.insertMajorIntoPivotLeadsRequirements(pivotLeadId, major)
 
         if gpa != '':
