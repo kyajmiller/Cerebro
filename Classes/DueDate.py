@@ -13,7 +13,7 @@ class DueDate(object):
         self.dueDate = ''
 
     def checkDueDateContext(self):
-        contextRegex = 'due\sdate|application\swindow|deadline|dead\sline|close\sdate|close'
+        contextRegex = 'due\sdate|application\swindow|deadline|dead\sline|close\sdate|close|closing\sdate'
         contextChecker = Parser(self.stringToScan.lower(), contextRegex)
         return contextChecker.doesMatchExist()
 
@@ -22,19 +22,20 @@ class DueDate(object):
         if checkMonthDayYear:
             rawDate = checkMonthDayYear.group()
             formattedDate = self.formatDateMonthDayYear(rawDate)
-            self.resultList.append(formattedDate)
+            return formattedDate
+
 
     def checkMonthYearFormat(self):
         checkMonthYear = re.search(self.regexMonthYear, self.stringToScan)
         if checkMonthYear:
-            self.resultList.append(checkMonthYear.group())
+            return checkMonthYear.group()
 
     def checkNumbersFormat(self):
         checkNumbers = re.search(self.regexMMDDYYYY, self.stringToScan)
         if checkNumbers:
             rawDate = checkNumbers.group()
             formattedDate = self.formatDateNumbers(rawDate)
-            self.resultList.append(formattedDate)
+            return formattedDate
 
     def formatDateMonthDayYear(self, monthDayYearDate):
         pattern = '(January|February|March|April|May|June|July|August|September|October|November|December)\s([0-3]?[0-9]),?\s(\d{4})'
@@ -90,9 +91,10 @@ class DueDate(object):
     def getDueDate(self):
         self.resultList = []
         if self.checkDueDateContext():
-            self.checkMonthDayYearFormat()
-            self.checkMonthYearFormat()
-            self.checkNumbersFormat()
-
-        self.dueDate = ', '.join(self.resultList)
+            if self.checkMonthDayYearFormat():
+                self.dueDate = self.checkMonthDayYearFormat()
+            elif self.checkNumbersFormat():
+                self.dueDate = self.checkNumbersFormat()
+            elif self.checkMonthYearFormat():
+                self.dueDate = self.checkMonthYearFormat()
         return self.dueDate
