@@ -60,12 +60,12 @@ class GrantForwardItemsGetDatabaseInfo(object):
             rows = self.db.getRows(
                 "select GrantForwardItemId from dbo.GrantForwardItems where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
-                grantForwardItemIds.append(row.GrantForwardItemId)
+                grantForwardItemIds.append(str(row.GrantForwardItemId))
         else:
             rows = self.db.getRows(
                 "select GrantForwardItemId from dbo.GrantForwardItems where Keyword='" + self.keyword + "'")
             for row in rows:
-                grantForwardItemIds.append(row.GrantForwardItemId)
+                grantForwardItemIds.append(str(row.GrantForwardItemId))
 
         return grantForwardItemIds
 
