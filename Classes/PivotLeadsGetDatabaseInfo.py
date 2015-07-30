@@ -78,24 +78,6 @@ class PivotLeadsGetDatabaseInfo(object):
                 sourceTexts.append(row.SourceText)
         return sourceTexts
 
-    def getListStringConcatenatedTitleAbstractEligibility(self):
-        comboTitleAbstractsEligibilitiesList = []
-
-        titles = self.getTitles()
-        abstracts = self.getAbstracts()
-        eligibilities = self.getEligibilities()
-
-        for i in range(len(abstracts)):
-            abstract = abstracts[i]
-            eligibility = eligibilities[i]
-            title = titles[i]
-
-            comboTitleAbstractEligibility = '%s %s %s' % (title, abstract, eligibility)
-            comboTitleAbstractEligibility = CleanText.cleanALLtheText(comboTitleAbstractEligibility)
-            comboTitleAbstractsEligibilitiesList.append(comboTitleAbstractEligibility)
-
-        return comboTitleAbstractsEligibilitiesList
-
     def getListStringConcatendatedAbstractEligibility(self):
         comboAbstractsEligibilitiesList = []
 
