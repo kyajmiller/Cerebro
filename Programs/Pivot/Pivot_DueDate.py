@@ -1,5 +1,5 @@
 import re
-from Classes.Parser import Parser
+from Programs.Pivot.Pivot_Parser import Parser
 
 
 class DueDate(object):
@@ -23,7 +23,6 @@ class DueDate(object):
             rawDate = checkMonthDayYear.group()
             formattedDate = self.formatDateMonthDayYear(rawDate)
             return formattedDate
-
 
     def checkMonthYearFormat(self):
         checkMonthYear = re.search(self.regexMonthYear, self.stringToScan)

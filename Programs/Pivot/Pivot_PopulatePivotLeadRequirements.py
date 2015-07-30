@@ -1,8 +1,8 @@
 import nltk.data
-from Classes.SUDBConnect import SUDBConnect
-from Classes.PivotLeadsGetDatabaseInfo import PivotLeadsGetDatabaseInfo
-from Classes.GPA import GPA
-from Classes.DueDate import DueDate
+from Programs.Pivot.Pivot_SUDBConnect import SUDBConnect
+from Programs.Pivot.Pivot_PivotLeadsGetDatabaseInfo import PivotLeadsGetDatabaseInfo
+from Programs.Pivot.Pivot_GPA import GPA
+from Programs.Pivot.Pivot_DueDate import DueDate
 
 
 class PopulatePivotLeadRequirements(object):

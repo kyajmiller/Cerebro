@@ -1,5 +1,5 @@
-from Classes.PopulatePivotLeadRequirements import PopulatePivotLeadRequirements
-from Classes.PivotLeadsGetDatabaseInfo import PivotLeadsGetDatabaseInfo
+from Programs.Pivot.Pivot_PopulatePivotLeadRequirements import PopulatePivotLeadRequirements
+from Programs.Pivot.Pivot_PivotLeadsGetDatabaseInfo import PivotLeadsGetDatabaseInfo
 
 
 class RunPopulatePivotLeadRequirementsOverMajorsList(object):
