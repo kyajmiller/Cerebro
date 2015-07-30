@@ -25,10 +25,10 @@ class PopulatePivotLeadRequirements(object):
                 pivotLeadId = str(listOfPivotLeadsIds[i])
 
                 abstractEligibility = listOfConcatenatedAbstractEligibilities[i].strip()
-                abstractEligibilitySentences = self.tokenizeAbstractEligibilityIntoSentences(abstractEligibility)
+                abstractEligibilitySentences = self.tokenizeIntoSentences(abstractEligibility)
 
                 sourceText = listOfSourceTexts[i]
-                sourceTextSentences = self.tokenizeAbstractEligibilityIntoSentences(sourceText)
+                sourceTextSentences = self.tokenizeIntoSentences(sourceText)
 
                 gpa = self.getGPAFromAbstractEligibility(abstractEligibilitySentences)
                 dueDate = self.getDueDateFromSourceText(sourceTextSentences)
@@ -58,8 +58,8 @@ class PopulatePivotLeadRequirements(object):
 
         return dueDate
 
-    def tokenizeAbstractEligibilityIntoSentences(self, abstractEligibility):
-        sentences = self.sentenceTokenizer.tokenize(abstractEligibility)
+    def tokenizeIntoSentences(self, stringToTokenize):
+        sentences = self.sentenceTokenizer.tokenize(stringToTokenize)
         return sentences
 
     def populatePivotLeadRequirements(self, pivotLeadId, major, gpa, dueDate):
