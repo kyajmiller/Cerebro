@@ -19,3 +19,5 @@ class RunPopulatePivotLeadRequirementsOverMajorsList(object):
     def run(self):
         listOfMajors = self.getMajorsList()
         PopulatePivotLeadRequirements(listOfMajors)
+
+        # RunPopulatePivotLeadRequirementsOverMajorsList(1).run()
