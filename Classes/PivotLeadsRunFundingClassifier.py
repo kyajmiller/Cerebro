@@ -10,7 +10,7 @@ class PivotLeadsRunFundingClassifier(object):
         keywordsList = PivotLeadsGetDatabaseInfo.getKeywords()
         for keyword in keywordsList:
             keyword = CleanText.cleanALLtheText(keyword)
-            rowDataList = PivotLeadsGetDatabaseInfo(keyword).getTitleAbstractEligibilityPivotLeadIdList()
+            rowDataList = PivotLeadsGetDatabaseInfo(keyword).getTitleAbstractList()
             predictedTags = ClassifyFundingTypeKeywordBased(rowDataList).returnPredictedTags()
             listPivotLeadIds = PivotLeadsGetDatabaseInfo(keyword).getPivotLeadId()
 
