@@ -33,8 +33,7 @@ class PopulatePivotLeadRequirements(object):
                 gpa = self.getGPAFromAbstractEligibility(abstractEligibilitySentences)
                 dueDate = self.getDueDateFromSourceText(sourceTextSentences)
 
-                # self.populatePivotLeadRequirements(pivotLeadId, major, gpa, dueDate)
-                print(pivotLeadId, major, gpa, dueDate)
+                self.populatePivotLeadRequirements(pivotLeadId, major, gpa, dueDate)
 
     def getGPAFromAbstractEligibility(self, abstractEligibilitySentences):
         gpa = []
@@ -89,7 +88,3 @@ class PopulatePivotLeadRequirements(object):
     def insertDueDateIntoPivotLeads(self, pivotLeadId, dueDate):
         self.db.insertUpdateOrDelete(
             "update dbo.PivotLeads set DueDate='" + dueDate + "' where PivotLeadId='" + pivotLeadId + "'")
-
-
-majorsList = ['Accounting']
-PopulatePivotLeadRequirements(majorsList)
