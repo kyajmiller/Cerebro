@@ -1,5 +1,5 @@
 import re
-from Programs.Pivot.Parser import Parser
+from Programs.Pivot.Pivot_Parser import Parser
 
 
 class GPA(Parser):
