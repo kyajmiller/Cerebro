@@ -34,7 +34,7 @@ class PopulatePivotLeadRequirements(object):
                 gpa = self.getGPAFromAbstractEligibility(abstractEligibilitySentences)
                 dueDate = self.getDueDateFromSourceText(sourceTextSentences)
 
-                print(pivotLeadId, gpa, dueDate)
+                # self.populatePivotLeadRequirements(pivotLeadId, major, gpa, dueDate)
 
     def getGPAFromAbstractEligibility(self, abstractEligibilitySentences):
         gpa = []
@@ -65,6 +65,35 @@ class PopulatePivotLeadRequirements(object):
         sentences = self.sentenceTokenizer.tokenize(abstractEligibility)
         return sentences
 
+    def populatePivotLeadRequirements(self, pivotLeadId, major, gpa, dueDate):
+        self.insertMajorIntoPivotLeadsRequirements(pivotLeadId, major)
 
+        if gpa != '':
+            self.insertGPAIntoPivotLeadsRequirements(pivotLeadId, gpa)
+
+        if dueDate != '':
+            self.insertDueDateIntoPivotLeads(pivotLeadId, dueDate)
+
+    def insertMajorIntoPivotLeadsRequirements(self, pivotLeadId, major):
+        attributeId = '417'
+        attributeValue = major
+
+        self.db.insertUpdateOrDelete(
+            "insert into dbo.PivotLeadRequirements (PivotLeadId, AttributeId, AttributeValue) values ('" + pivotLeadId + "', '" + attributeId + "', '" + attributeValue + "')")
+
+    def insertGPAIntoPivotLeadsRequirements(self, pivotLeadId, gpa):
+        attributeId = '1'
+        attributeValue = gpa
+
+        self.db.insertUpdateOrDelete(
+            "insert into dbo.PivotLeadRequirements (PivotLeadId, AttributeId, AttributeValue) values ('" + pivotLeadId + "', '" + attributeId + "', '" + attributeValue + "')")
+
+    def insertDueDateIntoPivotLeads(self, pivotLeadId, dueDate):
+        self.db.insertUpdateOrDelete(
+            "update dbo.PivotLeads set DueDate='" + dueDate + "' where PivotLeadId='" + pivotLeadId + "'")
+
+
+'''
 listOfMajors = ['Accounting']
 PopulatePivotLeadRequirements(listOfMajors)
+'''

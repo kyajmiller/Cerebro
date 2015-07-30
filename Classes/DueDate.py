@@ -20,7 +20,9 @@ class DueDate(object):
     def checkMonthDayYearFormat(self):
         checkMonthDayYear = re.search(self.regexMonthDayYear, self.stringToScan)
         if checkMonthDayYear:
-            self.resultList.append(checkMonthDayYear.group())
+            rawDate = checkMonthDayYear.group()
+            formattedDate = self.formatDateMonthDayYear(rawDate)
+            self.resultList.append(formattedDate)
 
     def checkMonthYearFormat(self):
         checkMonthYear = re.search(self.regexMonthYear, self.stringToScan)
@@ -30,7 +32,60 @@ class DueDate(object):
     def checkNumbersFormat(self):
         checkNumbers = re.search(self.regexMMDDYYYY, self.stringToScan)
         if checkNumbers:
-            self.resultList.append(checkNumbers.group())
+            rawDate = checkNumbers.group()
+            formattedDate = self.formatDateNumbers(rawDate)
+            self.resultList.append(formattedDate)
+
+    def formatDateMonthDayYear(self, monthDayYearDate):
+        pattern = '(January|February|March|April|May|June|July|August|September|October|November|December)\s([0-3]?[0-9]),?\s(\d{4})'
+        findMonthDayYear = re.search(pattern, monthDayYearDate)
+        if findMonthDayYear:
+            month = findMonthDayYear.group(1)
+            day = findMonthDayYear.group(2)
+            year = findMonthDayYear.group(3)
+
+            formattedDate = '%s %s %s' % (day, month, year)
+
+            return formattedDate
+
+    def formatDateNumbers(self, numbersDate):
+        pattern = '([01][0-9])\/([0-3][0-9])\/([12]\d{3})'
+        findMonthDayYear = re.search(pattern, numbersDate)
+        if findMonthDayYear:
+            month = findMonthDayYear.group(1)
+            day = findMonthDayYear.group(2)
+            year = findMonthDayYear.group(3)
+
+            if month == '01':
+                month = 'January'
+            elif month == '02':
+                month = 'February'
+            elif month == '03':
+                month = 'March'
+            elif month == '04':
+                month = 'April'
+            elif month == '05':
+                month = 'May'
+            elif month == '06':
+                month = 'June'
+            elif month == '07':
+                month = 'July'
+            elif month == '08':
+                month = 'August'
+            elif month == '09':
+                month = 'September'
+            elif month == '10':
+                month = 'October'
+            elif month == '11':
+                month = 'November'
+            elif month == '12':
+                month = 'December'
+
+            day = re.sub('^0', '', day)
+
+            formattedDate = '%s %s %s' % (day, month, year)
+
+            return formattedDate
 
     def getDueDate(self):
         self.resultList = []
