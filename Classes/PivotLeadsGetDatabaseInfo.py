@@ -61,7 +61,7 @@ class PivotLeadsGetDatabaseInfo(object):
         else:
             rows = self.db.getRows("select PivotLeadId from dbo.PivotLeads where Keyword='" + self.keyword + "'")
             for row in rows:
-                pivotLeadIds.append(row.PivotLeadId)
+                pivotLeadIds.append(str(row.PivotLeadId))
         return pivotLeadIds
 
     def getSourceText(self):
@@ -112,21 +112,17 @@ class PivotLeadsGetDatabaseInfo(object):
 
         return comboAbstractsEligibilitiesList
 
-    def getTitleAbstractEligibilityPivotLeadIdList(self):
+    def getTitleAbstractList(self):
         wholeList = []
 
         titles = self.getTitles()
         abstracts = self.getAbstracts()
-        eligibilities = self.getEligibilities()
-        pivotLeadIds = self.getPivotLeadId()
 
         for i in range(len(abstracts)):
             abstract = CleanText.cleanALLtheText(abstracts[i])
-            eligibility = CleanText.cleanALLtheText(eligibilities[i])
             title = CleanText.cleanALLtheText(titles[i])
-            pivotLeadId = str(pivotLeadIds[i])
 
-            listOfItems = [title, abstract, eligibility, pivotLeadId]
+            listOfItems = [title, abstract]
             wholeList.append(listOfItems)
 
         return wholeList
