@@ -20,3 +20,6 @@ class PivotLeadsRunFundingClassifier(object):
                 pivotLeadId = listPivotLeadIds[i]
                 db.insertUpdateOrDelete(
                     "update dbo.PivotLeads set Tag='" + tag + "' where PivotLeadId='" + pivotLeadId + "'")
+
+
+PivotLeadsRunFundingClassifier.getPredictedTagsInsertIntoDatabase()
