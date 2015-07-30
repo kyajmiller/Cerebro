@@ -50,14 +50,6 @@ class PivotLeadsGetDatabaseInfo(object):
                 eligibilities.append(row.Eligibility)
         return eligibilities
 
-    def getTags(self):
-        tags = []
-
-        rows = self.db.getRows("select Tag from dbo.PivotLeads where Keyword='" + self.keyword + "'")
-        for row in rows:
-            tags.append(row.Tag)
-        return tags
-
     def getPivotLeadId(self):
         pivotLeadIds = []
 
