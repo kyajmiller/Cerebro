@@ -22,13 +22,22 @@ class CrawlScholarships360(unittest.TestCase):
         assert(driver.current_url == "https://scholarships360.org/discover-scholarships/")
 
         names = []
-        links = []
+        inSiteLinks = []
         addedDates = []
         dueDates = []
         amounts = []
         eligibility = []
         websites = []
         emails = []
+        scholarshipTypes = []
+
+        nameObjects = driver.find_elements_by_xpath('/html/body/div[2]/div[2]/div/div/div[2]/h2/a')
+
+        for item in nameObjects:
+            names.append(item.text)
+            inSiteLinks.append(item.get_attribute('href'))
+
+
         #for each page:
         #-get names, get links
         #for each link:
