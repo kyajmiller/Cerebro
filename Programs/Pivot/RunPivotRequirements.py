@@ -1,9 +1,17 @@
 import sys
 import nltk
+import ast
 from LoopPopulatePivotLeadRequirementsOverMajorsList import LoopPopulatePivotLeadRequirementsOverMajorsList
 
 nltk.download('punkt')
-argvNumberOfMajors = sys.argv[1]
-if sys.argv[1] != 'All':
-    argvNumberOfMajors = int(argvNumberOfMajors)
-LoopPopulatePivotLeadRequirementsOverMajorsList(argvNumberOfMajors).run()
+
+argvMajors = ''
+if sys.argv[1] == 'All':
+    argvMajors = sys.argv[1]
+else:
+    inputList = ast.literal_eval(sys.argv[1])
+    if type(inputList) == list:
+        argvMajors = inputList
+        print(argvMajors)
+
+LoopPopulatePivotLeadRequirementsOverMajorsList(argvMajors).run()
