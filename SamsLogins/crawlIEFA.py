@@ -22,7 +22,8 @@ class CrawlIEFA(unittest.TestCase):
         driver.find_element_by_link_text("Scholarships").click()
         assert(self.driver.current_url == "http://www.iefa.org/scholarships")
         print("successfully logged in and on scholarship page!")
-
+        selectSize = Select(self.driver.find_element_by_id("pageSize"))
+        selectSize.select_by_index(0) #Index of 0 selects 10 per page, good for testing. Index of 3 should be 100 scolarships per page, which could be good for actually scraping.
 
     def test_crawl_i_e_f_a(self):
         print("Crawling\n")
@@ -51,8 +52,6 @@ class CrawlIEFA(unittest.TestCase):
             for item in awardNameObjects:
                 awardNames.append(item.text)
                 inSiteUrls.append(item.get_attribute("href"))
-            for item in fieldObjects:
-                fields.append(item.text)
             for item in nationalityObjects:
                 nationalities.append(item.text)
             for item in hostCountryObjects:
@@ -62,7 +61,8 @@ class CrawlIEFA(unittest.TestCase):
             nextPageButton.click()
             time.sleep(0.5) #otherwise it tries to jump the gun and returns some really weird errors
             print("Looping\n")
-            #break #uncomment this for testing purposes
+            break #uncomment this out for testing purposes
+
         print("Out of loop")
 
         if awardNames[0] == "FEATURED":
@@ -83,9 +83,9 @@ class CrawlIEFA(unittest.TestCase):
                 submissionDeadlines.append(" ")
 
             if self.driver.find_elements_by_xpath('//h4[contains(.,"Field(s) of Study")]/../p') != []:
-                awardAmounts.append(self.driver.find_elements_by_xpath('//h4[contains(.,"Field(s) of Study")]/../p')[0].text)
+                fields.append(self.driver.find_elements_by_xpath('//h4[contains(.,"Field(s) of Study")]/../p')[0].text)
             else:
-                awardAmounts.append(" ")
+                fields.append(" ")
 
             if self.driver.find_elements_by_xpath('//h4[contains(.,"Description")]/../p[1]') != []:
                 descriptions.append(self.driver.find_elements_by_xpath('//h4[contains(.,"Description")]/../p[1]')[0].text)
@@ -102,6 +102,12 @@ class CrawlIEFA(unittest.TestCase):
             else:
                 contactEmails.append(" ")
 
+            if self.driver.find_elements_by_xpath('//h4[contains(.,"Award Amount")]/../p') != []:
+                awardAmounts.append(self.driver.find_elements_by_xpath('//h4[contains(.,"Award Amount")]/../p')[0].text)
+            else:
+                awardAmounts.append()
+
+
             if self.driver.find_elements_by_xpath('//th[contains(.,"Link")]/../td/a') != []:
                 newWebsiteUrl= self.driver.find_element_by_xpath('//th[contains(.,"Link")]/../td/a').get_attribute('href')
                 print("loading!")
@@ -109,31 +115,52 @@ class CrawlIEFA(unittest.TestCase):
                 print("loaded")
                 print(self.driver.current_url)
                 websites.append(self.driver.current_url)
-                time.sleep(0.2)
             else:
                 websites.append(" ")
+                print("No website found")
 
 
-        print("RESULTS!:")
-        print("\nAWARD NAMES:")
-        for item in awardNames:
-            print(item)
-        print("\nFIELDS:")
-        for item in fields:
-            print(item)
-        print("\nDESCRIPTIONS:")
-        for item in descriptions:
-            print(item)
-        print("\nNATIONALITIES:")
-        for item in nationalities:
-            print(item)
-        print("\nHOST COUNTRIES:")
-        for item in hostCountries:
-            print(item)
-        print("\nIN-SITE URLS")
-        for item in inSiteUrls:
-            print(item)
-
+        # print("RESULTS!:")
+        # print("\nAWARD NAMES:")
+        # for item in awardNames:
+        #     print(item)
+        # print("\nFIELDS:")
+        # for item in fields:
+        #     print(item)
+        # print("\nDESCRIPTIONS:")
+        # for item in descriptions:
+        #     print(item)
+        # print("\nNATIONALITIES:")
+        # for item in nationalities:
+        #     print(item)
+        # print("\nHOST COUNTRIES:")
+        # for item in hostCountries:
+        #     print(item)
+        # print("\nIN-SITE URLS:")
+        # for item in inSiteUrls:
+        #     print(item)
+        # print("\nSUBMISSION DEADLINES:")
+        # for item in submissionDeadlines:
+        #     print(item)
+        # print("\nFIELD(S) OF STUDY:")
+        # for item in fields:
+        #     print(item)
+        # print("\nOTHER CRITERIA:")
+        # for item in otherCriteria:
+        #     print(item)
+        # print("\nEMAILS:")
+        # for item in  contactEmails:
+        #     print(item)
+        # print("\nWEBSITE URLS:")
+        # for item in websites:
+        #     print(item)
+        allCriteria = [awardNames,fields,descriptions,nationalities,hostCountries,inSiteUrls,submissionDeadlines,fields,otherCriteria,contactEmails,websites,awardAmounts]
+        allCriteriaStrings = ["awardNames","fields","descriptions","nationalities","hostCountries","inSiteUrls","submissionDeadlines","fields","otherCriteria","contactEmails","websites","awardAmounts"]
+        for criteria in allCriteria: #cool loop that prints out  all the stuff
+            print(len(criteria))
+            print("\n" + allCriteriaStrings[allCriteria.index(criteria)] + ":")
+            for item in criteria:
+                print(item)
 
 
 
