@@ -1,8 +1,11 @@
 import pyodbc
 
 class SUDBConnect(object):
-    def __init__(self ):
-        self.cnxn  =pyodbc.connect(r'Driver={SQL Server};Server=SUDB-DEV;Database=Spiderman;Trusted_Connection=yes;')
+    def __init__(self, database='Spiderman'):
+        self.database = database
+        connectionString = r'Driver={SQL Server};Server=SUDB-DEV;Database=%s;Trusted_Connection=yes;' % self.database
+        self.cnxn = pyodbc.connect(connectionString)
+
     def getRows(self,sql):
         cursor = self.cnxn.cursor()
         cursor.execute(sql)

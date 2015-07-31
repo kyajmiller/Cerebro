@@ -3,7 +3,7 @@ from GrantForwardItemsGetDatabaseInfo import GrantForwardItemsGetDatabaseInfo
 
 
 class LoopPopulateGrantForwardRequirementsOverMajorsList(object):
-    def __init__(self, majorsToRun='All'):
+    def __init__(self, majorsToRun):
         self.majorsToRun = majorsToRun
 
     def getMajorsList(self):
@@ -12,7 +12,7 @@ class LoopPopulateGrantForwardRequirementsOverMajorsList(object):
         if self.majorsToRun == 'All':
             majorsList = completeMajorsList[:]
         else:
-            majorsList = completeMajorsList[:self.majorsToRun]
+            majorsList = self.majorsToRun
 
         return majorsList
 
