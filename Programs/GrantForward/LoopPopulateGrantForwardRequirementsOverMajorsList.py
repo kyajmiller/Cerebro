@@ -19,4 +19,3 @@ class LoopPopulateGrantForwardRequirementsOverMajorsList(object):
     def run(self):
         listOfMajors = self.getMajorsList()
         PopulateGrantForwardRequirements(listOfMajors)
-
