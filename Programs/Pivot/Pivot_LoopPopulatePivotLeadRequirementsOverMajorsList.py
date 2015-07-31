@@ -1,5 +1,5 @@
-from Programs.Pivot.Pivot_PopulatePivotLeadRequirements import PopulatePivotLeadRequirements
-from Programs.Pivot.Pivot_PivotLeadsGetDatabaseInfo import PivotLeadsGetDatabaseInfo
+from Pivot_PopulatePivotLeadRequirements import PopulatePivotLeadRequirements
+from Pivot_PivotLeadsGetDatabaseInfo import PivotLeadsGetDatabaseInfo
 
 
 class LoopPopulatePivotLeadRequirementsOverMajorsList(object):
@@ -19,3 +19,6 @@ class LoopPopulatePivotLeadRequirementsOverMajorsList(object):
     def run(self):
         listOfMajors = self.getMajorsList()
         PopulatePivotLeadRequirements(listOfMajors)
+
+
+LoopPopulatePivotLeadRequirementsOverMajorsList(1).run()
