@@ -1,8 +1,8 @@
 import nltk.data
-from Classes.SUDBConnect import SUDBConnect
-from Classes.GrantForwardItemsGetDatabaseInfo import GrantForwardItemsGetDatabaseInfo
-from Classes.GPA import GPA
-from Classes.DueDate import DueDate
+from SUDBConnect import SUDBConnect
+from GrantForwardItemsGetDatabaseInfo import GrantForwardItemsGetDatabaseInfo
+from GPA import GPA
+from DueDate import DueDate
 
 
 class PopulateGrantForwardRequirements(object):
