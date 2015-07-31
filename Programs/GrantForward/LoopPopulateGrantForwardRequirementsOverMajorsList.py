@@ -3,18 +3,21 @@ from GrantForwardItemsGetDatabaseInfo import GrantForwardItemsGetDatabaseInfo
 
 
 class LoopPopulateGrantForwardRequirementsOverMajorsList(object):
-    def __init__(self, numberOfMajors='All'):
-        self.numberOfMajors = numberOfMajors
+    def __init__(self, majorsToRun='All'):
+        self.majorsToRun = majorsToRun
 
     def getMajorsList(self):
         completeMajorsList = GrantForwardItemsGetDatabaseInfo.getKeywords(tag='Scholarship')
 
-        if self.numberOfMajors == 'All':
-            majorsSlice = completeMajorsList[:]
+        if self.majorsToRun == 'All':
+            majorsList = completeMajorsList[:]
         else:
-            majorsSlice = completeMajorsList[:self.numberOfMajors]
+            majorsList = []
+            for major in self.majorsToRun:
+                if major in completeMajorsList:
+                    majorsList.append(major)
 
-        return majorsSlice
+        return majorsList
 
     def run(self):
         listOfMajors = self.getMajorsList()
