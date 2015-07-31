@@ -56,7 +56,7 @@ class CrawlScholarships360(unittest.TestCase):
             print("Visiting " + link)
             assert(link == driver.current_url)
 
-            originalAddedText = driver.find_element_by_xpath("//strong[contains(.,'Added')]/..").text #ADDED: WHAT WE WANT
+            originalAddedText = driver.find_element_by_xpath("//strong[contains(.,'Added')]/..").text
             addedDates.append(originalAddedText.split(": ")[1])
 
             originalDueText = driver.find_element_by_xpath("//strong[contains(.,'Due')]/..").text
@@ -65,7 +65,8 @@ class CrawlScholarships360(unittest.TestCase):
             originalAmountText = driver.find_element_by_xpath("//strong[contains(.,'Amount')]/..").text
             amounts.append(originalAmountText.split(": ")[1])
 
-            allHeaders = driver.find_elements_by_xpath("//div[@class='entry-content']/child::h3") #Why is this so slow???
+            #mess to find the Eligibles
+            allHeaders = driver.find_elements_by_xpath("//div[@class='entry-content']/h3") #Why is this so slow??? It's this command.
             eligiblesGroup = []
             for header in allHeaders:
                 eligiblesFound = regexEligibleFormat.search(header.text)
@@ -73,7 +74,6 @@ class CrawlScholarships360(unittest.TestCase):
                     eligiblesGroup.append(eligiblesFound.group(0))
                     break
             if eligiblesGroup != []:
-                print("We found an eligible")
                 eligibilityText = driver.find_elements_by_xpath("//h3[contains(.,'eligible') or contains(.,'Eligible')]/following-sibling::p[1]")[0].text
                 print(eligibilityText)
                 eligibility.append(eligibilityText)
@@ -81,21 +81,26 @@ class CrawlScholarships360(unittest.TestCase):
                 print("No eligibles :(")
                 eligibility.append("none found")
 
-            textParagraphs = driver.find_elements_by_xpath('//div[@class="entry-content"]/child::p')
+            #(less of a) mess to find the emails
+            textParagraphs = driver.find_elements_by_xpath('//div[@class="entry-content"]/p')
             emailsGroup = []
             for paragraph in textParagraphs:
                 emailsFound = regexEmailFormat.search(paragraph.text)
                 if emailsFound != None:
-                    print(emailsFound.group(0))
                     emailsGroup.append(emailsFound.group(0))
                     break
             if emailsGroup != []:
-                print("There was an email.")
                 print(emailsGroup[0])
                 emails.append(emailsGroup[0])
             else:
                 print("There was no email.")
                 emails.append("none found")
+
+            #get to their website
+            applyButton = driver.find_element_by_xpath('//a[contains(.,"Apply")]')
+            applyButton.click()
+            print("At the website " + driver.current_url)
+            websites.append(driver.current_url)
 
 
 
