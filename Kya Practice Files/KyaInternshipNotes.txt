@@ -554,4 +554,27 @@ Month + day (not perfect): (January|February|March|April|May|June|July|August|Se
 -deleted a couple of unnecessary functions from PivotLeadsGetDatabaseInfo, also fixed some stuff in its dependencies
 -Rewriting code is tedious
 
+7/31 Notes:
+-Need to make a RunPopulatePivotLeadRequirementsOverMajorsList equivalent for GrantForwardRequirements
+-Need to make an executeable file that takes a command line argument (so you can run it in task scheduler)
+--I have no idea how to do this and it's frustrating
+-Figured it out, use sys, set the argument you want to pass as sys.argv[1], then call the class and pass the argument to it
+-running the programs through the command line does not support the use of Path.Path.Whatever so had to get rid of the path stuff. Make sure everything lives in the same directory
+-Now just need to figure out how to run it through the task scheduler, should be okay
+-Okay it works, yay
+-Turns out we don't want it to take a number of majors, but a list of majors
+--This is hard, the commandline sucks balls
+--Command line arguments wants to import everything as a string, which works okay for 'All' but not so much for a list of things
+---fml
+-Need to figure out how to make the program read everything in that isn't 'All' as a list
+-Oh for fuck's sake
+-I really really hate the command line
+--Like forreal
+-Found a way to make it accept things with spaces as all one argument, as well as lists: use ast
+--Pros: If you type in a list like this "['list1', 'list2', 'list3']" it works nicely, and then you can have your list, which is great
+--Cons: It's really really obnoxious if you want to do anything besides lists though. No single strings. If you want a single string, put it in the list "['happy string']" and then parse the list
+--Pros: It does allow you to get in single strings like East Asian Studies in that obnoxious way, which wouldn't be possible otherwise
+-Turns out one of the major issues I was having with getting the thing to loop across the list is that when you set a default value to something, it enforces that whatever goes in is a of the type of the default value
+-Since the damn function needs to have something to run over, just make it be a normal value, then you can set it to whatever you want
 
+-Start working on dynamic sql query function. This is a lot more annoying than I thought it would be. I'm going home.
