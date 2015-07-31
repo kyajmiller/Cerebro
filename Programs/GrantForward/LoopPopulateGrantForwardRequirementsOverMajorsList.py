@@ -20,5 +20,3 @@ class LoopPopulateGrantForwardRequirementsOverMajorsList(object):
         listOfMajors = self.getMajorsList()
         PopulateGrantForwardRequirements(listOfMajors)
 
-
-LoopPopulateGrantForwardRequirementsOverMajorsList(['Chemistry']).run()
