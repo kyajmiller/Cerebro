@@ -17,18 +17,57 @@ class CrawlScholarships360(unittest.TestCase):
         ff = self.driver
         ff.get(self.base_url + "/")
         ff.find_element_by_link_text("Discover").click()
+        time.sleep(5)
+        ff.find_element_by_class_name("CoverPop-close").click()
+
     def test_crawl_scholarships360(self):
+
         driver = self.driver
         assert(driver.current_url == "https://scholarships360.org/discover-scholarships/")
 
         names = []
-        links = []
+        inSiteLinks = []
         addedDates = []
         dueDates = []
         amounts = []
         eligibility = []
         websites = []
         emails = []
+        scholarshipTypes = []
+
+        while driver.find_elements_by_link_text('Next »') != []:
+            nameObjects = driver.find_elements_by_xpath('/html/body/div[2]/div[2]/div/div/div[2]/h2/a')
+            for item in nameObjects:
+                names.append(item.text)
+                inSiteLinks.append(item.get_attribute('href'))
+            #break #comment this out to run, uncomment this to test one page.
+            driver.find_elements_by_link_text('Next »')[0].click()
+            print("clicky")
+
+        print("Names and inSiteLinks scanned.")
+
+        for link in inSiteLinks:
+            driver.get(link)
+            print("Visiting " + link)
+            assert(link == driver.current_url)
+            originalAddedText = driver.find_element_by_xpath("//strong[contains(.,'Added')]/..").text #ADDED: WHAT WE WANT
+            addedDates.append(originalAddedText.split(": ")[1])
+            originalDueText = driver.find_element_by_xpath("//strong[contains(.,'Due')]/..").text
+            dueDates.append(originalDueText.split(": ")[1])
+            originalAmountText = driver.find_element_by_xpath("//strong[contains(.,'Amount')]/..").text
+            amounts.append(originalAmountText.split(": ")[1])
+
+
+
+
+        allInfo = [names,inSiteLinks,addedDates,dueDates,amounts,eligibility,websites,emails,scholarshipTypes]
+
+        for infolist in allInfo:
+            print("\n\n")
+            for item in infolist:
+                print(item)
+
+
         #for each page:
         #-get names, get links
         #for each link:
