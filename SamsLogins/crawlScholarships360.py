@@ -46,6 +46,10 @@ class CrawlScholarships360(unittest.TestCase):
 
         print("Names and inSiteLinks scanned.")
 
+
+        regexEmailFormat = re.compile("[\w0-9]+@[\w0-9]+\.[a-z]+")
+        regexEligibleFormat = re.compile("eligible|Eligible")
+
         for link in inSiteLinks:
 
             driver.get(link)
@@ -61,26 +65,30 @@ class CrawlScholarships360(unittest.TestCase):
             originalAmountText = driver.find_element_by_xpath("//strong[contains(.,'Amount')]/..").text
             amounts.append(originalAmountText.split(": ")[1])
 
-            eligibilityHeader = driver.find_elements_by_xpath("//h3[contains(.,'eligible') or contains(.,'Eligible')]")
-            if len(eligibilityHeader) > 0:
+            allHeaders = driver.find_elements_by_xpath("//div[@class='entry-content']/child::h3") #Why is this so slow???
+            eligiblesGroup = []
+            for header in allHeaders:
+                eligiblesFound = regexEligibleFormat.search(header.text)
+                if eligiblesFound != None:
+                    eligiblesGroup.append(eligiblesFound.group(0))
+                    break
+            if eligiblesGroup != []:
+                print("We found an eligible")
                 eligibilityText = driver.find_elements_by_xpath("//h3[contains(.,'eligible') or contains(.,'Eligible')]/following-sibling::p[1]")[0].text
                 print(eligibilityText)
                 eligibility.append(eligibilityText)
             else:
-                print("No eligibility header found")
+                print("No eligibles :(")
                 eligibility.append("none found")
 
-            emailFormat = re.compile("[\w0-9]+@[\w0-9]+\.[a-z]+")
             textParagraphs = driver.find_elements_by_xpath('//div[@class="entry-content"]/child::p')
             emailsGroup = []
             for paragraph in textParagraphs:
-                emailsFound = emailFormat.search(paragraph.text)
+                emailsFound = regexEmailFormat.search(paragraph.text)
                 if emailsFound != None:
                     print(emailsFound.group(0))
                     emailsGroup.append(emailsFound.group(0))
                     break
-                else:
-                    pass
             if emailsGroup != []:
                 print("There was an email.")
                 print(emailsGroup[0])
