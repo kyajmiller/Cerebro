@@ -2,7 +2,7 @@ from Classes.PopulateGrantForwardRequirements import PopulateGrantForwardRequire
 from Classes.GrantForwardItemsGetDatabaseInfo import GrantForwardItemsGetDatabaseInfo
 
 
-class RunPopulateGrantForwardRequirementsOverMajorsList(object):
+class LoopPopulateGrantForwardRequirementsOverMajorsList(object):
     def __init__(self, numberOfMajors='All'):
         self.numberOfMajors = numberOfMajors
 
