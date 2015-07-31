@@ -1,8 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
-import unittest, time, re
+import unittest, time
 
 class CrawlIEFA(unittest.TestCase):
     def setUp(self):
@@ -23,7 +22,7 @@ class CrawlIEFA(unittest.TestCase):
         assert(self.driver.current_url == "http://www.iefa.org/scholarships")
         print("successfully logged in and on scholarship page!")
         selectSize = Select(self.driver.find_element_by_id("pageSize"))
-        selectSize.select_by_index(0) #Index of 0 selects 10 per page, good for testing. Index of 3 should be 100 scolarships per page, which could be good for actually scraping.
+        selectSize.select_by_index(0) #Index of 0 selects 10 per page.
 
     def test_crawl_i_e_f_a(self):
         print("Crawling\n")
@@ -42,15 +41,18 @@ class CrawlIEFA(unittest.TestCase):
         websites = []
         addresses = []
         phoneNumbers = []
+        faxes = []
+        numberAwards = []
+
+        currentPage = 1
 
         while self.is_element_present(By.XPATH,'//ul/li[@class="next"]'):
-            print("found NEXT button")
+            print("Found NEXT button. Scraping page " + str(currentPage))
 
             awardNameObjects = self.driver.find_elements_by_xpath('//tbody/tr/td[1]/a')
-            fieldObjects = self.driver.find_elements_by_xpath('//tbody/tr/td[2]')
             nationalityObjects = self.driver.find_elements_by_xpath('//tbody/tr/td[3]/p[1]')
             hostCountryObjects = self.driver.find_elements_by_xpath('//tbody/tr/td[3]/p[2]')
-            print("fetched stuff")
+            print("Found objects")
             for item in awardNameObjects:
                 awardNames.append(item.text)
                 inSiteUrls.append(item.get_attribute("href"))
@@ -62,10 +64,11 @@ class CrawlIEFA(unittest.TestCase):
             nextPageButton = self.driver.find_element_by_xpath("//a[contains(.,'Next >')]")
             nextPageButton.click()
             time.sleep(0.5) #otherwise it tries to jump the gun and returns some really weird errors
-            print("Looping\n")
-            break #uncomment this out for testing purposes
+            currentPage += 1
+            print("Going to next page\n")
+            #break #<---uncomment this out for testing purposes
 
-        print("Out of loop")
+        print("Broken out of loop. Visiting in-site URLs.")
 
         if awardNames[0] == "FEATURED":
             awardNames.pop(0)
@@ -119,6 +122,16 @@ class CrawlIEFA(unittest.TestCase):
             else:
                 phoneNumbers.append("none found")
 
+            if self.driver.find_elements_by_xpath('//th[contains(.,"Fax")]/../td') != []:
+                faxes.append(self.driver.find_elements_by_xpath('//th[contains(.,"Fax")]/../td')[0].text)
+            else:
+                faxes.append("none found")
+
+            if self.driver.find_elements_by_xpath('//th[contains(.,"Number of Awards")]/../td') != []:
+                numberAwards.append(self.driver.find_elements_by_xpath('//th[contains(.,"Number of Awards")]/../td')[0].text)
+            else:
+                numberAwards.append("none found")
+
 
 
 
@@ -134,18 +147,18 @@ class CrawlIEFA(unittest.TestCase):
                 websites.append("none found")
                 print("No website found")
 
-        #print everything (probably could have done this with a dictionary)
-        allCriteria = [awardNames,fields,descriptions,nationalities,hostCountries,inSiteUrls,submissionDeadlines,fields,otherCriteria,contactEmails,websites,awardAmounts,addresses,phoneNumbers]
-        allCriteriaStrings = ["awardNames","fields","descriptions","nationalities","hostCountries","inSiteUrls","submissionDeadlines","fields","otherCriteria","contactEmails","websites","awardAmounts","addresses","phoneNumbers"]
-        for criteria in allCriteria:
-            print("\n" + allCriteriaStrings[allCriteria.index(criteria)] + ":")
-            for item in criteria:
+        #print everything (probably could have done this with a dictionary but this seems less like a mess)
+        allInfo = [awardNames,fields,descriptions,nationalities,hostCountries,inSiteUrls,submissionDeadlines,fields,otherCriteria,contactEmails,websites,awardAmounts,addresses,phoneNumbers,faxes,numberAwards]
+        allInfoStrings = ["awardNames","fields","descriptions","nationalities","hostCountries","inSiteUrls","submissionDeadlines","fields","otherCriteria","contactEmails","websites","awardAmounts","addresses","phoneNumbers","faxes","numberAwards"]
+        for info in allInfo:
+            print("\n" + allInfoStrings[allInfo.index(info)] + ":")
+            for item in info:
                 print(item)
 
         print("\nPrinting characteristics of the 9th scholarship to check whether anything messed up...\n")
-        for criteria in allCriteria:
-            assert(len(awardNames) == len(criteria))
-            print(criteria[9])
+        for info in allInfo:
+            assert(len(awardNames) == len(info))
+            print(info[9])
 
 
 
