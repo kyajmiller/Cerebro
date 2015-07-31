@@ -1,5 +1,5 @@
-from Pivot_SUDBConnect import SUDBConnect
-from Pivot_CleanText import CleanText
+from SUDBConnect import SUDBConnect
+from CleanText import CleanText
 
 
 class PivotLeadsGetDatabaseInfo(object):
