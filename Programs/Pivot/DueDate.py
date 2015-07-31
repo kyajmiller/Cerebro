@@ -1,5 +1,5 @@
 import re
-from Pivot_Parser import Parser
+from Parser import Parser
 
 
 class DueDate(object):

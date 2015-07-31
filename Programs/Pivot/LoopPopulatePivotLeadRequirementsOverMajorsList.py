@@ -1,5 +1,5 @@
-from Pivot_PopulatePivotLeadRequirements import PopulatePivotLeadRequirements
-from Pivot_PivotLeadsGetDatabaseInfo import PivotLeadsGetDatabaseInfo
+from PopulatePivotLeadRequirements import PopulatePivotLeadRequirements
+from PivotLeadsGetDatabaseInfo import PivotLeadsGetDatabaseInfo
 
 
 class LoopPopulatePivotLeadRequirementsOverMajorsList(object):
