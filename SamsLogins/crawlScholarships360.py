@@ -17,6 +17,9 @@ class CrawlScholarships360(unittest.TestCase):
         ff = self.driver
         ff.get(self.base_url + "/")
         ff.find_element_by_link_text("Discover").click()
+        time.sleep(5)
+        ff.find_element_by_class_name("CoverPop-close").click()
+
     def test_crawl_scholarships360(self):
         driver = self.driver
         assert(driver.current_url == "https://scholarships360.org/discover-scholarships/")
@@ -31,11 +34,18 @@ class CrawlScholarships360(unittest.TestCase):
         emails = []
         scholarshipTypes = []
 
-        nameObjects = driver.find_elements_by_xpath('/html/body/div[2]/div[2]/div/div/div[2]/h2/a')
+        while driver.find_elements_by_link_text('Next »') != []:
+            nameObjects = driver.find_elements_by_xpath('/html/body/div[2]/div[2]/div/div/div[2]/h2/a')
+            for item in nameObjects:
+                names.append(item.text)
+                inSiteLinks.append(item.get_attribute('href'))
+            driver.find_elements_by_link_text('Next »')[0].click()
+            print("clicky")
+        else:
+            print("no button found")
 
-        for item in nameObjects:
-            names.append(item.text)
-            inSiteLinks.append(item.get_attribute('href'))
+        print("AOK")
+        
 
 
         #for each page:
