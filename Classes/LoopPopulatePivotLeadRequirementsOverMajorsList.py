@@ -3,18 +3,18 @@ from Classes.PivotLeadsGetDatabaseInfo import PivotLeadsGetDatabaseInfo
 
 
 class LoopPopulatePivotLeadRequirementsOverMajorsList(object):
-    def __init__(self, numberOfMajors='All'):
-        self.numberOfMajors = numberOfMajors
+    def __init__(self, majorsToRun):
+        self.majorsToRun = majorsToRun
 
     def getMajorsList(self):
         completeMajorsList = PivotLeadsGetDatabaseInfo.getKeywords(tag='Scholarship')
 
-        if self.numberOfMajors == 'All':
-            majorsSlice = completeMajorsList[:]
+        if self.majorsToRun == 'All':
+            majorsList = completeMajorsList[:]
         else:
-            majorsSlice = completeMajorsList[:self.numberOfMajors]
+            majorsList = self.majorsToRun
 
-        return majorsSlice
+        return majorsList
 
     def run(self):
         listOfMajors = self.getMajorsList()
