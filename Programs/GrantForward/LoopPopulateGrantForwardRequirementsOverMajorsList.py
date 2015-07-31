@@ -1,5 +1,5 @@
-from Classes.PopulateGrantForwardRequirements import PopulateGrantForwardRequirements
-from Classes.GrantForwardItemsGetDatabaseInfo import GrantForwardItemsGetDatabaseInfo
+from PopulateGrantForwardRequirements import PopulateGrantForwardRequirements
+from GrantForwardItemsGetDatabaseInfo import GrantForwardItemsGetDatabaseInfo
 
 
 class LoopPopulateGrantForwardRequirementsOverMajorsList(object):
