@@ -62,14 +62,14 @@ class CrawlIEFA(unittest.TestCase):
             nextPageButton.click()
             time.sleep(0.5) #otherwise it tries to jump the gun and returns some really weird errors
             print("Looping\n")
-            break #for testing only
+            #break #uncomment this for testing purposes
         print("Out of loop")
 
         if awardNames[0] == "FEATURED":
             awardNames.pop(0)
             awardNames.pop(0)
             inSiteUrls.pop(0)
-            inSiteUrls.pop(0)#the first two have to do with the "featured scholarship" which appears on the first page. They should be "FEATURED" and [], respectively.
+            inSiteUrls.pop(0) #the first two have to do with the "featured scholarship" which appears on the first page. They should be "FEATURED" and [], respectively.
 
 
         for item in inSiteUrls:
@@ -103,14 +103,13 @@ class CrawlIEFA(unittest.TestCase):
                 contactEmails.append(" ")
 
             if self.driver.find_elements_by_xpath('//th[contains(.,"Link")]/../td/a') != []:
-                self.driver.find_element_by_xpath('//th[contains(.,"Link")]/../td/a').click()
                 newWebsiteUrl= self.driver.find_element_by_xpath('//th[contains(.,"Link")]/../td/a').get_attribute('href')
                 print("loading!")
                 self.driver.get(newWebsiteUrl)
                 print("loaded")
                 print(self.driver.current_url)
-                print(self.driver.get)
                 websites.append(self.driver.current_url)
+                time.sleep(0.2)
             else:
                 websites.append(" ")
 
