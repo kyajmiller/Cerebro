@@ -40,7 +40,7 @@ class CrawlScholarships360(unittest.TestCase):
             for item in nameObjects:
                 names.append(item.text)
                 inSiteLinks.append(item.get_attribute('href'))
-            #break #comment this out to run, uncomment this to test one page.
+            break #comment this out to run the real program, uncomment this to test the first page.
             driver.find_elements_by_link_text('Next »')[0].click()
             print("clicky")
 
@@ -57,6 +57,14 @@ class CrawlScholarships360(unittest.TestCase):
             originalAmountText = driver.find_element_by_xpath("//strong[contains(.,'Amount')]/..").text
             amounts.append(originalAmountText.split(": ")[1])
 
+            eligibilityHeader = driver.find_elements_by_xpath("//h3[contains(.,'eligible') or contains(.,'Eligible')]")
+
+            if len(eligibilityHeader) > 0:
+                eligibilityText = driver.find_elements_by_xpath("//h3[contains(.,'eligible') or contains(.,'Eligible')]/following-sibling::p[1]")[0].text
+                print(eligibilityText)
+                eligibility.append(eligibilityText)
+            else:
+                print("No eligibility header found")
 
 
 
