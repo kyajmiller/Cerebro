@@ -1,5 +1,5 @@
-from Classes.SUDBConnect import SUDBConnect
-from Classes.CleanText import CleanText
+from SUDBConnect import SUDBConnect
+from CleanText import CleanText
 
 
 class GrantForwardItemsGetDatabaseInfo(object):
