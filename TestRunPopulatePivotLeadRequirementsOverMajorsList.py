@@ -1,13 +1,13 @@
 import unittest
-from Classes.RunPopulatePivotLeadRequirementsOverMajorsList import RunPopulatePivotLeadRequirementsOverMajorsList
+from Classes.LoopPopulatePivotLeadRequirementsOverMajorsList import LoopPopulatePivotLeadRequirementsOverMajorsList
 
 
 class TestStringMethods(unittest.TestCase):
     def test_getMajorsList(self):
-        testAllMajors = RunPopulatePivotLeadRequirementsOverMajorsList(numberOfMajors='All').getMajorsList()
+        testAllMajors = LoopPopulatePivotLeadRequirementsOverMajorsList(numberOfMajors='All').getMajorsList()
         self.assertGreater(len(testAllMajors), 75)
 
-        testSomeMajors = RunPopulatePivotLeadRequirementsOverMajorsList(numberOfMajors=5).getMajorsList()
+        testSomeMajors = LoopPopulatePivotLeadRequirementsOverMajorsList(numberOfMajors=5).getMajorsList()
         self.assertEqual(len(testSomeMajors), 5)
 
 
