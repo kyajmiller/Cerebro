@@ -1,6 +1,6 @@
 import sys
 import nltk
-from Classes.LoopPopulateGrantForwardRequirementsOverMajorsList import \
+from LoopPopulateGrantForwardRequirementsOverMajorsList import \
     LoopPopulateGrantForwardRequirementsOverMajorsList
 
 nltk.download('punkt')
