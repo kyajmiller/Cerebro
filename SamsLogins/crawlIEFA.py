@@ -40,6 +40,8 @@ class CrawlIEFA(unittest.TestCase):
         otherCriteria = []
         contactEmails = []
         websites = []
+        addresses = []
+        phoneNumbers = []
 
         while self.is_element_present(By.XPATH,'//ul/li[@class="next"]'):
             print("found NEXT button")
@@ -80,32 +82,45 @@ class CrawlIEFA(unittest.TestCase):
             if self.driver.find_elements_by_xpath('//h4[contains(.,"Submission Deadline")]/../p') != []:
                 submissionDeadlines.append(self.driver.find_elements_by_xpath('//h4[contains(.,"Submission Deadline")]/../p')[0].text)
             else:
-                submissionDeadlines.append(" ")
+                submissionDeadlines.append("none found")
 
             if self.driver.find_elements_by_xpath('//h4[contains(.,"Field(s) of Study")]/../p') != []:
                 fields.append(self.driver.find_elements_by_xpath('//h4[contains(.,"Field(s) of Study")]/../p')[0].text)
             else:
-                fields.append(" ")
+                fields.append("none found")
 
             if self.driver.find_elements_by_xpath('//h4[contains(.,"Description")]/../p[1]') != []:
                 descriptions.append(self.driver.find_elements_by_xpath('//h4[contains(.,"Description")]/../p[1]')[0].text)
             else:
-                descriptions.append(" ")
+                descriptions.append("none found")
 
             if self.driver.find_elements_by_xpath('//h4[contains(.,"Other Criteria")]') != []:
                 otherCriteria.append(self.driver.find_elements_by_xpath('//h4[contains(.,"Other Criteria")]/../p[2]')[0].text)
             else:
-                otherCriteria.append(" ")
+                otherCriteria.append("none found")
 
             if self.driver.find_elements_by_xpath('//th[contains(.,"E-mail")]/../td/a') != []:
                 contactEmails.append(self.driver.find_elements_by_xpath('//th[contains(.,"E-mail")]/../td/a')[0].get_attribute('href').split(':')[1])
             else:
-                contactEmails.append(" ")
+                contactEmails.append("none found")
 
             if self.driver.find_elements_by_xpath('//h4[contains(.,"Award Amount")]/../p') != []:
                 awardAmounts.append(self.driver.find_elements_by_xpath('//h4[contains(.,"Award Amount")]/../p')[0].text)
             else:
-                awardAmounts.append()
+                awardAmounts.append("none found")
+
+            if self.driver.find_elements_by_xpath('//th[contains(.,"Address")]/../td') != []:
+                addresses.append(self.driver.find_elements_by_xpath('//th[contains(.,"Address")]/../td')[0].text)
+            else:
+                addresses.append("none found")
+
+            if self.driver.find_elements_by_xpath('//th[contains(.,"Phone")]/../td') != []:
+                phoneNumbers.append(self.driver.find_elements_by_xpath('//th[contains(.,"Phone")]/../td')[0].text)
+            else:
+                phoneNumbers.append("none found")
+
+
+
 
 
             if self.driver.find_elements_by_xpath('//th[contains(.,"Link")]/../td/a') != []:
@@ -116,51 +131,21 @@ class CrawlIEFA(unittest.TestCase):
                 print(self.driver.current_url)
                 websites.append(self.driver.current_url)
             else:
-                websites.append(" ")
+                websites.append("none found")
                 print("No website found")
 
-
-        # print("RESULTS!:")
-        # print("\nAWARD NAMES:")
-        # for item in awardNames:
-        #     print(item)
-        # print("\nFIELDS:")
-        # for item in fields:
-        #     print(item)
-        # print("\nDESCRIPTIONS:")
-        # for item in descriptions:
-        #     print(item)
-        # print("\nNATIONALITIES:")
-        # for item in nationalities:
-        #     print(item)
-        # print("\nHOST COUNTRIES:")
-        # for item in hostCountries:
-        #     print(item)
-        # print("\nIN-SITE URLS:")
-        # for item in inSiteUrls:
-        #     print(item)
-        # print("\nSUBMISSION DEADLINES:")
-        # for item in submissionDeadlines:
-        #     print(item)
-        # print("\nFIELD(S) OF STUDY:")
-        # for item in fields:
-        #     print(item)
-        # print("\nOTHER CRITERIA:")
-        # for item in otherCriteria:
-        #     print(item)
-        # print("\nEMAILS:")
-        # for item in  contactEmails:
-        #     print(item)
-        # print("\nWEBSITE URLS:")
-        # for item in websites:
-        #     print(item)
-        allCriteria = [awardNames,fields,descriptions,nationalities,hostCountries,inSiteUrls,submissionDeadlines,fields,otherCriteria,contactEmails,websites,awardAmounts]
-        allCriteriaStrings = ["awardNames","fields","descriptions","nationalities","hostCountries","inSiteUrls","submissionDeadlines","fields","otherCriteria","contactEmails","websites","awardAmounts"]
-        for criteria in allCriteria: #cool loop that prints out  all the stuff
-            print(len(criteria))
+        #print everything (probably could have done this with a dictionary)
+        allCriteria = [awardNames,fields,descriptions,nationalities,hostCountries,inSiteUrls,submissionDeadlines,fields,otherCriteria,contactEmails,websites,awardAmounts,addresses,phoneNumbers]
+        allCriteriaStrings = ["awardNames","fields","descriptions","nationalities","hostCountries","inSiteUrls","submissionDeadlines","fields","otherCriteria","contactEmails","websites","awardAmounts","addresses","phoneNumbers"]
+        for criteria in allCriteria:
             print("\n" + allCriteriaStrings[allCriteria.index(criteria)] + ":")
             for item in criteria:
                 print(item)
+
+        print("\nPrinting characteristics of the 9th scholarship to check whether anything messed up...\n")
+        for criteria in allCriteria:
+            assert(len(awardNames) == len(criteria))
+            print(criteria[9])
 
 
 
@@ -175,7 +160,7 @@ class CrawlIEFA(unittest.TestCase):
     
     def close_alert_and_get_its_text(self):
         try:
-            alert = self.driver.switch_to_alert()
+            alert = self.driver.switch_to.alert
             alert_text = alert.text
             if self.accept_next_alert:
                 alert.accept()
