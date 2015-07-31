@@ -47,24 +47,47 @@ class CrawlScholarships360(unittest.TestCase):
         print("Names and inSiteLinks scanned.")
 
         for link in inSiteLinks:
+
             driver.get(link)
             print("Visiting " + link)
             assert(link == driver.current_url)
+
             originalAddedText = driver.find_element_by_xpath("//strong[contains(.,'Added')]/..").text #ADDED: WHAT WE WANT
             addedDates.append(originalAddedText.split(": ")[1])
+
             originalDueText = driver.find_element_by_xpath("//strong[contains(.,'Due')]/..").text
             dueDates.append(originalDueText.split(": ")[1])
+
             originalAmountText = driver.find_element_by_xpath("//strong[contains(.,'Amount')]/..").text
             amounts.append(originalAmountText.split(": ")[1])
 
             eligibilityHeader = driver.find_elements_by_xpath("//h3[contains(.,'eligible') or contains(.,'Eligible')]")
-
             if len(eligibilityHeader) > 0:
                 eligibilityText = driver.find_elements_by_xpath("//h3[contains(.,'eligible') or contains(.,'Eligible')]/following-sibling::p[1]")[0].text
                 print(eligibilityText)
                 eligibility.append(eligibilityText)
             else:
                 print("No eligibility header found")
+                eligibility.append("none found")
+
+            emailFormat = re.compile("[\w0-9]+@[\w0-9]+\.[a-z]+")
+            textParagraphs = driver.find_elements_by_xpath('//div[@class="entry-content"]/child::p')
+            emailsGroup = []
+            for paragraph in textParagraphs:
+                emailsFound = emailFormat.search(paragraph.text)
+                if emailsFound != None:
+                    print(emailsFound.group(0))
+                    emailsGroup.append(emailsFound.group(0))
+                    break
+                else:
+                    pass
+            if emailsGroup != []:
+                print("There was an email.")
+                print(emailsGroup[0])
+                emails.append(emailsGroup[0])
+            else:
+                print("There was no email.")
+                emails.append("none found")
 
 
 
