@@ -21,6 +21,7 @@ class CrawlScholarships360(unittest.TestCase):
         ff.find_element_by_class_name("CoverPop-close").click()
 
     def test_crawl_scholarships360(self):
+
         driver = self.driver
         assert(driver.current_url == "https://scholarships360.org/discover-scholarships/")
 
@@ -44,8 +45,20 @@ class CrawlScholarships360(unittest.TestCase):
         else:
             print("no button found")
 
-        print("AOK")
-        
+        print("Names and inSiteLinks scanned.")
+
+        for link in inSiteLinks:
+            driver.get(link)
+            print("Visiting " + link)
+            assert(link == driver.current_url)
+            print("yay")
+
+        allInfo = [names,inSiteLinks,addedDates,dueDates,amounts,eligibility,websites,emails,scholarshipTypes]
+
+        for infolist in allInfo:
+            print("\n\n")
+            for item in infolist:
+                print(item)
 
 
         #for each page:
