@@ -40,10 +40,9 @@ class CrawlScholarships360(unittest.TestCase):
             for item in nameObjects:
                 names.append(item.text)
                 inSiteLinks.append(item.get_attribute('href'))
+            #break #comment this out to run, uncomment this to test one page.
             driver.find_elements_by_link_text('Next »')[0].click()
             print("clicky")
-        else:
-            print("no button found")
 
         print("Names and inSiteLinks scanned.")
 
@@ -51,7 +50,15 @@ class CrawlScholarships360(unittest.TestCase):
             driver.get(link)
             print("Visiting " + link)
             assert(link == driver.current_url)
-            print("yay")
+            originalAddedText = driver.find_element_by_xpath("//strong[contains(.,'Added')]/..").text #ADDED: WHAT WE WANT
+            addedDates.append(originalAddedText.split(": ")[1])
+            originalDueText = driver.find_element_by_xpath("//strong[contains(.,'Due')]/..").text
+            dueDates.append(originalDueText.split(": ")[1])
+            originalAmountText = driver.find_element_by_xpath("//strong[contains(.,'Amount')]/..").text
+            amounts.append(originalAmountText.split(": ")[1])
+
+
+
 
         allInfo = [names,inSiteLinks,addedDates,dueDates,amounts,eligibility,websites,emails,scholarshipTypes]
 
