@@ -74,7 +74,7 @@ class CrawlIEFA(unittest.TestCase):
             awardNames.pop(0)
             awardNames.pop(0)
             inSiteUrls.pop(0)
-            inSiteUrls.pop(0) #the first two have to do with the "featured scholarship" which appears on the first page. They should be "FEATURED" and [], respectively.
+            inSiteUrls.pop(0) #the first two have to do with the "featured scholarship" which appears on the first page. They should be "FEATURED" and [], respectively, and should not be in the list.
 
 
         for item in inSiteUrls:
