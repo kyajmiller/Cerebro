@@ -117,7 +117,15 @@ class CrawlScholarships360(unittest.TestCase):
             submitButton.click()
             print("meow")
             i += 1
-            time.sleep(3)
+            nameObjects = driver.find_elements_by_xpath('/html/body/div[2]/div[2]/div/div/div[2]/h2/a')
+            if len(nameObjects) < 10:
+                print("There is NOT a Next >> button")
+            else:
+                if driver.find_elements_by_link_text("Next »") != []:
+                    print("There IS a Next >> button")
+                else:
+                    print("There is NOT a Next >> button")
+
 
 
 
