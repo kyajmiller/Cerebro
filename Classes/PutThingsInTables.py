@@ -13,9 +13,7 @@ class PutThingsInTables(object):
 
     def doInsert(self):
         if self.checkEqualColumnsValues():
-            self.createSQLQuery()
-        else:
-            print('Columns and Values do not match up.')
+            return self.createSQLQuery()
 
     def convertInsertValues(self):
         convertedList = []
@@ -38,8 +36,3 @@ class PutThingsInTables(object):
     def checkEqualColumnsValues(self):
         if len(self.insertValues) == len(self.columnNames):
             return True
-
-
-
-
-PutThingsInTables('Tests', ['testinsert', 8], ['Regex', 'AttributeId']).doInsert()
