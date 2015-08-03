@@ -6,7 +6,7 @@ from Classes.SUDBConnect import SUDBConnect
 class TestStringMethods(unittest.TestCase):
     def test_PutThingsInTables(self):
         # setup
-        testQuery = PutThingsInTables('Tests', ['testquery', 8], ['Regex', 'AttributeId']).createSQLQuery()
+        testQuery = PutThingsInTables('Tests', ['Regex', 'AttributeId'], ['testquery', 8]).createSQLQuery()
         self.assertIsNotNone("%s" % testQuery)
 
         # test
