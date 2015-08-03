@@ -11,9 +11,12 @@ class PutThingsInTables(object):
 
         self.db = SUDBConnect(server=server, database=database)
 
-    def doInsert(self):
+    def createSQLQuery(self):
         if self.checkEqualColumnsValues():
-            return self.createSQLQuery()
+            columns = self.convertColumnNames()
+            values = self.convertInsertValues()
+            query = "insert into %s (%s) values (%s)" % (self.tableName, columns, values)
+            return query
 
     def convertInsertValues(self):
         convertedList = []
@@ -26,12 +29,6 @@ class PutThingsInTables(object):
     def convertColumnNames(self):
         columnNamesString = ', '.join(self.columnNames)
         return columnNamesString
-
-    def createSQLQuery(self):
-        columns = self.convertColumnNames()
-        values = self.convertInsertValues()
-        query = "insert into %s (%s) values (%s)" % (self.tableName, columns, values)
-        print(query)
 
     def checkEqualColumnsValues(self):
         if len(self.insertValues) == len(self.columnNames):
