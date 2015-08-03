@@ -578,3 +578,23 @@ Month + day (not perfect): (January|February|March|April|May|June|July|August|Se
 -Since the damn function needs to have something to run over, just make it be a normal value, then you can set it to whatever you want
 
 -Start working on dynamic sql query function. This is a lot more annoying than I thought it would be. I'm going home.
+
+8/3 Notes:
+-Moved compy, it's weird, whatever
+
+Stuff to do today:
+-Write up report for Mike
+-Work on dynamic sql query function - I have ideas for how to make this work!
+--This is finished, converted the column names to a simple string using join, converted the insert values to a format with '' around them, then joined those together
+--Rest was just string interpolation
+-See what Don-E wants me to do after that
+-Pick a website, basically do the same thing as for Pivot/GF
+-Began work on Scholarsite
+--the layout is really different from Pivot/GrantForward, such that there's no real search function
+--Everything is labeled by the institution that the scholarship can be applied to, so will only grab results that are related to the UA
+---Other than that there's no way to filter out by majors, so will just grab everything that has the UA tag
+--It's really strange. There's no individual page for each scholarship, clicking on one just opens a widget with the relevant information
+---Really annoying to get the info this way but whatever. It's doable.
+--Many of these have fuck all in the ways of actual information for the scholarship. Not fun. Not even a source website for the scholarship. Ugh.
+---Most don't even have deadlines
+--Luckily there's only 95 results for the UA, so it'll just be done and done. Can do whatever with them after grabbing them
