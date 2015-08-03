@@ -2,7 +2,7 @@ from Classes.SUDBConnect import SUDBConnect
 
 
 class PutThingsInTables(object):
-    def __init__(self, tableName, insertValues, columnNames, server='SUDB-DEV', database='Spiderman'):
+    def __init__(self, tableName, columnNames, insertValues, server='SUDB-DEV', database='Spiderman'):
         self.tableName = 'dbo.%s' % tableName
         self.insertValues = insertValues
         self.columnNames = columnNames
