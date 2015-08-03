@@ -50,52 +50,85 @@ class CrawlScholarships360(unittest.TestCase):
         regexEmailFormat = re.compile("[\w0-9]+@[\w0-9]+\.[a-z]+")
         regexEligibleFormat = re.compile("eligible|Eligible")
 
-        for link in inSiteLinks:
+        # for link in inSiteLinks:
+        #
+        #     driver.get(link)
+        #     print("Visiting " + link)
+        #     assert(link == driver.current_url)
+        #
+        #     originalAddedText = driver.find_element_by_xpath("//strong[contains(.,'Added')]/..").text
+        #     addedDates.append(originalAddedText.split(": ")[1])
+        #
+        #     originalDueText = driver.find_element_by_xpath("//strong[contains(.,'Due')]/..").text
+        #     dueDates.append(originalDueText.split(": ")[1])
+        #
+        #     originalAmountText = driver.find_element_by_xpath("//strong[contains(.,'Amount')]/..").text
+        #     amounts.append(originalAmountText.split(": ")[1])
+        #
+        #     #mess to find the Eligibles
+        #     allHeaders = driver.find_elements_by_xpath("//div[@class='entry-content']/h3") #Why is this so slow??? It's this command.
+        #     eligiblesGroup = []
+        #     for header in allHeaders:
+        #         eligiblesFound = regexEligibleFormat.search(header.text)
+        #         if eligiblesFound != None:
+        #             eligiblesGroup.append(eligiblesFound.group(0))
+        #             break
+        #     if eligiblesGroup != []:
+        #         eligibilityText = driver.find_elements_by_xpath("//h3[contains(.,'eligible') or contains(.,'Eligible')]/following-sibling::p[1]")[0].text
+        #         print(eligibilityText)
+        #         eligibility.append(eligibilityText)
+        #     else:
+        #         print("No eligibles :(")
+        #         eligibility.append("none found")
+        #
+        #     #(less of a) mess to find the emails
+        #     textParagraphs = driver.find_elements_by_xpath('//div[@class="entry-content"]/p')
+        #     emailsGroup = []
+        #     for paragraph in textParagraphs:
+        #         emailsFound = regexEmailFormat.search(paragraph.text)
+        #         if emailsFound != None:
+        #             emailsGroup.append(emailsFound.group(0))
+        #             break
+        #     if emailsGroup != []:
+        #         print(emailsGroup[0])
+        #         emails.append(emailsGroup[0])
+        #     else:
+        #         print("There was no email.")
+        #         emails.append("none found")
+        #
+        #     #get to their website
+        #     applyButton = driver.find_element_by_xpath('//a[contains(.,"Apply")]')
+        #     applyButton.click()
+        #     print("At the website " + driver.current_url)
+        #     websites.append(driver.current_url)
 
-            driver.get(link)
-            print("Visiting " + link)
-            assert(link == driver.current_url)
 
-            originalAddedText = driver.find_element_by_xpath("//strong[contains(.,'Added')]/..").text #ADDED: WHAT WE WANT
-            addedDates.append(originalAddedText.split(": ")[1])
-
-            originalDueText = driver.find_element_by_xpath("//strong[contains(.,'Due')]/..").text
-            dueDates.append(originalDueText.split(": ")[1])
-
-            originalAmountText = driver.find_element_by_xpath("//strong[contains(.,'Amount')]/..").text
-            amounts.append(originalAmountText.split(": ")[1])
-
-            allHeaders = driver.find_elements_by_xpath("//div[@class='entry-content']/child::h3") #Why is this so slow???
-            eligiblesGroup = []
-            for header in allHeaders:
-                eligiblesFound = regexEligibleFormat.search(header.text)
-                if eligiblesFound != None:
-                    eligiblesGroup.append(eligiblesFound.group(0))
-                    break
-            if eligiblesGroup != []:
-                print("We found an eligible")
-                eligibilityText = driver.find_elements_by_xpath("//h3[contains(.,'eligible') or contains(.,'Eligible')]/following-sibling::p[1]")[0].text
-                print(eligibilityText)
-                eligibility.append(eligibilityText)
+        #case to go through select and get scholarshipTypes. this will probably be a list-ception (a list within a list)
+        selectCategory = Select(driver.find_element_by_id("tax_scholarship_category"))
+        submitButton = driver.find_element_by_xpath('//input[@value="Search"]')
+        numberIterations = len(selectCategory.options)
+        print(submitButton)
+        i = 1
+        while i < numberIterations:
+            print("woof")
+            Select(driver.find_element_by_id("tax_scholarship_category")).select_by_index(i)
+            print("mrrow?")
+            submitButton = driver.find_element_by_xpath('//input[@value="Search"]')
+            submitButton.click()
+            print("meow")
+            i += 1
+            nameObjects = driver.find_elements_by_xpath('/html/body/div[2]/div[2]/div/div/div[2]/h2/a')
+            if len(nameObjects) < 10:
+                print("There is NOT a Next >> button")
             else:
-                print("No eligibles :(")
-                eligibility.append("none found")
+                if driver.find_elements_by_link_text("Next »") != []:
+                    print("There IS a Next >> button")
+                else:
+                    print("There is NOT a Next >> button")
 
-            textParagraphs = driver.find_elements_by_xpath('//div[@class="entry-content"]/child::p')
-            emailsGroup = []
-            for paragraph in textParagraphs:
-                emailsFound = regexEmailFormat.search(paragraph.text)
-                if emailsFound != None:
-                    print(emailsFound.group(0))
-                    emailsGroup.append(emailsFound.group(0))
-                    break
-            if emailsGroup != []:
-                print("There was an email.")
-                print(emailsGroup[0])
-                emails.append(emailsGroup[0])
-            else:
-                print("There was no email.")
-                emails.append("none found")
+
+
+
 
 
 
