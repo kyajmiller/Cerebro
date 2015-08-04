@@ -22,9 +22,7 @@ class ScholarsiteLeads(object):
         self.driver.implicitly_wait(2)
 
         self.scholarsiteLeadsArrays = []
-
         self.processResultsPages()
-        print(self.scholarsiteLeadsArrays[1])
 
     def processResultsPages(self):
         self.getScholarshipsOnCurrentPage()
@@ -36,6 +34,7 @@ class ScholarsiteLeads(object):
             currentPage += 1
 
         self.driver.quit()
+        return self.scholarsiteLeadsArrays
 
     def getScholarshipsOnCurrentPage(self):
         arrayOfTitles = self.getScholarshipTitles()
@@ -160,6 +159,3 @@ class ScholarsiteLeads(object):
     def goToNextPage(self):
         self.driver.find_element_by_link_text('Next').click()
         self.driver.implicitly_wait(2)
-
-
-cheese = ScholarsiteLeads()
