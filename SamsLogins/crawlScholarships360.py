@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
@@ -10,7 +7,7 @@ import unittest, time, re
 class CrawlScholarships360(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(1)
+        self.driver.implicitly_wait(0.5)
         self.base_url = "https://scholarships360.org"
         self.verificationErrors = []
         self.accept_next_alert = True
@@ -103,7 +100,7 @@ class CrawlScholarships360(unittest.TestCase):
                 print(emailsGroup[0])
                 emails.append(emailsGroup[0])
             else:
-                print("There was no email.")
+                print("There was no email :(")
                 emails.append("none found")
 
             #get to their website
@@ -157,6 +154,9 @@ class CrawlScholarships360(unittest.TestCase):
             print("\n\n")
             for item in infolist:
                 print(item)
+
+        for infolist in allInfo:
+            assert(len(infolist) == len(names))
 
         print("\n\n")
 
