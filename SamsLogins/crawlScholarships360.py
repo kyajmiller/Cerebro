@@ -102,12 +102,20 @@ class CrawlScholarships360(unittest.TestCase):
         #     print("At the website " + driver.current_url)
         #     websites.append(driver.current_url)
 
-
-        #case to go through select and get scholarshipTypes. this will probably be a list-ception (a list within a list)
         selectCategory = Select(driver.find_element_by_id("tax_scholarship_category"))
-        submitButton = driver.find_element_by_xpath('//input[@value="Search"]')
         numberIterations = len(selectCategory.options)
-        print(submitButton)
+        def searchCurrentPage(self):
+            nameObjects = driver.find_elements_by_xpath('/html/body/div[2]/div[2]/div/div/div[2]/h2/a')
+            print("Visited meow")
+            if len(nameObjects) < 10:
+                print("There is NOT a Next >> button")
+            else:
+                if driver.find_elements_by_link_text("Next »") != []:
+                    print("There IS a Next >> button")
+                    driver.find_elements_by_link_text("Next »")[0].click()
+                    searchCurrentPage(self)
+                else:
+                    print("There is NOT a Next >> button")
         i = 1
         while i < numberIterations:
             print("woof")
@@ -115,20 +123,11 @@ class CrawlScholarships360(unittest.TestCase):
             print("mrrow?")
             submitButton = driver.find_element_by_xpath('//input[@value="Search"]')
             submitButton.click()
-            print("meow")
+            print(Select(driver.find_element_by_id("tax_scholarship_category")).first_selected_option)
+            print("Searching")
+            searchCurrentPage(self)
+            print("serched")
             i += 1
-            nameObjects = driver.find_elements_by_xpath('/html/body/div[2]/div[2]/div/div/div[2]/h2/a')
-            if len(nameObjects) < 10:
-                print("There is NOT a Next >> button")
-            else:
-                if driver.find_elements_by_link_text("Next »") != []:
-                    print("There IS a Next >> button")
-                else:
-                    print("There is NOT a Next >> button")
-
-
-
-
 
 
 
@@ -139,16 +138,6 @@ class CrawlScholarships360(unittest.TestCase):
             for item in infolist:
                 print(item)
 
-
-        #for each page:
-        #-get names, get links
-        #for each link:
-        #-follow link
-        #-get ADDED, DUE, AMOUNT
-        #-look in text for "Who is eligible for" in an <h3>, and snatch the next paragraph after it. If it doesn't have it, don't freak out.
-        #look for everything formatted like an email, and get the first one.
-        #-click the APPLY button and copy link address.
-        #use the Scholarship Type <select> to append scholarship types as a list to each. (?????)
 
     def is_element_present(self, how, what):
         try:
