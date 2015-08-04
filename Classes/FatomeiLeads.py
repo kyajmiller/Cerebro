@@ -43,7 +43,6 @@ class FatomeiLeads(object):
                 self.fatomeiLeadsArray.append(scholarshipArray)
 
         self.driver.quit()
-
         return self.fatomeiLeadsArray
 
     def getTitlesList(self):
