@@ -6,7 +6,7 @@ import unittest, time
 class CrawlIEFA(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(5)
+        self.driver.implicitly_wait(1)
         self.base_url = "http://www.iefa.org/"
         self.verificationErrors = []
         self.accept_next_alert = True

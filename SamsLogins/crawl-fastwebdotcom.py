@@ -10,7 +10,7 @@ import unittest, time, re
 class SeleniumPythonFastwebdotcom(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(30)
+        self.driver.implicitly_wait(3)
         self.base_url = "http://www.fastweb.com"
         self.verificationErrors = []
         self.accept_next_alert = True
@@ -23,10 +23,11 @@ class SeleniumPythonFastwebdotcom(unittest.TestCase):
         driver.find_element_by_id("user_form_submit").click()
         driver.get("http://www.fastweb.com/college-scholarships/scholarships?filter=Matched&page=1")
         print("Login successful")
+
     def testIsOne(self):
         self.assertEqual(1,1)
         print("1 is equal to 1, nothing broke")
-          #hi
+
     def test_fastweb_dot_com_login(self):
 
         names=[]
