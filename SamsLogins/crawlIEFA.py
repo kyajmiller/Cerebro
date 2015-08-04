@@ -6,7 +6,7 @@ import unittest, time
 class CrawlIEFA(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(1)
+        self.driver.implicitly_wait(5)
         self.base_url = "http://www.iefa.org/"
         self.verificationErrors = []
         self.accept_next_alert = True
@@ -46,13 +46,24 @@ class CrawlIEFA(unittest.TestCase):
 
         currentPage = 1
 
+        time.sleep(0.6)
+
         while self.is_element_present(By.XPATH,'//ul/li[@class="next"]'):
             print("Found NEXT button. Scraping page " + str(currentPage))
 
             awardNameObjects = self.driver.find_elements_by_xpath('//tbody/tr/td[1]/a')
             nationalityObjects = self.driver.find_elements_by_xpath('//tbody/tr/td[3]/p[1]')
             hostCountryObjects = self.driver.find_elements_by_xpath('//tbody/tr/td[3]/p[2]')
+
             print("Found objects")
+            print(awardNameObjects[0])
+            print(awardNameObjects[0].text)
+
+            while awardNameObjects[0].text == "FEATURED":
+            # the first few have to do with the "featured scholarship" which appears on the first page. They should be "FEATURED" and [], respectively, and should not be in the list.
+                awardNameObjects.pop(0)
+                awardNameObjects.pop(0)
+
             for item in awardNameObjects:
                 awardNames.append(item.text)
                 inSiteUrls.append(item.get_attribute("href"))
@@ -63,18 +74,12 @@ class CrawlIEFA(unittest.TestCase):
 
             nextPageButton = self.driver.find_element_by_xpath("//a[contains(.,'Next >')]")
             nextPageButton.click()
-            time.sleep(0.5) #otherwise it tries to jump the gun and returns some really weird errors
+            time.sleep(0.6) #otherwise it tries to jump the gun and returns some really weird errors
             currentPage += 1
             print("Going to next page\n")
             #break #<---uncomment this out for testing purposes
 
         print("Broken out of loop. Visiting in-site URLs.")
-
-        if awardNames[0] == "FEATURED":
-            awardNames.pop(0)
-            awardNames.pop(0)
-            inSiteUrls.pop(0)
-            inSiteUrls.pop(0) #the first two have to do with the "featured scholarship" which appears on the first page. They should be "FEATURED" and [], respectively, and should not be in the list.
 
 
         for item in inSiteUrls:
