@@ -10,7 +10,7 @@ import unittest, time, re
 class CrawlScholarships360(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(30)
+        self.driver.implicitly_wait(6)
         self.base_url = "https://scholarships360.org"
         self.verificationErrors = []
         self.accept_next_alert = True
@@ -35,16 +35,29 @@ class CrawlScholarships360(unittest.TestCase):
         emails = []
         scholarshipTypes = []
 
+        numberPages = 1
         while driver.find_elements_by_link_text('Next »') != []:
+            numberPages += 1
+            driver.find_elements_by_link_text('Next »')[0].click()
+            print("clicky")
+
+        print("There are " + str(numberPages) + " pages.")
+        driver.get('https://scholarships360.org/discover-scholarships/')
+
+        while numberPages > 0:
             nameObjects = driver.find_elements_by_xpath('/html/body/div[2]/div[2]/div/div/div[2]/h2/a')
             for item in nameObjects:
                 names.append(item.text)
                 inSiteLinks.append(item.get_attribute('href'))
-            break #comment this out to run the real program, uncomment this to test the first page.
-            driver.find_elements_by_link_text('Next »')[0].click()
-            print("clicky")
+            if numberPages > 1:
+                driver.find_elements_by_link_text('Next »')[0].click()
+            print("meow")
+            numberPages -= 1
 
+        tags = []
         print("Names and inSiteLinks scanned.")
+        for item in names:
+            tags.append([])
 
 
         regexEmailFormat = re.compile("[\w0-9]+@[\w0-9]+\.[a-z]+")
@@ -101,37 +114,41 @@ class CrawlScholarships360(unittest.TestCase):
         #     applyButton.click()
         #     print("At the website " + driver.current_url)
         #     websites.append(driver.current_url)
-
         selectCategory = Select(driver.find_element_by_id("tax_scholarship_category"))
         numberIterations = len(selectCategory.options)
+
         def searchCurrentPage(self):
-            nameObjects = driver.find_elements_by_xpath('/html/body/div[2]/div[2]/div/div/div[2]/h2/a')
-            print("Visited meow")
-            if len(nameObjects) < 10:
-                print("There is NOT a Next >> button")
-            else:
+
+            scholarshipNames = driver.find_elements_by_xpath('/html/body/div[2]/div[2]/div/div/div[2]/h2/a')
+
+            if len(scholarshipNames) > 0:
+                print(scholarshipNames[0])
+                for scholarship in scholarshipNames:
+                    print(scholarship.text)
+                    try:
+                        tagIndex = names.index(scholarship.text)
+                        print(tagIndex)
+                        tags[tagIndex].append(i)
+                    except:
+                        pass
+
+            if len(nameObjects) >= 10: #This cuts down on search time so much!
                 if driver.find_elements_by_link_text("Next »") != []:
-                    print("There IS a Next >> button")
+                    print("There is a Next >>.")
                     driver.find_elements_by_link_text("Next »")[0].click()
                     searchCurrentPage(self)
-                else:
-                    print("There is NOT a Next >> button")
+
+
         i = 1
         while i < numberIterations:
-            print("woof")
-            Select(driver.find_element_by_id("tax_scholarship_category")).select_by_index(i)
-            print("mrrow?")
+            selectCategory = Select(driver.find_element_by_id("tax_scholarship_category"))
+            selectCategory.select_by_index(i)
             submitButton = driver.find_element_by_xpath('//input[@value="Search"]')
             submitButton.click()
-            print(Select(driver.find_element_by_id("tax_scholarship_category")).first_selected_option)
-            print("Searching")
             searchCurrentPage(self)
-            print("serched")
             i += 1
 
-
-
-        allInfo = [names,inSiteLinks,addedDates,dueDates,amounts,eligibility,websites,emails,scholarshipTypes]
+        allInfo = [names,inSiteLinks,addedDates,dueDates,amounts,eligibility,websites,emails,scholarshipTypes,tags]
 
         for infolist in allInfo:
             print("\n\n")
