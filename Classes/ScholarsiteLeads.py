@@ -18,39 +18,86 @@ class ScholarsiteLeads(object):
         self.driver.find_element_by_css_selector("li.item2 > a > span").click()
         self.driver.find_element_by_name('organization').clear()
         self.driver.find_element_by_name('organization').send_keys('University of Arizona')
-        # self.driver.implicitly_wait(5)
-        # self.driver.find_element_by_id("ui-active-menuitem").click()
         self.driver.find_element_by_xpath("//button[@onclick='this.form.submit()']").click()
         self.driver.implicitly_wait(2)
 
         self.scholarsiteLeadsArrays = []
 
         self.processResultsPages()
+        print(self.scholarsiteLeadsArrays[1])
 
     def processResultsPages(self):
         self.getScholarshipsOnCurrentPage()
-        print(self.scholarsiteLeadsArrays[0])
+
+        currentPage = 1
+        while currentPage < 5:
+            self.goToNextPage()
+            self.getScholarshipsOnCurrentPage()
+            currentPage += 1
+
+        self.driver.quit()
 
     def getScholarshipsOnCurrentPage(self):
         arrayOfTitles = self.getScholarshipTitles()
         arrayOfValues = self.getScholarshipValues()
         arrayOfDeadlines = self.getScholarshipDeadlines()
+        arrayOfWidgetClickInfoArrays = self.getWidgetClickInfo()
+
+        for i in range(len(arrayOfTitles)):
+            title = arrayOfTitles[i]
+            value = arrayOfValues[i]
+            deadline = arrayOfDeadlines[i]
+            widgetInfo = arrayOfWidgetClickInfoArrays[i]
+
+            scholarshipArray = [title, value, deadline]
+            for info in widgetInfo:
+                scholarshipArray.append(info)
+
+            scholarshipArray = [CleanText.cleanALLtheText(item) for item in scholarshipArray]
+
+            self.scholarsiteLeadsArrays.append(scholarshipArray)
+
+    def getScholarshipTitles(self):
+        arrayOfTitleDivs = self.driver.find_elements_by_xpath("//a[@title='Click to see scholarship']/strong")
+        arrayOfTitles = []
+        for titleDiv in arrayOfTitleDivs:
+            title = titleDiv.get_attribute('textContent')
+            arrayOfTitles.append(title)
+
+        return arrayOfTitles
+
+    def getScholarshipValues(self):
+        arrayOfValueDivs = self.driver.find_elements_by_xpath(
+            "//a[@title='Click to see scholarship']/span[@class='location']/em")
+        arrayOfValues = []
+        for valueDiv in arrayOfValueDivs:
+            value = valueDiv.get_attribute('textContent')
+            arrayOfValues.append(value)
+
+        return arrayOfValues
+
+    def getScholarshipDeadlines(self):
+        arrayOfDeadlineDivs = self.driver.find_elements_by_xpath(
+            "//a[@title='Click to see scholarship']/span[@class='date']")
+        arrayOfDeadlines = []
+        for deadlineDiv in arrayOfDeadlineDivs:
+            unformattedDeadline = deadlineDiv.get_attribute('textContent')
+            splitUnformattedDeadline = unformattedDeadline.split(':', 1)
+            unformattedDeadline = splitUnformattedDeadline[1]
+            deadline = re.sub('» View Scholarship', '', unformattedDeadline)
+            arrayOfDeadlines.append(deadline)
+
+        return arrayOfDeadlines
+
+    def getWidgetClickInfo(self):
+        widgetClickInfoArrays = []
 
         findViewScholarshipButtons = self.driver.find_elements_by_xpath("//span[@class='date']/em")
-        '''
-        for i in range(len(findViewScholarshipButtons())):
-            button = findViewScholarshipButtons[i]
-            button.click()
-        '''
         for button in findViewScholarshipButtons:
             button.click()
 
             activeWidgetALLSpanDivs = self.driver.find_elements_by_xpath(
                 "//div[@class='ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active']/div/span")
-
-            # title = arrayOfTitles[i]
-            # value = arrayOfValues[i]
-            #deadline = arrayOfDeadlines[i]
 
             requirements = activeWidgetALLSpanDivs[0].get_attribute('textContent')
             requirements = re.sub('Requirements: ', '', requirements)
@@ -100,46 +147,15 @@ class ScholarsiteLeads(object):
             minimumSAT = activeWidgetALLSpanDivs[15].get_attribute('textContent')
             minimumSAT = re.sub('Minimum SAT: ', '', minimumSAT)
 
+            unformattedArray = [requirements, annualAwards, discipline, academicLevel, qualifiedMinorities,
+                                eligibleInstitution, eligibleRegion, usCitizen, usResident, foreignNational,
+                                minimumAge, maximumAge, classRank, minimumGPA, minimumACT, minimumSAT]
 
-            # scholarshipInfoArray = [title, value, deadline, requirements, annualAwards, discipline, academicLevel, qualifiedMinorities, eligibleInstitution, eligibleRegion, usCitizen, usResident, foreignNational, minimumAge, maximumAge, classRank, minimumGPA, minimumACT, minimumSAT]
-            # self.scholarsiteLeadsArrays.append(scholarshipInfoArray)
+            formattedArray = [re.sub(',$', '', item.strip()) for item in unformattedArray]
 
-            scholarshipInfoArray = [requirements, annualAwards, discipline, academicLevel, qualifiedMinorities,
-                                    eligibleInstitution, eligibleRegion, usCitizen, usResident, foreignNational,
-                                    minimumAge, maximumAge, classRank, minimumGPA, minimumACT, minimumSAT]
-            self.scholarsiteLeadsArrays.append(scholarshipInfoArray)
+            widgetClickInfoArrays.append(formattedArray)
 
-    def getScholarshipTitles(self):
-        arrayOfTitleDivs = self.driver.find_elements_by_xpath("//a[@title='Click to see scholarship']/strong")
-        arrayOfTitles = []
-        for titleDiv in arrayOfTitleDivs:
-            title = titleDiv.get_attribute('textContent')
-            arrayOfTitles.append(title)
-
-        return arrayOfTitles
-
-    def getScholarshipValues(self):
-        arrayOfValueDivs = self.driver.find_elements_by_xpath(
-            "//a[@title='Click to see scholarship']/span[@class='location']/em")
-        arrayOfValues = []
-        for valueDiv in arrayOfValueDivs:
-            value = valueDiv.get_attribute('textContent')
-            arrayOfValues.append(value)
-
-        return arrayOfValues
-
-    def getScholarshipDeadlines(self):
-        arrayOfDeadlineDivs = self.driver.find_elements_by_xpath(
-            "//a[@title='Click to see scholarship']/span[@class='date']")
-        arrayOfDeadlines = []
-        for deadlineDiv in arrayOfDeadlineDivs:
-            unformattedDeadline = deadlineDiv.get_attribute('textContent')
-            splitUnformattedDeadline = unformattedDeadline.split(':', 1)
-            unformattedDeadline = splitUnformattedDeadline[1]
-            deadline = re.sub('» View Scholarship', '', unformattedDeadline)
-            arrayOfDeadlines.append(deadline)
-
-        return arrayOfDeadlines
+        return widgetClickInfoArrays
 
     def goToNextPage(self):
         self.driver.find_element_by_link_text('Next').click()
