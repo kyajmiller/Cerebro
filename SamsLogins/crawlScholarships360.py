@@ -10,7 +10,7 @@ import unittest, time, re
 class CrawlScholarships360(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(6)
+        self.driver.implicitly_wait(3)
         self.base_url = "https://scholarships360.org"
         self.verificationErrors = []
         self.accept_next_alert = True
@@ -39,7 +39,6 @@ class CrawlScholarships360(unittest.TestCase):
         while driver.find_elements_by_link_text('Next »') != []:
             numberPages += 1
             driver.find_elements_by_link_text('Next »')[0].click()
-            print("clicky")
 
         print("There are " + str(numberPages) + " pages.")
         driver.get('https://scholarships360.org/discover-scholarships/')
@@ -51,7 +50,6 @@ class CrawlScholarships360(unittest.TestCase):
                 inSiteLinks.append(item.get_attribute('href'))
             if numberPages > 1:
                 driver.find_elements_by_link_text('Next »')[0].click()
-            print("meow")
             numberPages -= 1
 
         tags = []
@@ -79,7 +77,7 @@ class CrawlScholarships360(unittest.TestCase):
         #     amounts.append(originalAmountText.split(": ")[1])
         #
         #     #mess to find the Eligibles
-        #     allHeaders = driver.find_elements_by_xpath("//div[@class='entry-content']/h3") #Why is this so slow??? It's this command.
+        #     allHeaders = driver.find_elements_by_xpath("//div[@class='entry-content']/h3")
         #     eligiblesGroup = []
         #     for header in allHeaders:
         #         eligiblesFound = regexEligibleFormat.search(header.text)
@@ -114,6 +112,7 @@ class CrawlScholarships360(unittest.TestCase):
         #     applyButton.click()
         #     print("At the website " + driver.current_url)
         #     websites.append(driver.current_url)
+
         selectCategory = Select(driver.find_element_by_id("tax_scholarship_category"))
         numberIterations = len(selectCategory.options)
 
@@ -126,9 +125,10 @@ class CrawlScholarships360(unittest.TestCase):
                 for scholarship in scholarshipNames:
                     print(scholarship.text)
                     try:
+                        currentlySelected = driver.find_element_by_xpath('//select[@id="tax_scholarship_category"]/option[@selected = "selected"]').text
                         tagIndex = names.index(scholarship.text)
                         print(tagIndex)
-                        tags[tagIndex].append(i)
+                        tags[tagIndex].append(currentlySelected)
                     except:
                         pass
 
@@ -141,6 +141,8 @@ class CrawlScholarships360(unittest.TestCase):
 
         i = 1
         while i < numberIterations:
+            currentlySelected = driver.find_element_by_xpath('//select[@id="tax_scholarship_category"]/option[@selected = "selected"]').text
+            print(currentlySelected)
             selectCategory = Select(driver.find_element_by_id("tax_scholarship_category"))
             selectCategory.select_by_index(i)
             submitButton = driver.find_element_by_xpath('//input[@value="Search"]')
@@ -155,6 +157,10 @@ class CrawlScholarships360(unittest.TestCase):
             for item in infolist:
                 print(item)
 
+        print("\n\n")
+
+        for infolist in allInfo:
+            print(infolist[0])
 
     def is_element_present(self, how, what):
         try:
