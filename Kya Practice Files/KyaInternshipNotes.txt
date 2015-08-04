@@ -598,3 +598,19 @@ Stuff to do today:
 --Many of these have fuck all in the ways of actual information for the scholarship. Not fun. Not even a source website for the scholarship. Ugh.
 ---Most don't even have deadlines
 --Luckily there's only 95 results for the UA, so it'll just be done and done. Can do whatever with them after grabbing them
+
+8/4 Notes:
+-Continue working on ScholarsiteLeads
+-Finished ScholarsiteLeads class, returns the array of all the University of Arizona tagged scholarships, yay
+-Made ScholarsiteLeads table in database
+-Wrote unit tests for ScholarsiteLeads
+
+-Looked at some more sites on the list, most are garbage
+
+-Being work on Fatomei
+-Because of how weird the site is laid out (the whole thing is just a simple table, no real heirarchy to it) it will be pretty much impossible
+-to group the scholarships based on the sponsor like they are on the site. Will just ignore the sponsor thing.
+--Titles + websites: "//td[@class='a']/a"
+---.href to get links
+--Descriptions + DueDates = "//tr/td[@class='f']/../td"
+---Even indexes = dates (use if i % 2 == 0 to check if even); odd indexes = descriptions
