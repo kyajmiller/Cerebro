@@ -132,17 +132,9 @@ class GrantForwardLeads(object):
         except ElementNotVisibleException:
             self.driver.implicitly_wait(2)
 
-
     def checkIfElementExists(self, xpath):
         checkElementExists = self.driver.find_elements_by_xpath(xpath)
         if checkElementExists != []:
             return True
         else:
             return False
-
-
-'''
-test = GrantForwardLeads('engineering').processSearchResultsAndMakeLeadArray()
-for i in test[0]:
-    print(i)
-'''
