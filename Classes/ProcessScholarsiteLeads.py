@@ -8,3 +8,6 @@ class ProcessScholarsiteLeads(object):
         scholarsiteLeadsArrays = ScholarsiteLeads().processResultsPages()
         for leadArray in scholarsiteLeadsArrays:
             InsertScholarsiteLeadsArrayIntoScholarsiteLeadsDB(leadArray)
+
+
+ProcessScholarsiteLeads.getScholarsiteLeadsAndInsertIntoDB()
