@@ -10,7 +10,7 @@ import unittest, time, re
 class CrawlScholarships360(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(2)
+        self.driver.implicitly_wait(1)
         self.base_url = "https://scholarships360.org"
         self.verificationErrors = []
         self.accept_next_alert = True
