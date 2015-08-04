@@ -20,19 +20,21 @@ class ScholarsiteLeads(object):
         self.driver.implicitly_wait(2)
 
         self.scholarsiteLeadsArrays = []
-        self.processResultsPages()
 
     def processResultsPages(self):
         self.getScholarshipsOnCurrentPage()
 
-        currentPage = 1
-        while currentPage < 5:
-            self.goToNextPage()
-            self.getScholarshipsOnCurrentPage()
-            currentPage += 1
-
-        self.driver.quit()
-        return self.scholarsiteLeadsArrays
+        if self.isTest:
+            self.driver.quit()
+            return self.scholarsiteLeadsArrays
+        else:
+            currentPage = 1
+            while currentPage < 5:
+                self.goToNextPage()
+                self.getScholarshipsOnCurrentPage()
+                currentPage += 1
+            self.driver.quit()
+            return self.scholarsiteLeadsArrays
 
     def getScholarshipsOnCurrentPage(self):
         arrayOfTitles = self.getScholarshipTitles()
