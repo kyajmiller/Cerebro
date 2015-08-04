@@ -4,7 +4,8 @@ from Classes.RipPage import RipPage
 
 
 class FatomeiLeads(object):
-    def __init__(self):
+    def __init__(self, isTest=False):
+        self.isTest = isTest
         self.driver = webdriver.Firefox()
         self.base_url = "https://www.fatomei.com/"
         self.driver.get(self.base_url + '/')
@@ -21,15 +22,25 @@ class FatomeiLeads(object):
         dueDatesList = self.getDueDates()
         descriptionsList = self.getDescriptionsList()
 
-        for i in range(len(titlesList)):
-            title = titlesList[i]
-            link = linksList[i]
-            dueDate = dueDatesList[i]
-            description = descriptionsList[i]
+        if self.isTest:
+            title = CleanText.cleanALLtheText(titlesList[0])
+            link = linksList[0]
+            dueDate = dueDatesList[0]
+            description = CleanText.cleanALLtheText(descriptionsList[0])
             sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(link))
 
             scholarshipArray = [title, description, dueDate, link, sourceText]
             self.fatomeiLeadsArray.append(scholarshipArray)
+        else:
+            for i in range(len(titlesList)):
+                title = CleanText.cleanALLtheText(titlesList[i])
+                link = linksList[i]
+                dueDate = dueDatesList[i]
+                description = CleanText.cleanALLtheText(descriptionsList[i])
+                sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(link))
+
+                scholarshipArray = [title, description, dueDate, link, sourceText]
+                self.fatomeiLeadsArray.append(scholarshipArray)
 
         self.driver.quit()
 
