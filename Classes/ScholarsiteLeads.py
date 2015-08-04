@@ -32,7 +32,11 @@ class ScholarsiteLeads(object):
             currentPage += 1
 
         self.driver.quit()
-        return self.scholarsiteLeadsArrays
+
+        if self.isTest:
+            return self.scholarsiteLeadsArrays[0]
+        else:
+            return self.scholarsiteLeadsArrays
 
     def getScholarshipsOnCurrentPage(self):
         arrayOfTitles = self.getScholarshipTitles()
