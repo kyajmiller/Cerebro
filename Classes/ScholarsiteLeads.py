@@ -3,9 +3,7 @@
 
 import re
 from selenium import webdriver
-from selenium.common.exceptions import ElementNotVisibleException
 from Classes.CleanText import CleanText
-from Classes.RipPage import RipPage
 
 
 class ScholarsiteLeads(object):
