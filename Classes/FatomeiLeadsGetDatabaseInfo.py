@@ -61,6 +61,8 @@ class FatomeiLeadsGetDatabaseInfo(object):
             for row in rows:
                 fatomeiLeadIds.append(row.FatomeiLeadId)
 
+        fatomeiLeadIds = [str(fatomeiLeadId) for fatomeiLeadId in fatomeiLeadIds]
+
         return fatomeiLeadIds
 
     def getTitleDescriptionList(self):
