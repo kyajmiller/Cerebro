@@ -57,14 +57,14 @@ class Academicinvest(unittest.TestCase):
 
     def scan_big_page(self):
         name_objects = self.driver.find_elements_by_xpath("//h2/a")
+        if len(name_objects) == 0:
+            print("Nothing on this page, silly academicinvest.", end="")
 
         for name in name_objects:
             print(self.names.count(name.text), end=" ")
             if self.names.count(name.text) == 0:
                 self.names.append(name.text)
                 self.urls.append(name.get_attribute('href'))
-            else:
-                print("We already have this. Silly website")
         print("\n")
 
     def scan_full_big_page(self):
@@ -192,12 +192,19 @@ class Academicinvest(unittest.TestCase):
             for info in self.all_info:
                 print("\n")
                 for item in info:
-                    print(item)
+                    try:
+                        print(item)
+                    except UnicodeEncodeError:
+                        print("BAD UNICODE")
+                        item = "not available"
+
 
             # assert it's all AOK
             for info in self.all_info:
                 print(len(info), end=" ")
             print("\n")
+            for info in self.all_info:
+                assert(len(info) == len(self.names), "Not all lists were the same length!")
 
     def is_element_present(self, how, what):
         try:
