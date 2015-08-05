@@ -6,43 +6,66 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
+
 class Academicinvest(unittest.TestCase):
 
-    #big search
+    # big search
     names = []
     urls = []
 
-    #little search
+    # little search
+    websites = []
+    abouts = []
+    providers = []
+    emails = []
+    fields_of_study = []
+    schools_of_study = []
+    levels_of_study = []
+    essays = []
+    essay_details = []
+    application_information = []
+    eligibility = []
+    amounts = []
+    deadlines = []
 
-    all_info = [names, urls]
+    all_info = [names, urls, websites, abouts, providers, emails, fields_of_study, schools_of_study, levels_of_study,
+                essays, essay_details, application_information, eligibility, amounts, deadlines]
+    accordion_page_list = []
 
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(1)
         self.driver.get("http://scholarships.academicinvest.com/")
         self.verificationErrors = []
         self.accept_next_alert = True
-        self.driver.find_element_by_link_text("Any Majors Scholarships").click()
 
     def test_academicinvest(self):
         """This is the main function to run!"""
 
-        self.scan_full_big_page()
+        self.scan_accordions_for_urls()
+        print(self.accordion_page_list)
+
+        for url in self.accordion_page_list:
+            print("Going to " + url)
+            self.driver.get(url)
+            self.scan_full_big_page()
+
         for url in self.urls:
             self.scan_small_page(url)
+
         self.print_all_info()
 
     def scan_big_page(self):
         name_objects = self.driver.find_elements_by_xpath("//h2/a")
 
         for name in name_objects:
-            print(self.names.count(name.text),end=" ")
-            print("\n")
+            print(self.names.count(name.text), end=" ")
             if self.names.count(name.text) == 0:
                 self.names.append(name.text)
                 self.urls.append(name.get_attribute('href'))
             else:
-                print("We already have this. silly computer")
+                print("We already have this. Silly website")
+        print("\n")
 
     def scan_full_big_page(self):
         while True:
@@ -58,7 +81,112 @@ class Academicinvest(unittest.TestCase):
         print("Visiting " + url)
         self.driver.get(url)
         assert(self.driver.current_url == url)
-        print("AOK")
+
+        website_object = self.driver.find_elements_by_xpath(
+            "//div[@class='field-label' and contains(.,'More Information')]/../descendant::a")
+        if website_object != []:
+            self.websites.append(website_object[0].get_attribute('href'))
+        else:
+            self.websites.append("none found")
+
+        about_object = self.driver.find_elements_by_xpath(
+            "//div[@class='field-label' and contains(.,'About')]/../descendant::div[@class = 'field-item even']")
+        if about_object != []:
+            self.abouts.append(about_object[0].text)
+        else:
+            self.abouts.append("none found")
+
+        if "\u2010" in self.abouts[len(self.abouts)-1]:
+            print("replace")
+            self.abouts[len(self.abouts)-1] = self.abouts[len(self.abouts)-1].replace("\u2010","-")
+
+        provider_object = self.driver.find_elements_by_xpath(
+            "//div[@class='field-label' and contains(.,'Provided By')]/../descendant::div[@class = 'field-item even']")
+        if provider_object != []:
+            self.providers.append(provider_object[0].text)
+        else:
+            self.providers.append("none found")
+
+        email_object = self.driver.find_elements_by_xpath(
+            "//div[@class='field-label' and contains(.,'Contact e-mail')]/../descendant::div[@class = 'field-item even']")
+        if email_object != []:
+            self.emails.append(email_object[0].text)
+        else:
+            self.emails.append("none found")
+
+        field_of_study_object = self.driver.find_elements_by_xpath(
+            "//div[@class='field-label' and contains(.,'Field(s)')]/../descendant::div[@class = 'field-item even']")
+        if field_of_study_object != []:
+            self.fields_of_study.append(field_of_study_object[0].text)
+        else:
+            self.fields_of_study.append("none found")
+
+        school_of_study_object = self.driver.find_elements_by_xpath(
+            "//div[@class='field-label' and contains(.,'Provided By')]/../descendant::div[@class = 'field-item even']")
+        if school_of_study_object != []:
+            self.schools_of_study.append(school_of_study_object[0].text)
+        else:
+            self.schools_of_study.append("none found")
+
+        level_of_study_object = self.driver.find_elements_by_xpath(
+            "//div[@class='field-label' and contains(.,'Level of Study')]/../descendant::div[@class = 'field-item even']")
+        if level_of_study_object != []:
+            self.levels_of_study.append(level_of_study_object[0].text)
+        else:
+            self.levels_of_study.append("none found")
+
+        essay_object = self.driver.find_elements_by_xpath(
+            "//div[@class='field-label' and contains(.,'Essay:')]/../descendant::div[@class = 'field-item even']")
+        if essay_object != []:
+            self.essays.append(essay_object[0].text)
+        else:
+            self.essays.append("none found")
+
+        essay_details_object = self.driver.find_elements_by_xpath(
+            "//div[@class='field-label' and contains(.,'Essay Details')]/../descendant::div[@class = 'field-item even']")
+        if essay_details_object != []:
+            self.essay_details.append(essay_details_object[0].text)
+        else:
+            self.essay_details.append("none found")
+
+        application_information_object = self.driver.find_elements_by_xpath(
+            "//div[@class='field-label' and contains(.,'Application Information')]/../descendant::span")
+        if application_information_object != []:
+            self.application_information.append(application_information_object[0].text)
+        else:
+            self.application_information.append("none found")
+
+        eligibility_xpath = self.driver.find_elements_by_xpath(
+            "//div[@class='field-label' and contains(.,'Eligibility')]/../descendant::p")
+        if eligibility_xpath != []:
+            eligibility_list = []
+            for item in eligibility_xpath:
+                eligibility_list.append(item.text)
+            eligibility_object = str(eligibility_list)
+            self.eligibility.append(eligibility_object)
+        else:
+            self.eligibility.append("none found")
+
+        amount_object = self.driver.find_elements_by_xpath(
+            "//div[@class='field-label' and contains(.,'Amount')]/../descendant::div[@class = 'field-item even']")
+        if amount_object != []:
+            self.amounts.append(amount_object[0].text)
+        else:
+            self.amounts.append("none found")
+
+        deadline_object = self.driver.find_elements_by_xpath(
+            "//div[@class='field-label' and contains(.,'Deadline')]/../descendant::div[@class = 'field-item even']")
+        if deadline_object != []:
+            self.deadlines.append(deadline_object[0].text)
+        else:
+            self.deadlines.append("none found")
+
+    def scan_accordions_for_urls(self):
+        accordion_hrefs = self.driver.find_elements_by_xpath("//*[@role='tabpanel']/p/a")
+        for link in accordion_hrefs:
+            url = link.get_attribute('href')
+            if url is not None:
+                self.accordion_page_list.append(url)
 
     def print_all_info(self):
             for info in self.all_info:
