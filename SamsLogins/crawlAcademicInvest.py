@@ -89,6 +89,10 @@ class Academicinvest(unittest.TestCase):
         else:
             self.abouts.append("none found")
 
+        if "\u2010" in self.abouts[len(self.abouts)-1]:
+            print("replace")
+            self.abouts[len(self.abouts)-1] = self.abouts[len(self.abouts)-1].replace("\u2010","-")
+
         provider_object = self.driver.find_elements_by_xpath(
             "//div[@class='field-label' and contains(.,'Provided By')]/../descendant::div[@class = 'field-item even']")
         if provider_object != []:
