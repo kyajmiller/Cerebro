@@ -79,7 +79,8 @@ class ClassifyFundingTypeKeywordBased(object):
         return keywordExists
 
     def checkInternshipKeywords(self, unigrams):
-        internshipKeywords = ['internship', 'internships', 'intern', 'interns', 'apprenticeship']
+        internshipKeywords = ['internship', 'internships', 'intern', 'interns', 'apprenticeship', 'extern',
+                              'externship', 'externships', 'externs']
         keywordExists = False
 
         for keyword in internshipKeywords:

@@ -4,7 +4,7 @@ from Classes.SUDBConnect import SUDBConnect
 from Classes.CleanText import CleanText
 
 
-class PivotLeadsRunFundingClassifier(object):
+class RunFundingClassifierOnPivotLeads(object):
     @staticmethod
     def getPredictedTagsInsertIntoDatabase():
         keywordsList = PivotLeadsGetDatabaseInfo.getKeywords()
@@ -22,4 +22,4 @@ class PivotLeadsRunFundingClassifier(object):
                     "update dbo.PivotLeads set Tag='" + tag + "' where PivotLeadId='" + pivotLeadId + "'")
 
 
-PivotLeadsRunFundingClassifier.getPredictedTagsInsertIntoDatabase()
+RunFundingClassifierOnPivotLeads.getPredictedTagsInsertIntoDatabase()
