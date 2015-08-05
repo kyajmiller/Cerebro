@@ -50,6 +50,8 @@ class FatomeiLeads(object):
             pageLink.click()
             self.driver.implicitly_wait(2)
             self.getLeads()
+            self.driver.get(self.base_url + '/')
+            self.driver.implicitly_wait(2)
 
     def getTitlesList(self, arrayOfTitleLinkDivs):
         titlesList = [titleDiv.text for titleDiv in arrayOfTitleLinkDivs]
