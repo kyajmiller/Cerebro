@@ -80,7 +80,7 @@ class ClassifyFundingTypeKeywordBased(object):
 
     def checkInternshipKeywords(self, unigrams):
         internshipKeywords = ['internship', 'internships', 'intern', 'interns', 'apprenticeship', 'extern',
-                              'externship', 'externships']
+                              'externship', 'externships', 'externs']
         keywordExists = False
 
         for keyword in internshipKeywords:
