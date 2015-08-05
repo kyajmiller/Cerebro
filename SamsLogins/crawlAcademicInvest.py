@@ -30,21 +30,29 @@ class Academicinvest(unittest.TestCase):
 
     all_info = [names, urls, websites, abouts, providers, emails, fields_of_study, schools_of_study, levels_of_study,
                 essays, essay_details, application_information, eligibility, amounts, deadlines]
+    accordion_page_list = []
 
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(1.5)
+        self.driver.implicitly_wait(1)
         self.driver.get("http://scholarships.academicinvest.com/")
         self.verificationErrors = []
         self.accept_next_alert = True
-        self.driver.find_element_by_link_text("Any Majors Scholarships").click()
 
     def test_academicinvest(self):
         """This is the main function to run!"""
 
-        self.scan_big_page()
+        self.scan_accordions_for_urls()
+        print(self.accordion_page_list)
+
+        for url in self.accordion_page_list:
+            print("Going to " + url)
+            self.driver.get(url)
+            self.scan_full_big_page()
+
         for url in self.urls:
             self.scan_small_page(url)
+
         self.print_all_info()
 
     def scan_big_page(self):
@@ -56,8 +64,7 @@ class Academicinvest(unittest.TestCase):
                 self.names.append(name.text)
                 self.urls.append(name.get_attribute('href'))
             else:
-                print("\nWe already have this. silly computer")
-
+                print("We already have this. Silly website")
         print("\n")
 
     def scan_full_big_page(self):
@@ -174,7 +181,12 @@ class Academicinvest(unittest.TestCase):
         else:
             self.deadlines.append("none found")
 
-
+    def scan_accordions_for_urls(self):
+        accordion_hrefs = self.driver.find_elements_by_xpath("//*[@role='tabpanel']/p/a")
+        for link in accordion_hrefs:
+            url = link.get_attribute('href')
+            if url is not None:
+                self.accordion_page_list.append(url)
 
     def print_all_info(self):
             for info in self.all_info:
