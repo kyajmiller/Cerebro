@@ -24,45 +24,35 @@ class Academicinvest(unittest.TestCase):
         self.accept_next_alert = True
         self.driver.find_element_by_link_text("Any Majors Scholarships").click()
 
-
     def test_academicinvest(self):
         """This is the main function to run!"""
 
-
-        number_next_clicks = self.num_pages()
-        while number_next_clicks > 0:
-            self.scan_big_page()
-            print("Next page")
-            number_next_clicks -= 1
-            if number_next_clicks > 1:
-                next_button = self.driver.find_elements_by_xpath("//li[contains(.,'next ')]/a")[0]
-                print(next_button)
-                next_button.click()
-        self.scan_big_page()
-        #scan little pages
+        self.scan_full_big_page()
         for url in self.urls:
             self.scan_small_page(url)
-        #print data
         self.print_all_info()
 
-    def num_pages(self):
-        last_button = self.driver.find_elements_by_xpath("//li[contains(.,'last ')]/a")
-        if last_button == []:
-            print("No last page button")
-            number_pages = 1
-        else:
-            number_pages = int(last_button[0].get_attribute('href').split("&page=")[1]) + 1
-            print(str(number_pages))
-        return number_pages
-
-
     def scan_big_page(self):
-
         name_objects = self.driver.find_elements_by_xpath("//h2/a")
 
         for name in name_objects:
-            self.names.append(name.text)
-            self.urls.append(name.get_attribute('href'))
+            print(self.names.count(name.text),end=" ")
+            print("\n")
+            if self.names.count(name.text) == 0:
+                self.names.append(name.text)
+                self.urls.append(name.get_attribute('href'))
+            else:
+                print("We already have this. silly computer")
+
+    def scan_full_big_page(self):
+        while True:
+            print(self.driver.current_url)
+            self.scan_big_page()
+            next_button = self.driver.find_elements_by_xpath("//li[contains(.,'next ')]/a")
+            if next_button == []:
+                return
+            else:
+                next_button[0].click()
 
     def scan_small_page(self, url):
         print("Visiting " + url)
@@ -76,7 +66,7 @@ class Academicinvest(unittest.TestCase):
                 for item in info:
                     print(item)
 
-            #assert it's all AOK
+            # assert it's all AOK
             for info in self.all_info:
                 print(len(info), end=" ")
             print("\n")
