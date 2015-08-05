@@ -614,3 +614,19 @@ Stuff to do today:
 ---.href to get links
 --Descriptions + DueDates = "//tr/td[@class='f']/../td"
 ---Even indexes = dates (use if i % 2 == 0 to check if even); odd indexes = descriptions
+
+8/5 Notes:
+-So for some reason the server really doesn't like me. Likes to randomly delete my server credentials. Luckily this time it was easily recoverable but it's annoying
+-Continue working on Fatomei Leads
+-After fixing a bunch of bugs with the InsertFatomeiLeadsIntoFatomeiLeadsDB insert statement, Fatomei has been crawled.
+--Need to run the classifier over FatomeiLeads (RunFundingClassifierOnFatomeiLeads)
+--Wrote the FatomeiLeadsGetDatabaseInfo class
+-Adding 'extern', 'externship' to Internship keywords for funding classifier
+-Need to build FatomeiLeadsRequirements table and associated class
+--Not sure how well this is going to work because there's really no info in a lot of the descriptions pulled from the site and
+the source website isn't always the most reliable. Fatomei isn't that great of a site to scrape. Will set this up now and then just not worry about it
+-Will set up the parsers to run over both the description given and over the source website text
+-Need to get the other pages of Fatomei site too, this site is set up so weird that I didn't notice them...
+-luckily easy way to grab all the extra page links, so problem largely solved
+
+
