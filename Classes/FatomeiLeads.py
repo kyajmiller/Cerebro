@@ -17,62 +17,76 @@ class FatomeiLeads(object):
         self.fatomeiLeadsArray = []
 
     def getFatomeiLeadsArrays(self):
-        titlesList = self.getTitlesList()
-        linksList = self.getLinksList()
-        dueDatesList = self.getDueDates()
-        descriptionsList = self.getDescriptionsList()
+        self.getLeads()
 
-        if self.isTest:
-            title = CleanText.cleanALLtheText(titlesList[0])
-            link = linksList[0]
-            dueDate = dueDatesList[0]
-            description = CleanText.cleanALLtheText(descriptionsList[0])
-            sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(link))
-
-            scholarshipArray = [title, description, dueDate, link, sourceText]
-            self.fatomeiLeadsArray.append(scholarshipArray)
-        else:
-            for i in range(len(titlesList)):
-                title = CleanText.cleanALLtheText(titlesList[i])
-                link = linksList[i]
-                dueDate = dueDatesList[i]
-                description = CleanText.cleanALLtheText(descriptionsList[i])
-                sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(link))
-
-                scholarshipArray = [title, description, dueDate, link, sourceText]
-                self.fatomeiLeadsArray.append(scholarshipArray)
+        if not self.isTest:
+            self.goToOtherPagesAndGetLeads()
 
         self.driver.quit()
         return self.fatomeiLeadsArray
 
-    def getTitlesList(self):
-        titlesList = [titleDiv.text for titleDiv in self.arrayOfTitleLinkDivs]
+    def getLeads(self):
+        arrayOfTitleLinkDivs = self.driver.find_elements_by_xpath("//td[@class='a']/a")
+        arrayOfDateDescriptionDivs = self.driver.find_elements_by_xpath("//tr/td[@class='f']/../td")
+
+        titlesList = self.getTitlesList(arrayOfTitleLinkDivs)
+        linksList = self.getLinksList(arrayOfTitleLinkDivs)
+        dueDatesList = self.getDueDates(arrayOfDateDescriptionDivs)
+        descriptionsList = self.getDescriptionsList(arrayOfDateDescriptionDivs)
+
+        for i in range(len(titlesList)):
+            title = CleanText.cleanALLtheText(titlesList[i])
+            link = linksList[i]
+            dueDate = dueDatesList[i]
+            description = CleanText.cleanALLtheText(descriptionsList[i])
+            sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(link))
+
+            scholarshipArray = [title, description, dueDate, link, sourceText]
+            self.fatomeiLeadsArray.append(scholarshipArray)
+
+    def goToOtherPagesAndGetLeads(self):
+        otherPageLinks = self.driver.find_elements_by_xpath("//h2/a")
+        numPageLinks = len(otherPageLinks)
+        whatPageOn = 0
+
+        while whatPageOn <= numPageLinks:
+            otherPageLinks = self.driver.find_elements_by_xpath("//h2/a")
+            pageToGoTo = otherPageLinks[whatPageOn]
+            pageToGoTo.click()
+            self.driver.implicitly_wait(2)
+            self.getLeads()
+            self.driver.get(self.base_url + '/')
+            self.driver.implicitly_wait(2)
+            whatPageOn += 1
+
+    def getTitlesList(self, arrayOfTitleLinkDivs):
+        titlesList = [titleDiv.text for titleDiv in arrayOfTitleLinkDivs]
         return titlesList
 
-    def getLinksList(self):
+    def getLinksList(self, arrayOfTitleLinkDivs):
         linksList = []
 
-        for linkDiv in self.arrayOfTitleLinkDivs:
+        for linkDiv in arrayOfTitleLinkDivs:
             link = linkDiv.get_attribute('href')
             linksList.append(link)
         return linksList
 
-    def getDueDates(self):
+    def getDueDates(self, arrayOfDateDescriptionDivs):
         dueDatesList = []
 
         currentIndexCounter = 0
-        for dueDateDiv in self.arrayOfDateDescriptionDivs:
+        for dueDateDiv in arrayOfDateDescriptionDivs:
             if currentIndexCounter % 2 == 0:
                 dueDate = dueDateDiv.get_attribute('textContent')
                 dueDatesList.append(dueDate)
             currentIndexCounter += 1
         return dueDatesList
 
-    def getDescriptionsList(self):
+    def getDescriptionsList(self, arrayOfDateDescriptionDivs):
         descriptionsList = []
 
         currentIndexCounter = 0
-        for descriptionDiv in self.arrayOfDateDescriptionDivs:
+        for descriptionDiv in arrayOfDateDescriptionDivs:
             if currentIndexCounter % 2 == 1:
                 description = descriptionDiv.get_attribute('textContent')
                 descriptionsList.append(description)
