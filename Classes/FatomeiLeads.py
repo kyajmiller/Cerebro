@@ -26,7 +26,8 @@ class FatomeiLeads(object):
         return self.fatomeiLeadsArray
 
     def getLeads(self):
-        arrayOfTitleLinkDivs = self.driver.find_elements_by_xpath("//td[@class='a']/a")
+        arrayOfTitleLinkDivs = self.driver.find_elements_by_xpath(
+            "//td[@class='f']/../preceding-sibling::tr[1]/td[@class='a']/a")
         arrayOfDateDescriptionDivs = self.driver.find_elements_by_xpath("//tr/td[@class='f']/../td")
 
         titlesList = self.getTitlesList(arrayOfTitleLinkDivs)
