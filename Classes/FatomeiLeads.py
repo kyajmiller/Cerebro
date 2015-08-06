@@ -49,15 +49,16 @@ class FatomeiLeads(object):
         numPageLinks = len(otherPageLinks)
         whatPageOn = 0
 
-        while whatPageOn <= numPageLinks:
+        while whatPageOn < numPageLinks:
             otherPageLinks = self.driver.find_elements_by_xpath("//h2/a")
             pageToGoTo = otherPageLinks[whatPageOn]
-            pageToGoTo.click()
-            self.driver.implicitly_wait(2)
-            self.getLeads()
-            self.driver.get(self.base_url + '/')
-            self.driver.implicitly_wait(2)
-            whatPageOn += 1
+            if pageToGoTo:
+                pageToGoTo.click()
+                self.driver.implicitly_wait(2)
+                self.getLeads()
+                self.driver.get(self.base_url + '/')
+                self.driver.implicitly_wait(2)
+                whatPageOn += 1
 
     def getTitlesList(self, arrayOfTitleLinkDivs):
         titlesList = [titleDiv.text for titleDiv in arrayOfTitleLinkDivs]
