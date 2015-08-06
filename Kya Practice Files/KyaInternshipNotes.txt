@@ -629,4 +629,16 @@ the source website isn't always the most reliable. Fatomei isn't that great of a
 -Need to get the other pages of Fatomei site too, this site is set up so weird that I didn't notice them...
 -luckily easy way to grab all the extra page links, so problem largely solved
 
+8/6 Notes:
+-continue testing fatomei leads
+-added a check to make sure the clicky thing actually exists
+-figured out why my loop over the other pages wasn't working, so trying to run the whole thing forreal now
+-For some reason, it really hates the women scholarships page. The go to other pages thing works fine during tests of just that function, but -
+--nvm I think I know what's going on; there's not the same number of dates as there are entries? which is weird because they should all have the same things, even if there's no date in the box...
+--yeah there's 79 dates and 80 titles on the page, it's stupid; not sure how to get around this
+--One of the titles is missing a description row, which is what's messing it up... not sure if I can just skip this one, or just delete it somehow
+---Is there a way to check for very following sibling?
+---Use immediately preceding sibling in order to get a classes whose immediate next sibling is class f, will only grab those that have an f element following them
+-Today is just not my day to actually try and do any work. Forreal
+
 
