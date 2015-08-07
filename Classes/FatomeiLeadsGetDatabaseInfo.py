@@ -78,3 +78,17 @@ class FatomeiLeadsGetDatabaseInfo(object):
             listOfItems = [title, description]
             wholeList.append(listOfItems)
         return wholeList
+
+    def getConcatenatedDescriptionsSourceText(self):
+        listConcatenatedItems = []
+
+        descriptions = self.getDescriptions()
+        sourceTexts = self.getSourceText()
+
+        for i in range(len(descriptions)):
+            description = descriptions[i]
+            sourceText = sourceTexts[i]
+
+            concatenatedItem = '%s %s' % (description, sourceText)
+            listConcatenatedItems.append(concatenatedItem)
+        return listConcatenatedItems
