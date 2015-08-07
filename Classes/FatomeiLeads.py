@@ -11,9 +11,6 @@ class FatomeiLeads(object):
         self.driver.get(self.base_url + '/')
         self.driver.implicitly_wait(2)
 
-        self.arrayOfTitleLinkDivs = self.driver.find_elements_by_xpath("//td[@class='a']/a")
-        self.arrayOfDateDescriptionDivs = self.driver.find_elements_by_xpath("//tr/td[@class='f']/../td")
-
         self.fatomeiLeadsArray = []
 
     def getFatomeiLeadsArrays(self):
