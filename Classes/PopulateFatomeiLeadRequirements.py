@@ -51,7 +51,6 @@ class PopulateFatomeiLeadRequirements(object):
         majors = []
 
         majorsList = GetFastFindMajorsList.getDefaultList()
-        majorsList = [re.sub('\(.*?\)', '', major.strip()) for major in majorsList]
         majorsList = [major.lower() for major in majorsList]
         majorsList = list(set(majorsList))
 
