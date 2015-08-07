@@ -1,4 +1,5 @@
 import nltk.data
+import re
 from Classes.SUDBConnect import SUDBConnect
 from Classes.FatomeiLeadsGetDatabaseInfo import FatomeiLeadsGetDatabaseInfo
 from Classes.GPA import GPA
@@ -11,8 +12,6 @@ class PopulateFatomeiLeadRequirements(object):
         self.db = SUDBConnect()
         self.tag = 'Scholarship'
         self.sentenceTokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
-
-        self.loopThroughLeadsAndDoStuff()
 
     def loopThroughLeadsAndDoStuff(self):
         fatomeiLeadsDatabaseInfo = FatomeiLeadsGetDatabaseInfo(self.tag)
@@ -52,7 +51,10 @@ class PopulateFatomeiLeadRequirements(object):
         majors = []
 
         majorsList = GetFastFindMajorsList.getDefaultList()
+        majorsList = [re.sub('\(.*?\)', '', major.strip()) for major in majorsList]
         majorsList = [major.lower() for major in majorsList]
+        majorsList = list(set(majorsList))
+
         majorsListRegex = '|'.join(majorsList)
 
         for sentence in descriptionSourceTextSentences:
@@ -86,3 +88,6 @@ class PopulateFatomeiLeadRequirements(object):
 
         self.db.insertUpdateOrDelete(
             "insert into dbo.FatomeiLeadRequirements (FatomeiLeadId, AttributeId, AttributeValue) values ('" + fatomeiLeadId + "', '" + attributeId + "', '" + attributeValue + "')")
+
+
+PopulateFatomeiLeadRequirements().loopThroughLeadsAndDoStuff()
