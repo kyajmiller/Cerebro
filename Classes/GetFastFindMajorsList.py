@@ -1,3 +1,4 @@
+import re
 from Classes.SUDBConnect import SUDBConnect
 
 
@@ -11,16 +12,14 @@ class GetFastFindMajorsList(object):
         for row in rows:
             fastFindMajorsList.append(row.Major)
 
+        fastFindMajorsList = [re.sub('\(.*?\)', '', major.strip()) for major in fastFindMajorsList]
+
         return fastFindMajorsList
 
     @staticmethod
     def getGrantForwardItemsList():
-        fastFindMajorsList = []
-        db = SUDBConnect()
-        rows = db.getRows(
-            "select replace( ValueShown, '(' + OtherValuesToCheck + ')', '') as Major from dbo.FastFindLists where AttributeId=417")
-        for row in rows:
-            fastFindMajorsList.append(row.Major)
+        fastFindMajorsList = GetFastFindMajorsList.getDefaultList()
+        db = SUDBConnect
 
         rows = db.getRows("SELECT DISTINCT Keyword FROM dbo.GrantForwardItems")
         existingKeywordsInTable = []
@@ -36,12 +35,8 @@ class GetFastFindMajorsList(object):
 
     @staticmethod
     def getPivotLeadsList():
-        fastFindMajorsList = []
+        fastFindMajorsList = GetFastFindMajorsList.getDefaultList()
         db = SUDBConnect()
-        rows = db.getRows(
-            "select replace( ValueShown, '(' + OtherValuesToCheck + ')', '') as Major from dbo.FastFindLists where AttributeId=417")
-        for row in rows:
-            fastFindMajorsList.append(row.Major)
 
         rows = db.getRows("SELECT DISTINCT Keyword FROM dbo.PivotLeads")
         existingKeywordsInTable = []
