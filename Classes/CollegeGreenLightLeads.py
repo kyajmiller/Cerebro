@@ -29,3 +29,56 @@ class CollegeGreenLightLeads(object):
         arrayOfTitleLinkDivs = self.driver.find_elements_by_xpath("//td[@class='scholarshipNameColumn']/div/a")
         arrayOfAmountDivs = self.driver.find_elements_by_xpath("//td[@class='amount']")
         arrayOfDeadlineDivs = self.driver.find_elements_by_xpath("//td[@class='deadline']")
+
+        titlesList = self.getTitlesList(arrayOfTitleLinkDivs)
+        linksList = self.getLinksList(arrayOfTitleLinkDivs)
+        amountsList = self.getAmountsList(arrayOfAmountDivs)
+        deadlinesList = self.getDeadlinesList(arrayOfDeadlineDivs)
+
+        for i in range(len(titlesList)):
+            title = CleanText.cleanALLtheText(titlesList[i])
+            resultPageLink = linksList[i]
+            amount = CleanText.cleanALLtheText(amountsList[i])
+            deadline = deadlinesList[i]
+
+            resultPageInfo = self.goToResultPageAndPullInformation(resultPageLink)
+            sponsor = CleanText.cleanALLtheText(resultPageInfo[0])
+            sourceWebsite = resultPageInfo[1]
+            description = CleanText.cleanALLtheText(resultPageInfo[2])
+            requirements = CleanText.cleanALLtheText(resultPageInfo[3])
+
+            sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(sourceWebsite))
+
+            leadArray = [title, amount, deadline, sponsor, description, requirements, resultPageLink, sourceWebsite,
+                         sourceText]
+            self.collegeGreenLightLeadsArrays.append(leadArray)
+
+    def getTitlesList(self, arrayOfTitleLinkDivs):
+        titlesList = [titleDiv.get_attribute('textContent') for titleDiv in arrayOfTitleLinkDivs]
+        return titlesList
+
+    def getLinksList(self, arrayOfTitleLinkDivs):
+        linksList = [linkDiv.get_attribute('href') for linkDiv in arrayOfTitleLinkDivs]
+        return linksList
+
+    def getAmountsList(self, arrayOfAmountDivs):
+        amountsList = [amountDiv.get_attribute('textContent') for amountDiv in arrayOfAmountDivs]
+        return amountsList
+
+    def getDeadlinesList(self, arrayOfDeadlineDivs):
+        deadlinesList = [dealineDiv.get_attribute('textContent') for dealineDiv in arrayOfDeadlineDivs]
+        return deadlinesList
+
+    def goToResultPageAndPullInformation(self, resultPageLink):
+        self.driver.get(resultPageLink)
+        self.driver.implicitly_wait(2)
+
+        sponsor = self.driver.find_element_by_xpath("//h2").get_attribute('textContent')
+        sourceWebsite = self.driver.find_element_by_xpath("//div[@class='applicationInformation ']/p/a").get_attribute(
+            'href')
+        description = self.driver.find_element_by_xpath("//div[@class='detail']/p[@class='info']").get_attribute(
+            'textContent')
+        requirements = self.driver.find_element_by_xpath("//div[@class='requirements']/ul").get_attribute('textContent')
+
+        resultPageInfo = [sponsor, sourceWebsite, description, requirements]
+        return resultPageInfo
