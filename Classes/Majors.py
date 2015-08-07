@@ -10,7 +10,7 @@ class Majors(Parser):
         Parser.__init__(self, self.stringToScan.lower(), self.majorsRegex)
         self.resultList = []
         self.attributeId = '417'
-        self.requirementValue = ''
+        self.major = ''
         self.logicGroup = '0'
         self.requirementTypeCode = '*'
         self.scholarshipPackageId = scholarshipPackageId
@@ -52,8 +52,8 @@ class Majors(Parser):
 
         self.resultList = list(set(self.resultList))
 
-        self.requirementValue = ', '.join(self.resultList)
-        return self.requirementValue
+        self.major = ', '.join(self.resultList)
+        return self.major
 
     def getScholarshipPackageRequirementFormat(self):
         if self.getMajors() != '':
