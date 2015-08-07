@@ -641,4 +641,24 @@ the source website isn't always the most reliable. Fatomei isn't that great of a
 ---Use immediately preceding sibling in order to get a classes whose immediate next sibling is class f, will only grab those that have an f element following them
 -Today is just not my day to actually try and do any work. Forreal
 
+8/7 Notes:
+-Fatomei Leads finally worked, everything is in the database, yay
+--I probably didn't format the table correctly when setting the identities because the FatomeiLeadsIds are kinda weird, but
+so long as they're unique it's not that big of a deal. They're just weird.
+-Need to run classifier over the new stuff in the database - done
+-Now can work on PopulateFatomeiLeadsRequirements
+--This one will be different than the other Populate classes, because in order to get the majors I'll actually have to parse them out of the text...
+--Need to update the majors parser, use GetFastFindMajorsList to know what to search for
+---nvm, don't really need to change Majors at all, just need to make a function in Populate, call FastFindMajors to get the list, put everything in lower case, then feed it and the string into Majors
+-So I ran PopulateFatomeiLeadRequirements, but nothing happened. I'm not sure if I wrote this wrong, or if in the entirety of 334 scholarships tagged as a scholarship not a single one has GPA/Major info. Seems unlikely
+-Seems there's something seriously wrong with the Populate class because I can't even import it into the unit test without it throwing errors (I'm not even *using* the import statement, which is fucking weird)
+-The problem seems to lie in using the FastFindMajorsList to make the majors regex because the normal TestMajors unit test seems to work okay (with the majors regex that one uses), so there's something wrong with the fast find majors list
+-I'm just really not sure *what* that could be. It returns a list of majors in strings. So unless there's something weird about those strings it should be okay.
+-The FastFindMajorsRegex creates an issue with what it's returning from the re.search. Should try removing all of the things in the list that have parentheses, that's probably creating capture groups, resulting in tuples instead of strings
+--Removing the parentheses seems to have fixed it; not sure why the runtime is so long but okay
+-And now that the majors thing is fixed, now the entire program works. Yaaaaaaaaaaaaaaaaaaaaay
+--Having those parentheses in the FastFindMajors list is really really obnoxious, should probably just remove them completely when calling it instead of having to do it later...
+
+-Start working on CollegeGreenLight, basically do the same thing all over again. Yay.
+-This one might work strangely because it has a log in to deal with, but it should be okayish
 
