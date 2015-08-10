@@ -1,4 +1,3 @@
-import re
 from selenium import webdriver
 from Classes.RipPage import RipPage
 from Classes.CleanText import CleanText
