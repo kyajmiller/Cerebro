@@ -127,4 +127,3 @@ class UnigoLeads(object):
         else:
             return False
 
-UnigoLeads().getLeads()
