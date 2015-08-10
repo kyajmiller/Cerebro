@@ -18,23 +18,19 @@ class UnigoLeads(object):
         self.driver.find_element_by_css_selector('button.btn-primary').click()
         self.driver.implicitly_wait(2)
 
-        '''
         self.seeMoreButtonExistence = ''
         if self.checkIfSeeMoreButtonExists():
             self.seeMoreButtonExistence = True
             while self.seeMoreButtonExistence:
-                self.driver.find_element_by_link_text('See More').click()
+                self.driver.find_element_by_xpath("//a[@data-bind='click: showMoreScholarships']").click()
                 self.seeMoreButtonExistence = self.checkIfSeeMoreButtonExists()
-        '''
 
-    def checkIfSeeMoreButtonAndClick(self):
-        '''
-        seeMoreButton = self.driver.find_elements_by_link_text('See More')
+    def checkIfSeeMoreButtonExists(self):
+        seeMoreButton = self.driver.find_elements_by_xpath("//a[@data-bind='click: showMoreScholarships']")
         if seeMoreButton != []:
             return True
         else:
             return False
-        '''
 
 
 UnigoLeads()
