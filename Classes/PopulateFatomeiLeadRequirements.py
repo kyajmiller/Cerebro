@@ -1,5 +1,4 @@
 import nltk.data
-import re
 from Classes.SUDBConnect import SUDBConnect
 from Classes.FatomeiLeadsGetDatabaseInfo import FatomeiLeadsGetDatabaseInfo
 from Classes.GPA import GPA
