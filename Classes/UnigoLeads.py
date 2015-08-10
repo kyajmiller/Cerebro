@@ -18,6 +18,8 @@ class UnigoLeads(object):
         self.driver.find_element_by_css_selector('button.btn-primary').click()
         self.driver.implicitly_wait(2)
 
+        self.unigoLeadsArray = []
+
     def getLeads(self):
         self.expandSeeMore()
 
@@ -51,7 +53,23 @@ class UnigoLeads(object):
             objectToClick.click()
             self.driver.implicitly_wait(2)
 
-            self.getResultPageInfo()
+            resultPageArray = self.getResultPageInfo()
+            sponsor = resultPageArray[0]
+            awardAmount = resultPageArray[1]
+            recipients = resultPageArray[2]
+            requirements = resultPageArray[3]
+            additionalInfo = resultPageArray[4]
+            contact = resultPageArray[5]
+            address = resultPageArray[6]
+            sourceWebsite = resultPageArray[7]
+            sourceText = resultPageArray[8]
+
+            leadArray = [title, amount, deadline, sponsor, awardAmount, recipients, requirements, additionalInfo,
+                         contact, address, sourceWebsite, sourceText]
+            self.unigoLeadsArray.append(leadArray)
+
+        self.driver.quit()
+        return self.unigoLeadsArray
 
     def getTitlesList(self, arrayOfTitleObjects):
         titlesList = [titleObject.get_attribute('textContent') for titleObject in arrayOfTitleObjects]
@@ -66,16 +84,27 @@ class UnigoLeads(object):
         return deadlinesList
 
     def getResultPageInfo(self):
-        sponsor = ''
-        recipients = ''
-        requirements = ''
-        additionalInfo = ''
-        contact = ''
-        address = ''
-        sourceWebsite = ''
-        sourceText = ''
+        sponsor = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
+            "//div/p/strong[text() = 'Awarded By']/../../following-sibling::div/p").get_attribute('textContent'))
+        awardAmount = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
+            "//div/p/strong[text() = 'Awarded By']/../../following-sibling::div/p").get_attribute('textContent'))
+        recipients = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
+            "//div/p/strong[text() = 'Recipients']/../../following-sibling::div/p").get_attribute('textContent'))
+        requirements = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
+            "//div/p/strong[text() = 'Requirements']/../../following-sibling::div").get_attribute('textContent'))
+        additionalInfo = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
+            "//div/p/strong[text() = 'Additional Information']/../../following-sibling::div/p").get_attribute(
+            'textContent'))
+        contact = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
+            "//div/p/strong[text() = 'Contact']/../../following-sibling::div/p").get_attribute('textContent'))
+        address = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
+            "//div/p/strong[text() = 'Address']/../../following-sibling::div").get_attribute('textContent'))
+        sourceWebsite = self.driver.find_element_by_xpath("//a[@class='button secondary']").get_attribute('href')
+        sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(sourceWebsite))
 
-
+        resultPageArray = [sponsor, awardAmount, recipients, requirements, additionalInfo, contact, address,
+                           sourceWebsite, sourceText]
+        return resultPageArray
 
     def expandSeeMore(self):
         self.seeMoreButtonExistence = ''
