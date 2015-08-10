@@ -21,6 +21,62 @@ class UnigoLeads(object):
     def getLeads(self):
         self.expandSeeMore()
 
+        arrayOfAmountObjects = self.driver.find_elements_by_xpath(
+            "//div[@class='amount']/span[@data-bind='text: Aequitas.toCurrency(DollarAmount)']")
+        arrayOfTitleObjects = self.driver.find_elements_by_xpath(
+            "//h4[@data-bind='text: $parent.resultLayout ? shortTitle : Title']")
+        arrayOfDeadlineObjects = self.driver.find_elements_by_xpath(
+            "//h4[@data-bind='text: $parent.resultLayout ? shortTitle : Title']")
+
+        arrayOfClickResultObjects = self.driver.find_elements_by_xpath(
+            "//a[@data-bind='click: function(scholarship, event) { $parent.showScholarshipDetail(scholarship, event) }']")
+
+        titlesList = self.getTitlesList(arrayOfTitleObjects)
+        amountsList = self.getAmountsList(arrayOfAmountObjects)
+        deadlinesList = self.getDeadlinesList(arrayOfDeadlineObjects)
+
+        for i in range(len(titlesList)):
+            title = titlesList[i]
+            amount = amountsList[i]
+            deadline = deadlinesList[i]
+
+            self.driver.get(self.base_url + 'match/scholarshipresult')
+            self.driver.implicitly_wait(2)
+
+            self.expandSeeMore()
+            arrayOfClickResultObjects = self.driver.find_elements_by_xpath(
+                "//a[@data-bind='click: function(scholarship, event) { $parent.showScholarshipDetail(scholarship, event) }']")
+            objectToClick = arrayOfClickResultObjects[i]
+
+            objectToClick.click()
+            self.driver.implicitly_wait(2)
+
+            self.getResultPageInfo()
+
+    def getTitlesList(self, arrayOfTitleObjects):
+        titlesList = [titleObject.get_attribute('textContent') for titleObject in arrayOfTitleObjects]
+        return titlesList
+
+    def getAmountsList(self, arrayOfAmountObjects):
+        amountsList = [amountObject.get_attribute('textContent') for amountObject in arrayOfAmountObjects]
+        return amountsList
+
+    def getDeadlinesList(self, arrayOfDeadlineObjects):
+        deadlinesList = [deadlineObject.get_attribute('textContent') for deadlineObject in arrayOfDeadlineObjects]
+        return deadlinesList
+
+    def getResultPageInfo(self):
+        sponsor = ''
+        recipients = ''
+        requirements = ''
+        additionalInfo = ''
+        contact = ''
+        address = ''
+        sourceWebsite = ''
+        sourceText = ''
+
+
+
     def expandSeeMore(self):
         self.seeMoreButtonExistence = ''
         if self.checkIfSeeMoreButtonExists():
@@ -36,5 +92,11 @@ class UnigoLeads(object):
         else:
             return False
 
+    def checkIfElementExists(self, xpath):
+        checkElementExists = self.driver.find_elements_by_xpath(xpath)
+        if checkElementExists != []:
+            return True
+        else:
+            return False
 
 UnigoLeads().getLeads()
