@@ -662,3 +662,37 @@ so long as they're unique it's not that big of a deal. They're just weird.
 -Start working on CollegeGreenLight, basically do the same thing all over again. Yay.
 -This one might work strangely because it has a log in to deal with, but it should be okayish
 
+8/10 Notes:
+-Finish CollegeGreenLightLeads, write InsertCollegeGreenLightLeadsIntoDB
+--need to make the associated table, needs columns CollegeGreenLightLeadId, Name, Amount, Deadline, Sponsor, Description, Requirements, Url, SourceWebsite, SourceText
+-Need to create PopulateCollegeGreenLightRequirements, needs CollegeGreenLightGetDatabaseInfo
+--Luckily don't need to run the classifier over the CollegeGreenLight stuff, everything pulled out is a scholarship anyway...
+--May eventually fix the collegeGreenLight crawler to change settings on its own and try to get more things, but not sure if it would really make a difference; also, how to know what combinations to set? seems like a bit much
+-CollegeGreenLight stuff is pretty much done now
+-Now working on Unigo
+
+-Unigo sucks. Weird site. First time selenium has completely failed me. oh my god.
+-Grab all of the scholarship results objects = "//div[@class='scholarshipWrap']"
+--nvm this dies the second you start clicking them, need someway to get the results urls
+--Clickable object: "//a[@data-bind='click: function(scholarship, event) { $parent.showScholarshipDetail(scholarship, event) }']"
+--There's no way to get the href to the results page, which is really stupid... having to click through each one isn't going to work
+--I"m pretty sure if I click, grab stuff, hit the back button, and then reexpand all of the see more things it's going to trigger some sort of bot detection... I really don't see why there's no way to just grab the url of the damn result page
+--The object has an href, but it just takes you back to the same page you're already on... this is dumb
+-Amounts: "//div[@class='amount']/span[@data-bind='text: Aequitas.toCurrency(DollarAmount)']"
+-Titles: "//h4[@data-bind='text: $parent.resultLayout ? shortTitle : Title']"
+-Deadlines: "//h4[@data-bind='text: $parent.resultLayout ? shortTitle : Title']"
+-SourceWebsite button = "//a[@class='button secondary']" .href
+-Sponsor: "//div/p/strong[text() = 'Awarded By']/../../following-sibling::div/p" .textContent
+-AwardAmount: "//div/p/strong[text() = 'Awarded By']/../../following-sibling::div/p" .textContent
+-Recipients: "//div/p/strong[text() = 'Recipients']/../../following-sibling::div/p" .textContent
+-Requirements: "//div/p/strong[text() = 'Requirements']/../../following-sibling::div" .textContent
+-AdditionalInfo: "//div/p/strong[text() = 'Additional Information']/../../following-sibling::div/p" .textContent
+-Contact: "//div/p/strong[text() = 'Contact']/../../following-sibling::div/p" .textContent
+-Address: "//div/p/strong[text() = 'Address']/../../following-sibling::div" .textContent
+
+-For the things on the results page, they don't have their own descriptive xpath, may have to use siblings
+--text() = 'Sponsor'
+
+-So far, unigoLeads seems like it works, haven't tested a full run yet but I want to be able to start storing stuff if I can get the table made and the process/insert classes done
+
+
