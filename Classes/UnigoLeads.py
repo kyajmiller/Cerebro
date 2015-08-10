@@ -18,6 +18,10 @@ class UnigoLeads(object):
         self.driver.find_element_by_css_selector('button.btn-primary').click()
         self.driver.implicitly_wait(2)
 
+    def getLeads(self):
+        self.expandSeeMore()
+
+    def expandSeeMore(self):
         self.seeMoreButtonExistence = ''
         if self.checkIfSeeMoreButtonExists():
             self.seeMoreButtonExistence = True
@@ -33,4 +37,4 @@ class UnigoLeads(object):
             return False
 
 
-UnigoLeads()
+UnigoLeads().getLeads()
