@@ -1,3 +1,4 @@
+import re
 from selenium import webdriver
 from Classes.CleanText import CleanText
 from Classes.RipPage import RipPage
@@ -47,12 +48,15 @@ class CollegeGreenLightLeads(object):
             description = CleanText.cleanALLtheText(resultPageInfo[2])
             requirements = CleanText.cleanALLtheText(resultPageInfo[3])
 
-            sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(sourceWebsite))
+            sourceText = ''
+            if re.search('^https?://', sourceWebsite):
+                sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(sourceWebsite))
 
             leadArray = [title, amount, deadline, sponsor, description, requirements, resultPageLink, sourceWebsite,
                          sourceText]
             self.collegeGreenLightLeadsArrays.append(leadArray)
 
+        self.driver.quit()
         return self.collegeGreenLightLeadsArrays
 
     def getTitlesList(self, arrayOfTitleLinkDivs):
@@ -75,12 +79,36 @@ class CollegeGreenLightLeads(object):
         self.driver.get(resultPageLink)
         self.driver.implicitly_wait(2)
 
-        sponsor = self.driver.find_element_by_xpath("//h2").get_attribute('textContent')
-        sourceWebsite = self.driver.find_element_by_xpath("//div[@class='applicationInformation ']/p/a").get_attribute(
-            'href')
-        description = self.driver.find_element_by_xpath("//div[@class='detail']/p[@class='info']").get_attribute(
-            'textContent')
-        requirements = self.driver.find_element_by_xpath("//div[@class='requirements']/ul").get_attribute('textContent')
+        sponsor = ''
+        sourceWebsite = ''
+        description = ''
+        requirements = ''
+
+        if self.checkIfElementExists("//h2"):
+            sponsor = self.driver.find_element_by_xpath("//h2").get_attribute('textContent')
+
+        if self.checkIfElementExists("//div[@class='applicationInformation ']/p/a"):
+            sourceWebsite = self.driver.find_element_by_xpath(
+                "//div[@class='applicationInformation ']/p/a").get_attribute('href')
+        else:
+            if self.checkIfElementExists("//div[@class='applicationInformation ']/p"):
+                sourceWebsite = self.driver.find_element_by_xpath(
+                    "//div[@class='applicationInformation ']/p").get_attribute('textContent')
+
+        if self.checkIfElementExists("//div[@class='detail']/p[@class='info']"):
+            description = self.driver.find_element_by_xpath("//div[@class='detail']/p[@class='info']").get_attribute(
+                'textContent')
+
+        if self.checkIfElementExists("//div[@class='requirements']/ul"):
+            requirements = self.driver.find_element_by_xpath("//div[@class='requirements']/ul").get_attribute(
+                'textContent')
 
         resultPageInfo = [sponsor, sourceWebsite, description, requirements]
         return resultPageInfo
+
+    def checkIfElementExists(self, xpath):
+        checkElementExists = self.driver.find_elements_by_xpath(xpath)
+        if checkElementExists != []:
+            return True
+        else:
+            return False
