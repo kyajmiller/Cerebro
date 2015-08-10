@@ -28,7 +28,7 @@ class CollegeGreenLightGetDatabaseInfo(object):
 
         rows = self.db.getRows("select CollegeGreenLightLeadId from dbo.CollegeGreenLightLeads")
         for row in rows:
-            collegeGreenLightLeadIds.append(row.CollegeGreenLightLeadId)
+            collegeGreenLightLeadIds.append(str(row.CollegeGreenLightLeadId))
 
         return collegeGreenLightLeadIds
 
