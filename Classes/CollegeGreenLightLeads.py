@@ -53,6 +53,8 @@ class CollegeGreenLightLeads(object):
                          sourceText]
             self.collegeGreenLightLeadsArrays.append(leadArray)
 
+        return self.collegeGreenLightLeadsArrays
+
     def getTitlesList(self, arrayOfTitleLinkDivs):
         titlesList = [titleDiv.get_attribute('textContent') for titleDiv in arrayOfTitleLinkDivs]
         return titlesList
