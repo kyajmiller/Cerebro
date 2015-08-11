@@ -695,4 +695,40 @@ so long as they're unique it's not that big of a deal. They're just weird.
 
 -So far, unigoLeads seems like it works, haven't tested a full run yet but I want to be able to start storing stuff if I can get the table made and the process/insert classes done
 
+8/11 Notes:
+-Unigo leads is really fussy. Sometimes it has no problem locating elements, and other times it's unhappy. Seems to be related to the speed at which the page loads
+-Will attempt to add in explicit waits to see if that will help
+-I"m not very smart, accidentally had the same xpath for both the sponsor and the award amount, need to fix it
+-UnigoLeads finally ran through, put all the things in the database, yay
+-Need to add Tag column to the table, set all of them to 'Scholarhip', then write the Populate class and the GetInfo class
+-I realized that all of my Populate classes basically recycle the exact same functions except for one, so I made a PopulateRequirements super class
+--Currently in the process of converting all of them over to use the super class, it's very spiffy
+-Unigo finished, ran current iteration of Populate over the scholarships, think I will need to eventually update populate to try grabbing more stuff besides just gpa and major
+
+-Begin work on IefaLeads
+-Next page button: "//ul[@id='yw0']/li[@class='next']/a"
+--Nvm, this doesn't work cause it's not clickable, better to just use findElementByLinkText('Next >')
+-Not really sure how I want to do this because there's nearly 1200 items to pull, I don't really want to have the program store 1200 things because I'm not sure if it can
+-Will try it, if it dies then will figure out if I can loop through it and pull one page at a time
+-Process the featured/not featured rows separately because different xpaths, just do the featured ones first
+Normal:
+-title/link - "//tbody/tr[not (@class='featured')]/td[@width='200px']/a" .href(link), .text(title)
+-majors - "//tbody/tr[not (@class='featured')]/td[@style='width: 95px']" .textContent
+-description - "//tbody/tr[not (@class='featured')]/td[3]" .textContent
+---Make sure to filter out the Nationality and Host Countries lines, could do a regex replace like re.sub('Nationality:*.$', '', string)
+-Nationality - "//tbody/tr[not (@class='featured')]/td[3]/p[@class='award-list-nationality']" .textContent
+-Host Countries - "//tbody/tr[not (@class='featured')]/td[3]/p[@class='award-list-location']" .textContent
+
+
+
+Featured:
+-title/link - "//tbody/tr[@class='featured']/td[@width='200px']/a[3]" .href, .text
+-majors - "//tbody/tr[@class='featured']/td[@style='width: 95px']" .textContent
+-description - "//tbody/tr[@class='featured']/td[3]" .textContent
+-nationality - "//tbody/tr[@class='featured']/td[3]/p[@class='award-list-nationality']"
+-Host Countries - "//tbody/tr[@class='featured']/td[3]/p[@class='award-list-location']" .textContent
+
+
+
+
 
