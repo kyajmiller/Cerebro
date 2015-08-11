@@ -1,7 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from Classes.RipPage import RipPage
 from Classes.CleanText import CleanText
 
@@ -50,25 +47,26 @@ class UnigoLeads(object):
             self.expandSeeMore()
             arrayOfClickResultObjects = self.driver.find_elements_by_xpath(
                 "//a[@data-bind='click: function(scholarship, event) { $parent.showScholarshipDetail(scholarship, event) }']")
-            objectToClick = arrayOfClickResultObjects[i]
+            if arrayOfClickResultObjects[i]:
+                objectToClick = arrayOfClickResultObjects[i]
 
-            objectToClick.click()
-            self.driver.implicitly_wait(2)
+                objectToClick.click()
+                self.driver.implicitly_wait(2)
 
-            resultPageArray = self.getResultPageInfo()
-            sponsor = resultPageArray[0]
-            awardAmount = resultPageArray[1]
-            recipients = resultPageArray[2]
-            requirements = resultPageArray[3]
-            additionalInfo = resultPageArray[4]
-            contact = resultPageArray[5]
-            address = resultPageArray[6]
-            sourceWebsite = resultPageArray[7]
-            sourceText = resultPageArray[8]
+                resultPageArray = self.getResultPageInfo()
+                sponsor = resultPageArray[0]
+                awardAmount = resultPageArray[1]
+                recipients = resultPageArray[2]
+                requirements = resultPageArray[3]
+                additionalInfo = resultPageArray[4]
+                contact = resultPageArray[5]
+                address = resultPageArray[6]
+                sourceWebsite = resultPageArray[7]
+                sourceText = resultPageArray[8]
 
-            leadArray = [title, amount, deadline, sponsor, awardAmount, recipients, requirements, additionalInfo,
-                         contact, address, sourceWebsite, sourceText]
-            self.unigoLeadsArray.append(leadArray)
+                leadArray = [title, amount, deadline, sponsor, awardAmount, recipients, requirements, additionalInfo,
+                             contact, address, sourceWebsite, sourceText]
+                self.unigoLeadsArray.append(leadArray)
 
         self.driver.quit()
         return self.unigoLeadsArray
@@ -89,7 +87,7 @@ class UnigoLeads(object):
         sponsor = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
             "//div/p/strong[text() = 'Awarded By']/../../following-sibling::div/p").get_attribute('textContent'))
         awardAmount = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
-            "//div/p/strong[text() = 'Awarded By']/../../following-sibling::div/p").get_attribute('textContent'))
+            "//div/p/strong[text() = 'Award Amount']/../../following-sibling::div/p").get_attribute('textContent'))
         recipients = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
             "//div/p/strong[text() = 'Recipients']/../../following-sibling::div/p").get_attribute('textContent'))
         requirements = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
