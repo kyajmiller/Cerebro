@@ -86,3 +86,5 @@ class PopulateCollegeGreenLightRequirements(object):
         self.db.insertUpdateOrDelete(
             "insert into dbo.CollegeGreenLightRequirements (CollegeGreenLightLeadId, AttributeId, AttributeValue) values ('" + collegeGreenLightLeadId + "', '" + attributeId + "', '" + attributeValue + "')")
 
+
+PopulateCollegeGreenLightRequirements().loopThroughLeadsAndDoStuff()
