@@ -1,4 +1,7 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from Classes.RipPage import RipPage
 from Classes.CleanText import CleanText
 
@@ -98,8 +101,12 @@ class UnigoLeads(object):
             "//div/p/strong[text() = 'Contact']/../../following-sibling::div/p").get_attribute('textContent'))
         address = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
             "//div/p/strong[text() = 'Address']/../../following-sibling::div").get_attribute('textContent'))
-        sourceWebsite = self.driver.find_element_by_xpath("//a[@class='button secondary']").get_attribute('href')
-        sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(sourceWebsite))
+        if self.checkIfElementExists("//a[@class='button secondary']"):
+            sourceWebsite = self.driver.find_element_by_xpath("//a[@class='button secondary']").get_attribute('href')
+            sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(sourceWebsite))
+        else:
+            sourceWebsite = ''
+            sourceText = ''
 
         resultPageArray = [sponsor, awardAmount, recipients, requirements, additionalInfo, contact, address,
                            sourceWebsite, sourceText]
