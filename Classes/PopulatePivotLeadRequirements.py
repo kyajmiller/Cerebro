@@ -1,16 +1,14 @@
-import nltk.data
-from Classes.SUDBConnect import SUDBConnect
 from Classes.PivotLeadsGetDatabaseInfo import PivotLeadsGetDatabaseInfo
-from Classes.GPA import GPA
-from Classes.DueDate import DueDate
+from Classes.PopulateRequirements import PopulateRequirements
 
 
-class PopulatePivotLeadRequirements(object):
+class PopulatePivotLeadRequirements(PopulateRequirements):
     def __init__(self, listOfMajors):
         self.listOfMajors = listOfMajors
-        self.db = SUDBConnect()
         self.tag = 'Scholarship'
-        self.sentenceTokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+        self.requirementsTableName = 'PivotLeadRequirements'
+        self.requirementsTableColumns = ['PivotLeadId', 'AttributeId', 'AttributeValue']
+        PopulateRequirements.__init__(self, self.requirementsTableName, self.requirementsTableColumns)
 
         self.loopThroughListOfMajorsAndDoStuff()
 
@@ -30,60 +28,11 @@ class PopulatePivotLeadRequirements(object):
                 sourceText = listOfSourceTexts[i]
                 sourceTextSentences = self.tokenizeIntoSentences(sourceText)
 
-                gpa = self.getGPAFromAbstractEligibility(abstractEligibilitySentences)
-                dueDate = self.getDueDateFromSourceText(sourceTextSentences)
+                gpa = self.getGPAFromSentences(abstractEligibilitySentences)
+                dueDate = self.getDueDateFromSentences(sourceTextSentences)
 
-                self.doDatabaseInserts(pivotLeadId, major, gpa, dueDate)
-
-    def getGPAFromAbstractEligibility(self, abstractEligibilitySentences):
-        gpa = []
-        for sentence in abstractEligibilitySentences:
-            maybeGPA = GPA(sentence).getGPA()
-            if maybeGPA != '':
-                gpa.append(maybeGPA)
-
-        gpa = list(set(gpa))
-        gpa = ', '.join(gpa)
-
-        return gpa
-
-    def getDueDateFromSourceText(self, sourceTextSentences):
-        dueDate = ''
-
-        for sentence in sourceTextSentences:
-            if len(sentence) <= 1000:
-                maybeDueDate = DueDate(sentence).getDueDate()
-                if maybeDueDate != '':
-                    dueDate = maybeDueDate
-
-        return dueDate
-
-    def tokenizeIntoSentences(self, stringToTokenize):
-        sentences = self.sentenceTokenizer.tokenize(stringToTokenize)
-        return sentences
-
-    def doDatabaseInserts(self, pivotLeadId, major, gpa, dueDate):
-        self.insertMajorIntoPivotLeadsRequirements(pivotLeadId, major)
-
-        if gpa != '':
-            self.insertGPAIntoPivotLeadsRequirements(pivotLeadId, gpa)
-
-        if dueDate != '':
-            self.insertDueDateIntoPivotLeads(pivotLeadId, dueDate)
-
-    def insertMajorIntoPivotLeadsRequirements(self, pivotLeadId, major):
-        attributeId = '417'
-        attributeValue = major
-
-        self.db.insertUpdateOrDelete(
-            "insert into dbo.PivotLeadRequirements (PivotLeadId, AttributeId, AttributeValue) values ('" + pivotLeadId + "', '" + attributeId + "', '" + attributeValue + "')")
-
-    def insertGPAIntoPivotLeadsRequirements(self, pivotLeadId, gpa):
-        attributeId = '1'
-        attributeValue = gpa
-
-        self.db.insertUpdateOrDelete(
-            "insert into dbo.PivotLeadRequirements (PivotLeadId, AttributeId, AttributeValue) values ('" + pivotLeadId + "', '" + attributeId + "', '" + attributeValue + "')")
+                self.doDatabaseInsertsGPAMajor(pivotLeadId, major, gpa)
+                self.insertDueDateIntoPivotLeads(pivotLeadId, dueDate)
 
     def insertDueDateIntoPivotLeads(self, pivotLeadId, dueDate):
         self.db.insertUpdateOrDelete(
