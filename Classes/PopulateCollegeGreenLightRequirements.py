@@ -23,6 +23,6 @@ class PopulateCollegeGreenLightRequirements(PopulateRequirements):
             gpa = self.getGPAFromSentences(descriptionSourceTextSentences)
             majors = self.getMajorFromSentences(descriptionSourceTextSentences)
 
-            self.doDatabaseInserts(collegeGreenLightLeadId, gpa, majors)
+            self.doDatabaseInsertsGPAMajor(collegeGreenLightLeadId, gpa, majors)
 
 PopulateCollegeGreenLightRequirements().loopThroughLeadsAndDoStuff()
