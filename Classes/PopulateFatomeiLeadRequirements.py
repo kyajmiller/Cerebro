@@ -23,7 +23,7 @@ class PopulateFatomeiLeadRequirements(PopulateRequirements):
             gpa = self.getGPAFromSentences(descriptionSourceTextSentences)
             majors = self.getMajorFromSentences(descriptionSourceTextSentences)
 
-            self.doDatabaseInserts(fatomeiLeadId, gpa, majors)
+            self.doDatabaseInsertsGPAMajor(fatomeiLeadId, gpa, majors)
 
 
 PopulateFatomeiLeadRequirements().loopThroughLeadsAndDoStuff()
