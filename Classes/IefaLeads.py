@@ -21,11 +21,16 @@ class IefaLeads(object):
         self.driver.implicitly_wait(2)
         Select(self.driver.find_element_by_id('pageSize')).select_by_visible_text('100')
 
+        self.arrayOfResultsPagesArrays = []
+
         pageCounter = 1
         while pageCounter < 12:
             if self.checkIfNextPage():
                 self.goToNextPage()
             pageCounter += 1
+
+    def LoopOverPagesAndDoStuff(self):
+
 
     def checkIfNextPage(self):
         checkNextPage = self.driver.find_elements_by_link_text('Next >')
