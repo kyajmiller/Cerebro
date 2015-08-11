@@ -3,6 +3,7 @@ from Classes.SUDBConnect import SUDBConnect
 from Classes.GetFastFindMajorsList import GetFastFindMajorsList
 from Classes.GPA import GPA
 from Classes.Majors import Majors
+from Classes.DueDate import DueDate
 from Classes.PutThingsInTables import PutThingsInTables
 
 
@@ -51,7 +52,18 @@ class PopulateRequirements(object):
 
         return majors
 
-    def doDatabaseInserts(self, leadId, gpa, majors):
+    def getDueDateFromSentences(self, sentences):
+        dueDate = ''
+
+        for sentence in sentences:
+            if len(sentence) <= 1000:
+                maybeDueDate = DueDate(sentence).getDueDate()
+                if maybeDueDate != '':
+                    dueDate = maybeDueDate
+
+        return dueDate
+
+    def doDatabaseInsertsGPAMajor(self, leadId, gpa, majors):
         if gpa != '':
             self.insertGPAIntoRequirements(leadId, gpa)
 
