@@ -1,6 +1,4 @@
 import re
-import pyodbc
-from Classes.SUDBConnect import SUDBConnect
 
 
 class Parser(object):
