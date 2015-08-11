@@ -1,7 +1,7 @@
 from Classes.SUDBConnect import SUDBConnect
 
 
-class CollegeGreenLightGetDatabaseInfo(object):
+class CollegeGreenLightLeadsGetDatabaseInfo(object):
     def __init__(self):
         self.db = SUDBConnect()
 
