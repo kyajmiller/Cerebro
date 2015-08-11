@@ -1,6 +1,6 @@
 import nltk.data
 from Classes.SUDBConnect import SUDBConnect
-from Classes.CollegeGreenLightGetDatabaseInfo import CollegeGreenLightGetDatabaseInfo
+from Classes.CollegeGreenLightLeadsGetDatabaseInfo import CollegeGreenLightLeadsGetDatabaseInfo
 from Classes.GPA import GPA
 from Classes.Majors import Majors
 from Classes.GetFastFindMajorsList import GetFastFindMajorsList
@@ -12,7 +12,7 @@ class PopulateCollegeGreenLightRequirements(object):
         self.sentenceTokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 
     def loopThroughLeadsAndDoStuff(self):
-        collegeGreenLightDataInfo = CollegeGreenLightGetDatabaseInfo()
+        collegeGreenLightDataInfo = CollegeGreenLightLeadsGetDatabaseInfo()
         listOfCollegeGreenLightLeadsIds = collegeGreenLightDataInfo.getCollegeGreenLightLeadsIds()
         listOfConcatenatedDescriptionSourceText = collegeGreenLightDataInfo.getConcatenatedDescriptionSourceText()
 
