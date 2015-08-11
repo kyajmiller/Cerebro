@@ -37,9 +37,9 @@ class UnigoLeads(object):
         deadlinesList = self.getDeadlinesList(arrayOfDeadlineObjects)
 
         for i in range(len(titlesList)):
-            title = titlesList[i]
-            amount = amountsList[i]
-            deadline = deadlinesList[i]
+            title = CleanText.cleanALLtheText(titlesList[i])
+            amount = CleanText.cleanALLtheText(amountsList[i])
+            deadline = CleanText.cleanALLtheText(deadlinesList[i])
 
             self.driver.get(self.base_url + 'match/scholarshipresult')
             self.driver.implicitly_wait(2)
