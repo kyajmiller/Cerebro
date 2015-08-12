@@ -26,41 +26,38 @@ class IefaLeads(object):
         Select(self.driver.find_element_by_id('pageSize')).select_by_visible_text('100')
         self.goToNextPreviousPageRefreshCache()
 
-        self.arrayOfResultsPagesArrays = []
+        self.arrayOfTitlesLinksArrays = []
 
         self.loopOverResultsPagesAndDoStuff()
 
         self.driver.quit()
 
     def loopOverResultsPagesAndDoStuff(self):
-        self.getResultsOnCurrentPage()
+        self.getTitlesLinksOnCurrentPage()
 
         pageCounter = 1
         while pageCounter < 12:
             if self.checkIfNextPage():
                 self.goToNextPageUrl()
-                self.getResultsOnCurrentPage()
+                self.getTitlesLinksOnCurrentPage()
             pageCounter += 1
 
-        for individualArray in self.arrayOfResultsPagesArrays:
+        for individualArray in self.arrayOfTitlesLinksArrays:
             title = individualArray[0]
             resultPageLink = individualArray[1]
-            majors = individualArray[2]
 
-            leadInfoArray = self.goToIndividualPagesAndGetInfo(resultPageLink)
+            resultPageInfoArray = self.goToResultsPageAndGetInfo(resultPageLink)
 
-    def getResultsOnCurrentPage(self):
+    def getTitlesLinksOnCurrentPage(self):
         titlesList = self.getTitlesList()
         resultsPagesLinksList = self.getResultsPagesLinksList()
-        majorsList = self.getMajorsList()
 
         for i in range(len(titlesList)):
             title = titlesList[i]
             resultPageLink = resultsPagesLinksList[i]
-            majors = majorsList[i]
 
-            individualResultsPageArray = [title, resultPageLink, majors]
-            self.arrayOfResultsPagesArrays.append(individualResultsPageArray)
+            titleLinkArray = [title, resultPageLink]
+            self.arrayOfTitlesLinksArrays.append(titleLinkArray)
 
     def getTitlesList(self):
         titlesList = []
@@ -89,22 +86,7 @@ class IefaLeads(object):
 
         return resultsPagesLinksList
 
-    def getMajorsList(self):
-        majorsList = []
-
-        featuredMajorsDivs = self.driver.find_elements_by_xpath(
-            "//tbody/tr[@class='featured']/td[@style='width: 95px']")
-        normalMajorsDivs = self.driver.find_elements_by_xpath(
-            "//tbody/tr[not (@class='featured')]/td[@style='width: 95px']")
-
-        for majorsDiv in featuredMajorsDivs:
-            majorsList.append(majorsDiv.get_attribute('textContent'))
-        for majorsDiv in normalMajorsDivs:
-            majorsList.append(majorsDiv.get_attribute('textContent'))
-
-        return majorsList
-
-    def goToIndividualPagesAndGetInfo(self, resultPageLink):
+    def goToResultsPageAndGetInfo(self, resultPageLink):
         pass
 
     def checkIfNextPage(self):
@@ -143,6 +125,13 @@ class IefaLeads(object):
     def goToNextPreviousPageRefreshCache(self):
         self.goToNextPageClick()
         self.goToPreviousPage()
+
+    def checkIfElementExists(self, xpath):
+        checkElementExists = self.driver.find_elements_by_xpath(xpath)
+        if checkElementExists != []:
+            return True
+        else:
+            return False
 
 
 IefaLeads()
