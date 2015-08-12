@@ -24,21 +24,21 @@ class IefaLeads(object):
         self.driver.find_element_by_xpath("//ul[@id='yw8']/li[@id='scholarshipsLink']/a").click()
         self.driver.implicitly_wait(2)
         Select(self.driver.find_element_by_id('pageSize')).select_by_visible_text('100')
-        self.goToNextPage()
-        self.goToPreviousPage()
+        self.goToNextPreviousPageRefreshCache()
 
         self.arrayOfResultsPagesArrays = []
-
-        self.getResultsOnCurrentPage()
 
         self.driver.quit()
 
     def loopOverPagesAndDoStuff(self):
+        self.getResultsOnCurrentPage()
+        '''
         pageCounter = 1
         while pageCounter < 12:
             if self.checkIfNextPage():
                 self.goToNextPage()
             pageCounter += 1
+        '''
 
     def getResultsOnCurrentPage(self):
         titlesList = self.getTitlesList()
@@ -168,6 +168,10 @@ class IefaLeads(object):
 
         descriptionsList = [re.sub('Nationality:.*$', '', description) for description in descriptionsList]
         return descriptionsList
+
+    def goToNextPreviousPageRefreshCache(self):
+        self.goToNextPage()
+        self.goToPreviousPage()
 
 
 IefaLeads()
