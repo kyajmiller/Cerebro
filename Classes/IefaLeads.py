@@ -87,7 +87,78 @@ class IefaLeads(object):
         return resultsPagesLinksList
 
     def goToResultsPageAndGetInfo(self, resultPageLink):
-        pass
+        self.driver.get(resultPageLink)
+        self.driver.implicitly_wait(2)
+
+        sponsor = ''
+        submissionDeadline = ''
+        majors = ''
+        awardAmount = ''
+        description = ''
+        otherCriteria = ''
+        numberAwards = ''
+        hostInstitution = ''
+        awardIncludes = ''
+        nationalityRequired = ''
+        hostCountries = ''
+        sourceWebsiteLink = ''
+
+        if self.checkIfElementExists("//span[@class='award-sponsor']"):
+            sponsor = self.driver.find_element_by_xpath("//span[@class='award-sponsor']").get_attribute('textContent')
+            sponsor = re.sub('^Sponsor:', '', sponsor)
+
+        if self.checkIfElementExists("//h4[text() = 'Submission Deadline']/following-sibling::p"):
+            submissionDeadline = self.driver.find_element_by_xpath(
+                "//h4[text() = 'Submission Deadline']/following-sibling::p").get_attribute('textContent')
+
+        if self.checkIfElementExists("//p[@id='award-fieldofstudy']"):
+            majors = self.driver.find_element_by_xpath("//p[@id='award-fieldofstudy']").get_attribute('textContent')
+
+        if self.checkIfElementExists("//p[@id='award-amount']"):
+            awardAmount = self.driver.find_element_by_xpath("//p[@id='award-amount']").get_attribute('textContent')
+
+        if self.checkIfElementExists(
+                "//div[@class='award-description padding_bottom_30']/h4[text() = 'Description']/following-sibling::p[1]"):
+            description = self.driver.find_element_by_xpath(
+                "//div[@class='award-description padding_bottom_30']/h4[text() = 'Description']/following-sibling::p[1]").get_attribute(
+                'textContent')
+
+        if self.checkIfElementExists(
+                "//div[@class='award-description padding_bottom_30']/h4[text() = 'Other Criteria']/following-sibling::p[1]"):
+            otherCriteria = self.driver.find_element_by_xpath(
+                "//div[@class='award-description padding_bottom_30']/h4[text() = 'Other Criteria']/following-sibling::p[1]").get_attribute(
+                'textContent')
+
+        if self.checkIfElementExists("//th[text() = 'Number of Awards']/following-sibling::td"):
+            numberAwards = self.driver.find_element_by_xpath(
+                "//th[text() = 'Number of Awards']/following-sibling::td").get_attribute('textContent')
+
+        if self.checkIfElementExists("//th[text() = 'Host Institution']/following-sibling::td"):
+            hostInstitution = self.driver.find_element_by_xpath(
+                "//th[text() = 'Host Institution']/following-sibling::td").get_attribute('textContent')
+
+        if self.checkIfElementExists("//th[text() = 'Includes']/following-sibling::td"):
+            awardIncludes = self.driver.find_element_by_xpath(
+                "//th[text() = 'Includes']/following-sibling::td").get_attribute('textContent')
+
+        if self.checkIfElementExists("//th[text() = 'Nationality Required']/following-sibling::td"):
+            nationalityRequired = self.driver.find_element_by_xpath(
+                "//th[text() = 'Nationality Required']/following-sibling::td").get_attribute('textContent')
+
+        if self.checkIfElementExists("//th[text() = 'Host Countries']/following-sibling::td"):
+            hostCountries = self.driver.find_element_by_xpath(
+                "//th[text() = 'Host Countries']/following-sibling::td").get_attribute('textContent')
+
+        if self.checkIfElementExists("//th[text() = 'Link']/following-sibling::td/a"):
+            sourceWebsiteLink = self.driver.find_element_by_xpath(
+                "//th[text() = 'Link']/following-sibling::td/a").get_attribute('href')
+
+        resultPageInfoArray = [sponsor, submissionDeadline, majors, awardAmount, description, otherCriteria,
+                               numberAwards, hostInstitution, awardIncludes, nationalityRequired, hostCountries,
+                               sourceWebsiteLink]
+
+        return resultPageInfoArray
+
 
     def checkIfNextPage(self):
         checkNextPage = self.driver.find_elements_by_link_text('Next >')
