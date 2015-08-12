@@ -34,10 +34,7 @@ class IefaLeads(object):
 
     def loopOverPagesAndDoStuff(self):
         self.getResultsOnCurrentPage()
-        self.goToNextPage()
-
-        waitFor99 = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//tbody/tr[not (@class='featured')][99]/td[@width='200px']/a")))
+        self.goToNextPageUrl()
 
         self.getResultsOnCurrentPage()
         '''
@@ -76,9 +73,6 @@ class IefaLeads(object):
         featuredTitlesDivs = self.driver.find_elements_by_xpath("//tbody/tr[@class='featured']/td[@width='200px']/a[3]")
         normalTitlesDivs = self.driver.find_elements_by_xpath(
             "//tbody/tr[not (@class='featured')]/td[@width='200px']/a")
-
-        print(len(featuredTitlesDivs))
-        print(len(normalTitlesDivs))
 
         for titleDiv in featuredTitlesDivs:
             titlesList.append(titleDiv.get_attribute('textContent'))
@@ -166,10 +160,19 @@ class IefaLeads(object):
         else:
             return False
 
-    def goToNextPage(self):
+    def goToNextPageClick(self):
         nextPageButton = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Next >')))
         try:
             nextPageButton.click()
+            self.driver.implicitly_wait(2)
+        except ElementNotVisibleException:
+            self.driver.implicitly_wait(2)
+
+    def goToNextPageUrl(self):
+        nextPageButton = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Next >')))
+        try:
+            nextPageUrl = self.driver.find_element_by_link_text('Next >').get_attribute('href')
+            self.driver.get(nextPageUrl)
             self.driver.implicitly_wait(2)
         except ElementNotVisibleException:
             self.driver.implicitly_wait(2)
@@ -184,7 +187,7 @@ class IefaLeads(object):
             self.driver.implicitly_wait(2)
 
     def goToNextPreviousPageRefreshCache(self):
-        self.goToNextPage()
+        self.goToNextPageClick()
         self.goToPreviousPage()
 
 
