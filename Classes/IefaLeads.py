@@ -1,3 +1,4 @@
+import re
 from selenium import webdriver
 from selenium.common.exceptions import ElementNotVisibleException
 from selenium.webdriver.support.ui import Select
@@ -29,7 +30,16 @@ class IefaLeads(object):
                 self.goToNextPage()
             pageCounter += 1
 
-    # def LoopOverPagesAndDoStuff(self):
+    def LoopOverPagesAndDoStuff(self):
+        pass
+
+    def getResultsOnCurrentPage(self):
+        titlesList = self.getTitlesList()
+        resultsPagesLinksList = self.getResultsPagesLinksList()
+        majorsList = self.getMajorsList()
+        descriptionsList = self.getDescriptionsList()
+        nationalityList = self.getNationalityList()
+        hostCountryList = self.getHostCountryList()
 
 
     def checkIfNextPage(self):
@@ -45,5 +55,92 @@ class IefaLeads(object):
             self.driver.implicitly_wait(2)
         except ElementNotVisibleException:
             self.driver.implicitly_wait(2)
+
+    def getTitlesList(self):
+        titlesList = []
+
+        featuredTitlesDivs = self.driver.find_elements_by_xpath("//tbody/tr[@class='featured']/td[@width='200px']/a[3]")
+        normalTitlesDivs = self.driver.find_elements_by_xpath(
+            "//tbody/tr[not (@class='featured')]/td[@width='200px']/a")
+
+        for titleDiv in featuredTitlesDivs:
+            titlesList.append(titleDiv.get_attribute('textContent'))
+        for titleDiv in normalTitlesDivs:
+            titlesList.append(titleDiv.get_attribute('textContent'))
+
+        return titlesList
+
+    def getResultsPagesLinksList(self):
+        resultsPagesLinksList = []
+
+        featuredLinksDivs = self.driver.find_elements_by_xpath("//tbody/tr[@class='featured']/td[@width='200px']/a[3]")
+        normalLinksDivs = self.driver.find_elements_by_xpath("//tbody/tr[not (@class='featured')]/td[@width='200px']/a")
+
+        for linkDiv in featuredLinksDivs:
+            resultsPagesLinksList.append(linkDiv.get_attribute('href'))
+        for linkDiv in normalLinksDivs:
+            resultsPagesLinksList.append(linkDiv.get_attribute('href'))
+
+        return resultsPagesLinksList
+
+    def getMajorsList(self):
+        majorsList = []
+
+        featuredMajorsDivs = self.driver.find_elements_by_xpath(
+            "//tbody/tr[@class='featured']/td[@style='width: 95px']")
+        normalMajorsDivs = self.driver.find_elements_by_xpath(
+            "//tbody/tr[not (@class='featured')]/td[@style='width: 95px']")
+
+        for majorsDiv in featuredMajorsDivs:
+            majorsList.append(majorsDiv.get_attribute('textContent'))
+        for majorsDiv in normalMajorsDivs:
+            majorsDiv.append(majorsDiv.get_attribute('textContent'))
+
+        return majorsList
+
+    def getNationalityList(self):
+        nationalitiesList = []
+
+        featuredNationalitiesDivs = self.driver.find_elements_by_xpath(
+            "//tbody/tr[@class='featured']/td[3]/p[@class='award-list-nationality']")
+        normalNationalitiesDivs = self.driver.find_elements_by_xpath(
+            "//tbody/tr[not (@class='featured')]/td[3]/p[@class='award-list-nationality']")
+
+        for nationalitiesDiv in featuredNationalitiesDivs:
+            nationalitiesList.append(nationalitiesDiv.get_attribute('textContent'))
+        for nationalitiesDiv in normalNationalitiesDivs:
+            nationalitiesList.append(nationalitiesDiv.get_attribute('textContent'))
+
+        return nationalitiesList
+
+    def getHostCountryList(self):
+        hostCountriesList = []
+
+        featuredHostCountriesDivs = self.driver.find_elements_by_xpath(
+            "//tbody/tr[@class='featured']/td[3]/p[@class='award-list-location']")
+        normalHostCountriesDivs = self.driver.find_elements_by_xpath(
+            "//tbody/tr[not (@class='featured')]/td[3]/p[@class='award-list-location']")
+
+        for hostCountriesDiv in featuredHostCountriesDivs:
+            hostCountriesList.append(hostCountriesDiv.get_attribute('textContent'))
+        for hostCountriesDiv in normalHostCountriesDivs:
+            hostCountriesList.append(hostCountriesDiv.get_attribute('textContent'))
+
+        return hostCountriesList
+
+    def getDescriptionsList(self):
+        descriptionsList = []
+
+        featuredDescriptionsList = self.driver.find_elements_by_xpath("//tbody/tr[@class='featured']/td[3]")
+        normalDescriptionsList = self.driver.find_elements_by_xpath("//tbody/tr[not (@class='featured')]/td[3]")
+
+        for descriptionsDiv in featuredDescriptionsList:
+            descriptionsList.append(descriptionsDiv.get_attribute('textContent'))
+        for descriptionsDiv in normalDescriptionsList:
+            descriptionsList.append(descriptionsDiv.get_attribute('textContent'))
+
+        descriptionsList = [re.sub('Nationality:.*$', '', description) for description in descriptionsList]
+        return descriptionsList
+
 
 IefaLeads()
