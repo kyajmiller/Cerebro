@@ -29,7 +29,7 @@ class IefaLeads(object):
 
         self.arrayOfResultsPagesArrays = []
 
-        # self.getResultsOnCurrentPage()
+        self.getResultsOnCurrentPage()
         self.driver.quit()
 
     def LoopOverPagesAndDoStuff(self):
@@ -77,8 +77,6 @@ class IefaLeads(object):
         featuredTitlesDivs = self.driver.find_elements_by_xpath("//tbody/tr[@class='featured']/td[@width='200px']/a[3]")
         normalTitlesDivs = self.driver.find_elements_by_xpath(
             "//tbody/tr[not (@class='featured')]/td[@width='200px']/a")
-        print(len(featuredTitlesDivs))
-        print(len(normalTitlesDivs))
 
         for titleDiv in featuredTitlesDivs:
             titlesList.append(titleDiv.get_attribute('textContent'))
