@@ -30,9 +30,10 @@ class IefaLeads(object):
         self.arrayOfResultsPagesArrays = []
 
         self.getResultsOnCurrentPage()
+
         self.driver.quit()
 
-    def LoopOverPagesAndDoStuff(self):
+    def loopOverPagesAndDoStuff(self):
         pageCounter = 1
         while pageCounter < 12:
             if self.checkIfNextPage():
@@ -46,6 +47,17 @@ class IefaLeads(object):
         descriptionsList = self.getDescriptionsList()
         nationalityList = self.getNationalityList()
         hostCountryList = self.getHostCountryList()
+
+        for i in range(len(titlesList)):
+            title = titlesList[i]
+            resultPageLink = resultsPagesLinksList[i]
+            majors = majorsList[i]
+            description = descriptionsList[i]
+            nationality = nationalityList[i]
+            hostCountry = hostCountryList[i]
+
+            individualResultsPageArray = [title, resultPageLink, majors, description, nationality, hostCountry]
+            self.arrayOfResultsPagesArrays.append(individualResultsPageArray)
 
     def checkIfNextPage(self):
         checkNextPage = self.driver.find_elements_by_link_text('Next >')
