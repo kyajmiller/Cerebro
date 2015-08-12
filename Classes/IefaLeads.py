@@ -28,6 +28,8 @@ class IefaLeads(object):
 
         self.arrayOfResultsPagesArrays = []
 
+        self.loopOverPagesAndDoStuff()
+
         self.driver.quit()
 
     def loopOverPagesAndDoStuff(self):
@@ -58,30 +60,6 @@ class IefaLeads(object):
 
             individualResultsPageArray = [title, resultPageLink, majors, description, nationality, hostCountry]
             self.arrayOfResultsPagesArrays.append(individualResultsPageArray)
-
-    def checkIfNextPage(self):
-        checkNextPage = self.driver.find_elements_by_link_text('Next >')
-        if checkNextPage != []:
-            return True
-        else:
-            return False
-
-    def goToNextPage(self):
-        nextPageButton = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Next >')))
-        try:
-            nextPageButton.click()
-            self.driver.implicitly_wait(2)
-        except ElementNotVisibleException:
-            self.driver.implicitly_wait(2)
-
-    def goToPreviousPage(self):
-        previousPageButton = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.LINK_TEXT, '< Previous')))
-        try:
-            previousPageButton.click()
-            self.driver.implicitly_wait(2)
-        except ElementNotVisibleException:
-            self.driver.implicitly_wait(2)
 
     def getTitlesList(self):
         titlesList = []
@@ -168,6 +146,30 @@ class IefaLeads(object):
 
         descriptionsList = [re.sub('Nationality:.*$', '', description) for description in descriptionsList]
         return descriptionsList
+
+    def checkIfNextPage(self):
+        checkNextPage = self.driver.find_elements_by_link_text('Next >')
+        if checkNextPage != []:
+            return True
+        else:
+            return False
+
+    def goToNextPage(self):
+        nextPageButton = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Next >')))
+        try:
+            nextPageButton.click()
+            self.driver.implicitly_wait(2)
+        except ElementNotVisibleException:
+            self.driver.implicitly_wait(2)
+
+    def goToPreviousPage(self):
+        previousPageButton = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.LINK_TEXT, '< Previous')))
+        try:
+            previousPageButton.click()
+            self.driver.implicitly_wait(2)
+        except ElementNotVisibleException:
+            self.driver.implicitly_wait(2)
 
     def goToNextPreviousPageRefreshCache(self):
         self.goToNextPage()
