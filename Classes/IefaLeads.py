@@ -159,7 +159,6 @@ class IefaLeads(object):
 
         return resultPageInfoArray
 
-
     def checkIfNextPage(self):
         checkNextPage = self.driver.find_elements_by_link_text('Next >')
         if checkNextPage != []:
