@@ -51,8 +51,8 @@ class IefaLeads(object):
             for individualArray in self.arrayOfTitlesLinksArrays:
                 title = individualArray[0]
                 resultPageLink = individualArray[1]
-
-                self.makeLeadArray(title, resultPageLink)
+                if resultPageLink != 'http://www.iefa.org/scholarships/2528/#GlobalStudentScholarship':
+                    self.makeLeadArray(title, resultPageLink)
 
         self.driver.quit()
         return self.iefaLeadsArrays
