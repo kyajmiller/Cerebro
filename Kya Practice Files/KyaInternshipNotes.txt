@@ -728,6 +728,58 @@ Featured:
 -nationality - "//tbody/tr[@class='featured']/td[3]/p[@class='award-list-nationality']"
 -Host Countries - "//tbody/tr[@class='featured']/td[3]/p[@class='award-list-location']" .textContent
 
+8/12 Notes:
+-Keep working on IefaLeads
+-I think I want it to work by looping over each result page, get all the information from all 12 pages, grab the results pages urls, and then loop through the urls to go to the pages and get the info
+-I think it should be okay to do this, though loading the array with 1.2k leads might be a bit much, I'll have to run it and see how it goes
+--Looks like today will be another babysitting day
+-Doing initial testing, trying to get the textContent of the titlesDivs, it's giving me a cache error, not sure why. It doesn't seem to have a problem with the featured divs, but the normal ones are weird
+--After commenting out the normal titles get (only getting featured titles), it tried doing links and gave the same error for normal links.
+--Makes me wonder if my xpath is just wrong or something.
+-Tried running it and just making it grab the divs and then print out how many it's grabbing, interestingly enough it's still only getting 25 even though there's supposed to be 100 on the page
+--I think maybe the page is refreshing the cache *After* it initially only grabs those 25, which is why it can't get the attributes because technically those ones it originally grabbed no longer exist.
+--So if I don't have it click the expanded view at all, it should just work.
+---Confirmed, works.
+--I would really like to be able to grab 100 at a time instead of having to click through 48 pages, but whatever... maybe I could try setting it to 100, then click the next page, then click previous page
+-Found a work around! Click the expand to 100, then click next page, click previous page, then try running the thing to get the titles; now it gets all 100 instead of just 25, and solves the caching problem
+--It's still kind of fussy because sometimes it'll look for the next button thing before the expand page is finished loading, it's kind of obnoxious
+---Added in explicit waits to fix this problem, now works a lot more consistently
+-Now not sure once again how I want to do this. If I decide I want to get every one of the results items before actually visiting the individual pages, it might be better to just have the get pieces functions
+append their results to an overarching array and then start putting together those arrays after everything is gathered
+-Or I could just make the arrays, append the arrays to an overarching list, and then when ready to go to the individual pages just pull the arrays apart and reconstruct them
+--Might go with the option
+-Okay, so it is able to get the stuff on the first page, but the second tries the second page it runs into a caching error. Might try the next/previous page thing again
+--mmk so the next/previous thing doesn't help with this, might need to add explicit waits to the get stuff functions
+---Explicit waits aren't helping here, because it's technically finding what the wait is looking for, it's just not the right one...
+--Ugh, I'm not sure what the issue is. I tried doing a long ass wait but for some reason it's still pulling the wrong cache for each one
+---Yeah I really don't know what the hell do to here, it's still accessing the old cache from the first page
+---I put in an explicit wait until it's able to find the 99th normal thing, but that's not going to help it on the not full pages... uuuuuugh
+---Might have a solution! Get the damn href of the next button and just use get
+----Works!
+-Thinking of deleting the thing that gets the description from the results pages and just get it off of the individual page because it's a lot more complete
+--Will also do this for nationality and host country
+
+-Begin work on getting the stuff from the individual scholarship page
+-Not sure if these are formatted differently between the featured scholarships and the normal ones
+--If there are different xpaths between them, just put in a check for each type (they're the same)
+
+Sponsor - "//span[@class='award-sponsor']" .textContent (filter out the Sponsor: thing with re.sub)
+Submission Deadline - "//h4[text() = 'Submission Deadline']/following-sibling::p" .textContent
+Field of Study - "//p[@id='award-fieldofstudy']" .textContent
+Award Amount - "//p[@id='award-amount']" .textContent
+Description - "//div[@class='award-description padding_bottom_30']/h4[text() = 'Description']/following-sibling::p[1]" .textContent
+Other Criteria - "//div[@class='award-description padding_bottom_30']/h4[text() = 'Other Criteria']/following-sibling::p[1]" .textContent
+Source Website Link - "//th[text() = 'Link']/following-sibling::td/a" .href
+Number of Awards - "//th[text() = 'Number of Awards']/following-sibling::td" .textContent
+Host Institution - "//th[text() = 'Host Institution']/following-sibling::td" .textContent
+Includes - "//th[text() = 'Includes']/following-sibling::td"
+Nationality Required - "//th[text() = 'Nationality Required']/following-sibling::td" .textContent
+Host Countries - "//th[text() = 'Host Countries']/following-sibling::td" .textContent
+
+-IefaLeads is pretty much finished, wrote a unit test for it
+-Need to create a table and write the insert function, then probably spend the rest of the day running the program
+
+
 
 
 
