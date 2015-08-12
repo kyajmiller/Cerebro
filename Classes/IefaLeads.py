@@ -27,6 +27,7 @@ class IefaLeads(object):
         self.goToNextPreviousPageRefreshCache()
 
         self.arrayOfTitlesLinksArrays = []
+        self.iefaLeadsArrays = []
 
         self.loopOverResultsPagesAndDoStuff()
 
@@ -47,6 +48,26 @@ class IefaLeads(object):
             resultPageLink = individualArray[1]
 
             resultPageInfoArray = self.goToResultsPageAndGetInfo(resultPageLink)
+            sponsor = resultPageInfoArray[0]
+            submissionDeadline = resultPageInfoArray[1]
+            majors = resultPageInfoArray[2]
+            awardAmount = resultPageInfoArray[3]
+            description = resultPageInfoArray[4]
+            otherCriteria = resultPageInfoArray[5]
+            numberAwards = resultPageInfoArray[6]
+            hostInstitution = resultPageInfoArray[7]
+            awardIncludes = resultPageInfoArray[8]
+            nationalityRequired = resultPageInfoArray[9]
+            hostCountries = resultPageInfoArray[10]
+            sourceWebsite = resultPageInfoArray[12]
+            sourceText = resultPageInfoArray[11]
+
+            iefaLeadIndividualArray = [title, resultPageLink, sponsor, submissionDeadline, majors, awardAmount,
+                                       description, otherCriteria, numberAwards, hostInstitution, awardIncludes,
+                                       nationalityRequired, hostCountries, sourceWebsite, sourceText]
+            self.iefaLeadsArrays.append(iefaLeadIndividualArray)
+
+        return self.iefaLeadsArrays
 
     def getTitlesLinksOnCurrentPage(self):
         titlesList = self.getTitlesList()
