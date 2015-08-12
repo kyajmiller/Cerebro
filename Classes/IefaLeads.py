@@ -10,7 +10,9 @@ from Classes.RipPage import RipPage
 
 
 class IefaLeads(object):
-    def __init__(self):
+    def __init__(self, isTest=False):
+        self.isTest = isTest
+
         self.driver = webdriver.Firefox()
         self.base_url = 'http://www.iefa.org/'
         self.driver.get(self.base_url + 'scholarships')
@@ -29,44 +31,30 @@ class IefaLeads(object):
         self.arrayOfTitlesLinksArrays = []
         self.iefaLeadsArrays = []
 
-        self.loopOverResultsPagesAndDoStuff()
-
-        self.driver.quit()
-
     def loopOverResultsPagesAndDoStuff(self):
         self.getTitlesLinksOnCurrentPage()
 
-        pageCounter = 1
-        while pageCounter < 12:
-            if self.checkIfNextPage():
-                self.goToNextPageUrl()
-                self.getTitlesLinksOnCurrentPage()
-            pageCounter += 1
+        if self.isTest:
+            for individualArray in self.arrayOfTitlesLinksArrays[:5]:
+                title = individualArray[0]
+                resultPageLink = individualArray[1]
 
-        for individualArray in self.arrayOfTitlesLinksArrays:
-            title = individualArray[0]
-            resultPageLink = individualArray[1]
+                self.makeLeadArray(title, resultPageLink)
+        else:
+            pageCounter = 1
+            while pageCounter < 12:
+                if self.checkIfNextPage():
+                    self.goToNextPageUrl()
+                    self.getTitlesLinksOnCurrentPage()
+                pageCounter += 1
 
-            resultPageInfoArray = self.goToResultsPageAndGetInfo(resultPageLink)
-            sponsor = resultPageInfoArray[0]
-            submissionDeadline = resultPageInfoArray[1]
-            majors = resultPageInfoArray[2]
-            awardAmount = resultPageInfoArray[3]
-            description = resultPageInfoArray[4]
-            otherCriteria = resultPageInfoArray[5]
-            numberAwards = resultPageInfoArray[6]
-            hostInstitution = resultPageInfoArray[7]
-            awardIncludes = resultPageInfoArray[8]
-            nationalityRequired = resultPageInfoArray[9]
-            hostCountries = resultPageInfoArray[10]
-            sourceWebsite = resultPageInfoArray[12]
-            sourceText = resultPageInfoArray[11]
+            for individualArray in self.arrayOfTitlesLinksArrays:
+                title = individualArray[0]
+                resultPageLink = individualArray[1]
 
-            iefaLeadIndividualArray = [title, resultPageLink, sponsor, submissionDeadline, majors, awardAmount,
-                                       description, otherCriteria, numberAwards, hostInstitution, awardIncludes,
-                                       nationalityRequired, hostCountries, sourceWebsite, sourceText]
-            self.iefaLeadsArrays.append(iefaLeadIndividualArray)
+                self.makeLeadArray(title, resultPageLink)
 
+        self.driver.quit()
         return self.iefaLeadsArrays
 
     def getTitlesLinksOnCurrentPage(self):
@@ -183,6 +171,27 @@ class IefaLeads(object):
         resultPageInfoArray.append(sourceWebsite)
 
         return resultPageInfoArray
+
+    def makeLeadArray(self, title, resultPageLink):
+        resultPageInfoArray = self.goToResultsPageAndGetInfo(resultPageLink)
+        sponsor = resultPageInfoArray[0]
+        submissionDeadline = resultPageInfoArray[1]
+        majors = resultPageInfoArray[2]
+        awardAmount = resultPageInfoArray[3]
+        description = resultPageInfoArray[4]
+        otherCriteria = resultPageInfoArray[5]
+        numberAwards = resultPageInfoArray[6]
+        hostInstitution = resultPageInfoArray[7]
+        awardIncludes = resultPageInfoArray[8]
+        nationalityRequired = resultPageInfoArray[9]
+        hostCountries = resultPageInfoArray[10]
+        sourceWebsite = resultPageInfoArray[12]
+        sourceText = resultPageInfoArray[11]
+
+        iefaLeadIndividualArray = [title, resultPageLink, sponsor, submissionDeadline, majors, awardAmount, description,
+                                   otherCriteria, numberAwards, hostInstitution, awardIncludes, nationalityRequired,
+                                   hostCountries, sourceWebsite, sourceText]
+        self.iefaLeadsArrays.append(iefaLeadIndividualArray)
 
     def checkIfNextPage(self):
         checkNextPage = self.driver.find_elements_by_link_text('Next >')
