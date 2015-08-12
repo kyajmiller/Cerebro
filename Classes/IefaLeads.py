@@ -46,9 +46,8 @@ class IefaLeads(object):
             title = individualArray[0]
             resultPageLink = individualArray[1]
             majors = individualArray[2]
-            description = individualArray[3]
-            nationality = individualArray[4]
-            hostCountry = individualArray[5]
+            nationality = individualArray[3]
+            hostCountry = individualArray[4]
 
             leadInfo = self.goToIndividualPagesAndGetInfo(resultPageLink)
 
