@@ -20,26 +20,29 @@ class IefaLeads(object):
 
         self.driver.find_element_by_xpath("//ul[@id='yw8']/li[@id='scholarshipsLink']/a").click()
         self.driver.implicitly_wait(2)
-        Select(self.driver.find_element_by_id('pageSize')).select_by_visible_text('100')
+        # Select(self.driver.find_element_by_id('pageSize')).select_by_visible_text('100')
+        # self.driver.implicitly_wait(10)
+
 
         self.arrayOfResultsPagesArrays = []
 
+        self.getResultsOnCurrentPage()
+        self.driver.quit()
+
+    def LoopOverPagesAndDoStuff(self):
         pageCounter = 1
         while pageCounter < 12:
             if self.checkIfNextPage():
                 self.goToNextPage()
             pageCounter += 1
 
-    def LoopOverPagesAndDoStuff(self):
-        pass
-
     def getResultsOnCurrentPage(self):
         titlesList = self.getTitlesList()
-        resultsPagesLinksList = self.getResultsPagesLinksList()
-        majorsList = self.getMajorsList()
-        descriptionsList = self.getDescriptionsList()
-        nationalityList = self.getNationalityList()
-        hostCountryList = self.getHostCountryList()
+        # resultsPagesLinksList = self.getResultsPagesLinksList()
+        # majorsList = self.getMajorsList()
+        # descriptionsList = self.getDescriptionsList()
+        # nationalityList = self.getNationalityList()
+        #hostCountryList = self.getHostCountryList()
 
 
     def checkIfNextPage(self):
@@ -62,6 +65,9 @@ class IefaLeads(object):
         featuredTitlesDivs = self.driver.find_elements_by_xpath("//tbody/tr[@class='featured']/td[@width='200px']/a[3]")
         normalTitlesDivs = self.driver.find_elements_by_xpath(
             "//tbody/tr[not (@class='featured')]/td[@width='200px']/a")
+        print(len(featuredTitlesDivs))
+        print(len(normalTitlesDivs))
+
 
         for titleDiv in featuredTitlesDivs:
             titlesList.append(titleDiv.get_attribute('textContent'))
@@ -69,6 +75,7 @@ class IefaLeads(object):
             titlesList.append(titleDiv.get_attribute('textContent'))
 
         return titlesList
+
 
     def getResultsPagesLinksList(self):
         resultsPagesLinksList = []
