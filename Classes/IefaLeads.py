@@ -236,6 +236,3 @@ class IefaLeads(object):
             return True
         else:
             return False
-
-
-IefaLeads()
