@@ -28,28 +28,35 @@ class IefaLeads(object):
 
         self.arrayOfResultsPagesArrays = []
 
-        self.loopOverPagesAndDoStuff()
+        self.loopOverResultsPagesAndDoStuff()
 
         self.driver.quit()
 
-    def loopOverPagesAndDoStuff(self):
+    def loopOverResultsPagesAndDoStuff(self):
         self.getResultsOnCurrentPage()
-        self.goToNextPageUrl()
 
-        self.getResultsOnCurrentPage()
-        '''
         pageCounter = 1
         while pageCounter < 12:
             if self.checkIfNextPage():
-                self.goToNextPage()
+                self.goToNextPageUrl()
+                self.getResultsOnCurrentPage()
             pageCounter += 1
-        '''
+
+        for individualArray in self.arrayOfResultsPagesArrays:
+            title = individualArray[0]
+            resultPageLink = individualArray[1]
+            majors = individualArray[2]
+            description = individualArray[3]
+            nationality = individualArray[4]
+            hostCountry = individualArray[5]
+
+            leadInfo = self.goToIndividualPagesAndGetInfo(resultPageLink)
+
 
     def getResultsOnCurrentPage(self):
         titlesList = self.getTitlesList()
         resultsPagesLinksList = self.getResultsPagesLinksList()
         majorsList = self.getMajorsList()
-        descriptionsList = self.getDescriptionsList()
         nationalityList = self.getNationalityList()
         hostCountryList = self.getHostCountryList()
 
@@ -57,18 +64,14 @@ class IefaLeads(object):
             title = titlesList[i]
             resultPageLink = resultsPagesLinksList[i]
             majors = majorsList[i]
-            description = descriptionsList[i]
             nationality = nationalityList[i]
             hostCountry = hostCountryList[i]
 
-            individualResultsPageArray = [title, resultPageLink, majors, description, nationality, hostCountry]
+            individualResultsPageArray = [title, resultPageLink, majors, nationality, hostCountry]
             self.arrayOfResultsPagesArrays.append(individualResultsPageArray)
 
     def getTitlesList(self):
         titlesList = []
-
-        featuredTitlesDivs = []
-        normalTitlesDivs = []
 
         featuredTitlesDivs = self.driver.find_elements_by_xpath("//tbody/tr[@class='featured']/td[@width='200px']/a[3]")
         normalTitlesDivs = self.driver.find_elements_by_xpath(
@@ -152,6 +155,9 @@ class IefaLeads(object):
 
         descriptionsList = [re.sub('Nationality:.*$', '', description) for description in descriptionsList]
         return descriptionsList
+
+    def goToIndividualPagesAndGetInfo(self, resultPageLink):
+        pass
 
     def checkIfNextPage(self):
         checkNextPage = self.driver.find_elements_by_link_text('Next >')
