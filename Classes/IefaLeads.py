@@ -101,7 +101,8 @@ class IefaLeads(object):
         awardIncludes = ''
         nationalityRequired = ''
         hostCountries = ''
-        sourceWebsiteLink = ''
+        sourceWebsite = ''
+        sourceText = ''
 
         if self.checkIfElementExists("//span[@class='award-sponsor']"):
             sponsor = self.driver.find_element_by_xpath("//span[@class='award-sponsor']").get_attribute('textContent')
@@ -150,12 +151,15 @@ class IefaLeads(object):
                 "//th[text() = 'Host Countries']/following-sibling::td").get_attribute('textContent')
 
         if self.checkIfElementExists("//th[text() = 'Link']/following-sibling::td/a"):
-            sourceWebsiteLink = self.driver.find_element_by_xpath(
+            sourceWebsite = self.driver.find_element_by_xpath(
                 "//th[text() = 'Link']/following-sibling::td/a").get_attribute('href')
+            sourceText = RipPage.getPageSource(sourceWebsite)
 
         resultPageInfoArray = [sponsor, submissionDeadline, majors, awardAmount, description, otherCriteria,
                                numberAwards, hostInstitution, awardIncludes, nationalityRequired, hostCountries,
-                               sourceWebsiteLink]
+                               sourceText]
+        resultPageInfoArray = [CleanText.cleanALLtheText(item) for item in resultPageInfoArray]
+        resultPageInfoArray.append(sourceWebsite)
 
         return resultPageInfoArray
 
