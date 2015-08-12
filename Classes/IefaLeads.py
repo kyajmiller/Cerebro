@@ -46,27 +46,20 @@ class IefaLeads(object):
             title = individualArray[0]
             resultPageLink = individualArray[1]
             majors = individualArray[2]
-            nationality = individualArray[3]
-            hostCountry = individualArray[4]
 
-            leadInfo = self.goToIndividualPagesAndGetInfo(resultPageLink)
-
+            leadInfoArray = self.goToIndividualPagesAndGetInfo(resultPageLink)
 
     def getResultsOnCurrentPage(self):
         titlesList = self.getTitlesList()
         resultsPagesLinksList = self.getResultsPagesLinksList()
         majorsList = self.getMajorsList()
-        nationalityList = self.getNationalityList()
-        hostCountryList = self.getHostCountryList()
 
         for i in range(len(titlesList)):
             title = titlesList[i]
             resultPageLink = resultsPagesLinksList[i]
             majors = majorsList[i]
-            nationality = nationalityList[i]
-            hostCountry = hostCountryList[i]
 
-            individualResultsPageArray = [title, resultPageLink, majors, nationality, hostCountry]
+            individualResultsPageArray = [title, resultPageLink, majors]
             self.arrayOfResultsPagesArrays.append(individualResultsPageArray)
 
     def getTitlesList(self):
@@ -110,50 +103,6 @@ class IefaLeads(object):
             majorsList.append(majorsDiv.get_attribute('textContent'))
 
         return majorsList
-
-    def getNationalityList(self):
-        nationalitiesList = []
-
-        featuredNationalitiesDivs = self.driver.find_elements_by_xpath(
-            "//tbody/tr[@class='featured']/td[3]/p[@class='award-list-nationality']")
-        normalNationalitiesDivs = self.driver.find_elements_by_xpath(
-            "//tbody/tr[not (@class='featured')]/td[3]/p[@class='award-list-nationality']")
-
-        for nationalitiesDiv in featuredNationalitiesDivs:
-            nationalitiesList.append(nationalitiesDiv.get_attribute('textContent'))
-        for nationalitiesDiv in normalNationalitiesDivs:
-            nationalitiesList.append(nationalitiesDiv.get_attribute('textContent'))
-
-        return nationalitiesList
-
-    def getHostCountryList(self):
-        hostCountriesList = []
-
-        featuredHostCountriesDivs = self.driver.find_elements_by_xpath(
-            "//tbody/tr[@class='featured']/td[3]/p[@class='award-list-location']")
-        normalHostCountriesDivs = self.driver.find_elements_by_xpath(
-            "//tbody/tr[not (@class='featured')]/td[3]/p[@class='award-list-location']")
-
-        for hostCountriesDiv in featuredHostCountriesDivs:
-            hostCountriesList.append(hostCountriesDiv.get_attribute('textContent'))
-        for hostCountriesDiv in normalHostCountriesDivs:
-            hostCountriesList.append(hostCountriesDiv.get_attribute('textContent'))
-
-        return hostCountriesList
-
-    def getDescriptionsList(self):
-        descriptionsList = []
-
-        featuredDescriptionsList = self.driver.find_elements_by_xpath("//tbody/tr[@class='featured']/td[3]")
-        normalDescriptionsList = self.driver.find_elements_by_xpath("//tbody/tr[not (@class='featured')]/td[3]")
-
-        for descriptionsDiv in featuredDescriptionsList:
-            descriptionsList.append(descriptionsDiv.get_attribute('textContent'))
-        for descriptionsDiv in normalDescriptionsList:
-            descriptionsList.append(descriptionsDiv.get_attribute('textContent'))
-
-        descriptionsList = [re.sub('Nationality:.*$', '', description) for description in descriptionsList]
-        return descriptionsList
 
     def goToIndividualPagesAndGetInfo(self, resultPageLink):
         pass
