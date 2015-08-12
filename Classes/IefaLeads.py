@@ -2,6 +2,9 @@ import re
 from selenium import webdriver
 from selenium.common.exceptions import ElementNotVisibleException
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.by import By
 from Classes.CleanText import CleanText
 from Classes.RipPage import RipPage
 
@@ -20,13 +23,13 @@ class IefaLeads(object):
 
         self.driver.find_element_by_xpath("//ul[@id='yw8']/li[@id='scholarshipsLink']/a").click()
         self.driver.implicitly_wait(2)
-        # Select(self.driver.find_element_by_id('pageSize')).select_by_visible_text('100')
-        # self.driver.implicitly_wait(10)
-
+        Select(self.driver.find_element_by_id('pageSize')).select_by_visible_text('100')
+        self.goToNextPage()
+        self.goToPreviousPage()
 
         self.arrayOfResultsPagesArrays = []
 
-        self.getResultsOnCurrentPage()
+        # self.getResultsOnCurrentPage()
         self.driver.quit()
 
     def LoopOverPagesAndDoStuff(self):
@@ -38,12 +41,11 @@ class IefaLeads(object):
 
     def getResultsOnCurrentPage(self):
         titlesList = self.getTitlesList()
-        # resultsPagesLinksList = self.getResultsPagesLinksList()
-        # majorsList = self.getMajorsList()
-        # descriptionsList = self.getDescriptionsList()
-        # nationalityList = self.getNationalityList()
-        #hostCountryList = self.getHostCountryList()
-
+        resultsPagesLinksList = self.getResultsPagesLinksList()
+        majorsList = self.getMajorsList()
+        descriptionsList = self.getDescriptionsList()
+        nationalityList = self.getNationalityList()
+        hostCountryList = self.getHostCountryList()
 
     def checkIfNextPage(self):
         checkNextPage = self.driver.find_elements_by_link_text('Next >')
@@ -53,8 +55,18 @@ class IefaLeads(object):
             return False
 
     def goToNextPage(self):
+        nextPageButton = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Next >')))
         try:
-            self.driver.find_element_by_link_text('Next >').click()
+            nextPageButton.click()
+            self.driver.implicitly_wait(2)
+        except ElementNotVisibleException:
+            self.driver.implicitly_wait(2)
+
+    def goToPreviousPage(self):
+        previousPageButton = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.LINK_TEXT, '< Previous')))
+        try:
+            previousPageButton.click()
             self.driver.implicitly_wait(2)
         except ElementNotVisibleException:
             self.driver.implicitly_wait(2)
@@ -68,14 +80,12 @@ class IefaLeads(object):
         print(len(featuredTitlesDivs))
         print(len(normalTitlesDivs))
 
-
         for titleDiv in featuredTitlesDivs:
             titlesList.append(titleDiv.get_attribute('textContent'))
         for titleDiv in normalTitlesDivs:
             titlesList.append(titleDiv.get_attribute('textContent'))
 
         return titlesList
-
 
     def getResultsPagesLinksList(self):
         resultsPagesLinksList = []
@@ -101,7 +111,7 @@ class IefaLeads(object):
         for majorsDiv in featuredMajorsDivs:
             majorsList.append(majorsDiv.get_attribute('textContent'))
         for majorsDiv in normalMajorsDivs:
-            majorsDiv.append(majorsDiv.get_attribute('textContent'))
+            majorsList.append(majorsDiv.get_attribute('textContent'))
 
         return majorsList
 
