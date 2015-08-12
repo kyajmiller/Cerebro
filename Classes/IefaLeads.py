@@ -34,6 +34,12 @@ class IefaLeads(object):
 
     def loopOverPagesAndDoStuff(self):
         self.getResultsOnCurrentPage()
+        self.goToNextPage()
+
+        waitFor99 = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//tbody/tr[not (@class='featured')][99]/td[@width='200px']/a")))
+
+        self.getResultsOnCurrentPage()
         '''
         pageCounter = 1
         while pageCounter < 12:
@@ -64,9 +70,15 @@ class IefaLeads(object):
     def getTitlesList(self):
         titlesList = []
 
+        featuredTitlesDivs = []
+        normalTitlesDivs = []
+
         featuredTitlesDivs = self.driver.find_elements_by_xpath("//tbody/tr[@class='featured']/td[@width='200px']/a[3]")
         normalTitlesDivs = self.driver.find_elements_by_xpath(
             "//tbody/tr[not (@class='featured')]/td[@width='200px']/a")
+
+        print(len(featuredTitlesDivs))
+        print(len(normalTitlesDivs))
 
         for titleDiv in featuredTitlesDivs:
             titlesList.append(titleDiv.get_attribute('textContent'))
