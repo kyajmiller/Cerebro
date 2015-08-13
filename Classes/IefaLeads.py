@@ -191,6 +191,7 @@ class IefaLeads(object):
         iefaLeadIndividualArray = [title, resultPageLink, sponsor, submissionDeadline, majors, awardAmount, description,
                                    otherCriteria, numberAwards, hostInstitution, awardIncludes, nationalityRequired,
                                    hostCountries, sourceWebsite, sourceText]
+
         self.iefaLeadsArrays.append(iefaLeadIndividualArray)
 
     def checkIfNextPage(self):
