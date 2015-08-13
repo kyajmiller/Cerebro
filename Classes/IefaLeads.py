@@ -80,6 +80,7 @@ class IefaLeads(object):
         for titleDiv in normalTitlesDivs:
             titlesList.append(titleDiv.get_attribute('textContent'))
 
+        titlesList = [CleanText.cleanALLtheText(title) for title in titlesList]
         return titlesList
 
     def getResultsPagesLinksList(self):
