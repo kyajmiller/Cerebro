@@ -783,6 +783,8 @@ Host Countries - "//th[text() = 'Host Countries']/following-sibling::td" .textCo
 -Feeling sick today, might not stay all day because dead
 -The program seems to have run fine enough, it just died at the insert stage because I forgot to update my sql query...
 --Once I update that it should run fine
+--Oh my fucking god
+---program ran through, all nice and happy, yay, but I forgot to run CleanText over the titles, and so a stray ' broke my program. Kill me.
 
 
 
