@@ -28,7 +28,7 @@ class InsertIefaLeadArrayIntoIefaLeadsDB(object):
 
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRows(
-            "select Name, AdditionalInfo from dbo.IefaLeads where Name='" + self.name + "' and Description='" + self.description + "'")
+            "select * from dbo.IefaLeads where Name='" + self.name + "' and Description='" + self.description + "'")
         if matchingRow != []:
             return True
         else:
