@@ -779,6 +779,11 @@ Host Countries - "//th[text() = 'Host Countries']/following-sibling::td" .textCo
 -IefaLeads is pretty much finished, wrote a unit test for it
 -Need to create a table and write the insert function, then probably spend the rest of the day running the program
 
+8/13 Notes:
+-Feeling sick today, might not stay all day because dead
+-The program seems to have run fine enough, it just died at the insert stage because I forgot to update my sql query...
+--Once I update that it should run fine
+
 
 
 
