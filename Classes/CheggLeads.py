@@ -32,7 +32,7 @@ class CheggLeads(object):
         self.driver.find_element_by_link_text('SCHOLARSHIPS').click()
         self.driver.implicitly_wait(2)
 
-        self.scrollDownUntilDesiredNumResults(70)
+        self.scrollDownUntilDesiredNumResults(60)
 
         self.resultsArrays = []
         self.cheggLeadsArrays = []
