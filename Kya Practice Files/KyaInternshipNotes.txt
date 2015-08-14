@@ -795,6 +795,48 @@ Host Countries - "//th[text() = 'Host Countries']/following-sibling::td" .textCo
 -Going to run the classifier over the Iefa Titles and concatenated description + other criteria
 -PopulateIefaLeadRequirements is finished, time to work on the next site
 
+-Working on chegg now
+--This one is going to be weird because the chegg thing works by loading new scholarships when you scroll to the bottom of the page
+-Was able to write a loop to make the page scroll to the bottom and load the new scholarships until 500 scholarships are loaded
+--I wanted this to be equal to how many matches are announced at the top of the page, because at any moment the amount of scholarships could change
+--to where there's way more or less than 500 scholarships, in which case the loop will be endless
+--Tried to capture the given number of matches, but for whatever reason that number always gets pulled in as 0; could be a caching error but not sure
+--Thought it might be a caching issue, but it doesn't seem like anything I can really fix... And there's no way to do an explicit wait because I can't make those dynamically
+-Tried a method to make it grab the initial number of scholarhips shown, then scroll, grab how many after shown after, then compare the previous amount to the new amount
+--And then keep scrolling and refreshing those values until the first value equals the second, but can't do that because both grab before the scroll happens
+--And there's no way to force the second one to wait. Oh well. Will just use the scroll until 500 method, which is terrible but whatever
+
+-Stuff to grab from result page:
+Title - "//a[@class='scholarship__title']" .textContent
+Link - "//a[@class='scholarship__title']" .href
+Deadline - "//a[@class='scholarship__deadline']"
+Amount - "//a[@class='scholarship__amount']"
+
+-Stuff to grab from individual pages:
+Eligibility - "//span[@class='txt-3" .textContent
+Application Overview - "//h3[text() = 'Application Overview']/following-sibling::div[@class='txt-3']" .textContent
+Purpose/Description - "//h3[text() = 'Purpose']/following-sibling::div[@class='txt-3']"
+Sponsor - "//h3[text() = 'Provider Organization']/following-sibling::div[@class='txt-3'][1]"
+SourceWebsite - "//button[@class='btn-primary-sm go-apply']" try get_attribute('url')
+--The url exists in the tag, but not in the properties display, so hopefully that works
+
+OH GOD THEY HAVE DIFFERENT FORMATS ON DIFFERENT PAGES
+Different page stuff:
+Scholarship Question - "//div[text() = 'Scholarship Question']/following-sibling::div[@class='description']"
+Description - "//div[text() = 'Description']/following-sibling::div[@class='description']"
+Eligibility = "//div[text() = 'Eligibility']/following-sibling::div[@class='description']"
+SourceWebsite = "//button[@class='btn-primary-sm save-profile chgsec_hostedsc-apply-ApplyNowButton chgser_sc']"
+--I really have no idea where to get this one, the button doesn't have anything in its url...might just force the program to skip things with this sort of button
+
+-ugh, literally what I was fearing would happen with the scroll thing happened. The amount of results changed, and so it broke the scroll loop
+-And now it's being weird about getting my results page info. I'm so tired of this thing
+--Maybe my deadines/amounts xpath is wrong...
+---xpaths are right, but they're not finding anything. I have no idea what the hell is up with this site
+---nvm they were wrong, I forgot to change a to div
+
+-xpaths are fixed, running program, not sure if program is slow or hung
+-for some reason it hung trying to get the links list. this site sucks.
+
 
 
 
