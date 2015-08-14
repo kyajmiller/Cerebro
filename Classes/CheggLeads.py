@@ -32,7 +32,7 @@ class CheggLeads(object):
         self.driver.find_element_by_link_text('SCHOLARSHIPS').click()
         self.driver.implicitly_wait(2)
 
-        self.scrollDownUntilFiveHundredTitles()
+        self.scrollDownUntilDesiredNumResults(70)
 
         self.resultsArrays = []
         self.cheggLeadsArrays = []
@@ -118,9 +118,9 @@ class CheggLeads(object):
         amountsList = [CleanText.cleanALLtheText(amount) for amount in amountsList]
         return amountsList
 
-    def scrollDownUntilFiveHundredTitles(self):
+    def scrollDownUntilDesiredNumResults(self, numResults):
         numberShownScholarships = self.driver.find_elements_by_xpath("//a[@class='scholarship__title']")
-        while len(numberShownScholarships) < 500:
+        while len(numberShownScholarships) < numResults:
             self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             numberShownScholarships = self.driver.find_elements_by_xpath("//a[@class='scholarship__title']")
 
@@ -179,4 +179,4 @@ class CheggLeads(object):
             return False
 
 
-CheggLeads()
+CheggLeads().loopOverResultsPagesAndDoStuff()
