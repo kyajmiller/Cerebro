@@ -151,6 +151,8 @@ class CheggLeads(object):
             resultPageInfoArray.append(sourceWebsite)
 
             return resultPageInfoArray
+        else:
+            return None
 
     def checkIfElementExists(self, xpath):
         checkElementExists = self.driver.find_elements_by_xpath(xpath)
