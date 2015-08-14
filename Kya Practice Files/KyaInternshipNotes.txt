@@ -786,6 +786,14 @@ Host Countries - "//th[text() = 'Host Countries']/following-sibling::td" .textCo
 --Oh my fucking god
 ---program ran through, all nice and happy, yay, but I forgot to run CleanText over the titles, and so a stray ' broke my program. Kill me.
 
+8/14 Notes:
+-Program ran through last night
+-I'm not sure why the IefaLeadIds are all mixed up, but I guess so long as they have unique ones it's whatever, it's just weird that they're out of order
+-Need to run classifier over IefaLeads, write the script to do that, also write class to get the info from IefaLeads
+--finished
+-Afterwards, write the Populate class for IefaLeads
+-Going to run the classifier over the Iefa Titles and concatenated description + other criteria
+-PopulateIefaLeadRequirements is finished, time to work on the next site
 
 
 
