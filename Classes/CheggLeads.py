@@ -31,6 +31,15 @@ class CheggLeads(object):
             EC.presence_of_element_located((By.LINK_TEXT, 'SCHOLARSHIPS')))
 
         self.driver.find_element_by_link_text('SCHOLARSHIPS').click()
+        self.driver.implicitly_wait(2)
+
+        self.scrollDownUntilFiveHundredTitles()
+
+    def scrollDownUntilFiveHundredTitles(self):
+        numberShownScholarships = self.driver.find_elements_by_xpath("//a[@class='scholarship__title']")
+        while len(numberShownScholarships) < 500:
+            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            numberShownScholarships = self.driver.find_elements_by_xpath("//a[@class='scholarship__title']")
 
 
 CheggLeads()
