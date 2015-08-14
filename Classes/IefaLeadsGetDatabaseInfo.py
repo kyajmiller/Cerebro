@@ -48,6 +48,20 @@ class IefaLeadsGetDatabaseInfo(object):
 
         return otherCriteria
 
+    def getIefeaLeadsIds(self):
+        iefaLeadsIds = []
+
+        if self.tag:
+            rows = self.db.getRows("select IefaLeadId from dbo.IefaLeads where Tag='" + self.tag + "'")
+            for row in rows:
+                iefaLeadsIds.append(row.IefaLeadId)
+        else:
+            rows = self.db.getRows("select IefaLeadId from dbo.IefaLeads")
+            for row in rows:
+                iefaLeadsIds.append(row.IefaLeadId)
+
+        return iefaLeadsIds
+
     def getTitleConcatenatedDescriptionOtherCriteriaList(self):
         wholeList = []
 
