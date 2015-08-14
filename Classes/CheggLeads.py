@@ -35,6 +35,7 @@ class CheggLeads(object):
         self.scrollDownUntilFiveHundredTitles()
 
         self.resultsArrays = []
+        self.cheggLeadsArrays = []
 
     def loopOverResultsPagesAndDoStuff(self):
         self.getInfoFromResultsListPage()
@@ -45,7 +46,23 @@ class CheggLeads(object):
             deadline = resultArray[2]
             amount = resultArray[3]
 
-            self.getInfoFromScholarshipPage(link)
+            self.makeLeadArray(title, link, deadline, amount)
+
+        return self.cheggLeadsArrays
+
+    def makeLeadArray(self, title, link, deadline, amount):
+        resultPageArray = self.getInfoFromResultsListPage()
+        if resultPageArray:
+            eligibility = resultPageArray[0]
+            applicationOverview = resultPageArray[1]
+            description = resultPageArray[2]
+            sponsor = resultPageArray[3]
+            sourceWebsite = resultPageArray[5]
+            sourceText = resultPageArray[4]
+
+            cheggLeadIndividualArray = [title, link, deadline, amount, eligibility, applicationOverview, description,
+                                        sponsor, sourceWebsite, sourceText]
+            self.cheggLeadsArrays.append(cheggLeadIndividualArray)
 
     def getInfoFromResultsListPage(self):
         titlesList = self.getTitlesList()
