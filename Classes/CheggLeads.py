@@ -111,7 +111,7 @@ class CheggLeads(object):
     def getAmountsList(self):
         amountsList = []
 
-        amountsDivs = self.driver.find_elements_by_xpath("//a[@class='scholarship__amount']")
+        amountsDivs = self.driver.find_elements_by_xpath("//div[@class='scholarship__amount']")
         for amount in amountsDivs:
             amountsList.append(amount.get_attribute('textContent'))
 
@@ -119,7 +119,7 @@ class CheggLeads(object):
         return amountsList
 
     def scrollDownUntilDesiredNumResults(self, numResults):
-        numberShownScholarships = self.driver.find_elements_by_xpath("//div[@class='scholarship__title']")
+        numberShownScholarships = self.driver.find_elements_by_xpath("//a[@class='scholarship__title']")
         while len(numberShownScholarships) < numResults:
             self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             numberShownScholarships = self.driver.find_elements_by_xpath("//a[@class='scholarship__title']")
