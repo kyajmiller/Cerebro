@@ -39,6 +39,13 @@ class CheggLeads(object):
     def loopOverResultsPagesAndDoStuff(self):
         self.getInfoFromResultsListPage()
 
+        for resultArray in self.resultsArrays:
+            title = resultArray[0]
+            link = resultArray[1]
+            deadline = resultArray[2]
+            amount = resultArray[3]
+
+            self.getInfoFromScholarshipPage(link)
 
     def getInfoFromResultsListPage(self):
         titlesList = self.getTitlesList()
@@ -99,6 +106,58 @@ class CheggLeads(object):
         while len(numberShownScholarships) < 500:
             self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             numberShownScholarships = self.driver.find_elements_by_xpath("//a[@class='scholarship__title']")
+
+    def getInfoFromScholarshipPage(self, link):
+        self.driver.get(link)
+        self.driver.implicitly_wait(2)
+
+        findBadButton = self.driver.find_elements_by_xpath(
+            "//button[@class='btn-primary-sm save-profile chgsec_hostedsc-apply-ApplyNowButton chgser_sc']")
+
+        if findBadButton == []:
+            eligibility = ''
+            applicationOverview = ''
+            description = ''
+            sponsor = ''
+            sourceWebsite = ''
+            sourceText = ''
+
+            if self.checkIfElementExists("//span[@class='txt-3"):
+                eligibility = self.driver.find_element_by_xpath("//span[@class='txt-3").get_attribute('textContent')
+
+            if self.checkIfElementExists(
+                    "//h3[text() = 'Application Overview']/following-sibling::div[@class='txt-3']"):
+                applicationOverview = self.driver.find_element_by_xpath(
+                    "//h3[text() = 'Application Overview']/following-sibling::div[@class='txt-3']").get_attribute(
+                    'textContent')
+
+            if self.checkIfElementExists("//h3[text() = 'Purpose']/following-sibling::div[@class='txt-3']"):
+                description = self.driver.find_element_by_xpath(
+                    "//h3[text() = 'Purpose']/following-sibling::div[@class='txt-3']").get_attribute('textContent')
+
+            if self.checkIfElementExists(
+                    "//h3[text() = 'Provider Organization']/following-sibling::div[@class='txt-3'][1]"):
+                sponsor = self.driver.find_element_by_xpath(
+                    "//h3[text() = 'Provider Organization']/following-sibling::div[@class='txt-3'][1]").get_attribute(
+                    'textContent')
+
+            if self.checkIfElementExists("//button[@class='btn-primary-sm go-apply']"):
+                sourceWebsite = self.driver.find_element_by_xpath(
+                    "//button[@class='btn-primary-sm go-apply']").get_attribute('url')
+                sourceText = RipPage.getPageSource(sourceWebsite)
+
+            resultPageInfoArray = [eligibility, applicationOverview, description, sponsor, sourceText]
+            resultPageInfoArray = [CleanText.cleanALLtheText(item) for item in resultPageInfoArray]
+            resultPageInfoArray.append(sourceWebsite)
+
+            return resultPageInfoArray
+
+    def checkIfElementExists(self, xpath):
+        checkElementExists = self.driver.find_elements_by_xpath(xpath)
+        if checkElementExists != []:
+            return True
+        else:
+            return False
 
 
 CheggLeads()
