@@ -6,22 +6,6 @@ class IefaLeadsGetDatabaseInfo(object):
         self.tag = tag
         self.db = SUDBConnect()
 
-    def getTitleConcatenatedDescriptionOtherCriteriaList(self):
-        wholeList = []
-
-        titles = self.getTitles()
-        concatenatedDescriptionOtherCriterias = self.getConcatenatedDescriptionOtherCriteria()
-
-        for i in range(len(titles)):
-            title = titles[i]
-            concatenatedItem = concatenatedDescriptionOtherCriterias[i]
-
-            listOfItems = [title, concatenatedItem]
-
-            wholeList.append(listOfItems)
-
-        return wholeList
-
     def getTitles(self):
         titles = []
 
@@ -35,21 +19,6 @@ class IefaLeadsGetDatabaseInfo(object):
                 titles.append(row.Name)
 
         return titles
-
-    def getConcatenatedDescriptionOtherCriteria(self):
-        listConcatenatedItems = []
-
-        descriptions = self.getDescriptions()
-        otherCriterias = self.getOtherCriterias()
-
-        for i in range(len(descriptions)):
-            description = descriptions[i]
-            otherCritieria = otherCriterias[i]
-
-            concatenatedItem = '%s %s' % (description, otherCritieria)
-            listConcatenatedItems.append(concatenatedItem)
-
-        return listConcatenatedItems
 
     def getDescriptions(self):
         descriptions = []
@@ -78,3 +47,35 @@ class IefaLeadsGetDatabaseInfo(object):
                 otherCriteria.append(row.OtherCriteria)
 
         return otherCriteria
+
+    def getTitleConcatenatedDescriptionOtherCriteriaList(self):
+        wholeList = []
+
+        titles = self.getTitles()
+        concatenatedDescriptionOtherCriterias = self.getConcatenatedDescriptionOtherCriteria()
+
+        for i in range(len(titles)):
+            title = titles[i]
+            concatenatedItem = concatenatedDescriptionOtherCriterias[i]
+
+            listOfItems = [title, concatenatedItem]
+
+            wholeList.append(listOfItems)
+
+        return wholeList
+
+    def getConcatenatedDescriptionOtherCriteria(self):
+        listConcatenatedItems = []
+
+        descriptions = self.getDescriptions()
+        otherCriterias = self.getOtherCriterias()
+
+        for i in range(len(descriptions)):
+            description = descriptions[i]
+            otherCritieria = otherCriterias[i]
+
+            concatenatedItem = '%s %s' % (description, otherCritieria)
+            listConcatenatedItems.append(concatenatedItem)
+
+        return listConcatenatedItems
+
