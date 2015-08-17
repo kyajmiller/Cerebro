@@ -200,5 +200,3 @@ class FastWebLeads(object):
         else:
             return False
 
-
-test = FastWebLeads().getResultsOnCurrentPage()
