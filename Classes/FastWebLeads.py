@@ -21,11 +21,23 @@ class FastWebLeads(object):
         self.driver.find_element_by_xpath("//a[text() = 'All Matches']").click()
         self.driver.implicitly_wait(2)
 
-        # go to next page
-        self.driver.find_element_by_xpath("//a[text() = 'All Matches']").click()
+        # go to next page until no more next page
+        nextPageExists = self.checkIfNextPage()
+        while nextPageExists:
+            self.goToNextPage()
+            nextPageExists = self.checkIfNextPage()
 
     def goToNextPage(self):
-        pass
+        if self.checkIfNextPage():
+            self.driver.find_element_by_xpath("//a[@class='next_page']").click()
+            self.driver.implicitly_wait(2)
+
+    def checkIfNextPage(self):
+        nextPageDiv = self.driver.find_elements_by_xpath("//a[@class='next_page']")
+        if nextPageDiv != []:
+            return True
+        else:
+            return False
 
 
 
