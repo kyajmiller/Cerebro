@@ -49,6 +49,7 @@ class CheggLeads(object):
 
             self.makeLeadArray(title, link, deadline, amount)
 
+        print('Chegg Leads Created: %s' % len(self.cheggLeadsArrays))
         return self.cheggLeadsArrays
 
     def makeLeadArray(self, title, link, deadline, amount):
@@ -150,7 +151,7 @@ class CheggLeads(object):
             sourceWebsite = ''
             sourceText = ''
 
-            if self.checkIfElementExists("//span[@class='txt-3"):
+            if self.checkIfElementExists("//span[@class='txt-3']"):
                 eligibility = self.driver.find_element_by_xpath("//span[@class='txt-3").get_attribute('textContent')
 
             if self.checkIfElementExists(
