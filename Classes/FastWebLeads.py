@@ -20,7 +20,7 @@ class FastWebLeads(object):
         self.driver.find_element_by_link_text('See my matches').click()
         self.driver.implicitly_wait(2)
 
-        self.driver.find_element_by_link_text('All matches').click()
+        self.driver.find_element_by_xpath("//a[text() = 'All Matches']").click()
         self.driver.implicitly_wait(2)
 
         # go to next page
