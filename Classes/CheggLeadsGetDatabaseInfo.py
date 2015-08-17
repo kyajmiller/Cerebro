@@ -77,7 +77,7 @@ class CheggLeadsGetDatabaseInfo(object):
         titles = self.getTitles()
         concatenatedEligibilityApplicationOvewviewDescriptionsList = self.getConcatenatedEligibilityApplicationOverview()
 
-        for i in range(len(titles))
+        for i in range(len(titles)):
             title = titles[i]
             concatenatedItem = concatenatedEligibilityApplicationOvewviewDescriptionsList[i]
 
