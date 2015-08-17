@@ -21,7 +21,7 @@ class FastWebLeads(object):
         self.driver.find_element_by_xpath("//a[text() = 'All Matches']").click()
         self.driver.implicitly_wait(2)
 
-        # go to next page until no more next page
+    def loopThroughPagesAndDoStuff(self):
         nextPageExists = self.checkIfNextPage()
         while nextPageExists:
             self.goToNextPage()
