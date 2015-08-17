@@ -24,6 +24,15 @@ class FastWebLeads(object):
 
         self.resultPagesArrays = []
 
+    def loopThroughResultsListPagesAndDoStuff(self):
+        self.getResultsOnCurrentPage()
+
+        nextPageExists = self.checkIfNextPage()
+        while nextPageExists:
+            self.goToNextPage()
+            self.getResultsOnCurrentPage()
+            nextPageExists = self.checkIfNextPage()
+
     def getResultsOnCurrentPage(self):
         titlesList = self.getTitlesList()
         resultPageUrlsList = self.getResultsPageUrlsList()
@@ -89,12 +98,6 @@ class FastWebLeads(object):
 
         deadlinesList = [CleanText.cleanALLtheText(deadline) for deadline in deadlinesList]
         return deadlinesList
-
-    def loopThroughPagesAndDoStuff(self):
-        nextPageExists = self.checkIfNextPage()
-        while nextPageExists:
-            self.goToNextPage()
-            nextPageExists = self.checkIfNextPage()
 
     def goToNextPage(self):
         if self.checkIfNextPage():
