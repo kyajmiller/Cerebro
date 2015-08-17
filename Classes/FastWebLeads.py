@@ -1,4 +1,5 @@
 from selenium import webdriver
+from Classes.CleanText import CleanText
 
 
 class FastWebLeads(object):
@@ -29,19 +30,53 @@ class FastWebLeads(object):
         deadlinesList = self.getDeadlinesList()
 
     def getTitlesList(self):
-        pass
+        titlesList = []
+
+        titlesDivs = self.driver.find_elements_by_xpath("//h3/a")
+        for title in titlesDivs:
+            titlesList.append(title.get_attribute('textContent'))
+
+        titlesList = [CleanText.cleanALLtheText(title) for title in titlesList]
+        return titlesList
 
     def getResultsPageUrlsList(self):
-        pass
+        resultsPageUrlsList = []
+
+        urlsDivs = self.driver.find_elements_by_xpath("//h3/a")
+        for url in urlsDivs:
+            resultsPageUrlsList.append(url.get_attribute('href'))
+
+        return resultsPageUrlsList
 
     def getSponsorsList(self):
-        pass
+        sponsorsList = []
+
+        sponsorsDivs = self.driver.find_elements_by_xpath("//div[@class='provided_by']/p[not (@class='label')]")
+        for sponsor in sponsorsDivs:
+            sponsorsList.append(sponsor.get_attribute('textContent'))
+
+        sponsorsList = [CleanText.cleanALLtheText(sponsor) for sponsor in sponsorsList]
+        return sponsorsList
 
     def getAmountsList(self):
-        pass
+        amountsList = []
+
+        amountsDivs = self.driver.find_elements_by_xpath("//div[@class='award']/p[not (@class='label')]")
+        for amount in amountsDivs:
+            amountsList.append(amount.get_attribute('textContent'))
+
+        amountsList = [CleanText.cleanALLtheText(amount) for amount in amountsList]
+        return amountsList
 
     def getDeadlinesList(self):
-        pass
+        deadlinesList = []
+
+        deadlinesDiv = self.driver.find_elements_by_xpath("//div[@class='deadline']/p[not (@class='label')]")
+        for deadline in deadlinesDiv:
+            deadlinesList.append(deadline.get_attribute('textContent'))
+
+        deadlinesList = [CleanText.cleanALLtheText(deadline) for deadline in deadlinesDiv]
+        return deadlinesList
 
     def loopThroughPagesAndDoStuff(self):
         nextPageExists = self.checkIfNextPage()
