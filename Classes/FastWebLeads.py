@@ -27,4 +27,4 @@ class FastWebLeads(object):
         self.driver.find_element_by_link_text(u'Next »').click()
 
 
-test = FastWebLeads
+test = FastWebLeads()
