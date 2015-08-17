@@ -24,7 +24,7 @@ class FastWebLeads(object):
 
         self.resultPagesArrays = []
 
-    def loopThroughResultsListPagesAndDoStuff(self):
+    def loopThroughResultsListPages(self):
         self.getResultsOnCurrentPage()
 
         nextPageExists = self.checkIfNextPage()
