@@ -9,7 +9,7 @@ class FastWebLeads(object):
         self.base_url = 'http://www.fastweb.com/'
 
         self.driver.get(self.base_url)
-        self.driver.find_element_by_link_text('Login').click()
+        self.driver.find_element_by_xpath("//a[@class='login']").click()
         self.driver.find_element_by_id('login').clear()
         self.driver.find_element_by_id('login').send_keys('crawlyjones@gmail.com')
         self.driver.find_element_by_id('password').clear()
