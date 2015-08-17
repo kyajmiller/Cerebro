@@ -152,7 +152,7 @@ class CheggLeads(object):
             sourceText = ''
 
             if self.checkIfElementExists("//span[@class='txt-3']"):
-                eligibility = self.driver.find_element_by_xpath("//span[@class='txt-3").get_attribute('textContent')
+                eligibility = self.driver.find_element_by_xpath("//span[@class='txt-3']").get_attribute('textContent')
 
             if self.checkIfElementExists(
                     "//h3[text() = 'Application Overview']/following-sibling::div[@class='txt-3']"):
