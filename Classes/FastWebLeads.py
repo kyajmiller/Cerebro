@@ -22,12 +22,24 @@ class FastWebLeads(object):
         self.driver.find_element_by_xpath("//a[text() = 'All Matches']").click()
         self.driver.implicitly_wait(2)
 
+        self.resultPagesArrays = []
+
     def getResultsOnCurrentPage(self):
         titlesList = self.getTitlesList()
         resultPageUrlsList = self.getResultsPageUrlsList()
         sponsorsList = self.getSponsorsList()
         amountsList = self.getAmountsList()
         deadlinesList = self.getDeadlinesList()
+
+        for i in range(len(titlesList)):
+            title = titlesList[i]
+            url = resultPageUrlsList[i]
+            sponsor = sponsorsList[i]
+            amount = amountsList[i]
+            deadline = deadlinesList[i]
+
+            resultPageArray = [title, url, sponsor, amount, deadline]
+            self.resultPagesArrays.append(resultPageArray)
 
     def getTitlesList(self):
         titlesList = []
