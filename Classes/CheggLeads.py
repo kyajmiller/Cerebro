@@ -40,6 +40,7 @@ class CheggLeads(object):
     def loopOverResultsPagesAndDoStuff(self):
         self.getInfoFromResultsListPage()
 
+        print('Beginning CheggLeads array creation...')
         for resultArray in self.resultsArrays:
             title = resultArray[0]
             link = resultArray[1]
@@ -51,7 +52,7 @@ class CheggLeads(object):
         return self.cheggLeadsArrays
 
     def makeLeadArray(self, title, link, deadline, amount):
-        resultPageArray = self.getInfoFromResultsListPage()
+        resultPageArray = self.getInfoFromScholarshipPage(link)
         if resultPageArray:
             eligibility = resultPageArray[0]
             applicationOverview = resultPageArray[1]
@@ -70,6 +71,7 @@ class CheggLeads(object):
         deadlinesList = self.getDeadlinesList()
         amountsList = self.getAmountsList()
 
+        print('Beginning array creation...')
         for i in range(len(titlesList)):
             title = titlesList[i]
             link = linksList[i]
@@ -79,6 +81,8 @@ class CheggLeads(object):
             resultsArray = [title, link, deadline, amount]
             self.resultsArrays.append(resultsArray)
 
+        print('Results arrays: %s' % len(self.resultsArrays))
+
     def getTitlesList(self):
         titlesList = []
 
@@ -87,6 +91,8 @@ class CheggLeads(object):
             titlesList.append(title.get_attribute('textContent'))
 
         titlesList = [CleanText.cleanALLtheText(title) for title in titlesList]
+
+        print('Titles Found: %s' % len(titlesList))
         return titlesList
 
     def getLinksList(self):
@@ -96,6 +102,7 @@ class CheggLeads(object):
         for link in linksDivs:
             linksList.append(link.get_attribute('href'))
 
+        print('Links Found: %s' % len(linksList))
         return linksList
 
     def getDeadlinesList(self):
@@ -106,6 +113,8 @@ class CheggLeads(object):
             deadlinesList.append(deadline.get_attribute('textContent'))
 
         deadlinesList = [CleanText.cleanALLtheText(deadline) for deadline in deadlinesList]
+
+        print('Deadlines Found: %s' % len(deadlinesList))
         return deadlinesList
 
     def getAmountsList(self):
@@ -116,6 +125,8 @@ class CheggLeads(object):
             amountsList.append(amount.get_attribute('textContent'))
 
         amountsList = [CleanText.cleanALLtheText(amount) for amount in amountsList]
+
+        print('Amounts Found: %s' % len(amountsList))
         return amountsList
 
     def scrollDownUntilDesiredNumResults(self, numResults):
