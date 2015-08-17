@@ -21,6 +21,28 @@ class FastWebLeads(object):
         self.driver.find_element_by_xpath("//a[text() = 'All Matches']").click()
         self.driver.implicitly_wait(2)
 
+    def getResultsOnCurrentPage(self):
+        titlesList = self.getTitlesList()
+        resultPageUrlsList = self.getResultsPageUrlsList()
+        sponsorsList = self.getSponsorsList()
+        amountsList = self.getAmountsList()
+        deadlinesList = self.getDeadlinesList()
+
+    def getTitlesList(self):
+        pass
+
+    def getResultsPageUrlsList(self):
+        pass
+
+    def getSponsorsList(self):
+        pass
+
+    def getAmountsList(self):
+        pass
+
+    def getDeadlinesList(self):
+        pass
+
     def loopThroughPagesAndDoStuff(self):
         nextPageExists = self.checkIfNextPage()
         while nextPageExists:
