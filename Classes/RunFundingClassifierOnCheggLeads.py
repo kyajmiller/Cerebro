@@ -18,3 +18,6 @@ class RunFundingClassiferOnCheggLeads(object):
             cheggLeadId = listCheggLeadsIds[i]
             db.insertUpdateOrDelete(
                 "update dbo.CheggLeads set Tag='" + tag + "' where CheggLeadId='" + cheggLeadId + "'")
+
+
+RunFundingClassiferOnCheggLeads.getPredictedTagsInsertIntoDatabase()
