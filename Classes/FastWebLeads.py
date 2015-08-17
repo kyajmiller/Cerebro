@@ -87,7 +87,7 @@ class FastWebLeads(object):
         for deadline in deadlinesDiv:
             deadlinesList.append(deadline.get_attribute('textContent'))
 
-        deadlinesList = [CleanText.cleanALLtheText(deadline) for deadline in deadlinesDiv]
+        deadlinesList = [CleanText.cleanALLtheText(deadline) for deadline in deadlinesList]
         return deadlinesList
 
     def loopThroughPagesAndDoStuff(self):
@@ -109,5 +109,4 @@ class FastWebLeads(object):
             return False
 
 
-
-test = FastWebLeads()
+test = FastWebLeads().getResultsOnCurrentPage()
