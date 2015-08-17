@@ -50,6 +50,7 @@ class CheggLeads(object):
             self.makeLeadArray(title, link, deadline, amount)
 
         print('Chegg Leads Created: %s' % len(self.cheggLeadsArrays))
+        self.driver.quit()
         return self.cheggLeadsArrays
 
     def makeLeadArray(self, title, link, deadline, amount):
