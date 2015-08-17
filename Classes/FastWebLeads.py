@@ -1,5 +1,7 @@
+import re
 from selenium import webdriver
 from Classes.CleanText import CleanText
+from Classes.RipPage import RipPage
 
 
 class FastWebLeads(object):
@@ -23,6 +25,86 @@ class FastWebLeads(object):
         self.driver.implicitly_wait(2)
 
         self.resultPagesArrays = []
+        self.fastWebLeads = []
+
+    def getLeads(self):
+        self.loopThroughResultsListPages()
+
+        for resultArray in self.resultPagesArrays:
+            title = resultArray[0]
+            url = resultArray[1]
+            sponsor = resultArray[2]
+            amount = resultArray[3]
+            deadline = resultArray[4]
+
+            self.makeLeadArray(title, url, sponsor, amount, deadline)
+
+        self.driver.quit()
+        return self.fastWebLeads
+
+    def makeLeadArray(self, title, url, sponsor, amount, deadline):
+        scholarshipPageArray = self.getInfoFromScholarshipPage(url)
+
+        description = scholarshipPageArray[0]
+        awardType = scholarshipPageArray[1]
+        numAwards = scholarshipPageArray[2]
+        majors = scholarshipPageArray[3]
+        additionalInfo = scholarshipPageArray[4]
+        sourceWebsite = scholarshipPageArray[5]
+        sourceText = scholarshipPageArray[6]
+
+        fastWebLead = [title, url, sponsor, amount, deadline, description, awardType, numAwards, majors, additionalInfo,
+                       sourceWebsite, sourceText]
+        self.fastWebLeads.append(fastWebLead)
+
+    def getInfoFromScholarshipPage(self, url):
+        self.driver.get(url)
+        self.driver.implicitly_wait(2)
+
+        description = ''
+        awardType = ''
+        numAwards = ''
+        majors = ''
+        additionalInfo = ''
+        sourceWebsite = ''
+        sourceText = ''
+
+        if self.checkIfElementExists("//div[@class='description']"):
+            description = self.driver.find_element_by_xpath("//div[@class='description']").get_attribute('textContent')
+            description = CleanText.cleanALLtheText(description)
+
+        if self.checkIfElementExists("//p[text() = 'Award Type: ']/following-sibling::p[@class='data']"):
+            awardType = self.driver.find_element_by_xpath(
+                "//p[text() = 'Award Type: ']/following-sibling::p[@class='data']").get_attribute('textContent')
+            awardType = CleanText.cleanALLtheText(awardType)
+
+        if self.checkIfElementExists("//p[text() = 'Awards Available: ']/following-sibling::p[@class='data']"):
+            numAwards = self.driver.find_element_by_xpath(
+                "//p[text() = 'Awards Available: ']/following-sibling::p[@class='data']").get_attribute('textContent')
+            numAwards = CleanText.cleanALLtheText(numAwards)
+
+        if self.checkIfElementExists("//p[text() = 'Fields of Study: ']/following-sibling::p[@class='data major']"):
+            majors = self.driver.find_element_by_xpath(
+                "//p[text() = 'Fields of Study: ']/following-sibling::p[@class='data major']").get_attribute(
+                'textContent')
+            majors = re.sub('All Fields of Study', '', majors)
+            majors = CleanText.cleanALLtheText(majors)
+
+        if self.checkIfElementExists("//p[text() = 'Additional Info: ']/following-sibling::p[@class='data major']"):
+            additionalInfo = self.driver.find_element_by_xpath(
+                "//p[text() = 'Additional Info: ']/following-sibling::p[@class='data major']").get_attribute(
+                'textContent')
+            additionalInfo = CleanText.cleanALLtheText(additionalInfo)
+
+        if self.checkIfElementExists("//p[text() = 'Website: ']/following-sibling::p[@class='data']/a"):
+            sourceWebsite = self.driver.find_element_by_xpath(
+                "//p[text() = 'Website: ']/following-sibling::p[@class='data']/a").get_attribute('href')
+            sourceText = RipPage.getPageSource(sourceWebsite)
+            sourceText = CleanText.cleanALLtheText(sourceText)
+
+        scholarshipPageInfoArray = [description, awardType, numAwards, majors, additionalInfo, sourceWebsite,
+                                    sourceText]
+        return scholarshipPageInfoArray
 
     def loopThroughResultsListPages(self):
         self.getResultsOnCurrentPage()
@@ -107,6 +189,13 @@ class FastWebLeads(object):
     def checkIfNextPage(self):
         nextPageDiv = self.driver.find_elements_by_xpath("//a[@class='next_page']")
         if nextPageDiv != []:
+            return True
+        else:
+            return False
+
+    def checkIfElementExists(self, xpath):
+        checkElementExists = self.driver.find_elements_by_xpath(xpath)
+        if checkElementExists != []:
             return True
         else:
             return False
