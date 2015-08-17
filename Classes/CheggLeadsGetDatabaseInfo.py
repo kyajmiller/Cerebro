@@ -17,6 +17,8 @@ class CheggLeadsGetDatabaseInfo(object):
             rows = self.db.getRows("select * from dbo.CheggLeads")
             for row in rows:
                 cheggLeadsIds.append(row.CheggLeadId)
+
+        cheggLeadsIds = [str(cheggLeadsId) for cheggLeadsId in cheggLeadsIds]
         return cheggLeadsIds
 
     def getTitles(self):
