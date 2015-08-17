@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 from selenium import webdriver
 
 
@@ -24,7 +22,11 @@ class FastWebLeads(object):
         self.driver.implicitly_wait(2)
 
         # go to next page
-        self.driver.find_element_by_link_text(u'Next »').click()
+        self.driver.find_element_by_xpath("//a[text() = 'All Matches']").click()
+
+    def goToNextPage(self):
+        pass
+
 
 
 test = FastWebLeads()
