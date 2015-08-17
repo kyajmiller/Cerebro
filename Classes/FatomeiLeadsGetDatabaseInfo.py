@@ -1,5 +1,4 @@
 from Classes.SUDBConnect import SUDBConnect
-from Classes.CleanText import CleanText
 
 
 class FatomeiLeadsGetDatabaseInfo(object):
