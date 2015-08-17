@@ -838,6 +838,43 @@ SourceWebsite = "//button[@class='btn-primary-sm save-profile chgsec_hostedsc-ap
 -for some reason it hung trying to get the links list. this site sucks.
 
 
+8/17 Notes:
+-Need to type up notes for Mike
+-Continue working on CheggLeads, if I can't get things to work then will just say screw it and try a different one
+--Potential solution for the program not grabbing the divs I need on the list page:
+--See if you can get the same information on the individual results page and just pull it from there
+-I figured out why it was seeming to hang on the first step: it wasn't actually hanging, I just called the wrong function and it created an infinite loop
+-CheggLeads finally works, wrote the insert functions and added the table to the database, runs fine
+-Need to run the classifier over the database and then make the PopulateRequirements thing
+--Will need to write getdatabase info class
+-Chegg is finished
+
+-Work on FastWeb next
+-So far this site is nice and easy to work with, definitely an improvement over chegg, will probably go by very quickly
+-Results List Page Stuff:
+-titles: "//h3/a" .textContent
+-resultPageUrl: "//h3/a" .href
+-sponsor: "//div[@class='provided_by']/p[not (@class='label')]" .textContent
+-amount: "//div[@class='award']/p[not (@class='label')]" .textContent
+-deadline: "//div[@class='deadline']/p[not (@class='label')]" .textContent
+
+-Tried running it the first time, not sure why deadlines is having a bad interaction with CleanText
+-It's kinda strange, verified that the xpath is right, and the program isn't having any problems pulling out the text content, so I'm not sure...
+-Oh lol my loop for cleanText was looping over deadlinesDiv and not deadlinesList
+--This is why it's kinda bad having things named similarly
+--Now it runs fine
+
+-Scholarship Page stuff:
+-description: "//div[@class='description']" .textContent
+-awardType: "//p[text() = 'Award Type: ']/following-sibling::p[@class='data']" .textContent
+-numAwards: "//p[text() = 'Awards Available: ']/following-sibling::p[@class='data']" .textContent
+-majors: "//p[text() = 'Fields of Study: ']/following-sibling::p[@class='data major']" .textContent
+--Need to add re.sub method 'All Fields of Study' --> ''
+-additionalInfo: "//p[text() = 'Additional Info: ']/following-sibling::p[@class='data major']" .textContent
+-sourceWebsite: "//p[text() = 'Website: ']/following-sibling::p[@class='data']/a" .href
+
+-FastWebLeads works perfectly fine, will make insert class and processing class before go home
+
 
 
 
