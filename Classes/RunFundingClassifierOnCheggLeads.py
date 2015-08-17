@@ -8,9 +8,9 @@ class RunFundingClassiferOnCheggLeads(object):
     def getPredictedTagsInsertIntoDatabase():
         db = SUDBConnect()
 
-        titleConcatenatedEligibilityApplicationOverviewDescriptionList = CheggLeadsGetDatabaseInfo().getTitleConcatenatedEligibilityAppplictionOverviewDescriptionList()
+        titleConcatenatedEligibilityApplicationOverviewList = CheggLeadsGetDatabaseInfo().getTitleConcatenatedEligibilityAppplictionOverviewList()
         predictedTags = ClassifyFundingTypeKeywordBased(
-            titleConcatenatedEligibilityApplicationOverviewDescriptionList).returnPredictedTags()
+            titleConcatenatedEligibilityApplicationOverviewList).returnPredictedTags()
         listCheggLeadsIds = CheggLeadsGetDatabaseInfo().getCheggLeadsIds()
 
         for i in range(len(predictedTags)):
