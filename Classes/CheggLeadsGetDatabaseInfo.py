@@ -95,6 +95,6 @@ class CheggLeadsGetDatabaseInfo(object):
             eligibility = eligibilities[i]
             applicationOverview = applicationOverviews[i]
 
-            concatenatedItem = '%s %s %s' % (eligibility, applicationOverview)
+            concatenatedItem = '%s %s' % (eligibility, applicationOverview)
             listConcatenatedItems.append(concatenatedItem)
         return listConcatenatedItems
