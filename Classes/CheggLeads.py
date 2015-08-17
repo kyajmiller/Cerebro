@@ -191,5 +191,3 @@ class CheggLeads(object):
         else:
             return False
 
-
-CheggLeads().loopOverResultsPagesAndDoStuff()
