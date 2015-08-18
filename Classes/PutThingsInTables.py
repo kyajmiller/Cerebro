@@ -18,13 +18,15 @@ class PutThingsInTables(object):
         if self.checkEqualColumnsValues(self.columnNames, self.insertValues):
             columns = self.convertColumnNamesToInsertString()
             values = self.convertValuesToInsertString()
-            query = "insert into %s (%s) values (%s)" % (self.tableName, columns, values)
-            return query
+            insertQuery = "insert into %s (%s) values (%s)" % (self.tableName, columns, values)
+            return insertQuery
 
     def createSQLQueryUpdate(self):
         if self.whereColumnNames and self.whereValues:
             whereStatement = self.createWhereStatement()
             setStatement = self.createSetStatement()
+            updateQuery = "update %s %s %s" % (self.tableName, setStatement, whereStatement)
+            return updateQuery
 
     def convertValuesToInsertString(self):
         convertedList = ["'%s'" % insertValue for insertValue in self.insertValues]
