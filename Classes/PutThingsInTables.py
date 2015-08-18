@@ -13,22 +13,26 @@ class PutThingsInTables(object):
 
     def createSQLQueryInsert(self):
         if self.checkEqualColumnsValues():
-            columns = self.convertColumnNames()
-            values = self.convertInsertValues()
+            columns = self.convertColumnNamesToInsertString()
+            values = self.convertInsertValuesToInsertString()
             query = "insert into %s (%s) values (%s)" % (self.tableName, columns, values)
             return query
 
-    def convertInsertValues(self):
-        convertedList = []
-        for value in self.insertValues:
-            convertedValue = "'%s'" % value
-            convertedList.append(convertedValue)
+    # def createSQLQueryUpdate(self):
+
+
+    def convertInsertValuesToInsertString(self):
+        convertedList = ["'%s'" % insertValue for insertValue in self.insertValues]
         insertValuesString = ', '.join(convertedList)
         return insertValuesString
 
-    def convertColumnNames(self):
+    def convertColumnNamesToInsertString(self):
         columnNamesString = ', '.join(self.columnNames)
         return columnNamesString
+
+    def convertInsertValuesToSingleQuoteForm(self):
+        singleQuoteInsertValues = ["'%s'" % insertValue for insertValue in self.insertValues]
+        return singleQuoteInsertValues
 
     def checkEqualColumnsValues(self):
         if len(self.insertValues) == len(self.columnNames):
