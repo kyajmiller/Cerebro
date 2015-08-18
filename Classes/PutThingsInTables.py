@@ -15,16 +15,17 @@ class PutThingsInTables(object):
         self.db = SUDBConnect(server=server, database=database)
 
     def createSQLQueryInsert(self):
-        if self.checkEqualColumnsValues():
+        if self.checkEqualColumnsValues(self.columnNames, self.insertValues):
             columns = self.convertColumnNamesToInsertString()
-            values = self.convertInsertValuesToInsertString()
+            values = self.convertValuesToInsertString()
             query = "insert into %s (%s) values (%s)" % (self.tableName, columns, values)
             return query
 
     def createSQLQueryUpdate(self):
-        if
+        if self.whereColumnNames and self.whereValues:
+            whereStatement = self.creatWhereStatement()
 
-    def convertInsertValuesToInsertString(self):
+    def convertValuesToInsertString(self):
         convertedList = ["'%s'" % insertValue for insertValue in self.insertValues]
         insertValuesString = ', '.join(convertedList)
         return insertValuesString
@@ -33,10 +34,16 @@ class PutThingsInTables(object):
         columnNamesString = ', '.join(self.columnNames)
         return columnNamesString
 
-    def convertInsertValuesToSingleQuoteForm(self):
-        singleQuoteInsertValues = ["'%s'" % insertValue for insertValue in self.insertValues]
+    def convertValuesToSingleQuoteForm(self, valuesList):
+        singleQuoteInsertValues = ["'%s'" % value for value in valuesList]
         return singleQuoteInsertValues
 
-    def checkEqualColumnsValues(self):
-        if len(self.insertValues) == len(self.columnNames):
+    def checkEqualColumnsValues(self, columns, values):
+        if len(columns) == len(values):
             return True
+
+    def creatWhereStatement(self):
+        convertedWhereValues = self.convertValuesToSingleQuoteForm(self.whereValues)
+        whereColumnValuePairs = []
+
+        # for i in range(len())
