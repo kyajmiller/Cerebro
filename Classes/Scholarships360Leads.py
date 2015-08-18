@@ -14,6 +14,8 @@ class Scholarships360Leads(object):
 
         self.loopThroughResultsListPages()
 
+        self.resultPageArrays = []
+
     def loopThroughResultsListPages(self):
         nextPageExists = self.checkIfNextPage()
         while nextPageExists:
@@ -25,6 +27,15 @@ class Scholarships360Leads(object):
         urlsList = self.getUrlsList()
         deadlinesList = self.getDeadlinesList()
         amountsList = self.getAmountsList()
+
+        for i in range(len(titlesList)):
+            title = titlesList[i]
+            url = urlsList[i]
+            deadline = deadlinesList[i]
+            amount = amountsList[i]
+
+            resultPageArray = [title, url, deadline, amount]
+            self.resultPageArrays.append(resultPageArray)
 
     def getTitlesList(self):
         titlesList = []
