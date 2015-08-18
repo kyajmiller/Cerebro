@@ -1,23 +1,16 @@
-from Classes.ClassifyFundingTypeKeywordBased import ClassifyFundingTypeKeywordBased
+from Classes.RunFundingClassifier import RunFundingClassifier
 from Classes.CheggLeadsGetDatabaseInfo import CheggLeadsGetDatabaseInfo
-from Classes.SUDBConnect import SUDBConnect
 
 
-class RunFundingClassiferOnCheggLeads(object):
-    @staticmethod
-    def getPredictedTagsInsertIntoDatabase():
-        db = SUDBConnect()
+class RunFundingClassiferOnCheggLeads(RunFundingClassifier):
+    def __init__(self):
+        self.titleConcatenatedEligibilityApplicationOverviewList = CheggLeadsGetDatabaseInfo().getTitleConcatenatedEligibilityAppplictionOverviewList()
+        self.listCheggLeadsIds = CheggLeadsGetDatabaseInfo().getCheggLeadsIds()
+        self.tableName = 'CheggLeads'
+        self.idColumnName = 'CheggLeadId'
+        RunFundingClassifier.__init__(self, self.titleConcatenatedEligibilityApplicationOverviewList)
 
-        titleConcatenatedEligibilityApplicationOverviewList = CheggLeadsGetDatabaseInfo().getTitleConcatenatedEligibilityAppplictionOverviewList()
-        predictedTags = ClassifyFundingTypeKeywordBased(
-            titleConcatenatedEligibilityApplicationOverviewList).returnPredictedTags()
-        listCheggLeadsIds = CheggLeadsGetDatabaseInfo().getCheggLeadsIds()
-
-        for i in range(len(predictedTags)):
-            tag = predictedTags[i]
-            cheggLeadId = listCheggLeadsIds[i]
-            db.insertUpdateOrDelete(
-                "update dbo.CheggLeads set Tag='" + tag + "' where CheggLeadId='" + cheggLeadId + "'")
+        self.getPredictedTagsInsertIntoDB(self.tableName, self.idColumnName, self.listCheggLeadsIds)
 
 
-RunFundingClassiferOnCheggLeads.getPredictedTagsInsertIntoDatabase()
+RunFundingClassiferOnCheggLeads()
