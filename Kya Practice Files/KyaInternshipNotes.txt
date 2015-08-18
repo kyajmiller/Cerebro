@@ -876,5 +876,26 @@ SourceWebsite = "//button[@class='btn-primary-sm save-profile chgsec_hostedsc-ap
 -FastWebLeads works perfectly fine, will make insert class and processing class before go home
 
 
+8/18 Notes:
+-Need to actually write up the thing for Mike today, don't forget!
+-Check if FastWeb worked correctly, if not rerun it; add Tag column
+-Write FastWebGetDatabaseInfo
+-Write populate class, make requirements table
+-Populate the thing
+-Yay
+
+-I'm thinking I want to try to make a superclass for the FundingClassifier run classes, so will do that first
+-Need to add an update thing to PutThingsInTables - done!
+-Wrote the RunFundingClassifier super class and implemented it in the relevant classes
+--Didn't implement it for GrantForward or Pivot because those ones loop over a keywords list, and I'm not sure how a superclass will work with a keywords list
+-Having all of the super classes is really convenient, because it allows for the subclasses to just be a couple of lines long. So nice.
+-FastWebLeads officially finished
+
+-Begin work on Scholarships360
+-titles: "//h2/a" .textContent
+-urls: "//h2/a" .href
+-deadline: "//span[@class='due']" .textContent, filter out Due:
+-amount: "//span[@class='amount']" .textContent, filter out Amount:
+
 
 
