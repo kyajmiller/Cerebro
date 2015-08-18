@@ -11,15 +11,15 @@ class ClassifyFundingTypeKeywordBased(object):
         return self.predictedTags
 
     def loopThroughOpportunitiesAndClassify(self):
-        for titleAbstract in self.listOfOpportunitiesToBeClassified:
-            title = titleAbstract[0]
-            abstract = titleAbstract[1]
-            tag = self.classifyOpportunity(title, abstract)
+        for titleInfo in self.listOfOpportunitiesToBeClassified:
+            title = titleInfo[0]
+            info = titleInfo[1]
+            tag = self.classifyOpportunity(title, info)
             self.predictedTags.append(tag)
 
-    def classifyOpportunity(self, title, abstract):
+    def classifyOpportunity(self, title, info):
         unigramsTitle = TokenizeOnWhitespacePunctuation(title, applyStopwords=True).getUnigrams()
-        unigramsAbstract = TokenizeOnWhitespacePunctuation(abstract, applyStopwords=True).getUnigrams()
+        unigramsInfo = TokenizeOnWhitespacePunctuation(info, applyStopwords=True).getUnigrams()
 
         if self.checkFellowshipKeywordsTitle(unigramsTitle):
             tag = 'Fellowship'
@@ -29,19 +29,19 @@ class ClassifyFundingTypeKeywordBased(object):
             tag = 'Scholarship'
         elif self.checkGrantKeywords(unigramsTitle):
             tag = 'Grant'
-        elif self.checkFellowshipKeywordsAbstract(unigramsAbstract):
+        elif self.checkFellowshipKeywordsInfo(unigramsInfo):
             tag = 'Fellowship'
-        elif self.checkInternshipKeywords(unigramsAbstract):
+        elif self.checkInternshipKeywords(unigramsInfo):
             tag = 'Internship'
-        elif self.checkGrantKeywords(unigramsAbstract):
+        elif self.checkGrantKeywords(unigramsInfo):
             tag = 'Grant'
         elif self.checkAwardKeywords(unigramsTitle):
             tag = 'Award'
-        elif self.checkScholarshipKeywords(unigramsAbstract):
+        elif self.checkScholarshipKeywords(unigramsInfo):
             tag = 'Scholarship'
         elif self.checkResearchKeywords(unigramsTitle):
             tag = 'Research'
-        elif self.checkResearchKeywords(unigramsAbstract):
+        elif self.checkResearchKeywords(unigramsInfo):
             tag = 'Research'
         else:
             tag = 'Other'
@@ -58,7 +58,7 @@ class ClassifyFundingTypeKeywordBased(object):
 
         return keywordExists
 
-    def checkFellowshipKeywordsAbstract(self, unigrams):
+    def checkFellowshipKeywordsInfo(self, unigrams):
         fellowshipKeywords = ['fellowship', 'fellowships', 'fellow']
         keywordExists = False
 
