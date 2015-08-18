@@ -2,10 +2,13 @@ from Classes.SUDBConnect import SUDBConnect
 
 
 class PutThingsInTables(object):
-    def __init__(self, tableName, columnNames, insertValues, server='SUDB-DEV', database='Spiderman'):
+    def __init__(self, tableName, columnNames, insertValues, whereColumnNames=None, whereValues=None, server='SUDB-DEV',
+                 database='Spiderman'):
         self.tableName = 'dbo.%s' % tableName
         self.insertValues = insertValues
         self.columnNames = columnNames
+        self.whereValues = whereValues
+        self.whereColumnNames = whereColumnNames
         self.server = server
         self.database = database
 
@@ -18,8 +21,8 @@ class PutThingsInTables(object):
             query = "insert into %s (%s) values (%s)" % (self.tableName, columns, values)
             return query
 
-    # def createSQLQueryUpdate(self):
-
+    def createSQLQueryUpdate(self):
+        if
 
     def convertInsertValuesToInsertString(self):
         convertedList = ["'%s'" % insertValue for insertValue in self.insertValues]
