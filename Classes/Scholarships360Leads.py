@@ -17,9 +17,12 @@ class Scholarships360Leads(object):
         self.resultPageArrays = []
 
     def loopThroughResultsListPages(self):
+        self.getResultsOnCurrentPage()
+
         nextPageExists = self.checkIfNextPage()
         while nextPageExists:
             self.goToNextPage()
+            self.getResultsOnCurrentPage()
             nextPageExists = self.checkIfNextPage()
 
     def getResultsOnCurrentPage(self):
