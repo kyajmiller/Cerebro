@@ -1,22 +1,16 @@
-from Classes.ClassifyFundingTypeKeywordBased import ClassifyFundingTypeKeywordBased
+from Classes.RunFundingClassifier import RunFundingClassifier
 from Classes.IefaLeadsGetDatabaseInfo import IefaLeadsGetDatabaseInfo
-from Classes.SUDBConnect import SUDBConnect
 
 
-class RunFundingClassifierOnIefaLeads(object):
-    @staticmethod
-    def getPredictedTagsInsertIntoDatabase():
-        db = SUDBConnect()
+class RunFundingClassifierOnIefaLeads(RunFundingClassifier):
+    def __init__(self):
+        self.titleConcatenatedDescriptionOtherCriteriaList = IefaLeadsGetDatabaseInfo().getTitleConcatenatedDescriptionOtherCriteriaList()
+        self.listIefaLeadsIds = IefaLeadsGetDatabaseInfo().getIefaLeadsIds()
+        self.tableName = 'IefaLeads'
+        self.idColumnName = 'IefaLeadId'
+        RunFundingClassifier.__init__(self, self.titleConcatenatedDescriptionOtherCriteriaList)
 
-        titleConcatenatedDescriptionOtherCriteriaList = IefaLeadsGetDatabaseInfo().getTitleConcatenatedDescriptionOtherCriteriaList()
-        predictedTags = ClassifyFundingTypeKeywordBased(
-            titleConcatenatedDescriptionOtherCriteriaList).returnPredictedTags()
-        listIefaLeadsIds = IefaLeadsGetDatabaseInfo().getIefaLeadsIds()
-
-        for i in range(len(predictedTags)):
-            tag = predictedTags[i]
-            iefaLeadId = listIefaLeadsIds[i]
-            db.insertUpdateOrDelete("update dbo.IefaLeads set Tag='" + tag + "' where IefaLeadId='" + iefaLeadId + "'")
+        self.getPredictedTagsInsertIntoDB(self.tableName, self.idColumnName, self.listIefaLeadsIds)
 
 
-RunFundingClassifierOnIefaLeads.getPredictedTagsInsertIntoDatabase()
+RunFundingClassifierOnIefaLeads()
