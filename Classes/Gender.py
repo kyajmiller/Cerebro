@@ -7,10 +7,8 @@ class Gender(Parser):
         Parser.__init__(self, self.stringToScan, '(?:\s|\>)[mM]ale|(?:\s|\>)+[Ff]emale|(?:\s|\>)+[Ww]omen|(?:\s|\>)+[Mm]en')
         self.resultList = []
 
-
     def checkContext(self, contextCriteria):
         return Parser(self.stringToScan.lower(), contextCriteria).doesMatchExist()
-
 
     def getRequiredGender(self):
         if self.doesMatchExist():
