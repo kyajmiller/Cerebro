@@ -23,7 +23,8 @@ class PutThingsInTables(object):
 
     def createSQLQueryUpdate(self):
         if self.whereColumnNames and self.whereValues:
-            whereStatement = self.creatWhereStatement()
+            whereStatement = self.createWhereStatement()
+            setStatement = self.createSetStatement()
 
     def convertValuesToInsertString(self):
         convertedList = ["'%s'" % insertValue for insertValue in self.insertValues]
@@ -42,8 +43,32 @@ class PutThingsInTables(object):
         if len(columns) == len(values):
             return True
 
-    def creatWhereStatement(self):
+    def createWhereStatement(self):
         convertedWhereValues = self.convertValuesToSingleQuoteForm(self.whereValues)
         whereColumnValuePairs = []
 
-        # for i in range(len())
+        if self.checkEqualColumnsValues(self.whereColumnNames, convertedWhereValues):
+            for i in range(len(self.whereColumnNames)):
+                column = self.whereColumnNames[i]
+                value = convertedWhereValues[i]
+                pairString = "%s=%s" % (column, value)
+                whereColumnValuePairs.append(pairString)
+
+        whereColumnValuePairsString = ' and '.join(whereColumnValuePairs)
+        whereStatement = 'where %s' % whereColumnValuePairsString
+        return whereStatement
+
+    def createSetStatement(self):
+        convertedInsertValues = self.convertValuesToSingleQuoteForm(self.insertValues)
+        setColumnValuePairs = []
+
+        if self.checkEqualColumnsValues(self.columnNames, convertedInsertValues):
+            for i in range(len(self.columnNames)):
+                column = self.columnNames[i]
+                value = convertedInsertValues[i]
+                pairString = "%s=%s" % (column, value)
+                setColumnValuePairs.append(pairString)
+
+        setColumnValuePairsString = ', '.join(setColumnValuePairs)
+        setStatement = 'set %s' % setColumnValuePairsString
+        return setStatement
