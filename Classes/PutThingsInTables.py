@@ -11,7 +11,7 @@ class PutThingsInTables(object):
 
         self.db = SUDBConnect(server=server, database=database)
 
-    def createSQLQuery(self):
+    def createSQLQueryInsert(self):
         if self.checkEqualColumnsValues():
             columns = self.convertColumnNames()
             values = self.convertInsertValues()
