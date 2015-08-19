@@ -16,6 +16,22 @@ class Scholarships360Leads(object):
 
         self.resultPageArrays = []
 
+    def getLeads(self):
+        self.loopThroughResultsListPages()
+        for resultArray in self.resultPageArrays:
+            title = resultArray[0]
+            url = resultArray[1]
+            deadline = resultArray[2]
+            amount = resultArray[3]
+
+            self.makeLeadArray(title, url, deadline, amount)
+
+    def makeLeadArray(self, title, url, deadline, amount):
+        scholarshipPageArray = self.getInfoFromScholarshipPage(url)
+
+    def getInfoFromScholarshipPage(self, url):
+        pass
+
     def loopThroughResultsListPages(self):
         self.getResultsOnCurrentPage()
 
