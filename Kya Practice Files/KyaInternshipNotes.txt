@@ -898,4 +898,19 @@ SourceWebsite = "//button[@class='btn-primary-sm save-profile chgsec_hostedsc-ap
 -amount: "//span[@class='amount']" .textContent, filter out Amount:
 
 
+8/19 Notes:
+-Okay, actually write up the thing for Mike. Now.
+-Actually typed it up and sent the thing to Mike, yay.
+-Continue working on Scholarships360, ugh
+
+Stuff to get from the individual pages:
+description: "//div[@class='entry-content']/p[1]" textContent
+eligibility: "//div[@class='entry-content']/p/strong[text() = 'Who is eligible to apply?']/../following-sibling::ul[1]" textContent
+amountInfo: "//div[@class='entry-content']/p/strong[text() = 'How much is each scholarship worth?']/../following-sibling::p[1]" textContent
+deadlineInfo: "//div[@class='entry-content']/p/strong[text() = 'When is the deadline to apply?']/../following-sibling::ul[1]" textContent
+sourceWebsite: "//span[@class='apply']/a" href
+
+-Finished Scholarships360Leads, still untested
+-Make table, make insert class, make process class
+
 
