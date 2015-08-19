@@ -12,8 +12,6 @@ class Scholarships360Leads(object):
         self.driver.get(self.base_url + 'discover-scholarships')
         self.driver.implicitly_wait(2)
 
-        self.loopThroughResultsListPages()
-
         self.resultPageArrays = []
         self.scholarships360Leads = []
 
