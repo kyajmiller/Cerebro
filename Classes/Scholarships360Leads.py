@@ -23,7 +23,8 @@ class Scholarships360Leads(object):
             deadline = resultArray[2]
             amount = resultArray[3]
 
-            self.makeLeadArray(title, url, deadline, amount)
+            if url != 'https://scholarships360.org/waaw-foundation-scholarship-program/':
+                self.makeLeadArray(title, url, deadline, amount)
 
         self.driver.quit()
         return self.scholarships360Leads
