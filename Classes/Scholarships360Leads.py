@@ -30,7 +30,49 @@ class Scholarships360Leads(object):
         scholarshipPageArray = self.getInfoFromScholarshipPage(url)
 
     def getInfoFromScholarshipPage(self, url):
-        pass
+        self.driver.get(url)
+        self.driver.implicitly_wait(2)
+
+        description = ''
+        eligibility = ''
+        amountInfo = ''
+        deadlineInfo = ''
+        sourceWebsite = ''
+        sourceText = ''
+
+        if self.checkIfElementExists("//div[@class='entry-content']/p[1]"):
+            description = self.driver.find_element_by_xpath("//div[@class='entry-content']/p[1]").get_attribute(
+                'textContent')
+            description = CleanText.cleanALLtheText(description)
+
+        if self.checkIfElementExists(
+                "//div[@class='entry-content']/p/strong[text() = 'Who is eligible to apply?']/../following-sibling::ul[1]"):
+            eligibility = self.driver.find_element_by_xpath(
+                "//div[@class='entry-content']/p/strong[text() = 'Who is eligible to apply?']/../following-sibling::ul[1]").get_attribute(
+                'textContent')
+            eligibility = CleanText.cleanALLtheText(eligibility)
+
+        if self.checkIfElementExists(
+                "//div[@class='entry-content']/p/strong[text() = 'How much is each scholarship worth?']/../following-sibling::p[1]"):
+            amountInfo = self.driver.find_element_by_xpath(
+                "//div[@class='entry-content']/p/strong[text() = 'How much is each scholarship worth?']/../following-sibling::p[1]").get_attribute(
+                'textContent')
+            amountInfo = CleanText.cleanALLtheText(amountInfo)
+
+        if self.checkIfElementExists(
+                "//div[@class='entry-content']/p/strong[text() = 'When is the deadline to apply?']/../following-sibling::ul[1]"):
+            deadlineInfo = self.driver.find_element_by_xpath(
+                "//div[@class='entry-content']/p/strong[text() = 'When is the deadline to apply?']/../following-sibling::ul[1]").get_attribute(
+                'textContent')
+            deadlineInfo = CleanText.cleanALLtheText(deadlineInfo)
+
+        if self.checkIfElementExists("//span[@class='apply']/a"):
+            sourceWebsite = self.driver.find_element_by_xpath("//span[@class='apply']/a").get_attribute('href')
+            sourceText = RipPage.getPageSource(sourceWebsite)
+            sourceText = CleanText.cleanALLtheText(sourceText)
+
+        scholarshipPageInfoArray = [description, eligibility, amountInfo, deadlineInfo, sourceWebsite, sourceText]
+        return scholarshipPageInfoArray
 
     def loopThroughResultsListPages(self):
         self.getResultsOnCurrentPage()
@@ -105,6 +147,13 @@ class Scholarships360Leads(object):
     def checkIfNextPage(self):
         nextPageDiv = self.driver.find_elements_by_xpath("//a[@class='next page-numbers']")
         if nextPageDiv != []:
+            return True
+        else:
+            return False
+
+    def checkIfElementExists(self, xpath):
+        checkElementExists = self.driver.find_elements_by_xpath(xpath)
+        if checkElementExists != []:
             return True
         else:
             return False
