@@ -15,6 +15,7 @@ class Scholarships360Leads(object):
         self.loopThroughResultsListPages()
 
         self.resultPageArrays = []
+        self.scholarships360Leads = []
 
     def getLeads(self):
         self.loopThroughResultsListPages()
@@ -26,8 +27,21 @@ class Scholarships360Leads(object):
 
             self.makeLeadArray(title, url, deadline, amount)
 
+        self.driver.quit()
+        return self.scholarships360Leads
+
     def makeLeadArray(self, title, url, deadline, amount):
         scholarshipPageArray = self.getInfoFromScholarshipPage(url)
+        description = scholarshipPageArray[0]
+        eligibility = scholarshipPageArray[1]
+        amountInfo = scholarshipPageArray[2]
+        deadlineInfo = scholarshipPageArray[3]
+        sourceWebsite = scholarshipPageArray[4]
+        sourceText = scholarshipPageArray[5]
+
+        scholarships360Lead = [title, url, description, eligibility, amount, amountInfo, deadline, deadlineInfo,
+                               sourceWebsite, sourceText]
+        self.scholarships360Leads.append(scholarships360Lead)
 
     def getInfoFromScholarshipPage(self, url):
         self.driver.get(url)
@@ -158,5 +172,3 @@ class Scholarships360Leads(object):
         else:
             return False
 
-
-Scholarships360Leads()
