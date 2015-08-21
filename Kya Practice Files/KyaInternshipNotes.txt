@@ -947,3 +947,4 @@ Want to start filtering out scholarships that are for specific schools that are 
 -Train on IefaLeads
 --Read through, if find scholarships that have specific uni/college requirements, make notes of what they say so you can use it
 in the algorithm later
+
