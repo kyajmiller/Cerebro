@@ -947,4 +947,39 @@ Want to start filtering out scholarships that are for specific schools that are 
 -Train on IefaLeads
 --Read through, if find scholarships that have specific uni/college requirements, make notes of what they say so you can use it
 in the algorithm later
+-Iefa leads might have been a bad choice for training, all of this seems to be study abroad stuff
 
+Bad stuff:
+-Check host institution, if there is one, and it's not UA, then it's bad
+-Scholarships for studying in other states besides Arizona.
+--Ex: 'attending school in Utah'
+-lol basically mentioning any specific university so far
+---but what about summer programs? summer program at other university, could be of interest to UA students
+---study abroad
+-other countries that aren't actually study abroad scholarships
+--There's a difference between study abroad and actually attending school in a different country.
+--Study abroad impplies temporary study where you will study at your home institution both before and after the completion of the study abroad
+--While going to college in a different country, there is no home institution \
+--I DON'T KNOW
+-this is gonna be hard
+--scholarships where the sponsor is a specific university (in the US) are probably scholarships *for* that university, so look at sponsor and name
+--when naming a university outside of the US, check description info for study abroad ish terms
+-mentioning a required nationality that isn't american
+-Maybe: 'international student studying in the United States'
+--This would be relevant to international students.
+-Scholarships which say something like 'awarded upon admission to blah blah school'
+--Look up the word School/University/College attached to any other capitalized word
+-Requires nationality that isn't American. While there are a lot of international students at this school, that's a little restrictive
+--And kind of no point having a scholarship that requires a particular nationality that may only ever fit a single student that uses SU ever
+-mentioning specific cities that aren't Tucson... unless it's study abroad; mentioning specific countries
+-reside in or attend school in non-Tucson/Arizona
+-at a (other place) university
+-academy
+
+-Some of this stuff is just straight up weird
+-The weird scholarship that wants to give money to middle school students...
+-Some of these aren't actually even scholarships, but advertisements for people to apply to their school...
+
+Thoughts:
+-May need to use the ntlk pos tagger and named entity recognition to pull out organizations/locations
+--This may be the most effective way to filter out scholarships that aren't related to Tucson
