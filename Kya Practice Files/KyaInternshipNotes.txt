@@ -913,4 +913,37 @@ sourceWebsite: "//span[@class='apply']/a" href
 -Finished Scholarships360Leads, still untested
 -Make table, make insert class, make process class
 
+8/21 Notes:
+-Scholarships360Leads appears to have run through and inserted stuff with no problems
+-Actually, there seems to be an issue with my xpath for eligibility, amountInfo, and deadlineInfo as only the very first result even has them filled
+--It seems to be because my xpath is looking for a node with really specific text, and the text changes from scholarship to scholarship (because they have the scholarship name inside them)
+--Will try modifying it to use contains text and see if that helps, hopefully each eligibility and amountInfo and deadlineInfo have some sort of unique thing that they all share
 
+Try these:
+eligibility: "//div[@class='entry-content']/p/strong[contains(text(), 'eligible')]/../following-sibling::ul[1]"
+
+amountInfo: "//div[@class='entry-content']/p/strong[contains(text(), 'How much')]/../following-sibling::p[1]"
+"//div[@class='entry-content']/p/strong[contains(text(), 'How much')]/../following-sibling::*[1]"
+deadlineIInfo: "//div[@class='entry-content']/p/strong[contains(text(), 'deadline')]/../following-sibling::ul[1]"
+
+
+-ugh, this site is really inconsistent with what they want to label stuff. I really really don't like this
+-going to need some elif statements to try to capture everything
+
+eligibility:
+"//div[@class='entry-content']/h3[contains(text(), 'Eligible')]/following-sibling::*[1]"
+"//div[@class='entry-content']/h3[contains(text(), 'eligible')]/following-sibling::*[1]"
+"//div[@class='entry-content']/p/strong[contains(text(), 'eligible')]/../following-sibling::*[1]"
+amountInfo:
+
+deadline:
+"//div[@class='entry-content']/h3[contains(text(), 'deadline')]/following-sibling::*[1]"
+"//div[@class='entry-content']/p/strong[contains(text(), 'deadline')]/../following-sibling::*[1]"
+-nvm will continue working on this later, do something else now
+
+----------------------NO MORE CRAWLING YAY------------------------(for now)
+Want to start filtering out scholarships that are for specific schools that are not the UA
+-So we need a way to check for this information and remove the bad stuff
+-Train on IefaLeads
+--Read through, if find scholarships that have specific uni/college requirements, make notes of what they say so you can use it
+in the algorithm later
