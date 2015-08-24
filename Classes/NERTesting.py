@@ -50,22 +50,9 @@ class NERTesting(object):
                         unigrams[i + 1] = unigrams[i + 1].title()
 
             posTagUnigrams = nltk.pos_tag(unigrams)
-            sentenceChunk = nltk.ne_chunk(posTagUnigrams)
-            print(sentenceChunk)
-
-            organizations = []
-            for treeBranch in sentenceChunk:
-                if hasattr(treeBranch, 'label') and treeBranch.label() == 'ORGANIZATION':
-                    organizations.append(str(treeBranch))
-            organizations = self.formatNamedEntities(organizations)
-            print(organizations)
-
-            geoPoliticalEntities = []
-            for treeBranch in sentenceChunk:
-                if hasattr(treeBranch, 'label') and treeBranch.label() == 'GPE':
-                    geoPoliticalEntities.append(str(treeBranch))
-            geoPoliticalEntities = self.formatNamedEntities(geoPoliticalEntities)
-            print(geoPoliticalEntities)
+            namedEntitiesOrgGPEList = self.parseNamedEntities(posTagUnigrams)
+            organizations = namedEntitiesOrgGPEList[0]
+            gpes = namedEntitiesOrgGPEList[1]
 
     def parseNamedEntities(self, posTagUnigrams):
         chunkNamedEntities = nltk.ne_chunk(posTagUnigrams)
@@ -75,14 +62,15 @@ class NERTesting(object):
             if hasattr(treeBranch, 'label') and treeBranch.label() == 'ORGANIZATION':
                 organizations.append(str(treeBranch))
         organizations = self.formatNamedEntities(organizations)
-        print(organizations)
 
         geoPoliticalEntities = []
         for treeBranch in chunkNamedEntities:
             if hasattr(treeBranch, 'label') and treeBranch.label() == 'GPE':
                 geoPoliticalEntities.append(str(treeBranch))
         geoPoliticalEntities = self.formatNamedEntities(geoPoliticalEntities)
-        print(geoPoliticalEntities)
+
+        namedEntitiesOrgGPEList = [organizations, geoPoliticalEntities]
+        return namedEntitiesOrgGPEList
 
     def formatNamedEntities(self, namedEntityList):
         formattedStrings = []
