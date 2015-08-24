@@ -38,5 +38,9 @@ class NERTesting(object):
 
         return badSponsor
 
-    def prepTextForNER(self):
-        pass
+    def checkBadText(self, infoText):
+        infoTextSentences = TokenizeIntoSentences.doTokenize(infoText)
+        for sentence in infoTextSentences:
+            unigrams = TokenizeOnWhitespacePunctuation(sentence, keepCaps=True).getUnigrams()
+            posTagUnigrams = nltk.pos_tag(unigrams)
+            print(posTagUnigrams)
