@@ -1,4 +1,5 @@
 import nltk
+import re
 from Classes.IefaLeadsGetDatabaseInfo import IefaLeadsGetDatabaseInfo
 from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
 from Classes.TokenizeIntoSentences import TokenizeIntoSentences
@@ -50,13 +51,30 @@ class NERTesting(object):
 
             posTagUnigrams = nltk.pos_tag(unigrams)
             sentenceChunk = nltk.ne_chunk(posTagUnigrams)
-            # print(sentenceChunk)
+            print(sentenceChunk)
 
+            organizations = []
             for treeBranch in sentenceChunk:
                 if hasattr(treeBranch, 'label') and treeBranch.label() == 'ORGANIZATION':
-                    # print(treeBranch)
-                    # print(type(treeBranch))
-                    tryString = str(treeBranch)
-                    print(type(tryString))
+                    organizations.append(str(treeBranch))
+            organizations = self.formatNamedEntities(organizations)
+            print(organizations)
 
-    def getTreeNodes(self, ):
+            geoPoliticalEntities = []
+            for treeBranch in sentenceChunk:
+                if hasattr(treeBranch, 'label') and treeBranch.label() == 'GPE':
+                    geoPoliticalEntities.append(str(treeBranch))
+
+    def formatNamedEntities(self, namedEntityList):
+        formattedStrings = []
+
+        for namedEntity in namedEntityList:
+            result = re.sub('ORGANIZATION\s', '', namedEntity)
+            result = re.sub('GPE\s', '', result)
+            result = re.sub('/[A-Z]+', '', result)
+            result = re.sub('\(', '', result)
+            result = re.sub('\)', '', result)
+
+            formattedStrings.append(result)
+
+        return formattedStrings
