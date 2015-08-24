@@ -3,9 +3,14 @@ from Classes.StopwordsList import StopwordsList
 
 
 class TokenizeOnWhitespacePunctuation(object):
-    def __init__(self, stringToTokenize, applyStopwords=False):
+    def __init__(self, stringToTokenize, applyStopwords=False, keepCaps=False):
+        self.keepCaps = keepCaps
         self.applyStopwords = applyStopwords
-        self.stringToTokenize = stringToTokenize.lower()
+
+        if self.keepCaps:
+            self.stringToTokenize = stringToTokenize
+        else:
+            self.stringToTokenize = stringToTokenize.lower()
 
         self.listOfStopwords = StopwordsList.stopwords()
 
