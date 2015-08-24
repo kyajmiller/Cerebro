@@ -5,6 +5,7 @@ from Classes.NERTesting import NERTesting
 class TestStringMethods(unittest.TestCase):
     def test_checkSponsorBadInstitutions(self):
         nertest = NERTesting()
+
         sponsor1 = 'University of Arizona'
         testSponsor1 = nertest.checkSponsorForBadInstitutions(sponsor1)
         self.assertFalse(testSponsor1)
