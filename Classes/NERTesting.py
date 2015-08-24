@@ -41,6 +41,8 @@ class NERTesting(object):
 
     def checkBadText(self, infoText):
         infoTextSentences = TokenizeIntoSentences.doTokenize(infoText)
+        badText = False
+
         for sentence in infoTextSentences:
             unigrams = TokenizeOnWhitespacePunctuation(sentence, keepCaps=True).getUnigrams()
             educationKeywords = ['University', 'School', 'Institute', 'College']
@@ -52,7 +54,24 @@ class NERTesting(object):
             posTagUnigrams = nltk.pos_tag(unigrams)
             namedEntitiesOrgGPEList = self.parseNamedEntities(posTagUnigrams)
             organizations = namedEntitiesOrgGPEList[0]
-            gpes = namedEntitiesOrgGPEList[1]
+            geoPoliticalEntities = namedEntitiesOrgGPEList[1]
+
+            for organization in organizations:
+                educationRegex = '|'.join(educationKeywords)
+                if re.search(educationRegex, str(organization)):
+                    if organization != 'University Of Arizona':
+                        badText = True
+
+            if len(geoPoliticalEntities) > 0:
+                for gpe in geoPoliticalEntities:
+                    allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson']
+                    locationsRegex = '|'.join(allowedLocations)
+                    if not re.search(locationsRegex, str(gpe)):
+                        badText = True
+                    else:
+                        badText = False
+
+        print(badText)
 
     def parseNamedEntities(self, posTagUnigrams):
         chunkNamedEntities = nltk.ne_chunk(posTagUnigrams)
