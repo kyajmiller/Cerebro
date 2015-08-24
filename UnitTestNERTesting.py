@@ -24,7 +24,7 @@ class TestStringMethods(unittest.TestCase):
 
     def test_CheckBadText(self):
         nertest = NERTesting()
-
+        '''
         infoText1 = 'I like cheese. Cheese tastes good.'
         posTags = nertest.checkBadText(infoText1)
 
@@ -33,6 +33,12 @@ class TestStringMethods(unittest.TestCase):
 
         infoText3 = "I don't know why they make cheese into an adjective."
         posTags = nertest.checkBadText(infoText3)
+        '''
+        infoText4 = 'I go to the University of Arizona in Tucson, Arizona'
+        neChunks = nertest.checkBadText(infoText4)
+
+        infoText5 = 'That guy teaches at the Arizona University'
+        neChunks = nertest.checkBadText(infoText5)
 
 
 if __name__ == '__main__':
