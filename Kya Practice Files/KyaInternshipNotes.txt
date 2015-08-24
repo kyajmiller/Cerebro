@@ -1027,5 +1027,6 @@ What to do:
 
 -So far have been able to get it to check the extracted NERs against a list of locations and it's relatively fine, it'll return False for something mentioning the UA, which is good
 -however, when tested against Albania it returns None. It should at the very least default to False, so it's weird...
+-nvm, turns out I'm stupid, forgot to have the function return the boolean, not just print it
 
 
