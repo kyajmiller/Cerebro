@@ -42,5 +42,12 @@ class NERTesting(object):
         infoTextSentences = TokenizeIntoSentences.doTokenize(infoText)
         for sentence in infoTextSentences:
             unigrams = TokenizeOnWhitespacePunctuation(sentence, keepCaps=True).getUnigrams()
+            educationKeywords = ['University', 'School', 'Institute', 'College']
+            for i in range(len(unigrams) - 1):
+                if unigrams[i] in educationKeywords:
+                    if unigrams[i + 1] == 'of':
+                        unigrams[i + 1] = unigrams[i + 1].title()
+
             posTagUnigrams = nltk.pos_tag(unigrams)
-            print(posTagUnigrams)
+            sentenceChunk = nltk.ne_chunk(posTagUnigrams)
+            print(sentenceChunk)
