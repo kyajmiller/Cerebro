@@ -62,6 +62,20 @@ class IefaLeadsGetDatabaseInfo(object):
 
         return iefaLeadsIds
 
+    def getSponsors(self):
+        sponsors = []
+
+        if self.tag:
+            rows = self.db.getRows("select * from dbo.IefaLeads where Tag='" + self.tag + "'")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+        else:
+            rows = self.db.getRows("select * from dbo.IefaLeads")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+
+        return sponsors
+
     def getTitleConcatenatedDescriptionOtherCriteriaList(self):
         wholeList = []
 
