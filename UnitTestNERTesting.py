@@ -26,18 +26,14 @@ class TestStringMethods(unittest.TestCase):
 
     def test_CheckBadText(self):
         nertest = NERTesting()
-        '''
-        infoText1 = 'I like cheese. Cheese tastes good.'
-        posTags = nertest.checkBadText(infoText1)
 
-        infoText2 = 'They refuse to permit us to obtain the refuse permit.'
-        posTags = nertest.checkBadText(infoText2)
+        infoText = 'I go to the University of Arizona in Tucson, Arizona'
+        testText = nertest.checkBadText(infoText)
+        self.assertFalse(testText)
 
-        infoText3 = "I don't know why they make cheese into an adjective."
-        posTags = nertest.checkBadText(infoText3)
-        '''
-        infoText4 = 'I go to the University of Arizona in Tucson, Arizona'
-        neChunks = nertest.checkBadText(infoText4)
+        infoText = 'You must go to a university in Albania'
+        testText = nertest.checkBadText(infoText)
+        self.assertTrue(testText)
 
     def test_nltkTokenizer(self):
         sentence = 'I live in Tucson, Arizona and I have a cat.'
