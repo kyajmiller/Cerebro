@@ -1,4 +1,4 @@
-import nltk.data
+from Classes.TokenizeIntoSentences import TokenizeIntoSentences
 from Classes.SUDBConnect import SUDBConnect
 from Classes.GetFastFindMajorsList import GetFastFindMajorsList
 from Classes.GPA import GPA
@@ -12,11 +12,9 @@ class PopulateRequirements(object):
         self.requirementsTableColumns = requirementsTableColumns
         self.requirementsTableName = requirementsTableName
         self.db = SUDBConnect()
-        self.sentenceTokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 
     def tokenizeIntoSentences(self, stringToTokenize):
-        sentences = self.sentenceTokenizer.tokenize(stringToTokenize)
-        return sentences
+        return TokenizeIntoSentences.doTokenize(stringToTokenize)
 
     def getGPAFromSentences(self, sentences):
         gpa = []
