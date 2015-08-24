@@ -983,3 +983,35 @@ Bad stuff:
 Thoughts:
 -May need to use the ntlk pos tagger and named entity recognition to pull out organizations/locations
 --This may be the most effective way to filter out scholarships that aren't related to Tucson
+
+8/24 Notes:
+-Today is weird cause school. I don't like it.
+-Keep labeling
+-made TokenizeIntoSentences class with static method
+
+-Thoughts on filtering out specific non-UA universities/non-Tucson cities:
+-Look up University/College/School (must be capitalized); get surrounding words (University of Blah or Blah University), if also capitalized then concatenate to uni and if not University of Arizona then mark as bad
+-Check for both capitalized first letter and full capitalized words
+-cities and states will be harder; might be able to default to not sentence initial capitalized words and compare them to Tucson/Arizona/United States
+-if that doesn't work, then just use the nltk NER function, parse out all of the organizations/locations, chunk them together, compare to what I want
+-Get list of country names, put in database; might also need country name adjectives (Australia --> Australian); if find anything besides American (and not also in same document as 'study abroad'), then bad
+-might be able to look up uni/college/school and do the same thing as searching for the university names, gather surrounding tokens, if find capitalized words, then compare the capitalized words to America/American/etc etc and if not satisfied then bad
+-if decide to run a check against all uppercase starting words, may need to check those words against a majors list
+-specific high school graduates, this will be weird because yeah. Any UA scholarships looking for a specific high school will be a Tucson highschool, so...
+
+----hands down, best option will be to run the NER parser cause most accurate and better than trying to do a regex search over text where people can do anything
+
+-Finished labeling, will start by running the NER search over some of the labeled IefaLeads and see what comes up
+-Need to figure out what should be part of the search (for the sake of consistency)
+--While Iefa leads has the host institution pulled out for you, that's the only site that does that. I've been using the presence of a host institution as an easy way to decide if the scholarship is bad or not without having to look at the description
+--Maybe make host instution an optional argument to feed into the program so that leads that do have that information pulled out can just feed it in there
+--Host institution could also be Sponsor! Most of the stuff I've pulled out has sponsor information so this will work too
+---Check sponsor to see if theres a University/College/School thing
+--Otherwise, try appending the host institution to the concatenated description/eligibility stuff and see if the NER still pulls it out right
+
+What to do:
+-Pull out sponsor info
+-Concatenated description/other criteria(probably will be eligibility for other things)
+-First check sponsor stuff, if find University/College/School, then check to see if sponsor = University of Arizona
+-Next check description info, sentence tokenize, word tokenize, pos tag, ne_chunk
+
