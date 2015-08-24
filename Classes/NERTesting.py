@@ -62,16 +62,15 @@ class NERTesting(object):
                     if organization != 'University Of Arizona':
                         badText = True
 
-            if len(geoPoliticalEntities) > 0:
-                for gpe in geoPoliticalEntities:
-                    allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson']
-                    locationsRegex = '|'.join(allowedLocations)
-                    if not re.search(locationsRegex, str(gpe)):
-                        badText = True
-                    else:
-                        badText = False
+            for gpe in geoPoliticalEntities:
+                allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson']
+                locationsRegex = '|'.join(allowedLocations)
+                if not re.search(locationsRegex, str(gpe)):
+                    badText = True
+                else:
+                    badText = False
 
-        print(badText)
+        return badText
 
     def parseNamedEntities(self, posTagUnigrams):
         chunkNamedEntities = nltk.ne_chunk(posTagUnigrams)
