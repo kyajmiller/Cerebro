@@ -1014,4 +1014,18 @@ What to do:
 -Concatenated description/other criteria(probably will be eligibility for other things)
 -First check sponsor stuff, if find University/College/School, then check to see if sponsor = University of Arizona
 -Next check description info, sentence tokenize, word tokenize, pos tag, ne_chunk
+-program requires maxent_ne_chunker and maxent_treebank_pos_tagger and words to work if need to use on another computer
+
+-Tried out the ne_chunker, it's bleh at best, doesn't recognize University of Arizona as one entity, which could be really annoying
+-It does however chunk together Arizona University... bleh
+-University Of Arizona (capitalized Of) does get chunked together so this is good
+-May need to do prep of the text, find 'of' that occurs directly after University/School/College and capitalize it if it's not already capitalized
+--Can use either .capitalize or .title to do this
+-not sure why sometimes Tucson, Arizona gets chunked together and other times it doesn't
+-bleh
+-okay, so if location words don't sometimes get NER'd right, then will have to do both NER parse and then, if still nothing found, then check over capitalized unigrams
+
+-So far have been able to get it to check the extracted NERs against a list of locations and it's relatively fine, it'll return False for something mentioning the UA, which is good
+-however, when tested against Albania it returns None. It should at the very least default to False, so it's weird...
+
 
