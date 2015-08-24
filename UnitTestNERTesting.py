@@ -17,6 +17,10 @@ class TestStringMethods(unittest.TestCase):
         testSponsor3 = nertest.checkSponsorForBadInstitutions(sponsor3)
         self.assertFalse(testSponsor3)
 
+        sponsor4 = 'School of Bacon'
+        testSponsor4 = nertest.checkSponsorForBadInstitutions(sponsor4)
+        self.assertTrue(testSponsor4)
+
 
 if __name__ == '__main__':
     unittest.main()
