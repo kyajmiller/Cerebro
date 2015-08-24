@@ -50,4 +50,13 @@ class NERTesting(object):
 
             posTagUnigrams = nltk.pos_tag(unigrams)
             sentenceChunk = nltk.ne_chunk(posTagUnigrams)
-            print(sentenceChunk)
+            # print(sentenceChunk)
+
+            for treeBranch in sentenceChunk:
+                if hasattr(treeBranch, 'label') and treeBranch.label() == 'ORGANIZATION':
+                    # print(treeBranch)
+                    # print(type(treeBranch))
+                    tryString = str(treeBranch)
+                    print(type(tryString))
+
+    def getTreeNodes(self, ):
