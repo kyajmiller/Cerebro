@@ -22,7 +22,7 @@ class NERTesting(object):
     def classifyOpportunity(self, sponsor, infoText):
         pass
 
-    def checkSponsorForBadInstitutions(self, sponsor):
+    def checkBadSponsor(self, sponsor):
         sponsorUnigrams = TokenizeOnWhitespacePunctuation(sponsor).getUnigrams()
         educationKeywords = ['university', 'school', 'institute', 'college']
         badSponsor = False
