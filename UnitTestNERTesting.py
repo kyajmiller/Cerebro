@@ -39,9 +39,6 @@ class TestStringMethods(unittest.TestCase):
         infoText4 = 'I go to the University of Arizona in Tucson, Arizona'
         neChunks = nertest.checkBadText(infoText4)
 
-        infoText5 = 'That guy teaches at the Arizona University'
-        neChunks = nertest.checkBadText(infoText5)
-
     def test_nltkTokenizer(self):
         sentence = 'I live in Tucson, Arizona and I have a cat.'
 
