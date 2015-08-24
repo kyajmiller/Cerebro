@@ -64,6 +64,25 @@ class NERTesting(object):
             for treeBranch in sentenceChunk:
                 if hasattr(treeBranch, 'label') and treeBranch.label() == 'GPE':
                     geoPoliticalEntities.append(str(treeBranch))
+            geoPoliticalEntities = self.formatNamedEntities(geoPoliticalEntities)
+            print(geoPoliticalEntities)
+
+    def parseNamedEntities(self, posTagUnigrams):
+        chunkNamedEntities = nltk.ne_chunk(posTagUnigrams)
+
+        organizations = []
+        for treeBranch in chunkNamedEntities:
+            if hasattr(treeBranch, 'label') and treeBranch.label() == 'ORGANIZATION':
+                organizations.append(str(treeBranch))
+        organizations = self.formatNamedEntities(organizations)
+        print(organizations)
+
+        geoPoliticalEntities = []
+        for treeBranch in chunkNamedEntities:
+            if hasattr(treeBranch, 'label') and treeBranch.label() == 'GPE':
+                geoPoliticalEntities.append(str(treeBranch))
+        geoPoliticalEntities = self.formatNamedEntities(geoPoliticalEntities)
+        print(geoPoliticalEntities)
 
     def formatNamedEntities(self, namedEntityList):
         formattedStrings = []
