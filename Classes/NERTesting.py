@@ -20,7 +20,11 @@ class NERTesting(object):
             self.classifyOpportunity(sponsor, infoText)
 
     def classifyOpportunity(self, sponsor, infoText):
-        pass
+        badScholarship = False
+        if self.checkBadSponsor(sponsor):
+            badScholarship = True
+        else:
+            pass
 
     def checkBadSponsor(self, sponsor):
         sponsorUnigrams = TokenizeOnWhitespacePunctuation(sponsor).getUnigrams()
