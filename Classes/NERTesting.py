@@ -45,13 +45,18 @@ class NERTesting(object):
 
     def checkBadSponsor(self, sponsor):
         sponsorUnigrams = TokenizeOnWhitespacePunctuation(sponsor).getUnigrams()
-        educationKeywords = ['university', 'school', 'institute', 'college']
+        educationKeywords = ['university', 'school', 'institute', 'college', 'schools', 'academy']
         badSponsor = False
 
         for keyword in educationKeywords:
             if keyword in sponsorUnigrams:
                 if sponsor != 'University of Arizona':
                     badSponsor = True
+
+        if not badSponsor:
+            findAcronymsRegex = re.search('[A-Z][A-Z]+', sponsor)
+            if findAcronymsRegex:
+                badSponsor = True
 
         return badSponsor
 
