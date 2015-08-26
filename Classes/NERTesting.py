@@ -5,8 +5,7 @@ from Classes.TokenizeIntoSentences import TokenizeIntoSentences
 
 
 class NERTesting(object):
-    def __init__(self, sponsorsList, infoTextList, leadIdList):
-        self.leadIdList = leadIdList
+    def __init__(self, sponsorsList, infoTextList):
         self.infoTextList = infoTextList
         self.sponsorsList = sponsorsList
         self.predictedBad = []
@@ -15,8 +14,6 @@ class NERTesting(object):
         for i in range(len(self.sponsorsList)):
             sponsor = self.sponsorsList[i]
             infoText = self.infoTextList[i]
-            leadId = self.leadIdList[i]
-
             predictBad = self.classifyOpportunity(sponsor, infoText)
             self.predictedBad.append(predictBad)
 
