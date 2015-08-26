@@ -1032,6 +1032,8 @@ What to do:
 8/26 Notes:
 -Only having work three days a week is weird
 -I really don't have any idea where to go from here. Will test sponsor/organiztion filtering first and see how it goes
+-added spideman project to personal github, cause yeah. code. interviews and stuff
+
 
 
 
