@@ -5,7 +5,8 @@ from Classes.TokenizeIntoSentences import TokenizeIntoSentences
 
 
 class NERTesting(object):
-    def __init__(self, sponsorsList, infoTextList):
+    def __init__(self, sponsorsList, infoTextList, test=None):
+        self.test = test
         self.infoTextList = infoTextList
         self.sponsorsList = sponsorsList
         self.predictedBad = []
@@ -21,8 +22,19 @@ class NERTesting(object):
 
     def classifyOpportunity(self, sponsor, infoText):
         badScholarship = False
-        if self.checkBadSponsor(sponsor):
-            badScholarship = True
+
+        if self.test == 'sponsorOnly':
+            if self.checkBadSponsor(sponsor):
+                badScholarship = True
+        elif self.test == 'infoTextOnly':
+            if self.checkBadText(infoText):
+                badScholarship = True
+        else:
+            if self.checkBadSponsor(sponsor):
+                badScholarship = True
+            else:
+                if self.checkBadText(infoText):
+                    badScholarship = True
 
         if badScholarship:
             badScholarship = 'Yes'
