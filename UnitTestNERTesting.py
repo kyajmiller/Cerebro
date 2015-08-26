@@ -44,7 +44,7 @@ class TestStringMethods(unittest.TestCase):
         iefaLeadIdList = []
         actualBad = []
         concatenatedDescriptionOCList = []
-        rows = db.getRows("select * from dbo.IefaLeads where Tag='Scholarship' and BadScholarship!=''")
+        rows = db.getRows("select * from dbo.IefaLeadsTrainingItems")
         for row in rows:
             sponsorsList.append(row.Sponsor)
             descriptionList.append(row.Description)
