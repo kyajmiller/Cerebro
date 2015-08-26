@@ -1,23 +1,21 @@
 import nltk
 import re
-from Classes.IefaLeadsGetDatabaseInfo import IefaLeadsGetDatabaseInfo
 from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
 from Classes.TokenizeIntoSentences import TokenizeIntoSentences
 
 
 class NERTesting(object):
-    def __init__(self):
-        iefaLeadsInfo = IefaLeadsGetDatabaseInfo(tag='Scholarship')
-        self.sponsorsList = iefaLeadsInfo.getSponsors()
-        self.descriptionOCList = iefaLeadsInfo.getConcatenatedDescriptionOtherCriteria()
-        self.iefaLeadsIds = iefaLeadsInfo.getIefaLeadsIds()
+    def __init__(self, sponsorsList, infoTextList, leadIdList):
+        self.leadIdList = leadIdList
+        self.infoTextList = infoTextList
+        self.sponsorsList = sponsorsList
         self.predictedBad = []
 
     def loopThroughLeadsAndDoStuff(self):
         for i in range(len(self.sponsorsList)):
             sponsor = self.sponsorsList[i]
-            infoText = self.descriptionOCList[i]
-            leadId = self.iefaLeadsIds[i]
+            infoText = self.infoTextList[i]
+            leadId = self.leadIdList[i]
 
             predictBad = self.classifyOpportunity(sponsor, infoText)
             self.predictedBad.append(predictBad)
