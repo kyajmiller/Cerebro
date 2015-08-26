@@ -1,7 +1,6 @@
 import unittest
-import nltk
 from Classes.NERTesting import NERTesting
-from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
+
 
 
 class TestStringMethods(unittest.TestCase):
@@ -35,20 +34,8 @@ class TestStringMethods(unittest.TestCase):
         testText = nertest.checkBadText(infoText)
         self.assertTrue(testText)
 
-    def test_nltkTokenizer(self):
-        sentence = 'I live in Tucson, Arizona and I have a cat.'
+    def test_loopThroughLeadsAndDoStuff(self):
 
-        tokenizedSentence = TokenizeOnWhitespacePunctuation(sentence, keepCaps=True).getUnigrams()
-        posTagged = nltk.pos_tag(tokenizedSentence)
-        chunks = nltk.ne_chunk(posTagged)
-        print(chunks)
-
-        sentence = 'I live in Tucson, Arizona and go to the University of Arizona'
-
-        tokenizedSentence = TokenizeOnWhitespacePunctuation(sentence, keepCaps=True).getUnigrams()
-        posTagged = nltk.pos_tag(tokenizedSentence)
-        chunks = nltk.ne_chunk(posTagged)
-        print(chunks)
 
 
 if __name__ == '__main__':

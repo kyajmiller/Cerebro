@@ -11,6 +11,7 @@ class NERTesting(object):
         self.sponsorsList = iefaLeadsInfo.getSponsors()
         self.descriptionOCList = iefaLeadsInfo.getConcatenatedDescriptionOtherCriteria()
         self.iefaLeadsIds = iefaLeadsInfo.getIefaLeadsIds()
+        self.predictedBad = []
 
     def loopThroughLeadsAndDoStuff(self):
         for i in range(len(self.sponsorsList)):
@@ -18,14 +19,22 @@ class NERTesting(object):
             infoText = self.descriptionOCList[i]
             leadId = self.iefaLeadsIds[i]
 
-            self.classifyOpportunity(sponsor, infoText)
+            predictBad = self.classifyOpportunity(sponsor, infoText)
+            self.predictedBad.append(predictBad)
+
+        return self.predictedBad
 
     def classifyOpportunity(self, sponsor, infoText):
         badScholarship = False
         if self.checkBadSponsor(sponsor):
             badScholarship = True
+
+        if badScholarship:
+            badScholarship = 'Yes'
         else:
-            pass
+            badScholarship = 'No'
+
+        return badScholarship
 
     def checkBadSponsor(self, sponsor):
         sponsorUnigrams = TokenizeOnWhitespacePunctuation(sponsor).getUnigrams()
