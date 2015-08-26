@@ -35,7 +35,7 @@ class TestStringMethods(unittest.TestCase):
         testText = nertest.checkBadText(infoText)
         self.assertTrue(testText)
 
-    def test_loopThroughLeadsAndDoStuff(self):
+    def test_normalRun(self):
         # set up
         db = SUDBConnect()
         sponsorsList = []
@@ -63,9 +63,82 @@ class TestStringMethods(unittest.TestCase):
         accuracy = ComputeAccuracy(actualBad, predictedBad).calculateAccuracy()
         print(accuracy)
 
+        # put result in db
+        for i in range(len(predictedBad)):
+            iefaLeadTrainingId = iefaLeadTrainingIdList[i]
+            predicted = predictedBad[i]
+            db.insertUpdateOrDelete(
+                "update dbo.IefaLeadsTrainingItems set NormalTestPredictedTag='" + predicted + "' where IefaLeadTrainingId='" + iefaLeadTrainingId + "'")
 
+    def test_SponsorOnly(self):
+        # set up
+        db = SUDBConnect()
+        sponsorsList = []
+        descriptionList = []
+        ocList = []
+        iefaLeadTrainingIdList = []
+        actualBad = []
+        concatenatedDescriptionOCList = []
+        rows = db.getRows("select * from dbo.IefaLeadsTrainingItems")
+        for row in rows:
+            sponsorsList.append(row.Sponsor)
+            descriptionList.append(row.Description)
+            ocList.append(row.OtherCriteria)
+            actualBad.append(row.BadScholarship)
+            iefaLeadTrainingIdList.append(row.IefaLeadTrainingId)
 
+        for i in range(len(descriptionList)):
+            conatenatedItem = '%s %s' % (descriptionList[i], ocList[i])
+            concatenatedDescriptionOCList.append(conatenatedItem)
 
+        # test
+        testNER = NERTesting(sponsorsList, concatenatedDescriptionOCList, test='sponsorOnly')
+        predictedBad = testNER.loopThroughLeadsAndDoStuff()
+
+        accuracy = ComputeAccuracy(actualBad, predictedBad).calculateAccuracy()
+        print(accuracy)
+
+        # put result in db
+        for i in range(len(predictedBad)):
+            iefaLeadTrainingId = iefaLeadTrainingIdList[i]
+            predicted = predictedBad[i]
+            db.insertUpdateOrDelete(
+                "update dbo.IefaLeadsTrainingItems set SponsorTestPredictedTag='" + predicted + "' where IefaLeadTrainingId='" + iefaLeadTrainingId + "'")
+
+    def test_infoTextOnly(self):
+        # set up
+        db = SUDBConnect()
+        sponsorsList = []
+        descriptionList = []
+        ocList = []
+        iefaLeadTrainingIdList = []
+        actualBad = []
+        concatenatedDescriptionOCList = []
+        rows = db.getRows("select * from dbo.IefaLeadsTrainingItems")
+        for row in rows:
+            sponsorsList.append(row.Sponsor)
+            descriptionList.append(row.Description)
+            ocList.append(row.OtherCriteria)
+            actualBad.append(row.BadScholarship)
+            iefaLeadTrainingIdList.append(row.IefaLeadTrainingId)
+
+        for i in range(len(descriptionList)):
+            conatenatedItem = '%s %s' % (descriptionList[i], ocList[i])
+            concatenatedDescriptionOCList.append(conatenatedItem)
+
+        # test
+        testNER = NERTesting(sponsorsList, concatenatedDescriptionOCList, test='infoTextOnly')
+        predictedBad = testNER.loopThroughLeadsAndDoStuff()
+
+        accuracy = ComputeAccuracy(actualBad, predictedBad).calculateAccuracy()
+        print(accuracy)
+
+        # put result in db
+        for i in range(len(predictedBad)):
+            iefaLeadTrainingId = iefaLeadTrainingIdList[i]
+            predicted = predictedBad[i]
+            db.insertUpdateOrDelete(
+                "update dbo.IefaLeadsTrainingItems set InfoTestPredictedTag='" + predicted + "' where IefaLeadTrainingId='" + iefaLeadTrainingId + "'")
 
 if __name__ == '__main__':
     unittest.main()
