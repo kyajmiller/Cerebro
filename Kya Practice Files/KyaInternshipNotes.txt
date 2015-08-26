@@ -913,4 +913,181 @@ sourceWebsite: "//span[@class='apply']/a" href
 -Finished Scholarships360Leads, still untested
 -Make table, make insert class, make process class
 
+8/21 Notes:
+-Scholarships360Leads appears to have run through and inserted stuff with no problems
+-Actually, there seems to be an issue with my xpath for eligibility, amountInfo, and deadlineInfo as only the very first result even has them filled
+--It seems to be because my xpath is looking for a node with really specific text, and the text changes from scholarship to scholarship (because they have the scholarship name inside them)
+--Will try modifying it to use contains text and see if that helps, hopefully each eligibility and amountInfo and deadlineInfo have some sort of unique thing that they all share
+
+Try these:
+eligibility: "//div[@class='entry-content']/p/strong[contains(text(), 'eligible')]/../following-sibling::ul[1]"
+
+amountInfo: "//div[@class='entry-content']/p/strong[contains(text(), 'How much')]/../following-sibling::p[1]"
+"//div[@class='entry-content']/p/strong[contains(text(), 'How much')]/../following-sibling::*[1]"
+deadlineIInfo: "//div[@class='entry-content']/p/strong[contains(text(), 'deadline')]/../following-sibling::ul[1]"
+
+
+-ugh, this site is really inconsistent with what they want to label stuff. I really really don't like this
+-going to need some elif statements to try to capture everything
+
+eligibility:
+"//div[@class='entry-content']/h3[contains(text(), 'Eligible')]/following-sibling::*[1]"
+"//div[@class='entry-content']/h3[contains(text(), 'eligible')]/following-sibling::*[1]"
+"//div[@class='entry-content']/p/strong[contains(text(), 'eligible')]/../following-sibling::*[1]"
+amountInfo:
+
+deadline:
+"//div[@class='entry-content']/h3[contains(text(), 'deadline')]/following-sibling::*[1]"
+"//div[@class='entry-content']/p/strong[contains(text(), 'deadline')]/../following-sibling::*[1]"
+-nvm will continue working on this later, do something else now
+
+----------------------NO MORE CRAWLING YAY------------------------(for now)
+Want to start filtering out scholarships that are for specific schools that are not the UA
+-So we need a way to check for this information and remove the bad stuff
+-Train on IefaLeads
+--Read through, if find scholarships that have specific uni/college requirements, make notes of what they say so you can use it
+in the algorithm later
+-Iefa leads might have been a bad choice for training, all of this seems to be study abroad stuff
+
+Bad stuff:
+-Check host institution, if there is one, and it's not UA, then it's bad
+-Scholarships for studying in other states besides Arizona.
+--Ex: 'attending school in Utah'
+-lol basically mentioning any specific university so far
+---but what about summer programs? summer program at other university, could be of interest to UA students
+---study abroad
+-other countries that aren't actually study abroad scholarships
+--There's a difference between study abroad and actually attending school in a different country.
+--Study abroad impplies temporary study where you will study at your home institution both before and after the completion of the study abroad
+--While going to college in a different country, there is no home institution \
+--I DON'T KNOW
+-this is gonna be hard
+--scholarships where the sponsor is a specific university (in the US) are probably scholarships *for* that university, so look at sponsor and name
+--when naming a university outside of the US, check description info for study abroad ish terms
+-mentioning a required nationality that isn't american
+-Maybe: 'international student studying in the United States'
+--This would be relevant to international students.
+-Scholarships which say something like 'awarded upon admission to blah blah school'
+--Look up the word School/University/College attached to any other capitalized word
+-Requires nationality that isn't American. While there are a lot of international students at this school, that's a little restrictive
+--And kind of no point having a scholarship that requires a particular nationality that may only ever fit a single student that uses SU ever
+-mentioning specific cities that aren't Tucson... unless it's study abroad; mentioning specific countries
+-reside in or attend school in non-Tucson/Arizona
+-at a (other place) university
+-academy
+
+-Some of this stuff is just straight up weird
+-The weird scholarship that wants to give money to middle school students...
+-Some of these aren't actually even scholarships, but advertisements for people to apply to their school...
+
+Thoughts:
+-May need to use the ntlk pos tagger and named entity recognition to pull out organizations/locations
+--This may be the most effective way to filter out scholarships that aren't related to Tucson
+
+8/24 Notes:
+-Today is weird cause school. I don't like it.
+-Keep labeling
+-made TokenizeIntoSentences class with static method
+
+-Thoughts on filtering out specific non-UA universities/non-Tucson cities:
+-Look up University/College/School (must be capitalized); get surrounding words (University of Blah or Blah University), if also capitalized then concatenate to uni and if not University of Arizona then mark as bad
+-Check for both capitalized first letter and full capitalized words
+-cities and states will be harder; might be able to default to not sentence initial capitalized words and compare them to Tucson/Arizona/United States
+-if that doesn't work, then just use the nltk NER function, parse out all of the organizations/locations, chunk them together, compare to what I want
+-Get list of country names, put in database; might also need country name adjectives (Australia --> Australian); if find anything besides American (and not also in same document as 'study abroad'), then bad
+-might be able to look up uni/college/school and do the same thing as searching for the university names, gather surrounding tokens, if find capitalized words, then compare the capitalized words to America/American/etc etc and if not satisfied then bad
+-if decide to run a check against all uppercase starting words, may need to check those words against a majors list
+-specific high school graduates, this will be weird because yeah. Any UA scholarships looking for a specific high school will be a Tucson highschool, so...
+
+----hands down, best option will be to run the NER parser cause most accurate and better than trying to do a regex search over text where people can do anything
+
+-Finished labeling, will start by running the NER search over some of the labeled IefaLeads and see what comes up
+-Need to figure out what should be part of the search (for the sake of consistency)
+--While Iefa leads has the host institution pulled out for you, that's the only site that does that. I've been using the presence of a host institution as an easy way to decide if the scholarship is bad or not without having to look at the description
+--Maybe make host instution an optional argument to feed into the program so that leads that do have that information pulled out can just feed it in there
+--Host institution could also be Sponsor! Most of the stuff I've pulled out has sponsor information so this will work too
+---Check sponsor to see if theres a University/College/School thing
+--Otherwise, try appending the host institution to the concatenated description/eligibility stuff and see if the NER still pulls it out right
+
+What to do:
+-Pull out sponsor info
+-Concatenated description/other criteria(probably will be eligibility for other things)
+-First check sponsor stuff, if find University/College/School, then check to see if sponsor = University of Arizona
+-Next check description info, sentence tokenize, word tokenize, pos tag, ne_chunk
+-program requires maxent_ne_chunker and maxent_treebank_pos_tagger and words to work if need to use on another computer
+
+-Tried out the ne_chunker, it's bleh at best, doesn't recognize University of Arizona as one entity, which could be really annoying
+-It does however chunk together Arizona University... bleh
+-University Of Arizona (capitalized Of) does get chunked together so this is good
+-May need to do prep of the text, find 'of' that occurs directly after University/School/College and capitalize it if it's not already capitalized
+--Can use either .capitalize or .title to do this
+-not sure why sometimes Tucson, Arizona gets chunked together and other times it doesn't
+-bleh
+-okay, so if location words don't sometimes get NER'd right, then will have to do both NER parse and then, if still nothing found, then check over capitalized unigrams
+
+-So far have been able to get it to check the extracted NERs against a list of locations and it's relatively fine, it'll return False for something mentioning the UA, which is good
+-however, when tested against Albania it returns None. It should at the very least default to False, so it's weird...
+-nvm, turns out I'm stupid, forgot to have the function return the boolean, not just print it
+
+8/26 Notes:
+-Only having work three days a week is weird
+-I really don't have any idea where to go from here. Will test sponsor/organiztion filtering first and see how it goes
+-added spideman project to personal github, cause yeah. code. interviews and stuff
+-not sure why bitbucket keeps having icky problems. It's annoying.
+-Just ran the classifier using just the sponsors, managed to get a 65% accuracy on the first run, not bad
+-Tried running it using both the sponsors list and the infoText; took a lot longer to run (maybe about 2 min), accuracy of only 76%. I'm going to have Don-E move the rows I want to test on to a separate table
+-New table made, time to make ALL the columns
+-set up unit tests to run the program three times, first as a normal run then as a sponsorOnly and as an InfoTextOnly run so I can see the differences as I change stuff
+-This is kinda weird, sponsor only and infoText only have the same accuracy, but different answers... not sure if it's just a coincidence or if I set up my accuracy calculator with the wrong arguments
+--sponsor only: 65.28776978417267
+--info text only: 65.28776978417267
+WHY IS IT THE SAME WTF
+-I've no idea. I checked the arguments I was feeding into the calculator, I dunno. Will try changing names just to see
+-tried changing names, same accuracy. I dunno. whatever.
+-Trying to force the loop to break the second it finds something badText-y in order to avoid overwrites
+-This actually had an impact on the accuracy of infoTextOnly run: 65.10791366906474
+--slight decrease but at least it's no longer exactly the same as the other one...
+-need to fix the educational institution regex for instances of stuff like CollegeWeekLive. Should force it to only look for institutions with a space before and a non-word character after
+-added 'US' to list of acceptable GPEs, but that brought down the accuracy... hmm 64.92805755395683
+-adding spaces on either side of the education institutions in the regex really fucks it up 59.89208633093526
+--  DON'T DO THAT
+--I should really test these against the both test. I'm realizing that the accuracy is kind of doomed to be low simply because it kind of needs both to function.
+-I'm just not sure what to do though. I want the separate things to be as accurate as possible. If there's no bad sponsors in the sponsor space then I want it to return that properly
+
+Let's just work on sponsors for now:
+-So far, all of the 'Yes' predicted responses seem to be right
+-The 'No' responses are where the problem is
+--Need to add more items to the regex
+--Added in schools and academy, brought up accuracy slightly 66.18705035971223
+--Also should put in a regex for strings of capitals in order to get stuff like NYU - brought up accuracy to 72.66187050359713
+--Kind of tempted to add in program/programs - didn't really do much, dropped accuracy slightly so not going to do that
+-Need to add 'universities' and 'schools' and 'colleges' - 73.20143884892086
+-Something that sucks is that I won't be able to grab foreign language stuff
+-I could have it first test over the unigrams then do a regex search on the whole thing...
+-Added in a regex to look for Univ (to try to find other language words that are cognates for university) 73.56115107913669
+-Fixed the acronym search to look for at least three letters 74.64028776978418
+-Just realized my accuracy is going to be negatively skewed due to the 'Maybe' answers
+-Might redo accuracy calculations to ignore those...
+--Ignoring the Maybe rows, accuracy shoots up to 78.59848484848484
+-Also beginning to see some errors in my own tagging, this is a good sign, will bring up accuracy
+-Am realizing that the acronym thing might be a little overzealous. It works to grab all of the bad ones, but some of the good ones are getting eaten up
+--Might add in some exceptions lists, and fix the regex to ignore things in parentheses
+--The exception list helps, the parenthesis does not (parenthesis drops accuracy down to 72)
+--by excepting LLC accuracy now 78.97727272727273
+-Having 'Institute' as a bad word might be a little overzealous, but ehhhhhhhh
+-Fixed the parentheses acronyms thing. First searches for acronyms, if finds, then searches for acronyms with parentheses around them; if find parentheses then ignores, else bad
+--79.35606060606061 now
+
+-At this point, the only thing that's being overzealously marked as bad are the odd Institute and the occasional acronym. Only 13 examples.
+-Will try taking out institute and see what happens - NOPE
+-Drops accuracy by over 4%, clearly institute needs to be a bad word
+
+-There's still 96 examples where it's a bad scholarship but not being recognized as such
+-Can also add lists of bad acronyms; added SWE to that group, current accuracy 80.11363636363636
+-Very tempted to try running a NER search over the sponsors to pull out locations, but might be weird... not even sure if it would POS tag correctly
+-Other than that, a lot of what's left is just stuff that must have been negatively tagged due to whatever's in the text
+-Going to add a column to the table that already has the info text concatenated for ease of reading
+
+
+
 

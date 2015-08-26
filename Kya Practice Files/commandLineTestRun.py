@@ -24,3 +24,4 @@ else:
     if type(inputTest) == list:
         print(type(inputTest[0]))
         print(inputTest[0])
+
