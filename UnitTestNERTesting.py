@@ -93,15 +93,15 @@ class TestStringMethods(unittest.TestCase):
 
         # test
         testNER = NERTesting(sponsorsList, concatenatedDescriptionOCList, test='sponsorOnly')
-        predictedBad = testNER.loopThroughLeadsAndDoStuff()
+        sponsorPredictedBad = testNER.loopThroughLeadsAndDoStuff()
 
-        accuracy = ComputeAccuracy(actualBad, predictedBad).calculateAccuracy()
+        accuracy = ComputeAccuracy(actualBad, sponsorPredictedBad).calculateAccuracy()
         print(accuracy)
 
         # put result in db
-        for i in range(len(predictedBad)):
+        for i in range(len(sponsorPredictedBad)):
             iefaLeadTrainingId = iefaLeadTrainingIdList[i]
-            predicted = predictedBad[i]
+            predicted = sponsorPredictedBad[i]
             db.insertUpdateOrDelete(
                 "update dbo.IefaLeadsTrainingItems set SponsorTestPredictedTag='" + predicted + "' where IefaLeadTrainingId='" + iefaLeadTrainingId + "'")
 
@@ -128,15 +128,15 @@ class TestStringMethods(unittest.TestCase):
 
         # test
         testNER = NERTesting(sponsorsList, concatenatedDescriptionOCList, test='infoTextOnly')
-        predictedBad = testNER.loopThroughLeadsAndDoStuff()
+        infoTextPredictedBad = testNER.loopThroughLeadsAndDoStuff()
 
-        accuracy = ComputeAccuracy(actualBad, predictedBad).calculateAccuracy()
+        accuracy = ComputeAccuracy(actualBad, infoTextPredictedBad).calculateAccuracy()
         print(accuracy)
 
         # put result in db
-        for i in range(len(predictedBad)):
+        for i in range(len(infoTextPredictedBad)):
             iefaLeadTrainingId = iefaLeadTrainingIdList[i]
-            predicted = predictedBad[i]
+            predicted = infoTextPredictedBad[i]
             db.insertUpdateOrDelete(
                 "update dbo.IefaLeadsTrainingItems set InfoTestPredictedTag='" + predicted + "' where IefaLeadTrainingId='" + iefaLeadTrainingId + "'")
 
