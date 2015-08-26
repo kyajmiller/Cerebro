@@ -1,6 +1,7 @@
 import unittest
 from Classes.NERTesting import NERTesting
-
+from Classes.ComputeAccuracy import ComputeAccuracy
+from Classes.SUDBConnect import SUDBConnect
 
 
 class TestStringMethods(unittest.TestCase):
@@ -35,6 +36,35 @@ class TestStringMethods(unittest.TestCase):
         self.assertTrue(testText)
 
     def test_loopThroughLeadsAndDoStuff(self):
+        # set up
+        db = SUDBConnect()
+        sponsorsList = []
+        descriptionList = []
+        ocList = []
+        iefaLeadIdList = []
+        actualBad = []
+        concatenatedDescriptionOCList = []
+        rows = db.getRows("select * from dbo.IefaLeads where Tag='Scholarship' and BadScholarship!=''")
+        for row in rows:
+            sponsorsList.append(row.Sponsor)
+            descriptionList.append(row.Description)
+            ocList.append(row.OtherCriteria)
+            actualBad.append(row.BadScholarship)
+            iefaLeadIdList.append(row.IefaLeadId)
+
+        for i in range(len(descriptionList)):
+            conatenatedItem = '%s %s' % (descriptionList[i], ocList[i])
+            concatenatedDescriptionOCList.append(conatenatedItem)
+
+        # test
+        testNER = NERTesting(sponsorsList, concatenatedDescriptionOCList)
+        predictedBad = testNER.loopThroughLeadsAndDoStuff()
+
+        accuracy = ComputeAccuracy(actualBad, predictedBad).calculateAccuracy()
+        print(accuracy)
+
+
+
 
 
 if __name__ == '__main__':
