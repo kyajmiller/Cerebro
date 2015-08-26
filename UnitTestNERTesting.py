@@ -50,7 +50,7 @@ class TestStringMethods(unittest.TestCase):
             descriptionList.append(row.Description)
             ocList.append(row.OtherCriteria)
             actualBad.append(row.BadScholarship)
-            iefaLeadTrainingIdList.append(row.IefaLeadTrainingId)
+            iefaLeadTrainingIdList.append(str(row.IefaLeadTrainingId))
 
         for i in range(len(descriptionList)):
             conatenatedItem = '%s %s' % (descriptionList[i], ocList[i])
@@ -85,7 +85,7 @@ class TestStringMethods(unittest.TestCase):
             descriptionList.append(row.Description)
             ocList.append(row.OtherCriteria)
             actualBad.append(row.BadScholarship)
-            iefaLeadTrainingIdList.append(row.IefaLeadTrainingId)
+            iefaLeadTrainingIdList.append(str(row.IefaLeadTrainingId))
 
         for i in range(len(descriptionList)):
             conatenatedItem = '%s %s' % (descriptionList[i], ocList[i])
@@ -120,7 +120,7 @@ class TestStringMethods(unittest.TestCase):
             descriptionList.append(row.Description)
             ocList.append(row.OtherCriteria)
             actualBad.append(row.BadScholarship)
-            iefaLeadTrainingIdList.append(row.IefaLeadTrainingId)
+            iefaLeadTrainingIdList.append(str(row.IefaLeadTrainingId))
 
         for i in range(len(descriptionList)):
             conatenatedItem = '%s %s' % (descriptionList[i], ocList[i])
