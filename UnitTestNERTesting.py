@@ -6,7 +6,7 @@ from Classes.SUDBConnect import SUDBConnect
 
 class TestStringMethods(unittest.TestCase):
     def test_checkSponsorBadInstitutions(self):
-        nertest = NERTesting()
+        nertest = NERTesting(['blah'], ['blah'])
 
         sponsor1 = 'University of Arizona'
         testSponsor1 = nertest.checkBadSponsor(sponsor1)
@@ -25,7 +25,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertTrue(testSponsor4)
 
     def test_CheckBadText(self):
-        nertest = NERTesting()
+        nertest = NERTesting(['blah'], ['blah'])
 
         infoText = 'I go to the University of Arizona in Tucson, Arizona'
         testText = nertest.checkBadText(infoText)
