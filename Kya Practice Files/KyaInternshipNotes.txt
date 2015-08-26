@@ -1033,6 +1033,60 @@ What to do:
 -Only having work three days a week is weird
 -I really don't have any idea where to go from here. Will test sponsor/organiztion filtering first and see how it goes
 -added spideman project to personal github, cause yeah. code. interviews and stuff
+-not sure why bitbucket keeps having icky problems. It's annoying.
+-Just ran the classifier using just the sponsors, managed to get a 65% accuracy on the first run, not bad
+-Tried running it using both the sponsors list and the infoText; took a lot longer to run (maybe about 2 min), accuracy of only 76%. I'm going to have Don-E move the rows I want to test on to a separate table
+-New table made, time to make ALL the columns
+-set up unit tests to run the program three times, first as a normal run then as a sponsorOnly and as an InfoTextOnly run so I can see the differences as I change stuff
+-This is kinda weird, sponsor only and infoText only have the same accuracy, but different answers... not sure if it's just a coincidence or if I set up my accuracy calculator with the wrong arguments
+--sponsor only: 65.28776978417267
+--info text only: 65.28776978417267
+WHY IS IT THE SAME WTF
+-I've no idea. I checked the arguments I was feeding into the calculator, I dunno. Will try changing names just to see
+-tried changing names, same accuracy. I dunno. whatever.
+-Trying to force the loop to break the second it finds something badText-y in order to avoid overwrites
+-This actually had an impact on the accuracy of infoTextOnly run: 65.10791366906474
+--slight decrease but at least it's no longer exactly the same as the other one...
+-need to fix the educational institution regex for instances of stuff like CollegeWeekLive. Should force it to only look for institutions with a space before and a non-word character after
+-added 'US' to list of acceptable GPEs, but that brought down the accuracy... hmm 64.92805755395683
+-adding spaces on either side of the education institutions in the regex really fucks it up 59.89208633093526
+--  DON'T DO THAT
+--I should really test these against the both test. I'm realizing that the accuracy is kind of doomed to be low simply because it kind of needs both to function.
+-I'm just not sure what to do though. I want the separate things to be as accurate as possible. If there's no bad sponsors in the sponsor space then I want it to return that properly
+
+Let's just work on sponsors for now:
+-So far, all of the 'Yes' predicted responses seem to be right
+-The 'No' responses are where the problem is
+--Need to add more items to the regex
+--Added in schools and academy, brought up accuracy slightly 66.18705035971223
+--Also should put in a regex for strings of capitals in order to get stuff like NYU - brought up accuracy to 72.66187050359713
+--Kind of tempted to add in program/programs - didn't really do much, dropped accuracy slightly so not going to do that
+-Need to add 'universities' and 'schools' and 'colleges' - 73.20143884892086
+-Something that sucks is that I won't be able to grab foreign language stuff
+-I could have it first test over the unigrams then do a regex search on the whole thing...
+-Added in a regex to look for Univ (to try to find other language words that are cognates for university) 73.56115107913669
+-Fixed the acronym search to look for at least three letters 74.64028776978418
+-Just realized my accuracy is going to be negatively skewed due to the 'Maybe' answers
+-Might redo accuracy calculations to ignore those...
+--Ignoring the Maybe rows, accuracy shoots up to 78.59848484848484
+-Also beginning to see some errors in my own tagging, this is a good sign, will bring up accuracy
+-Am realizing that the acronym thing might be a little overzealous. It works to grab all of the bad ones, but some of the good ones are getting eaten up
+--Might add in some exceptions lists, and fix the regex to ignore things in parentheses
+--The exception list helps, the parenthesis does not (parenthesis drops accuracy down to 72)
+--by excepting LLC accuracy now 78.97727272727273
+-Having 'Institute' as a bad word might be a little overzealous, but ehhhhhhhh
+-Fixed the parentheses acronyms thing. First searches for acronyms, if finds, then searches for acronyms with parentheses around them; if find parentheses then ignores, else bad
+--79.35606060606061 now
+
+-At this point, the only thing that's being overzealously marked as bad are the odd Institute and the occasional acronym. Only 13 examples.
+-Will try taking out institute and see what happens - NOPE
+-Drops accuracy by over 4%, clearly institute needs to be a bad word
+
+-There's still 96 examples where it's a bad scholarship but not being recognized as such
+-Can also add lists of bad acronyms; added SWE to that group, current accuracy 80.11363636363636
+-Very tempted to try running a NER search over the sponsors to pull out locations, but might be weird... not even sure if it would POS tag correctly
+-Other than that, a lot of what's left is just stuff that must have been negatively tagged due to whatever's in the text
+-Going to add a column to the table that already has the info text concatenated for ease of reading
 
 
 
