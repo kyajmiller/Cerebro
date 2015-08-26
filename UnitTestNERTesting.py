@@ -41,7 +41,7 @@ class TestStringMethods(unittest.TestCase):
         sponsorsList = []
         descriptionList = []
         ocList = []
-        iefaLeadIdList = []
+        iefaLeadTrainingIdList = []
         actualBad = []
         concatenatedDescriptionOCList = []
         rows = db.getRows("select * from dbo.IefaLeadsTrainingItems")
@@ -50,7 +50,7 @@ class TestStringMethods(unittest.TestCase):
             descriptionList.append(row.Description)
             ocList.append(row.OtherCriteria)
             actualBad.append(row.BadScholarship)
-            iefaLeadIdList.append(row.IefaLeadId)
+            iefaLeadTrainingIdList.append(row.IefaLeadTrainingId)
 
         for i in range(len(descriptionList)):
             conatenatedItem = '%s %s' % (descriptionList[i], ocList[i])
