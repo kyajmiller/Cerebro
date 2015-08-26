@@ -1029,4 +1029,9 @@ What to do:
 -however, when tested against Albania it returns None. It should at the very least default to False, so it's weird...
 -nvm, turns out I'm stupid, forgot to have the function return the boolean, not just print it
 
+8/26 Notes:
+-Only having work three days a week is weird
+-I really don't have any idea where to go from here. Will test sponsor/organiztion filtering first and see how it goes
+
+
 
