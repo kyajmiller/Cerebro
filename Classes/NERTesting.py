@@ -57,9 +57,11 @@ class NERTesting(object):
         if not badSponsor:
             findAcronymsRegex = re.search('[A-Z][A-Z][A-Z]+', sponsor)
             if findAcronymsRegex:
-                exceptionsList = ['LLC']
-                if findAcronymsRegex.group() not in exceptionsList:
-                    badSponsor = True
+                findParenthesesAcronym = re.search('\([A-Z][A-Z][A-Z]+\)', sponsor)
+                if not findParenthesesAcronym:
+                    exceptionsList = ['LLC']
+                    if findAcronymsRegex.group() not in exceptionsList:
+                        badSponsor = True
 
         if not badSponsor:
             findUniversityOtherLanguage = re.search('[uU]niv', sponsor)
