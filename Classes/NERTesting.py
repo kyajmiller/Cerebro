@@ -59,8 +59,10 @@ class NERTesting(object):
             if findAcronymsRegex:
                 badSponsor = True
 
-        # if not badSponsor:
-        #    findUniversityOtherLanguage = re.search()
+        if not badSponsor:
+            findUniversityOtherLanguage = re.search('[uU]niv', sponsor)
+            if findUniversityOtherLanguage:
+                badSponsor = True
 
         return badSponsor
 
