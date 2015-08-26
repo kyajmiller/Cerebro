@@ -60,31 +60,33 @@ class NERTesting(object):
         badText = False
 
         for sentence in infoTextSentences:
-            unigrams = TokenizeOnWhitespacePunctuation(sentence, keepCaps=True).getUnigrams()
-            educationKeywords = ['University', 'School', 'Institute', 'College']
-            for i in range(len(unigrams) - 1):
-                if unigrams[i] in educationKeywords:
-                    if unigrams[i + 1] == 'of':
-                        unigrams[i + 1] = unigrams[i + 1].title()
+            if not badText:
+                unigrams = TokenizeOnWhitespacePunctuation(sentence, keepCaps=True).getUnigrams()
+                educationKeywords = ['University', 'School', 'Institute', 'College']
+                for i in range(len(unigrams) - 1):
+                    if unigrams[i] in educationKeywords:
+                        if unigrams[i + 1] == 'of':
+                            unigrams[i + 1] = unigrams[i + 1].title()
 
-            posTagUnigrams = nltk.pos_tag(unigrams)
-            namedEntitiesOrgGPEList = self.parseNamedEntities(posTagUnigrams)
-            organizations = namedEntitiesOrgGPEList[0]
-            geoPoliticalEntities = namedEntitiesOrgGPEList[1]
+                posTagUnigrams = nltk.pos_tag(unigrams)
+                namedEntitiesOrgGPEList = self.parseNamedEntities(posTagUnigrams)
+                organizations = namedEntitiesOrgGPEList[0]
+                geoPoliticalEntities = namedEntitiesOrgGPEList[1]
 
-            for organization in organizations:
-                educationRegex = '|'.join(educationKeywords)
-                if re.search(educationRegex, str(organization)):
-                    if organization != 'University Of Arizona':
-                        badText = True
+                for organization in organizations:
+                    educationRegex = '|'.join(educationKeywords)
+                    if re.search(educationRegex, str(organization)):
+                        if organization != 'University Of Arizona':
+                            badText = True
 
-            for gpe in geoPoliticalEntities:
-                allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson']
-                locationsRegex = '|'.join(allowedLocations)
-                if not re.search(locationsRegex, str(gpe)):
-                    badText = True
-                else:
-                    badText = False
+                if badText != True:
+                    for gpe in geoPoliticalEntities:
+                        allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson']
+                        locationsRegex = '|'.join(allowedLocations)
+                        if not re.search(locationsRegex, str(gpe)):
+                            badText = True
+                        else:
+                            badText = False
 
         return badText
 
