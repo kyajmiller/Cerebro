@@ -191,7 +191,7 @@ class TestStringMethods(unittest.TestCase):
         actualBad = []
         concatenatedDescriptionOCList = []
         rows = db.getRows("select * from dbo.IefaLeadsTrainingItems")
-        for row in rows[:10]:
+        for row in rows[:25]:
             sponsorsList.append(row.Sponsor)
             descriptionList.append(row.Description)
             ocList.append(row.OtherCriteria)
