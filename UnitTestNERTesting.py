@@ -1,4 +1,6 @@
 import unittest
+import nltk
+from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
 from Classes.NERTesting import NERTesting
 from Classes.ComputeAccuracy import ComputeAccuracy
 from Classes.SUDBConnect import SUDBConnect
@@ -34,6 +36,14 @@ class TestStringMethods(unittest.TestCase):
         infoText = 'You must go to a university in Albania'
         testText = nertest.checkBadText(infoText)
         self.assertTrue(testText)
+
+        testSponsorNER = 'Natural Sciences and Engineering Research Council of Canada'
+        testSponsor = nertest.checkBadText(testSponsorNER)
+        self.assertTrue(testSponsor)
+
+    def test_nltkNERParsing(self):
+        testString = 'Natural Sciences and Engineering Research Council of Canada'
+
 
     def test_normalRun(self):
         # set up
