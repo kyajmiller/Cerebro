@@ -41,6 +41,10 @@ class TestStringMethods(unittest.TestCase):
         testSponsor = nertest.checkBadText(testSponsorNER)
         self.assertTrue(testSponsor)
 
+        testSponsorNER = 'Milwaukee Foundation'
+        testSponsor = nertest.checkBadText(testSponsorNER)
+        self.assertTrue(testSponsor)
+
     def test_nltkNERParsing(self):
         testString = 'Natural Sciences and Engineering Research Council of Canada'
         unigrams = TokenizeOnWhitespacePunctuation(testString, keepCaps=True).getUnigrams()
@@ -53,6 +57,13 @@ class TestStringMethods(unittest.TestCase):
                 getGPEs.append(str(treeBranch))
 
         self.assertEqual(1, len(getGPEs))
+
+        testString = 'Milwaukee Foundation'
+        unigrams = TokenizeOnWhitespacePunctuation(testString, keepCaps=True).getUnigrams()
+        posTagged = nltk.pos_tag(unigrams)
+        chunked = nltk.ne_chunk(posTagged)
+        print(chunked)
+
 
     def test_normalRun(self):
         # set up
