@@ -68,7 +68,7 @@ class TestStringMethods(unittest.TestCase):
         unigrams = TokenizeOnWhitespacePunctuation(testString, keepCaps=True).getUnigrams()
         posTagged = nltk.pos_tag(unigrams)
         chunked = nltk.ne_chunk(posTagged)
-        #returns (S (GPE New/NNP)(ORGANIZATION England/NNP Board/NNP) of/IN (PERSON Higher/NNP Education/NNP))
+        # returns (S (GPE New/NNP)(ORGANIZATION England/NNP Board/NNP) of/IN (PERSON Higher/NNP Education/NNP))
 
         testString = 'New England Board of Higher Education'
         unigrams = TokenizeOnWhitespacePunctuation(testString).getUnigrams()
