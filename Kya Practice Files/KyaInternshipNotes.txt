@@ -1088,6 +1088,6 @@ Let's just work on sponsors for now:
 -Other than that, a lot of what's left is just stuff that must have been negatively tagged due to whatever's in the text
 -Going to add a column to the table that already has the info text concatenated for ease of reading
 
-
-
+8/28 Notes:
+-Keep tuning thing. Joy.
 
