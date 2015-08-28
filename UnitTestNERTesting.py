@@ -37,14 +37,6 @@ class TestStringMethods(unittest.TestCase):
         testText = nertest.checkBadText(infoText)
         self.assertTrue(testText)
 
-        testSponsorNER = 'Natural Sciences and Engineering Research Council of Canada'
-        testSponsor = nertest.checkBadText(testSponsorNER)
-        self.assertTrue(testSponsor)
-
-        testSponsorNER = 'Milwaukee Foundation'
-        testSponsor = nertest.checkBadText(testSponsorNER)
-        self.assertTrue(testSponsor)
-
     def test_nltkNERParsing(self):
         testString = 'Natural Sciences and Engineering Research Council of Canada'
         unigrams = TokenizeOnWhitespacePunctuation(testString, keepCaps=True).getUnigrams()
