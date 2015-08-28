@@ -110,24 +110,23 @@ class NERTesting(object):
         if len(geoPoliticalEntities) > 0:
             print('GPEs: %s' % filteredGPEs)
 
-        '''
-                for organization in organizations:
-                    educationKeywordsForRegex = ['%s\s' % educationKeyword for educationKeyword in educationKeywords]
-                    educationRegex = '|'.join(educationKeywordsForRegex)
-                    if re.search(educationRegex, str(organization)):
-                        if organization != 'University Of Arizona':
-                            badText = True
-        '''
-        '''
-                if badText != True:
-                    for gpe in sentenceGeoPoliticalEntities:
-                        allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson']
-                        locationsRegex = '|'.join(allowedLocations)
-                        if not re.search(locationsRegex, str(gpe)):
-                            badText = True
-                        else:
-                            badText = False
-        '''
+        for organization in organizations:
+            educationKeywordsForRegex = ['%s\s' % educationKeyword for educationKeyword in educationKeywords]
+            educationRegex = '|'.join(educationKeywordsForRegex)
+            if re.search(educationRegex, str(organization)):
+                if organization != 'University Of Arizona':
+                    badText = True
+
+        if badText != True:
+            for gpe in geoPoliticalEntities:
+                allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US']
+                locationsRegex = '|'.join(allowedLocations)
+                if not re.search(locationsRegex, str(gpe)):
+                    badText = True
+                else:
+                    badText = False
+
+        print(badText)
         # return badText
 
     def parseNamedEntities(self, posTagUnigrams):
