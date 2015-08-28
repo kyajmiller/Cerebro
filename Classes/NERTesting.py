@@ -81,10 +81,11 @@ class NERTesting(object):
         organizations = []
         geoPoliticalEntities = []
 
+        educationKeywords = ['University', 'School', 'Institute', 'College']
+
         for sentence in infoTextSentences:
             if not badText:
                 unigrams = TokenizeOnWhitespacePunctuation(sentence, keepCaps=True).getUnigrams()
-                educationKeywords = ['University', 'School', 'Institute', 'College']
                 for i in range(len(unigrams) - 1):
                     if unigrams[i] in educationKeywords:
                         if unigrams[i + 1] == 'of':
@@ -110,7 +111,7 @@ class NERTesting(object):
             print('GPEs: %s' % filteredGPEs)
 
         '''
-                for organization in sentenceOrganizations:
+                for organization in organizations:
                     educationKeywordsForRegex = ['%s\s' % educationKeyword for educationKeyword in educationKeywords]
                     educationRegex = '|'.join(educationKeywordsForRegex)
                     if re.search(educationRegex, str(organization)):
@@ -118,12 +119,6 @@ class NERTesting(object):
                             badText = True
         '''
         '''
-                for organization in sentenceOrganizations:
-                    educationRegex = '|'.join(educationKeywords)
-                    if re.search(educationRegex, str(organization)):
-                        if organization != 'University Of Arizona':
-                            badText = True
-
                 if badText != True:
                     for gpe in sentenceGeoPoliticalEntities:
                         allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson']
