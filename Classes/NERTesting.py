@@ -107,7 +107,7 @@ class NERTesting(object):
                 filteredGPEs.append(geoPoliticalEntity)
         if len(organizations) > 0:
             print('Organizations: %s' % organizations)
-        if len(geoPoliticalEntities) > 0:
+        if len(filteredGPEs) > 0:
             print('GPEs: %s' % filteredGPEs)
 
         for organization in organizations:
@@ -127,7 +127,7 @@ class NERTesting(object):
                     badText = False
 
         print(badText)
-        # return badText
+        return badText
 
     def parseNamedEntities(self, posTagUnigrams):
         chunkNamedEntities = nltk.ne_chunk(posTagUnigrams)
