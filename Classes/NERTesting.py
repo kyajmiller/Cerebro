@@ -84,22 +84,21 @@ class NERTesting(object):
         educationKeywords = ['University', 'School', 'Institute', 'College']
 
         for sentence in infoTextSentences:
-            if not badText:
-                unigrams = TokenizeOnWhitespacePunctuation(sentence, keepCaps=True).getUnigrams()
-                for i in range(len(unigrams) - 1):
-                    if unigrams[i] in educationKeywords:
-                        if unigrams[i + 1] == 'of':
-                            unigrams[i + 1] = unigrams[i + 1].title()
+            unigrams = TokenizeOnWhitespacePunctuation(sentence, keepCaps=True).getUnigrams()
+            for i in range(len(unigrams) - 1):
+                if unigrams[i] in educationKeywords:
+                    if unigrams[i + 1] == 'of':
+                        unigrams[i + 1] = unigrams[i + 1].title()
 
-                posTagUnigrams = nltk.pos_tag(unigrams)
-                namedEntitiesOrgGPEList = self.parseNamedEntities(posTagUnigrams)
-                sentenceOrganizations = namedEntitiesOrgGPEList[0]
-                sentenceGeoPoliticalEntities = namedEntitiesOrgGPEList[1]
+            posTagUnigrams = nltk.pos_tag(unigrams)
+            namedEntitiesOrgGPEList = self.parseNamedEntities(posTagUnigrams)
+            sentenceOrganizations = namedEntitiesOrgGPEList[0]
+            sentenceGeoPoliticalEntities = namedEntitiesOrgGPEList[1]
 
-                for organization in sentenceOrganizations:
-                    organizations.append(organization)
-                for gpe in sentenceGeoPoliticalEntities:
-                    geoPoliticalEntities.append(gpe)
+            for organization in sentenceOrganizations:
+                organizations.append(organization)
+            for gpe in sentenceGeoPoliticalEntities:
+                geoPoliticalEntities.append(gpe)
 
         filteredGPEs = []
         for geoPoliticalEntity in geoPoliticalEntities:
