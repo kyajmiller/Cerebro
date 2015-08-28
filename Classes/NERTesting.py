@@ -78,6 +78,9 @@ class NERTesting(object):
         infoTextSentences = TokenizeIntoSentences.doTokenize(infoText)
         badText = False
 
+        organizations = []
+        geoPoliticalEntities = []
+
         for sentence in infoTextSentences:
             if not badText:
                 unigrams = TokenizeOnWhitespacePunctuation(sentence, keepCaps=True).getUnigrams()
@@ -89,33 +92,48 @@ class NERTesting(object):
 
                 posTagUnigrams = nltk.pos_tag(unigrams)
                 namedEntitiesOrgGPEList = self.parseNamedEntities(posTagUnigrams)
-                organizations = namedEntitiesOrgGPEList[0]
-                geoPoliticalEntities = namedEntitiesOrgGPEList[1]
+                sentenceOrganizations = namedEntitiesOrgGPEList[0]
+                sentenceGeoPoliticalEntities = namedEntitiesOrgGPEList[1]
 
-                for organization in organizations:
+                for organization in sentenceOrganizations:
+                    organizations.append(organization)
+                for gpe in sentenceGeoPoliticalEntities:
+                    geoPoliticalEntities.append(gpe)
+
+        filteredGPEs = []
+        for geoPoliticalEntity in geoPoliticalEntities:
+            if geoPoliticalEntity not in organizations:
+                filteredGPEs.append(geoPoliticalEntity)
+        if len(organizations) > 0:
+            print('Organizations: %s' % organizations)
+        if len(geoPoliticalEntities) > 0:
+            print('GPEs: %s' % filteredGPEs)
+
+        '''
+                for organization in sentenceOrganizations:
                     educationKeywordsForRegex = ['%s\s' % educationKeyword for educationKeyword in educationKeywords]
                     educationRegex = '|'.join(educationKeywordsForRegex)
                     if re.search(educationRegex, str(organization)):
                         if organization != 'University Of Arizona':
                             badText = True
-
-                '''
-                for organization in organizations:
+        '''
+        '''
+                for organization in sentenceOrganizations:
                     educationRegex = '|'.join(educationKeywords)
                     if re.search(educationRegex, str(organization)):
                         if organization != 'University Of Arizona':
                             badText = True
 
                 if badText != True:
-                    for gpe in geoPoliticalEntities:
+                    for gpe in sentenceGeoPoliticalEntities:
                         allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson']
                         locationsRegex = '|'.join(allowedLocations)
                         if not re.search(locationsRegex, str(gpe)):
                             badText = True
                         else:
                             badText = False
-                '''
-        return badText
+        '''
+        # return badText
 
     def parseNamedEntities(self, posTagUnigrams):
         chunkNamedEntities = nltk.ne_chunk(posTagUnigrams)
