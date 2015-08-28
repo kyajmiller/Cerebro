@@ -84,7 +84,6 @@ class NERTesting(object):
         educationKeywords = ['University', 'School', 'Institute', 'College']
 
         for sentence in infoTextSentences:
-            print(sentence)
             unigrams = TokenizeOnWhitespacePunctuation(sentence, keepCaps=True).getUnigrams()
             for i in range(len(unigrams) - 1):
                 if unigrams[i] in educationKeywords:
@@ -98,6 +97,7 @@ class NERTesting(object):
 
             for organization in sentenceOrganizations:
                 organizations.append(organization)
+
             for gpe in sentenceGeoPoliticalEntities:
                 geoPoliticalEntities.append(gpe)
 
