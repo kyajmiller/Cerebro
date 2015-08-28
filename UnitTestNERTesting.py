@@ -43,7 +43,16 @@ class TestStringMethods(unittest.TestCase):
 
     def test_nltkNERParsing(self):
         testString = 'Natural Sciences and Engineering Research Council of Canada'
+        unigrams = TokenizeOnWhitespacePunctuation(testString, keepCaps=True).getUnigrams()
+        posTagged = nltk.pos_tag(unigrams)
+        chunked = nltk.ne_chunk(posTagged)
+        getGPEs = []
 
+        for treeBranch in chunked:
+            if hasattr(treeBranch, 'label') and treeBranch.label() == 'GPE':
+                getGPEs.append(str(treeBranch))
+
+        self.assertEqual(1, len(getGPEs))
 
     def test_normalRun(self):
         # set up
