@@ -1090,4 +1090,76 @@ Let's just work on sponsors for now:
 
 8/28 Notes:
 -Keep tuning thing. Joy.
+-Going to shift focus from the sponsors to the info text, as there's not a whole lot left in sponsors that really jumps out at the moment.
+--If necessary, try to filter out locations in sponsors if decide to test the NER parser on sponsors.
+--Actually did just test the NER parser to see if it pulled out anything bad, it actually worked; will test more
+---As in, it returned True for a bad item in 'Natural Sciences and Engineering Research Council of Canada', which means it probably pinged off of Canada
+---Going to manually check to see if this is what really happened... Cause it's possible that it pinged off the whole thing as an organization, which might have made it mad
+---Ran it manually so I could see the NEs extracted, it pulled out Canada which is good, and then that would flag the GPE filter to say no. So might be able to try implementing that into the sponsor filter
+---mmk, nvm, it doesn't actually work. It liked the Canada one because there were non-capitalized words in the string, so the whole thing didn't get chunked together
+---But 'Milwaukee Foundation' gets the whole thing chunked as an Organization, which is technically what it *should* do, but it's annoying. Means I can't use the NER to pull out GPEs reliably
+----Unless there's a way to make it only look for GPEs? nvm there's no way to do that
+----I LIED THAT'S NOT WHAT'S HAPPENING
+----I actually just ran it, and for whatever reason it's pulling out Milwaukee as a person? I can't really set it to filter out people because, well, people
+----Will try another one...
+----Yeah don't run the damn NER parser over the sponsors, it's retarded.
+New England Board of Higher Education =
+(S
+  (GPE New/NNP)
+  (ORGANIZATION England/NNP Board/NNP)
+  of/IN
+  (PERSON Higher/NNP Education/NNP))
+That's not supposed to happen.
+-...I wonder what would happen if I turned off the caps. --> Absolutely nothing, doesn't pull out anything.
+-TIL the NER parser relies 100% on capitalization. Woe betide me if any of these scholarships I'm trying to classify have weird capitalization
+-I'm strongly tempted to see what would happen if I just run the whole damn thing through a ML algorithm. Will have to see.
+
+-As of right now, with the sponsor checker about as tuned as I think I can get it for the moment, running a full test (sponsors + text) has a 77.87769784172663 accuracy
+-Tells me that there's definitely some solid problems with the text search, as the sponsor search alone had an 80% accuracy
+-I really do want to try running it through ML but I'm not 100% sure that my manual tags are right... will just wait for now...
+
+-Now to work on infoText stuff
+-As of right now, the parser works by tokenizing into unigrams, running the NER parser over the thing, and if it finds an organization with an educational institution
+keyword in it, flags it as bad text
+-This isn't really all that good for instances like CollegeWeekLive
+-Will try rethinking how this parser works
+-So, in the instance of CollegeWeekLive, it pulls it out as an organization, which is what it's supposed to do. The next step in the original parser is to check for the keywords.
+--Maybe I could make it only check for those keywords followed by spaces?
+-ugh just adding a space in the regex doesn't seem to help, will try something else
+--not sure why though, College\s shouldn't match 'College'
+----ahhh lol I see why it broke, I just did a join with \s| but College is at the end of the list so it didn't get the space
+-now it works, doesn't flag CollegeWeekLive anymore, this is good
+-So another problem - CollegeWeekLive also gets flagged as a GPE, which is really awkward. I have no idea why
+-I really can't afford to have to babysit the NER search because it's doing stuff like this. Maybe have a filter for if it gets pulled out as an organization, remove from GPE list... It's fucking weird though
+-This is so awkward
+-Might need to make a GPE/organization list for the entirety of the info text, have each sentence add to it, then filter through them, since the NER parser might label something differently from sentence to sentence.
+-So weird.
+-That ended up working, so okay
+-With the current fix, checked accuracy, dropped accuracy down to 62.23021582733813; this thing needs a lot of help
+-Thankfully I've realized there's a way that I can see everything it's pulling out very efficiently by printing it, so will make another unit test just to do this
+-Huge problem. This thing is obnoxious. It keeps pulling out lots of stuff as GPEs, and of course my GPE filter is having a fit.
+--Stuff like 'Completed' is getting marked as a GPE.
+-Will need a really good filter to flag extracted GPEs properly cause that's just not good.
+-I just realized that the changes I made to it is literally flagging EVERYTHING as a bad scholarship. That is so not good
+-I HAVE NO IDEA WHY IT'S BEING BAD
+-I'm not very smart. It's showing everything as being tagged as 'yes' because I have the filter set to show me only 'Yes' tagged things. Nice job Kya.
+-I wonder what happens to the accuracy if I don't use the otherCriteria stuff. Some of the stuff being pulled out as a wrong tag is stuff that is weirdly formatted in a bullet point and is making the NER parser mad.
+-Actually kind of have to use the OtherCriteria stuff because a lot of it has university/country information that will be vital to classifying the thing
+-I'm just not sure what to do here. I could do a search for bullet points and just uncapitalize the very first word that follows, but what happens if it's something that should be capitalized?
+-Going to check out how my program tokenizes sentences and maybe if the ones with bullet points are coming back as shorter sentences, I'll filter out everything below a certain length. That might help with dealing with fragments
+-Okay, so it turns out that the bullet points are not being transformed into separate sentences, but are all being put as the same sentence (since no punctuation)
+-I'm going to try prepping the text before hand to clean up bullet-point esque stuff and sub in periods. See what happens
+--Did absolutely nothing. Joy. I think it's because the periods end up in weird spots that it just doesn't help and the sentence tokenizer still says nope.
+-Honestly I think it's because the NER parser is just really freaking weird. It tags 'Completed' in 'Completed application' as a GPE but 'Official transcripts' gets nothing
+-It's really annoying
+
+-Yeah I might not use the GPE search at all because it's pulling out a lot of bullshit
+-Taking out the GPE NER search is really crippling though. I need to have some way to reliably pull out bad locations, but the GPE search is just awful
+-I'll try the standford ner search and see how it goes
+--Though unfortunately it doesn't have a nice chunking ability, so I'll have to write that in myself.
+
+-Looking at the documentation for the Stanford NER tagger, I REALLY don't want to use it. There's damn near 0 documentation because it wasn't intended to work with python
+-So have to use a wrapper for it, but then THOSE HAVE NO DOCUMENTATION EITHER
+-So I'm sort of back at the beginning of either I can try to get a database of place names (really?) or just say fuck it
+-I have no idea
 
