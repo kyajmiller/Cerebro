@@ -70,6 +70,13 @@ class TestStringMethods(unittest.TestCase):
         chunked = nltk.ne_chunk(posTagged)
         #returns (S (GPE New/NNP)(ORGANIZATION England/NNP Board/NNP) of/IN (PERSON Higher/NNP Education/NNP))
 
+        testString = 'New England Board of Higher Education'
+        unigrams = TokenizeOnWhitespacePunctuation(testString).getUnigrams()
+        posTagged = nltk.pos_tag(unigrams)
+        chunked = nltk.ne_chunk(posTagged)
+        # returns (S new/JJ england/NN board/NN of/IN higher/JJR education/NN)
+        # shows that ntlk ne_chunk relies on capitalization to work
+
     def test_normalRun(self):
         # set up
         db = SUDBConnect()
