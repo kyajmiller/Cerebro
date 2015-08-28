@@ -91,13 +91,14 @@ class NERTesting(object):
                 namedEntitiesOrgGPEList = self.parseNamedEntities(posTagUnigrams)
                 organizations = namedEntitiesOrgGPEList[0]
                 geoPoliticalEntities = namedEntitiesOrgGPEList[1]
-                print(organizations)
 
                 for organization in organizations:
                     educationKeywordsForRegex = ['%s\s' % educationKeyword for educationKeyword in educationKeywords]
                     educationRegex = '|'.join(educationKeywordsForRegex)
                     if re.search(educationRegex, str(organization)):
-                        print('%s = Match' % organization)
+                        if organization != 'University Of Arizona':
+                            badText = True
+
                 '''
                 for organization in organizations:
                     educationRegex = '|'.join(educationKeywords)
@@ -114,7 +115,7 @@ class NERTesting(object):
                         else:
                             badText = False
                 '''
-                # return badText
+        return badText
 
     def parseNamedEntities(self, posTagUnigrams):
         chunkNamedEntities = nltk.ne_chunk(posTagUnigrams)
