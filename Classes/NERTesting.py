@@ -26,6 +26,7 @@ class NERTesting(object):
             predictBad = self.classifyOpportunity(sponsor, infoText)
             self.predictedBad.append(predictBad)
 
+        print(self.gpesList)
         return self.predictedBad
 
     def classifyOpportunity(self, sponsor, infoText):
@@ -104,12 +105,12 @@ class NERTesting(object):
             if geoPoliticalEntity not in organizations:
                 filteredGPEs.append(geoPoliticalEntity)
                 self.gpesList.append(geoPoliticalEntity)
-
+        '''
         if len(organizations) > 0:
             print('Organizations: %s' % organizations)
         if len(filteredGPEs) > 0:
             print('GPEs: %s' % filteredGPEs)
-
+        '''
         for organization in organizations:
             educationKeywordsForRegex = ['%s\s' % educationKeyword for educationKeyword in self.educationKeywords]
             educationRegex = '|'.join(educationKeywordsForRegex)
@@ -131,7 +132,7 @@ class NERTesting(object):
                 else:
                     badText = False
 
-        print(badText)
+        # print(badText)
         return badText
 
     def parseOranizations(self, sentence):
