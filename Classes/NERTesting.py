@@ -113,6 +113,11 @@ class NERTesting(object):
             if re.search(educationRegex, str(organization)):
                 if organization != 'University Of Arizona':
                     badText = True
+            else:
+                educationKeywordsForRegex = ['%s$' % educationKeyword for educationKeyword in self.educationKeywords]
+                educationRegex = '|'.join(educationKeywordsForRegex)
+                if re.search(educationRegex, str(organization)):
+                    badText = True
 
         if badText != True:
             for gpe in geoPoliticalEntities:
