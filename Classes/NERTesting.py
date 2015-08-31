@@ -146,21 +146,17 @@ class NERTesting(object):
         return organizations
 
     def parseGPEs(self, sentence):
-        print(sentence)
-
         sentence = self.cleanSentenceForGPEParsing(sentence)
 
-        print(sentence)
+        unigrams = TokenizeOnWhitespacePunctuation(sentence, keepCaps=True).getUnigrams()
+        for i in range(len(unigrams) - 1):
+            if unigrams[i] in self.educationKeywords:
+                if unigrams[i + 1] == 'of':
+                    unigrams[i + 1] = unigrams[i + 1].title()
 
-    '''
-    def parseNamedEntities(self, posTagUnigrams):
+        posTagUnigrams = nltk.pos_tag(unigrams)
+
         chunkNamedEntities = nltk.ne_chunk(posTagUnigrams)
-
-        organizations = []
-        for treeBranch in chunkNamedEntities:
-            if hasattr(treeBranch, 'label') and treeBranch.label() == 'ORGANIZATION':
-                organizations.append(str(treeBranch))
-        organizations = self.formatNamedEntities(organizations)
 
         geoPoliticalEntities = []
         for treeBranch in chunkNamedEntities:
@@ -168,9 +164,7 @@ class NERTesting(object):
                 geoPoliticalEntities.append(str(treeBranch))
         geoPoliticalEntities = self.formatNamedEntities(geoPoliticalEntities)
 
-        namedEntitiesOrgGPEList = [organizations, geoPoliticalEntities]
-        return namedEntitiesOrgGPEList
-    '''
+        return geoPoliticalEntities
 
     def formatNamedEntities(self, namedEntityList):
         formattedStrings = []
