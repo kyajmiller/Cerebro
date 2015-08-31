@@ -9,7 +9,7 @@ from Classes.CleanText import CleanText
 from Classes.GetFastFindMajorsList import GetFastFindMajorsList
 
 
-class NERTesting(object):
+class ClassifyBadScholarships(object):
     def __init__(self, sponsorsList, infoTextList, test=None):
         self.test = test
         self.infoTextList = infoTextList
