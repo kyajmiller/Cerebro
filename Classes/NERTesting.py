@@ -6,6 +6,7 @@ import re
 from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
 from Classes.TokenizeIntoSentences import TokenizeIntoSentences
 from Classes.CleanText import CleanText
+from Classes.GetFastFindMajorsList import GetFastFindMajorsList
 
 
 class NERTesting(object):
@@ -17,8 +18,6 @@ class NERTesting(object):
 
         self.educationKeywords = ['University', 'School', 'Institute', 'College']
 
-        self.gpesList = []
-
     def loopThroughLeadsAndDoStuff(self):
         for i in range(len(self.sponsorsList)):
             sponsor = self.sponsorsList[i]
@@ -26,7 +25,6 @@ class NERTesting(object):
             predictBad = self.classifyOpportunity(sponsor, infoText)
             self.predictedBad.append(predictBad)
 
-        print(self.gpesList)
         return self.predictedBad
 
     def classifyOpportunity(self, sponsor, infoText):
@@ -101,12 +99,12 @@ class NERTesting(object):
                 geoPoliticalEntities.append(gpe)
 
         filteredGPEs = self.filterGPEs(geoPoliticalEntities, organizations)
-        '''
+
         if len(organizations) > 0:
             print('Organizations: %s' % organizations)
         if len(filteredGPEs) > 0:
             print('GPEs: %s' % filteredGPEs)
-        '''
+
         for organization in organizations:
             educationKeywordsForRegex = ['%s\s' % educationKeyword for educationKeyword in self.educationKeywords]
             educationRegex = '|'.join(educationKeywordsForRegex)
@@ -128,7 +126,7 @@ class NERTesting(object):
                 else:
                     badText = False
 
-        # print(badText)
+        print(badText)
         return badText
 
     def parseOranizations(self, sentence):
@@ -214,10 +212,21 @@ class NERTesting(object):
 
     def filterGPEs(self, gpesList, organizationsList):
         filteredGPEs = []
+        majorsList = GetFastFindMajorsList.getDefaultList()
+        majorsList.remove('English')
+        majorsList.remove('Spanish')
+        majorsList.remove('Russian')
+        majorsList.remove('Italian')
+        majorsList.remove('German')
+        majorsList.remove('French')
 
         for gpe in gpesList:
             if gpe not in organizationsList:
-                filteredGPEs.append(gpe)
-                # self.gpesList.append(gpe)
+                if gpe == 'English':
+                    self.gpesList.append(gpe)
+                elif gpe not in majorsList:
+                    if not re.search('ed$', gpe):
+                        filteredGPEs.append(gpe)
+                        self.gpesList.append(gpe)
 
         return filteredGPEs
