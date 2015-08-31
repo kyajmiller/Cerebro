@@ -73,6 +73,20 @@ class CheggLeadsGetDatabaseInfo(object):
                 descriptions.append(row.Description)
         return descriptions
 
+    def getSponsors(self):
+        sponsors = []
+
+        if self.tag:
+            rows = self.db.getRows("select * from dbo.CheggLeads where Tag='" + self.tag + "'")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+        else:
+            rows = self.db.getRows("select * from dbo.CheggLeads")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+
+        return sponsors
+
     def getTitleConcatenatedEligibilityAppplictionOverviewList(self):
         wholeList = []
 
