@@ -11,6 +11,8 @@ class NERTesting(object):
         self.sponsorsList = sponsorsList
         self.predictedBad = []
 
+        self.educationKeywords = ['University', 'School', 'Institute', 'College']
+
     def loopThroughLeadsAndDoStuff(self):
         for i in range(len(self.sponsorsList)):
             sponsor = self.sponsorsList[i]
@@ -81,25 +83,13 @@ class NERTesting(object):
         organizations = []
         geoPoliticalEntities = []
 
-        educationKeywords = ['University', 'School', 'Institute', 'College']
-
         for sentence in infoTextSentences:
-            unigrams = TokenizeOnWhitespacePunctuation(sentence, keepCaps=True).getUnigrams()
-            for i in range(len(unigrams) - 1):
-                if unigrams[i] in educationKeywords:
-                    if unigrams[i + 1] == 'of':
-                        unigrams[i + 1] = unigrams[i + 1].title()
-
-            posTagUnigrams = nltk.pos_tag(unigrams)
-            namedEntitiesOrgGPEList = self.parseNamedEntities(posTagUnigrams)
-            sentenceOrganizations = namedEntitiesOrgGPEList[0]
-            sentenceGeoPoliticalEntities = namedEntitiesOrgGPEList[1]
-
+            sentenceOrganizations = self.parseOranizations(sentence)
             for organization in sentenceOrganizations:
                 organizations.append(organization)
 
-            for gpe in sentenceGeoPoliticalEntities:
-                geoPoliticalEntities.append(gpe)
+                # for gpe in sentenceGeoPoliticalEntities:
+                #    geoPoliticalEntities.append(gpe)
 
         filteredGPEs = []
         for geoPoliticalEntity in geoPoliticalEntities:
@@ -111,7 +101,7 @@ class NERTesting(object):
             print('GPEs: %s' % filteredGPEs)
 
         for organization in organizations:
-            educationKeywordsForRegex = ['%s\s' % educationKeyword for educationKeyword in educationKeywords]
+            educationKeywordsForRegex = ['%s\s' % educationKeyword for educationKeyword in self.educationKeywords]
             educationRegex = '|'.join(educationKeywordsForRegex)
             if re.search(educationRegex, str(organization)):
                 if organization != 'University Of Arizona':
@@ -129,6 +119,26 @@ class NERTesting(object):
         print(badText)
         return badText
 
+    def parseOranizations(self, sentence):
+        unigrams = TokenizeOnWhitespacePunctuation(sentence, keepCaps=True).getUnigrams()
+        for i in range(len(unigrams) - 1):
+            if unigrams[i] in self.educationKeywords:
+                if unigrams[i + 1] == 'of':
+                    unigrams[i + 1] = unigrams[i + 1].title()
+
+        posTagUnigrams = nltk.pos_tag(unigrams)
+
+        chunkNamedEntities = nltk.ne_chunk(posTagUnigrams)
+
+        organizations = []
+        for treeBranch in chunkNamedEntities:
+            if hasattr(treeBranch, 'label') and treeBranch.label() == 'ORGANIZATION':
+                organizations.append(str(treeBranch))
+        organizations = self.formatNamedEntities(organizations)
+
+        return organizations
+
+    '''
     def parseNamedEntities(self, posTagUnigrams):
         chunkNamedEntities = nltk.ne_chunk(posTagUnigrams)
 
@@ -146,6 +156,7 @@ class NERTesting(object):
 
         namedEntitiesOrgGPEList = [organizations, geoPoliticalEntities]
         return namedEntitiesOrgGPEList
+    '''
 
     def formatNamedEntities(self, namedEntityList):
         formattedStrings = []
