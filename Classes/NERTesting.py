@@ -195,18 +195,6 @@ class NERTesting(object):
         return match.lower()
 
     def cleanSentenceForGPEParsing(self, sentence):
-        # sentence = CleanText.cleanALLtheText(sentence)
-        # sentence = self.uncapitalize(sentence)
-
-        # sentence = re.sub('\*\s?(\w+)', self.replaceWithLowerCase(match), sentence)
-
-
-
-
-        # findFirstWordAfterAsterisk = re.search('\*\s?(\w+)', sentence)
-        # if findFirstWordAfterAsterisk:
-        #    sentence = re.sub('\*\s?(\w+)', self.replaceWithLowerCase(findFirstWordAfterAsterisk), sentence)
-
         findFirstWordAfterAsterisk = re.findall('\*\s?(\w+)', sentence)
         if findFirstWordAfterAsterisk != []:
             for match in findFirstWordAfterAsterisk:
@@ -219,5 +207,8 @@ class NERTesting(object):
 
         sentence = re.sub('\*', '', sentence)
         sentence = re.sub('•', '', sentence)
+
+        sentence = CleanText.cleanALLtheText(sentence)
+        sentence = self.uncapitalize(sentence)
 
         return sentence
