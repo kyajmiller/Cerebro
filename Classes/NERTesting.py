@@ -213,4 +213,9 @@ class NERTesting(object):
             for match in findFirstWordAfterAsterisk:
                 sentence = re.sub(match, self.replaceWithLowerCase(match), sentence)
 
+        findFirstWordAfterBullet = re.findall('•\s?(\w+)', sentence)
+        if findFirstWordAfterBullet != []:
+            for match in findFirstWordAfterBullet:
+                sentence = re.sub(match, self.replaceWithLowerCase(match), sentence)
+
         return sentence
