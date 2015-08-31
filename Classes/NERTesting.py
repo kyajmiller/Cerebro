@@ -94,6 +94,7 @@ class NERTesting(object):
                 organizations.append(organization)
 
             for gpe in sentenceGPEs:
+                gpe = gpe[0].upper() + gpe[1:]
                 geoPoliticalEntities.append(gpe)
 
         filteredGPEs = []
