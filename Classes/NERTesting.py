@@ -1,7 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import nltk
 import re
 from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
 from Classes.TokenizeIntoSentences import TokenizeIntoSentences
+from Classes.CleanText import CleanText
 
 
 class NERTesting(object):
@@ -85,6 +89,7 @@ class NERTesting(object):
 
         for sentence in infoTextSentences:
             sentenceOrganizations = self.parseOranizations(sentence)
+            sentenceGPEs = self.parseGPEs(sentence)
             for organization in sentenceOrganizations:
                 organizations.append(organization)
 
@@ -95,10 +100,12 @@ class NERTesting(object):
         for geoPoliticalEntity in geoPoliticalEntities:
             if geoPoliticalEntity not in organizations:
                 filteredGPEs.append(geoPoliticalEntity)
+        '''
         if len(organizations) > 0:
             print('Organizations: %s' % organizations)
         if len(filteredGPEs) > 0:
             print('GPEs: %s' % filteredGPEs)
+        '''
 
         for organization in organizations:
             educationKeywordsForRegex = ['%s\s' % educationKeyword for educationKeyword in self.educationKeywords]
@@ -138,6 +145,13 @@ class NERTesting(object):
 
         return organizations
 
+    def parseGPEs(self, sentence):
+        print(sentence)
+
+        sentence = self.cleanSentenceForGPEParsing(sentence)
+
+        print(sentence)
+
     '''
     def parseNamedEntities(self, posTagUnigrams):
         chunkNamedEntities = nltk.ne_chunk(posTagUnigrams)
@@ -171,3 +185,14 @@ class NERTesting(object):
             formattedStrings.append(result)
 
         return formattedStrings
+
+    def uncapitalize(self, string):
+        if len(string) > 0:
+            string = string[0].lower() + string[1:]
+        return string
+
+    def cleanSentenceForGPEParsing(self, sentence):
+        sentence = CleanText.cleanALLtheText(sentence)
+        sentence = self.uncapitalize(sentence)
+
+        return sentence
