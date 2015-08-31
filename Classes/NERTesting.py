@@ -16,7 +16,7 @@ class NERTesting(object):
         self.sponsorsList = sponsorsList
         self.predictedBad = []
 
-        self.educationKeywords = ['University', 'School', 'Institute', 'College']
+        self.educationKeywords = ['University', 'School', 'Institute', 'College', 'Conservatory']
 
     def loopThroughLeadsAndDoStuff(self):
         for i in range(len(self.sponsorsList)):
@@ -119,10 +119,13 @@ class NERTesting(object):
 
         if badText != True:
             for gpe in filteredGPEs:
-                allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US']
+                allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American']
                 locationsRegex = '|'.join(allowedLocations)
                 if not re.search(locationsRegex, str(gpe)):
-                    badText = True
+                    if re.search('study\sabroad', infoText.lower()) or re.search('teach\sabroad', infoText.lower()):
+                        badText = False
+                    else:
+                        badText = True
                 else:
                     badText = False
 
@@ -223,10 +226,9 @@ class NERTesting(object):
         for gpe in gpesList:
             if gpe not in organizationsList:
                 if gpe == 'English':
-                    self.gpesList.append(gpe)
+                    filteredGPEs.append(gpe)
                 elif gpe not in majorsList:
                     if not re.search('ed$', gpe):
                         filteredGPEs.append(gpe)
-                        self.gpesList.append(gpe)
 
         return filteredGPEs
