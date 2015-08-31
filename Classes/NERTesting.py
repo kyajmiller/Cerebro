@@ -215,4 +215,3 @@ class NERTesting(object):
 
         return sentence
 
-    def getGPEsList(self):
