@@ -11,7 +11,7 @@ class RunBadScholarshipClassifierOnCheggLeads(RunBadScholarshipClassifier):
         self.descriptions = cheggDBInfo.getDescriptions()
         self.eligibility = cheggDBInfo.getEligibilities()
         self.applicationOverview = cheggDBInfo.getApplicationOverviews()
-        self.InfoTextList = []
+        self.textList = []
 
         for i in range(len(self.descriptions)):
             description = self.descriptions[i]
@@ -19,13 +19,13 @@ class RunBadScholarshipClassifierOnCheggLeads(RunBadScholarshipClassifier):
             applicationOverview = self.applicationOverview[i]
 
             infoText = '%s %s %s' % (eligibility, applicationOverview, description)
-            self.infoTextList.append(infoText)
+            self.textList.append(infoText)
 
         self.listCheggLeadsIds = cheggDBInfo.getCheggLeadsIds()
         self.tableName = 'CheggLeads'
         self.idColumnName = 'CheggLeadId'
 
-        RunBadScholarshipClassifier.__init__(self, self.sponsorList, self.infoTextList)
+        RunBadScholarshipClassifier.__init__(self, self.sponsorList, self.textList)
         self.getPredictedBadInsertIntoDatabase(self.tableName, self.idColumnName, self.listCheggLeadsIds)
 
 
