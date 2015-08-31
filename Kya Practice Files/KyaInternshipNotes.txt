@@ -1221,3 +1221,20 @@ Things I've noticed that I really can't fix:
 -Sometimes a location isn't pulled out as a GPE, but instead as an organization.
 -Sometimes something gets flagged as a GPE but it's not. I can't think of much else to do with this that I haven't already tried...
 -Instances of education words used but aren't actually a college/uni
+
+-So, if the classifier is done, can probably start running the classifier over the existing scholarships
+-Tables to work on:
+-CheggLeads
+-CollegeGreenLightLeads
+-FastWebLeads
+-FatomeiLeads
+-GrantForwardLeads
+-IefaLeads
+-PivotLeads
+-Scholarships360Leads
+-ScholarsiteLeads
+-UnigoLeads
+
+-Starting out by making a superclass to use with each of the specific class - RunBadScholarshipClassifier
+-Finished RunBadScholarshipClassifierOnCheggLeads
+-I'm really iffy about how well this thing works, but I can't think of any other way to improve it so just kinda go with it
