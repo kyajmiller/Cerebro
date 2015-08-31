@@ -93,19 +93,18 @@ class NERTesting(object):
             for organization in sentenceOrganizations:
                 organizations.append(organization)
 
-                # for gpe in sentenceGeoPoliticalEntities:
-                #    geoPoliticalEntities.append(gpe)
+            for gpe in sentenceGPEs:
+                geoPoliticalEntities.append(gpe)
 
         filteredGPEs = []
         for geoPoliticalEntity in geoPoliticalEntities:
             if geoPoliticalEntity not in organizations:
                 filteredGPEs.append(geoPoliticalEntity)
-        '''
+
         if len(organizations) > 0:
             print('Organizations: %s' % organizations)
         if len(filteredGPEs) > 0:
             print('GPEs: %s' % filteredGPEs)
-        '''
 
         for organization in organizations:
             educationKeywordsForRegex = ['%s\s' % educationKeyword for educationKeyword in self.educationKeywords]
