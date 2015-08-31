@@ -1169,3 +1169,24 @@ keyword in it, flags it as bad text
 8/31 Notes:
 -After resting for a few days, hopefully have more perspective on what options I can take to solve this problem
 -Already feeling overwhelmed this semester, and it's only the beginning of the second week
+
+Possible Solution:
+-Have separate functions to parse Organizations/GPEs
+-Feed into the function the tokenized sentences
+-From there, Organization can continue as it already does (word tokenize, blah blah)
+-GPEs will be different. Run regex to grab the first letter of each sentence and make it lower case
+-Run regex to find bullets/asterisks, grab first letter and lowercase it.
+-This should hopefully help to reduce the number of superfluous uppercase items in the text, and should therefore hopefully clean up the GPE parser
+
+Other possible ideas:
+-Try to get list of all countries/US states/major world cities, put in database
+-Then run the results of the GPE parser against that list?
+-Kind of defeats the purpose of using the GPE parser cause could just use a regex to do the same thing, but whatever
+
+Update:
+-So far, uncapitalizing the first word of the sentence and the first word after a bullet seems to have solved the problem. I"ve only tested on 10 things, but
+none of them are pulling out non-GPEs in the GPE section anymore. Will keep checking on more stuff
+-Noticed that for some reason 'College' isn't being flagged properly in organization
+--Realized that I don't have a regex to check for end of string stuff...
+-After checking over 50-ish things, there are some things that are getting pulled out as GPEs that shouldn't be, but significantly less than before
+-Need a way to filter out the rest of these things
