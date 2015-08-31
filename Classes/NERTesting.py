@@ -100,11 +100,7 @@ class NERTesting(object):
                 gpe = gpe[0].upper() + gpe[1:]
                 geoPoliticalEntities.append(gpe)
 
-        filteredGPEs = []
-        for geoPoliticalEntity in geoPoliticalEntities:
-            if geoPoliticalEntity not in organizations:
-                filteredGPEs.append(geoPoliticalEntity)
-                self.gpesList.append(geoPoliticalEntity)
+        filteredGPEs = self.filterGPEs(geoPoliticalEntities, organizations)
         '''
         if len(organizations) > 0:
             print('Organizations: %s' % organizations)
@@ -124,7 +120,7 @@ class NERTesting(object):
                     badText = True
 
         if badText != True:
-            for gpe in geoPoliticalEntities:
+            for gpe in filteredGPEs:
                 allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US']
                 locationsRegex = '|'.join(allowedLocations)
                 if not re.search(locationsRegex, str(gpe)):
@@ -216,3 +212,12 @@ class NERTesting(object):
 
         return sentence
 
+    def filterGPEs(self, gpesList, organizationsList):
+        filteredGPEs = []
+
+        for gpe in gpesList:
+            if gpe not in organizationsList:
+                filteredGPEs.append(gpe)
+                # self.gpesList.append(gpe)
+
+        return filteredGPEs
