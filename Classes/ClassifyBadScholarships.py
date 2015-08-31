@@ -100,11 +100,6 @@ class ClassifyBadScholarships(object):
 
         filteredGPEs = self.filterGPEs(geoPoliticalEntities, organizations)
 
-        if len(organizations) > 0:
-            print('Organizations: %s' % organizations)
-        if len(filteredGPEs) > 0:
-            print('GPEs: %s' % filteredGPEs)
-
         for organization in organizations:
             educationKeywordsForRegex = ['%s\s' % educationKeyword for educationKeyword in self.educationKeywords]
             educationRegex = '|'.join(educationKeywordsForRegex)
@@ -129,7 +124,6 @@ class ClassifyBadScholarships(object):
                 else:
                     badText = False
 
-        print(badText)
         return badText
 
     def parseOranizations(self, sentence):
