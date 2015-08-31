@@ -201,8 +201,7 @@ class NERTesting(object):
         # sentence = re.sub('\*\s?(\w+)', self.replaceWithLowerCase(match), sentence)
 
 
-        # sentence = re.sub('\*', '', sentence)
-        # sentence = re.sub('•', '', sentence)
+
 
         # findFirstWordAfterAsterisk = re.search('\*\s?(\w+)', sentence)
         # if findFirstWordAfterAsterisk:
@@ -217,5 +216,8 @@ class NERTesting(object):
         if findFirstWordAfterBullet != []:
             for match in findFirstWordAfterBullet:
                 sentence = re.sub(match, self.replaceWithLowerCase(match), sentence)
+
+        sentence = re.sub('\*', '', sentence)
+        sentence = re.sub('•', '', sentence)
 
         return sentence
