@@ -1,14 +1,14 @@
 import unittest
 import nltk
 from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
-from Classes.NERTesting import NERTesting
+from Classes.ClassifyBadScholarships import ClassifyBadScholarships
 from Classes.ComputeAccuracy import ComputeAccuracy
 from Classes.SUDBConnect import SUDBConnect
 
 
 class TestStringMethods(unittest.TestCase):
     def test_checkSponsorBadInstitutions(self):
-        nertest = NERTesting(['blah'], ['blah'])
+        nertest = ClassifyBadScholarships(['blah'], ['blah'])
 
         sponsor1 = 'University of Arizona'
         testSponsor1 = nertest.checkBadSponsor(sponsor1)
@@ -27,7 +27,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertTrue(testSponsor4)
 
     def test_CheckBadText(self):
-        nertest = NERTesting(['blah'], ['blah'])
+        nertest = ClassifyBadScholarships(['blah'], ['blah'])
 
         infoText = 'I go to the University of Arizona in Tucson, Arizona'
         testText = nertest.checkBadText(infoText)
@@ -38,7 +38,7 @@ class TestStringMethods(unittest.TestCase):
         # self.assertTrue(testText)
 
     def test_CheckBadTextRewrite(self):
-        nertest = NERTesting(['blah'], ['blah'])
+        nertest = ClassifyBadScholarships(['blah'], ['blah'])
 
         infoText = 'CollegeWeekLive gives away $1,000 per month just for viewing and visiting US colleges online. Winning is easy - all you need to do is login to CollegeWeekLive and visit 3 colleges that interest you. One lucky winner will be awarded a $1,000 scholarship every month. And many other winners may find the college of their dreams.'
         testText = nertest.checkBadText(infoText)
@@ -98,7 +98,7 @@ class TestStringMethods(unittest.TestCase):
             concatenatedDescriptionOCList.append(conatenatedItem)
 
         # test
-        testNER = NERTesting(sponsorsList, concatenatedDescriptionOCList)
+        testNER = ClassifyBadScholarships(sponsorsList, concatenatedDescriptionOCList)
         predictedBad = testNER.loopThroughLeadsAndDoStuff()
 
         accuracy = ComputeAccuracy(actualBad, predictedBad).calculateAccuracy()
@@ -133,7 +133,7 @@ class TestStringMethods(unittest.TestCase):
             concatenatedDescriptionOCList.append(conatenatedItem)
 
         # test
-        testNER = NERTesting(sponsorsList, concatenatedDescriptionOCList, test='sponsorOnly')
+        testNER = ClassifyBadScholarships(sponsorsList, concatenatedDescriptionOCList, test='sponsorOnly')
         sponsorPredictedBad = testNER.loopThroughLeadsAndDoStuff()
 
         accuracy = ComputeAccuracy(actualBad, sponsorPredictedBad).calculateAccuracy()
@@ -168,7 +168,7 @@ class TestStringMethods(unittest.TestCase):
             concatenatedDescriptionOCList.append(conatenatedItem)
 
         # test
-        testNER = NERTesting(sponsorsList, concatenatedDescriptionOCList, test='infoTextOnly')
+        testNER = ClassifyBadScholarships(sponsorsList, concatenatedDescriptionOCList, test='infoTextOnly')
         infoTextPredictedBad = testNER.loopThroughLeadsAndDoStuff()
 
         accuracy = ComputeAccuracy(actualBad, infoTextPredictedBad).calculateAccuracy()
@@ -203,7 +203,7 @@ class TestStringMethods(unittest.TestCase):
             concatenatedDescriptionOCList.append(conatenatedItem)
 
         # test
-        testNER = NERTesting(sponsorsList, concatenatedDescriptionOCList, test='infoTextOnly')
+        testNER = ClassifyBadScholarships(sponsorsList, concatenatedDescriptionOCList, test='infoTextOnly')
         infoTextPredictedBad = testNER.loopThroughLeadsAndDoStuff()
 
         accuracy = ComputeAccuracy(actualBad, infoTextPredictedBad).calculateAccuracy()
