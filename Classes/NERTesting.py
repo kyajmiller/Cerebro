@@ -195,4 +195,7 @@ class NERTesting(object):
         sentence = CleanText.cleanALLtheText(sentence)
         sentence = self.uncapitalize(sentence)
 
+        sentence = re.sub('\*', '', sentence)
+        sentence = re.sub('•', '', sentence)
+
         return sentence
