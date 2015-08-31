@@ -17,6 +17,8 @@ class NERTesting(object):
 
         self.educationKeywords = ['University', 'School', 'Institute', 'College']
 
+        self.gpesList = []
+
     def loopThroughLeadsAndDoStuff(self):
         for i in range(len(self.sponsorsList)):
             sponsor = self.sponsorsList[i]
@@ -101,6 +103,7 @@ class NERTesting(object):
         for geoPoliticalEntity in geoPoliticalEntities:
             if geoPoliticalEntity not in organizations:
                 filteredGPEs.append(geoPoliticalEntity)
+                self.gpesList.append(geoPoliticalEntity)
 
         if len(organizations) > 0:
             print('Organizations: %s' % organizations)
@@ -211,3 +214,5 @@ class NERTesting(object):
         sentence = self.uncapitalize(sentence)
 
         return sentence
+
+    def getGPEsList(self):
