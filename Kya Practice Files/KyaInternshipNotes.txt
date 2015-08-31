@@ -1190,3 +1190,34 @@ none of them are pulling out non-GPEs in the GPE section anymore. Will keep chec
 --Realized that I don't have a regex to check for end of string stuff...
 -After checking over 50-ish things, there are some things that are getting pulled out as GPEs that shouldn't be, but significantly less than before
 -Need a way to filter out the rest of these things
+-Some of the stuff that's getting pulled out are capitalized majors/education related words
+-I could run the GPEs through the majors list? Though that might hurt some of the area studies things
+-I STILL NEED TO IMPLEMENT STUDY ABROAD
+-Will implement search against majors list, that should remove some of the stuff, but I might straight up need an exceptions words list as I don't really have any other ways to prevent the GPE parser from grabbing them
+-I could check everything against the unigrams and be like, if the same word appears at all but as a lower case word, it's probably not a named entity
+--This might have a hell of run time, but it could be effective...
+-Can start out by filtering out everything that is all caps that isn't two letters long (to allow for state abbreviations and stuff like US/EU)
+-So had it filter through the majors list, realized it took out 'English' since that's in the list... Might need to go through the majors list and see what majors are just countries and yeah
+-THIS THING RUNS SLOW NOW HOLY SHIT
+-ugh. Adding in the filters is supposed to make it run better, but it's not... fml.
+-Going to test the whole thing with the sponsors too and see what I've got - so far a total accuracy of 81.4%. That's not bad at all.
+-Compared to the accuracy of the separate tests (sponsors only - 80.1; text only - 61.7%), the sponsors check is by far the most important, as it adds 20% to the
+accuracy. It is able to stand alone. Adding the text search only increases the overall accuracy by 1.3%. That's still something, but not really...
+
+-Going to insert the predicted stuff from the text only search and see what I can find to fix
+-Forgot to check accuracy ratings against the stuff that isn't labeled as 'maybe'
+--Text: 65%; Sponsor: 80.1%; Total: 85.8%
+I AM REALLY SATISFIED BY THIS
+-Going to try implementing the study abroad exception and see what happens
+-Oh god I realized that my fixing of the 'English' exception was adding it to the overall list and not to the relevant list, need to see what happens... I'm anticipating an increase in accuracy
+-Increased accuracy to 65.5%
+-Will try adding the study abroad thing in now
+-Only increased accuracy a little bit (65.5 --> 65.53) but that's still better than nothing at all
+Overall accuracy up to 86.74%. I think it's good now.
+-Also added in 'teach abroad', brought up accuracy to 87.1%
+
+Things I've noticed that I really can't fix:
+-If the InfoText only ever refers to a educational institution by its acronym, and the sponsor text doesn't have it too... can't really do much there
+-Sometimes a location isn't pulled out as a GPE, but instead as an organization.
+-Sometimes something gets flagged as a GPE but it's not. I can't think of much else to do with this that I haven't already tried...
+-Instances of education words used but aren't actually a college/uni
