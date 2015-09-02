@@ -85,7 +85,6 @@ class ClassifyBadScholarships(object):
 
     def checkBadText(self, infoText):
         infoTextSentences = TokenizeIntoSentences.doTokenize(infoText)
-        badText = False
 
         organizations = []
         geoPoliticalEntities = []
