@@ -25,7 +25,11 @@ class ClassifyBadScholarships(object):
         self.statesList = self.getStatesList()
         self.usCitiesList = self.getUSCitiesList()
         self.otherGPES = ['U.S.', 'U.S.A.', 'US', 'USA', 'UK', 'EU', 'European', 'African', 'Middle East', 'British',
-                          'English', 'Europe', 'Soviet', 'Asian', 'Chinas']
+                          'English', 'Europe', 'Soviet', 'Asian', 'Chinas', 'New England', 'Tibetan', 'Tibet', 'Britain'
+                                                                                                               'South America',
+                          'China Hong Kong', 'New York City', 'Florence', 'Milano', 'Korea', 'Korean',
+                          'East Tennessee', 'NYC', 'Barcelona', 'Balkan', 'Felician', 'Dubai', 'Sydney',
+                          'Sydney Australia', 'South American', 'Asia', 'Eastern Europe', 'Central Eastern Europe']
 
     def loopThroughLeadsAndDoStuff(self):
         for i in range(len(self.sponsorsList)):
