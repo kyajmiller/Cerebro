@@ -99,17 +99,7 @@ class ClassifyBadScholarships(object):
                 gpe = gpe[0].upper() + gpe[1:]
                 geoPoliticalEntities.append(gpe)
 
-        for organization in organizations:
-            educationKeywordsForRegex = ['%s\s' % educationKeyword for educationKeyword in self.educationKeywords]
-            educationRegex = '|'.join(educationKeywordsForRegex)
-            if re.search(educationRegex, str(organization)):
-                if organization != 'University Of Arizona':
-                    badText = True
-            else:
-                educationKeywordsForRegex = ['%s$' % educationKeyword for educationKeyword in self.educationKeywords]
-                educationRegex = '|'.join(educationKeywordsForRegex)
-                if re.search(educationRegex, str(organization)):
-                    badText = True
+        badText = self.scanOrganizations(organizations)
 
         if badText != True:
             for gpe in geoPoliticalEntities:
@@ -206,3 +196,19 @@ class ClassifyBadScholarships(object):
 
         return sentence
 
+    def scanOrganizations(self, organizations):
+        badTextOrganizations = False
+
+        for organization in organizations:
+            educationKeywordsForRegex = ['%s\s' % educationKeyword for educationKeyword in self.educationKeywords]
+            educationRegex = '|'.join(educationKeywordsForRegex)
+            if re.search(educationRegex, str(organization)):
+                if organization != 'University Of Arizona':
+                    badTextOrganizations = True
+            else:
+                educationKeywordsForRegex = ['%s$' % educationKeyword for educationKeyword in self.educationKeywords]
+                educationRegex = '|'.join(educationKeywordsForRegex)
+                if re.search(educationRegex, str(organization)):
+                    badTextOrganizations = True
+
+        return badTextOrganizations
