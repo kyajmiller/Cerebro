@@ -208,8 +208,15 @@ class ClassifyBadScholarships(object):
     def scanGeoPoliticalEntities(self, geoPoliticalEntities):
         countriesList = self.getCountriesList()
         countryCapitalsList = self.getCountryCapitalsList()
+        demonymsList = self.getDemonymsList()
         statesList = self.getStatesList()
         usCitiesList = self.getUSCitiesList()
+        abbreviations = ['U.S.', 'US', 'USA', 'UK', 'EU']
+
+        allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American']
+
+        for gpe in geoPoliticalEntities:
+
 
         for gpe in geoPoliticalEntities:
             allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American']
@@ -257,3 +264,12 @@ class ClassifyBadScholarships(object):
             usCitiesList.append(row.City)
 
         return usCitiesList
+
+    def getDemonymsList(self):
+        demonymsList = []
+
+        rows = self.db.getRows('select disctint Demonym from dbo.CountriesAndCapitals')
+        for row in rows:
+            demonymsList.append(row.Demonym)
+
+        return demonymsList
