@@ -7,6 +7,7 @@ from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuat
 from Classes.TokenizeIntoSentences import TokenizeIntoSentences
 from Classes.CleanText import CleanText
 from Classes.GetFastFindMajorsList import GetFastFindMajorsList
+from Classes.SUDBConnect import SUDBConnect
 
 
 class ClassifyBadScholarships(object):
@@ -98,8 +99,6 @@ class ClassifyBadScholarships(object):
                 gpe = gpe[0].upper() + gpe[1:]
                 geoPoliticalEntities.append(gpe)
 
-        filteredGPEs = self.filterGPEs(geoPoliticalEntities, organizations)
-
         for organization in organizations:
             educationKeywordsForRegex = ['%s\s' % educationKeyword for educationKeyword in self.educationKeywords]
             educationRegex = '|'.join(educationKeywordsForRegex)
@@ -113,7 +112,7 @@ class ClassifyBadScholarships(object):
                     badText = True
 
         if badText != True:
-            for gpe in filteredGPEs:
+            for gpe in geoPoliticalEntities:
                 allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American']
                 locationsRegex = '|'.join(allowedLocations)
                 if not re.search(locationsRegex, str(gpe)):
@@ -207,22 +206,3 @@ class ClassifyBadScholarships(object):
 
         return sentence
 
-    def filterGPEs(self, gpesList, organizationsList):
-        filteredGPEs = []
-        majorsList = GetFastFindMajorsList.getDefaultList()
-        majorsList.remove('English')
-        majorsList.remove('Spanish')
-        majorsList.remove('Russian')
-        majorsList.remove('Italian')
-        majorsList.remove('German')
-        majorsList.remove('French')
-
-        for gpe in gpesList:
-            if gpe not in organizationsList:
-                if gpe == 'English':
-                    filteredGPEs.append(gpe)
-                elif gpe not in majorsList:
-                    if not re.search('ed$', gpe):
-                        filteredGPEs.append(gpe)
-
-        return filteredGPEs
