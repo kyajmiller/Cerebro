@@ -99,6 +99,16 @@ class ClassifyBadScholarships(object):
                 gpe = gpe[0].upper() + gpe[1:]
                 geoPoliticalEntities.append(gpe)
 
+        misplacedGPEs = self.getMistaggedGPEsFromOrganizations(organizations)
+        actualOrganizations = []
+        for gpe in misplacedGPEs:
+            geoPoliticalEntities.append(gpe)
+        for organization in organizations:
+            if organization not in misplacedGPEs:
+                actualOrganizations.append(organization)
+
+        organizations = actualOrganizations
+
         if len(organizations) > 0:
             print('Organizations: %s' % organizations)
         if len(geoPoliticalEntities) > 0:
@@ -217,7 +227,7 @@ class ClassifyBadScholarships(object):
         statesList = self.getStatesList()
         usCitiesList = self.getUSCitiesList()
         otherGPES = ['U.S.', 'U.S.A.', 'US', 'USA', 'UK', 'EU', 'European', 'African', 'Middle East', 'British',
-                     'English', 'Europe', 'Soviet']
+                     'English', 'Europe', 'Soviet', 'Asian', 'Chinas']
 
         allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American']
 
@@ -246,6 +256,9 @@ class ClassifyBadScholarships(object):
                 if not re.search('study\sabroad', infoText.lower()) and not re.search('teach\sabroad',
                                                                                       infoText.lower()):
                     badTextGPEs = True
+                elif re.search('study\sabroad', infoText.lower()) or re.search('teach\sabroad', infoText.lower()):
+                    if gpe not in countriesList and gpe not in countryCapitalsList:
+                        badTextGPEs = True
 
         return badTextGPEs
 
@@ -293,3 +306,29 @@ class ClassifyBadScholarships(object):
             demonymsList.append(row.Demonym)
 
         return demonymsList
+
+    def getMistaggedGPEsFromOrganizations(self, organizations):
+        countriesList = self.getCountriesList()
+        countryCapitalsList = self.getCountryCapitalsList()
+        demonymsList = self.getDemonymsList()
+        statesList = self.getStatesList()
+        usCitiesList = self.getUSCitiesList()
+        otherGPES = ['U.S.', 'U.S.A.', 'US', 'USA', 'UK', 'EU', 'European', 'African', 'Middle East', 'British',
+                     'English', 'Europe', 'Soviet', 'Asian', 'Chinas']
+
+        isActuallyGPE = []
+        for organization in organizations:
+            if organization in countriesList:
+                isActuallyGPE.append(organization)
+            elif organization in countryCapitalsList:
+                isActuallyGPE.append(organization)
+            elif organization in demonymsList:
+                isActuallyGPE.append(organization)
+            elif organization in statesList:
+                isActuallyGPE.append(organization)
+            elif organization in usCitiesList:
+                isActuallyGPE.append(organization)
+            elif organization in otherGPES:
+                isActuallyGPE.append(organization)
+
+        return isActuallyGPE
