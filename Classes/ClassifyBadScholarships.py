@@ -314,7 +314,7 @@ class ClassifyBadScholarships(object):
         statesList = self.getStatesList()
         usCitiesList = self.getUSCitiesList()
         otherGPES = ['U.S.', 'U.S.A.', 'US', 'USA', 'UK', 'EU', 'European', 'African', 'Middle East', 'British',
-                     'English', 'Europe', 'Soviet', 'Asian', 'Chinas']
+                     'English', 'Europe', 'Soviet', 'Asian']
 
         isActuallyGPE = []
         for organization in organizations:
