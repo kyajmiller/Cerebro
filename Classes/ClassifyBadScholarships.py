@@ -16,6 +16,7 @@ class ClassifyBadScholarships(object):
         self.infoTextList = infoTextList
         self.sponsorsList = sponsorsList
         self.predictedBad = []
+        self.db = SUDBConnect()
 
         self.educationKeywords = ['University', 'School', 'Institute', 'College', 'Conservatory']
 
@@ -102,16 +103,7 @@ class ClassifyBadScholarships(object):
         badText = self.scanOrganizations(organizations)
 
         if badText != True:
-            for gpe in geoPoliticalEntities:
-                allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American']
-                locationsRegex = '|'.join(allowedLocations)
-                if not re.search(locationsRegex, str(gpe)):
-                    if re.search('study\sabroad', infoText.lower()) or re.search('teach\sabroad', infoText.lower()):
-                        badText = False
-                    else:
-                        badText = True
-                else:
-                    badText = False
+            badText = self.scanGeoPoliticalEntities(geoPoliticalEntities)
 
         return badText
 
@@ -212,3 +204,56 @@ class ClassifyBadScholarships(object):
                     badTextOrganizations = True
 
         return badTextOrganizations
+
+    def scanGeoPoliticalEntities(self, geoPoliticalEntities):
+        countriesList = self.getCountriesList()
+        countryCapitalsList = self.getCountryCapitalsList()
+        statesList = self.getStatesList()
+        usCitiesList = self.getUSCitiesList()
+
+        for gpe in geoPoliticalEntities:
+            allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American']
+            locationsRegex = '|'.join(allowedLocations)
+            if not re.search(locationsRegex, str(gpe)):
+                if re.search('study\sabroad', infoText.lower()) or re.search('teach\sabroad', infoText.lower()):
+                    badText = False
+                else:
+                    badText = True
+            else:
+                badText = False
+
+    def getCountriesList(self):
+        countriesList = []
+
+        rows = self.db.getRows("select distinct Country from dbo.CountriesAndCapitals")
+        for row in rows:
+            countriesList.append(row.Country)
+
+        return countriesList
+
+    def getCountryCapitalsList(self):
+        countryCapitalsList = []
+
+        rows = self.db.getRows("select distinct Capital from dbo.CountriesAndCapitals")
+        for row in rows:
+            countryCapitalsList.append(row.Capital)
+
+        return countryCapitalsList
+
+    def getStatesList(self):
+        statesList = []
+
+        rows = self.db.getRows("select distinct State from dbo.USCitiesStates")
+        for row in rows:
+            statesList.append(row.State)
+
+        return statesList
+
+    def getUSCitiesList(self):
+        usCitiesList = []
+
+        rows = self.db.getRows("select distinct City from dbo.USCitiesStates")
+        for row in rows:
+            usCitiesList.append(row.City)
+
+        return usCitiesList
