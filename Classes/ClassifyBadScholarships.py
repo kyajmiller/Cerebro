@@ -255,7 +255,7 @@ class ClassifyBadScholarships(object):
 
         for gpe in filteredGPEs:
             if gpe not in allowedGPEs:
-                if gpe != 'Columbia' and not re.search('district\sof\scolumbia'):
+                if gpe != 'Columbia' and not re.search('district\sof\scolumbia', infoText):
                     if not re.search('study\sabroad', infoText.lower()) and not re.search('teach\sabroad',
                                                                                           infoText.lower()):
                         badTextGPEs = True
