@@ -20,6 +20,11 @@ class ClassifyBadScholarships(object):
 
         self.educationKeywords = ['University', 'School', 'Institute', 'College', 'Conservatory']
 
+        self.countriesList = self.getCountriesList()
+        self.countryCapitalsList = self.getCountryCapitalsList()
+        self.demonymsList = self.getDemonymsList()
+        self.statesList = self.getStatesList()
+        self.usCitiesList = self.getUSCitiesList()
         self.otherGPES = ['U.S.', 'U.S.A.', 'US', 'USA', 'UK', 'EU', 'European', 'African', 'Middle East', 'British',
                           'English', 'Europe', 'Soviet', 'Asian', 'Chinas']
 
@@ -224,27 +229,21 @@ class ClassifyBadScholarships(object):
         return badTextOrganizations
 
     def scanGeoPoliticalEntities(self, geoPoliticalEntities, infoText):
-        countriesList = self.getCountriesList()
-        countryCapitalsList = self.getCountryCapitalsList()
-        demonymsList = self.getDemonymsList()
-        statesList = self.getStatesList()
-        usCitiesList = self.getUSCitiesList()
-
         allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American']
 
         badTextGPEs = False
 
         filteredGPEs = []
         for gpe in geoPoliticalEntities:
-            if gpe in countriesList:
+            if gpe in self.countriesList:
                 filteredGPEs.append(gpe)
-            elif gpe in countryCapitalsList:
+            elif gpe in self.countryCapitalsList:
                 filteredGPEs.append(gpe)
-            elif gpe in demonymsList:
+            elif gpe in self.demonymsList:
                 filteredGPEs.append(gpe)
-            elif gpe in statesList:
+            elif gpe in self.statesList:
                 filteredGPEs.append(gpe)
-            elif gpe in usCitiesList:
+            elif gpe in self.usCitiesList:
                 filteredGPEs.append(gpe)
             elif gpe in self.otherGPES:
                 filteredGPEs.append(gpe)
@@ -258,7 +257,7 @@ class ClassifyBadScholarships(object):
                                                                                       infoText.lower()):
                     badTextGPEs = True
                 elif re.search('study\sabroad', infoText.lower()) or re.search('teach\sabroad', infoText.lower()):
-                    if gpe not in countriesList and gpe not in countryCapitalsList:
+                    if gpe not in self.countriesList and gpe not in self.countryCapitalsList:
                         badTextGPEs = True
 
         return badTextGPEs
@@ -309,23 +308,17 @@ class ClassifyBadScholarships(object):
         return demonymsList
 
     def getMistaggedGPEsFromOrganizations(self, organizations):
-        countriesList = self.getCountriesList()
-        countryCapitalsList = self.getCountryCapitalsList()
-        demonymsList = self.getDemonymsList()
-        statesList = self.getStatesList()
-        usCitiesList = self.getUSCitiesList()
-
         isActuallyGPE = []
         for organization in organizations:
-            if organization in countriesList:
+            if organization in self.countriesList:
                 isActuallyGPE.append(organization)
-            elif organization in countryCapitalsList:
+            elif organization in self.countryCapitalsList:
                 isActuallyGPE.append(organization)
-            elif organization in demonymsList:
+            elif organization in self.demonymsList:
                 isActuallyGPE.append(organization)
-            elif organization in statesList:
+            elif organization in self.statesList:
                 isActuallyGPE.append(organization)
-            elif organization in usCitiesList:
+            elif organization in self.usCitiesList:
                 isActuallyGPE.append(organization)
             elif organization in self.otherGPES:
                 isActuallyGPE.append(organization)
