@@ -229,9 +229,9 @@ class ClassifyBadScholarships(object):
         return badTextOrganizations
 
     def scanGeoPoliticalEntities(self, geoPoliticalEntities, infoText):
-        allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American']
-
         badTextGPEs = False
+
+        allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American']
 
         filteredGPEs = []
         for gpe in geoPoliticalEntities:
@@ -309,6 +309,7 @@ class ClassifyBadScholarships(object):
 
     def getMistaggedGPEsFromOrganizations(self, organizations):
         isActuallyGPE = []
+
         for organization in organizations:
             if organization in self.countriesList:
                 isActuallyGPE.append(organization)
