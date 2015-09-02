@@ -99,11 +99,17 @@ class ClassifyBadScholarships(object):
                 gpe = gpe[0].upper() + gpe[1:]
                 geoPoliticalEntities.append(gpe)
 
+        if len(organizations) > 0:
+            print('Organizations: %s' % organizations)
+        if len(geoPoliticalEntities) > 0:
+            print('GPEs: %s' % geoPoliticalEntities)
+
         badText = self.scanOrganizations(organizations)
 
         if badText != True:
             badText = self.scanGeoPoliticalEntities(geoPoliticalEntities, infoText)
 
+        print(badText)
         return badText
 
     def parseOranizations(self, sentence):
@@ -210,7 +216,8 @@ class ClassifyBadScholarships(object):
         demonymsList = self.getDemonymsList()
         statesList = self.getStatesList()
         usCitiesList = self.getUSCitiesList()
-        abbreviations = ['U.S.', 'U.S.A.', 'US', 'USA', 'UK', 'EU']
+        otherGPES = ['U.S.', 'U.S.A.', 'US', 'USA', 'UK', 'EU', 'European', 'African', 'Middle East', 'British',
+                     'English', 'Europe', 'Soviet']
 
         allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American']
 
@@ -228,8 +235,11 @@ class ClassifyBadScholarships(object):
                 filteredGPEs.append(gpe)
             elif gpe in usCitiesList:
                 filteredGPEs.append(gpe)
-            elif gpe in abbreviations:
+            elif gpe in otherGPES:
                 filteredGPEs.append(gpe)
+
+        if len(filteredGPEs) > 0:
+            print("Filtered GPES: %s" % filteredGPEs)
 
         for gpe in filteredGPEs:
             if gpe not in allowedGPEs:
