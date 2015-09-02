@@ -6,7 +6,6 @@ import re
 from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
 from Classes.TokenizeIntoSentences import TokenizeIntoSentences
 from Classes.CleanText import CleanText
-from Classes.GetFastFindMajorsList import GetFastFindMajorsList
 from Classes.SUDBConnect import SUDBConnect
 
 
