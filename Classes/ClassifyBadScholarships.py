@@ -215,8 +215,20 @@ class ClassifyBadScholarships(object):
 
         allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American']
 
+        filteredGPEs = []
         for gpe in geoPoliticalEntities:
-
+            if gpe in countriesList:
+                filteredGPEs.append(gpe)
+            elif gpe in countryCapitalsList:
+                filteredGPEs.append(gpe)
+            elif gpe in demonymsList:
+                filteredGPEs.append(gpe)
+            elif gpe in statesList:
+                filteredGPEs.append(gpe)
+            elif gpe in usCitiesList:
+                filteredGPEs.append(gpe)
+            elif gpe in abbreviations:
+                filteredGPEs.append(gpe)
 
         for gpe in geoPoliticalEntities:
             allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American']
