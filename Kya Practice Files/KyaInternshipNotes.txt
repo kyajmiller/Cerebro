@@ -1238,3 +1238,29 @@ Things I've noticed that I really can't fix:
 -Starting out by making a superclass to use with each of the specific class - RunBadScholarshipClassifier
 -Finished RunBadScholarshipClassifierOnCheggLeads
 -I'm really iffy about how well this thing works, but I can't think of any other way to improve it so just kinda go with it
+
+9/2 Notes:
+-Because I'm really not satisfied with how much I was able to filter out the bad-tagged GPEs, going to try making a database of locations to check them against
+-Going to make a table of countries/capitals; a second table of states/capitals; third table of major US cities and major world cities
+-Then will have classifier call each of these lists, filter out anything that isn't there
+-Might also filter the Organizations through these lists in case a GPE is incorrectly tagged as an org
+-Would prefer to still use the NER parser rather than just use a regex of the lists because might run a bit faster.
+-Might also need to add the adjective form of the country to the countries list. So, for example, Japan would have Japan, Tokyo, Japanese
+
+-Made the countries/capitals table and the US states/capitals/major cities table
+-Forreal, if this list can't capture at least some indication of any GPE the program could toss at it, then it's so obscure that it won't even matter
+-Updated the classifier with the list, and ugh. Dropped text accuracy down to 61%. Not sure what the issue is
+-going to reimplement the thing to print out the gpes and see what the problem is
+-That's really disappointing though.
+-Okay, realized there were a lot of general GPEs that got filtered out (stuff like European, Asian, etc), so I just added those back to the list, accuracy back up to 64.2%
+-Will look back through and see if there's anymore that need to be added back in
+-Still need to implement the GPE search over the organizations search for the stray GPEs that end up in there
+-Going to add in a filter for English to try to capture 'English language' as an exception- AHAHAHA DON'T FUCKING DO THIS THAT WAS BAD (51%)
+-I am really satisfied though that this has pretty much completely solved the problem of bs GPEs getting through. Now it's just a matter of readding GPEs that should be tested
+-Trying to add a filter for studyabroad/teach abroad that forces the gpe to be a foreign country/city (to prevent something like 'need to live in utah for study abroad') - 65.3409090909091
+-Yay! Filtering out mistagged GPEs from organizations back to GPEs is an increase in accuracy - 67.23484848484848, this is all so good
+-Added all of the extra GPEs that were missed in testing, accuracy up to 67.42424242424242
+-So overall, the whole thing raised accuracy by 2ish percent, which isn't a whole lot, but it'll significantly reduce the number of false positives that the program would have from mislabeled GPEs
+-So I anticipate that the overall accuracy should have been increased by quite a bit more...
+--An increase from 87.1% to 88.82575757575758; not as much as I was hoping, but it's still good
+-For some reason 'district of columbia' isn't working too well, but I'll worry about that later
