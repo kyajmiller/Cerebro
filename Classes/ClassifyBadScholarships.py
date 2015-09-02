@@ -278,7 +278,7 @@ class ClassifyBadScholarships(object):
     def getDemonymsList(self):
         demonymsList = []
 
-        rows = self.db.getRows('select disctint Demonym from dbo.CountriesAndCapitals')
+        rows = self.db.getRows('select distinct Demonym from dbo.CountriesAndCapitals')
         for row in rows:
             demonymsList.append(row.Demonym)
 
