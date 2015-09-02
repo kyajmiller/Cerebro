@@ -103,7 +103,7 @@ class ClassifyBadScholarships(object):
         badText = self.scanOrganizations(organizations)
 
         if badText != True:
-            badText = self.scanGeoPoliticalEntities(geoPoliticalEntities)
+            badText = self.scanGeoPoliticalEntities(geoPoliticalEntities, infoText)
 
         return badText
 
@@ -205,15 +205,17 @@ class ClassifyBadScholarships(object):
 
         return badTextOrganizations
 
-    def scanGeoPoliticalEntities(self, geoPoliticalEntities):
+    def scanGeoPoliticalEntities(self, geoPoliticalEntities, infoText):
         countriesList = self.getCountriesList()
         countryCapitalsList = self.getCountryCapitalsList()
         demonymsList = self.getDemonymsList()
         statesList = self.getStatesList()
         usCitiesList = self.getUSCitiesList()
-        abbreviations = ['U.S.', 'US', 'USA', 'UK', 'EU']
+        abbreviations = ['U.S.', 'U.S.A.', 'US', 'USA', 'UK', 'EU']
 
         allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American']
+
+        badTextGPEs = False
 
         filteredGPEs = []
         for gpe in geoPoliticalEntities:
@@ -230,16 +232,13 @@ class ClassifyBadScholarships(object):
             elif gpe in abbreviations:
                 filteredGPEs.append(gpe)
 
-        for gpe in geoPoliticalEntities:
-            allowedLocations = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American']
-            locationsRegex = '|'.join(allowedLocations)
-            if not re.search(locationsRegex, str(gpe)):
-                if re.search('study\sabroad', infoText.lower()) or re.search('teach\sabroad', infoText.lower()):
-                    badText = False
-                else:
-                    badText = True
-            else:
-                badText = False
+        for gpe in filteredGPEs:
+            if gpe not in allowedGPEs:
+                if not re.search('study\sabroad', infoText.lower()) and not re.search('teach\sabroad',
+                                                                                      infoText.lower()):
+                    badTextGPEs = True
+
+        return badTextGPEs
 
     def getCountriesList(self):
         countriesList = []
