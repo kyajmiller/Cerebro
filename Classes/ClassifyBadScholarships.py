@@ -20,6 +20,9 @@ class ClassifyBadScholarships(object):
 
         self.educationKeywords = ['University', 'School', 'Institute', 'College', 'Conservatory']
 
+        self.otherGPES = ['U.S.', 'U.S.A.', 'US', 'USA', 'UK', 'EU', 'European', 'African', 'Middle East', 'British',
+                          'English', 'Europe', 'Soviet', 'Asian', 'Chinas']
+
     def loopThroughLeadsAndDoStuff(self):
         for i in range(len(self.sponsorsList)):
             sponsor = self.sponsorsList[i]
@@ -226,8 +229,6 @@ class ClassifyBadScholarships(object):
         demonymsList = self.getDemonymsList()
         statesList = self.getStatesList()
         usCitiesList = self.getUSCitiesList()
-        otherGPES = ['U.S.', 'U.S.A.', 'US', 'USA', 'UK', 'EU', 'European', 'African', 'Middle East', 'British',
-                     'English', 'Europe', 'Soviet', 'Asian', 'Chinas']
 
         allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American']
 
@@ -245,7 +246,7 @@ class ClassifyBadScholarships(object):
                 filteredGPEs.append(gpe)
             elif gpe in usCitiesList:
                 filteredGPEs.append(gpe)
-            elif gpe in otherGPES:
+            elif gpe in self.otherGPES:
                 filteredGPEs.append(gpe)
 
         if len(filteredGPEs) > 0:
@@ -313,8 +314,6 @@ class ClassifyBadScholarships(object):
         demonymsList = self.getDemonymsList()
         statesList = self.getStatesList()
         usCitiesList = self.getUSCitiesList()
-        otherGPES = ['U.S.', 'U.S.A.', 'US', 'USA', 'UK', 'EU', 'European', 'African', 'Middle East', 'British',
-                     'English', 'Europe', 'Soviet', 'Asian']
 
         isActuallyGPE = []
         for organization in organizations:
@@ -328,7 +327,7 @@ class ClassifyBadScholarships(object):
                 isActuallyGPE.append(organization)
             elif organization in usCitiesList:
                 isActuallyGPE.append(organization)
-            elif organization in otherGPES:
+            elif organization in self.otherGPES:
                 isActuallyGPE.append(organization)
 
         return isActuallyGPE
