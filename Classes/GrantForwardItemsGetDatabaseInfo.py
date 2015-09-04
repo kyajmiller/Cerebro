@@ -104,18 +104,49 @@ class GrantForwardItemsGetDatabaseInfo(object):
     def getSourceTexts(self):
         sourceTexts = []
 
-        if self.tag:
+        if self.tag and self.keyword:
             rows = self.db.getRows(
                 "select OpportunitySourceText from dbo.GrantForwardItems where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 sourceTexts.append(row.OpportunitySourceText)
-        else:
+        elif self.keyword:
             rows = self.db.getRows(
                 "select OpportunitySourceText from dbo.GrantForwardItems where Keyword='" + self.keyword + "'")
             for row in rows:
                 sourceTexts.append(row.OpportunitySourceText)
+        elif self.tag:
+            rows = self.db.getRows("select *from dbo.GrantForwardItems where Tag='" + self.tag + "'")
+            for row in rows:
+                sourceTexts.append(row.OpportunitySourceText)
+        else:
+            rows = self.db.getRows("select * from dbo.GrantForwardItems")
+            for row in rows:
+                sourceTexts.append(row.OpportunitySourceText)
 
         return sourceTexts
+
+    def getSponsors(self):
+        sponsors = []
+
+        if self.tag and self.keyword:
+            rows = self.db.getRows(
+                "select * from dbo.GrantForwardItems where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+        elif self.keyword:
+            rows = self.db.getRows("select * from dbo.GrantForwrdItems where Keyword='" + self.keyword + "'")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+        elif self.tag:
+            rows = self.db.getRows("select * from dbo.GrantFowardItems where Tag='" + self.tag + "'")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+        else:
+            rows = self.db.getRows("select * from dbo.GrantForwardItems")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+
+        return sponsors
 
     def getListStringConcatenatedDescriptionEligibility(self):
         listComboDescriptionsEligibilities = []
