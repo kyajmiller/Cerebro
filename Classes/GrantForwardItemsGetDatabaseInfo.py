@@ -57,13 +57,21 @@ class GrantForwardItemsGetDatabaseInfo(object):
     def getEligibilities(self):
         eligibilities = []
 
-        if self.tag:
+        if self.tag and self.keyword:
             rows = self.db.getRows(
                 "select Eligibility from dbo.GrantForwardItems where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 eligibilities.append(row.Eligibility)
-        else:
+        elif self.keyword:
             rows = self.db.getRows("select Eligibility from dbo.GrantForwardItems where Keyword='" + self.keyword + "'")
+            for row in rows:
+                eligibilities.append(row.Eligibility)
+        elif self.tag:
+            rows = self.db.getRows("select * from dbo.GrantForwardItems where Tag='" + self.tag + "'")
+            for row in rows:
+                eligibilities.append(row.Eligibility)
+        else:
+            rows = self.db.getRows("select * from dbo.GrantForwardItems")
             for row in rows:
                 eligibilities.append(row.Eligibility)
 
