@@ -14,7 +14,7 @@ class PopulateGrantForwardRequirements(PopulateRequirements):
 
     def loopThroughListOfMajorsAndDoStuff(self):
         for major in self.listOfMajors:
-            grantForwardItemsDatabaseInfo = GrantForwardItemsGetDatabaseInfo(major, self.tag)
+            grantForwardItemsDatabaseInfo = GrantForwardItemsGetDatabaseInfo(keyword=major, tag=self.tag)
             listOfGrantForwardItemIds = grantForwardItemsDatabaseInfo.getGrantForwardItemIds()
             listOfConcatenatedDescriptionsEligibilities = grantForwardItemsDatabaseInfo.getListStringConcatenatedDescriptionEligibility()
             listOfSourceTexts = grantForwardItemsDatabaseInfo.getSourceTexts()
