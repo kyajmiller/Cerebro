@@ -21,7 +21,7 @@ class GrantForwardItemsGetDatabaseInfo(object):
             for row in rows:
                 titles.append(row.Name)
         elif self.tag:
-            rows = self.db.getRows("select * from dbo.GrantForwardItems where tag='" + self.tag + "'")
+            rows = self.db.getRows("select * from dbo.GrantForwardItems where Tag='" + self.tag + "'")
             for row in rows:
                 titles.append(row.Name)
         else:
@@ -34,13 +34,21 @@ class GrantForwardItemsGetDatabaseInfo(object):
     def getDescriptions(self):
         descriptions = []
 
-        if self.tag:
+        if self.tag and self.keyword:
             rows = self.db.getRows(
                 "select Description from dbo.GrantForwardItems where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 descriptions.append(row.Description)
-        else:
+        elif self.keyword:
             rows = self.db.getRows("select Description from dbo.GrantForwardItems where Keyword='" + self.keyword + "'")
+            for row in rows:
+                descriptions.append(row.Description)
+        elif self.tag:
+            rows = self.db.getRows("select * from dbo.GrantForwardItems where Tag='" + self.tag + "'")
+            for row in rows:
+                descriptions.append(row.Description)
+        else:
+            rows = self.db.getRows("select * from dbo.GrantForwardItems")
             for row in rows:
                 descriptions.append(row.Description)
 
