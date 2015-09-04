@@ -32,7 +32,7 @@ class ClassifyBadScholarships(object):
                           'America', 'North America']
 
     def loopThroughLeadsAndDoStuff(self):
-        for i in range(len(self.sponsorsList)):
+        for i in range(len(self.infoTextList)):
             sponsor = self.sponsorsList[i]
             infoText = self.infoTextList[i]
             predictBad = self.classifyOpportunity(sponsor, infoText)
