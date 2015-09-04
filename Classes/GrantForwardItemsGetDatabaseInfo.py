@@ -3,7 +3,7 @@ from Classes.CleanText import CleanText
 
 
 class GrantForwardItemsGetDatabaseInfo(object):
-    def __init__(self, keyword, tag=None):
+    def __init__(self, keyword=None, tag=None):
         self.tag = tag
         self.keyword = keyword
         self.db = SUDBConnect()
@@ -11,13 +11,21 @@ class GrantForwardItemsGetDatabaseInfo(object):
     def getTitles(self):
         titles = []
 
-        if self.tag:
+        if self.keyword and self.tag:
             rows = self.db.getRows(
                 "select Name from dbo.GrantForwardItems where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 titles.append(row.Name)
-        else:
+        elif self.keyword:
             rows = self.db.getRows("select Name from dbo.GrantForwardItems where Keyword='" + self.keyword + "'")
+            for row in rows:
+                titles.append(row.Name)
+        elif self.tag:
+            rows = self.db.getRows("select * from dbo.GrantForwardItems where tag='" + self.tag + "'")
+            for row in rows:
+                titles.append(row.Name)
+        else:
+            rows = self.db.getRows("select * from dbo.GrantForwardItems")
             for row in rows:
                 titles.append(row.Name)
 
