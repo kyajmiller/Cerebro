@@ -241,6 +241,7 @@ class ClassifyBadScholarships(object):
         allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American', 'North America']
 
         filteredGPEs = []
+        badGPEs = []
         for gpe in geoPoliticalEntities:
             if gpe in self.countriesList:
                 filteredGPEs.append(gpe)
@@ -254,6 +255,12 @@ class ClassifyBadScholarships(object):
                 filteredGPEs.append(gpe)
             elif gpe in self.otherGPES:
                 filteredGPEs.append(gpe)
+            else:
+                badGPEs.append(gpe)
+
+        regexFoundGPEs = self.findGPEsWithRegex(badGPEs)
+        for foundGPE in regexFoundGPEs:
+            filteredGPEs.append(foundGPE)
 
         findDistrictOfColumbia = re.search('district of columbia', infoText.lower())
         if findDistrictOfColumbia:
@@ -339,3 +346,28 @@ class ClassifyBadScholarships(object):
                 isActuallyGPE.append(organization)
 
         return isActuallyGPE
+
+    def findGPEsWithRegex(self, namedEntitiesList):
+        countriesRegex = '|'.join(self.countriesList)
+        countryCapitalsRegex = '|'.join(self.countryCapitalsList)
+        statesRegex = '|'.join(self.statesList)
+        usCitiesRegex = '|'.join(self.usCitiesList)
+
+        foundGPEs = []
+
+        for namedEntity in namedEntitiesList:
+            findCountries = re.search(countriesRegex, namedEntity)
+            findCountryCapitals = re.search(countryCapitalsRegex, namedEntity)
+            findStates = re.search(statesRegex, namedEntity)
+            findUSCities = re.search(usCitiesRegex, namedEntity)
+
+            if findCountries:
+                foundGPEs.append(findCountries.group())
+            if findCountryCapitals:
+                foundGPEs.append(findCountryCapitals.group())
+            if findStates:
+                foundGPEs.append(findStates.group())
+            if findUSCities:
+                foundGPEs.append(findUSCities.group())
+
+        return foundGPEs
