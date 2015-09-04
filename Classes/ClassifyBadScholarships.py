@@ -29,7 +29,9 @@ class ClassifyBadScholarships(object):
                           'Britain', 'South America', 'China Hong Kong', 'New York City', 'Florence', 'Milano', 'Korea',
                           'Korean', 'East Tennessee', 'NYC', 'Barcelona', 'Balkan', 'Felician', 'Dubai', 'Sydney',
                           'Sydney Australia', 'South American', 'Asia', 'Eastern Europe', 'Central Eastern Europe',
-                          'America', 'North America']
+                          'America', 'North America', 'Bethesda', 'Central America', 'Central American',
+                          'Bethesda Maryland', 'Eurasia', 'Scandinavia', 'Scandinavian', 'Scandinavians', 'Africa',
+                          'North American']
 
     def loopThroughLeadsAndDoStuff(self):
         for i in range(len(self.infoTextList)):
@@ -236,8 +238,7 @@ class ClassifyBadScholarships(object):
     def scanGeoPoliticalEntities(self, geoPoliticalEntities, infoText):
         badTextGPEs = False
 
-        allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American', 'North America',
-                       'District of Columbia']
+        allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American', 'North America']
 
         filteredGPEs = []
         for gpe in geoPoliticalEntities:
@@ -256,9 +257,10 @@ class ClassifyBadScholarships(object):
 
         findDistrictOfColumbia = re.search('district of columbia', infoText.lower())
         if findDistrictOfColumbia:
-            filteredGPEs.append('District of Columbia')
             if 'Columbia' in filteredGPEs:
                 filteredGPEs.remove('Columbia')
+            if 'Washington' in filteredGPEs:
+                filteredGPEs.remove('Washington')
 
         if len(filteredGPEs) > 0:
             print("Filtered GPES: %s" % filteredGPEs)
