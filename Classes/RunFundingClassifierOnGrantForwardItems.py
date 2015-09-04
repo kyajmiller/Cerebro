@@ -12,9 +12,9 @@ class GrantForwardItemsRunFundingClassifier(object):
 
         for keyword in keywordsList:
             keyword = CleanText.cleanALLtheText(keyword)
-            titleDescriptionList = GrantForwardItemsGetDatabaseInfo(keyword).getTitleDescriptionList()
+            titleDescriptionList = GrantForwardItemsGetDatabaseInfo(keyword=keyword).getTitleDescriptionList()
             predictedTags = ClassifyFundingTypeKeywordBased(titleDescriptionList).returnPredictedTags()
-            listGrantForwardItemIds = GrantForwardItemsGetDatabaseInfo(keyword).getGrantForwardItemIds()
+            listGrantForwardItemIds = GrantForwardItemsGetDatabaseInfo(keyword=keyword).getGrantForwardItemIds()
 
             for i in range(len(predictedTags)):
                 tag = predictedTags[i]
