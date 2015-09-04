@@ -138,7 +138,7 @@ class GrantForwardItemsGetDatabaseInfo(object):
             for row in rows:
                 sponsors.append(row.Sponsor)
         elif self.tag:
-            rows = self.db.getRows("select * from dbo.GrantFowardItems where Tag='" + self.tag + "'")
+            rows = self.db.getRows("select * from dbo.GrantForwardItems where Tag='" + self.tag + "'")
             for row in rows:
                 sponsors.append(row.Sponsor)
         else:
