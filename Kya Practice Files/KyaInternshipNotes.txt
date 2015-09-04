@@ -1264,3 +1264,29 @@ Things I've noticed that I really can't fix:
 -So I anticipate that the overall accuracy should have been increased by quite a bit more...
 --An increase from 87.1% to 88.82575757575758; not as much as I was hoping, but it's still good
 -For some reason 'district of columbia' isn't working too well, but I'll worry about that later
+
+9/4 Notes:
+-I really don't want to play with the Classifier anymore.
+--Added America and North America to otherGPEs, added North America to allowed GPEs, not sure if that was a good idea because while it's non-specific, it's also kinda broad
+-Need to write the rest of the classes to run the Classifier over the rest of the databases, then run them
+-Ken sent email to check out new site for crawler, so need to do that
+-Meeting at 11ish
+
+-Apparently 'Independence' is a city somewhere, but I don't need it to be a GPE, so I need to remove that from the list
+--Fixed, just added a conditional statement for it
+--I could probably just remove it from the database, which probably would make more sense... will do that instead
+-I really really need to fix Disctrict of Columbia. It's bothering me. I don't know what to do with it but I don't like it
+--Fixed it. Do regex search over info text for district of columbia, if found, add to filteredGPEs, remove columbia from filtered gpes
+--Added district of columbia to okay gpes because it's annoying otherwise
+-Working on FatomeiLeads classifier thing, this one is weird because for Fatomei there was no way to actually grab the sponsor information, so this one will have
+to just run over the descriptions. It'll be crap at best.
+
+-Very tempted to add in a regex search for the non-filtered regexes to get dumb stuff that escapes like City + State or State Colleges, etc.
+-After looking over everything, definitely going to attempt to implement a regex search over the other GPEs/Organizations. I'm seeing a couple of game-changing GPEs popping up
+--The regexes will be huge though, so it'll have quite a bit of runtime...
+--Also not sure how to handle the couple of instances of ' in words, might need to do a regex replace over them to add a \
+---nvm apostrophes don't need to be escaped
+--Will end up needing an exception for race stuff. Don't want African American to return 'African' and 'American'
+
+
+Finished classifiers: FastWebLeads, Fatomei
