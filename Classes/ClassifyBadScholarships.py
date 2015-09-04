@@ -33,7 +33,9 @@ class ClassifyBadScholarships(object):
 
     def loopThroughLeadsAndDoStuff(self):
         for i in range(len(self.infoTextList)):
-            sponsor = self.sponsorsList[i]
+            sponsor = ''
+            if len(self.sponsorsList) > 0:
+                sponsor = self.sponsorsList[i]
             infoText = self.infoTextList[i]
             predictBad = self.classifyOpportunity(sponsor, infoText)
             self.predictedBad.append(predictBad)
