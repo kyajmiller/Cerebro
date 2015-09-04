@@ -234,7 +234,8 @@ class ClassifyBadScholarships(object):
     def scanGeoPoliticalEntities(self, geoPoliticalEntities, infoText):
         badTextGPEs = False
 
-        allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American', 'North America']
+        allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American', 'North America',
+                       'District of Columbia']
 
         filteredGPEs = []
         for gpe in geoPoliticalEntities:
@@ -250,6 +251,12 @@ class ClassifyBadScholarships(object):
                 filteredGPEs.append(gpe)
             elif gpe in self.otherGPES:
                 filteredGPEs.append(gpe)
+
+        findDistrictOfColumbia = re.search('district of columbia', infoText.lower())
+        if findDistrictOfColumbia:
+            filteredGPEs.append('District of Columbia')
+            if 'Columbia' in filteredGPEs:
+                filteredGPEs.remove('Columbia')
 
         if len(filteredGPEs) > 0:
             print("Filtered GPES: %s" % filteredGPEs)
