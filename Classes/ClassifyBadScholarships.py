@@ -31,7 +31,7 @@ class ClassifyBadScholarships(object):
                           'Sydney Australia', 'South American', 'Asia', 'Eastern Europe', 'Central Eastern Europe',
                           'America', 'North America', 'Bethesda', 'Central America', 'Central American',
                           'Bethesda Maryland', 'Eurasia', 'Scandinavia', 'Scandinavian', 'Scandinavians', 'Africa',
-                          'North American']
+                          'North American', 'Rhineland']
 
     def loopThroughLeadsAndDoStuff(self):
         for i in range(len(self.infoTextList)):
