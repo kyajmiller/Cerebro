@@ -28,7 +28,8 @@ class ClassifyBadScholarships(object):
                           'English', 'Europe', 'Soviet', 'Asian', 'Chinas', 'New England', 'Tibetan', 'Tibet',
                           'Britain', 'South America', 'China Hong Kong', 'New York City', 'Florence', 'Milano', 'Korea',
                           'Korean', 'East Tennessee', 'NYC', 'Barcelona', 'Balkan', 'Felician', 'Dubai', 'Sydney',
-                          'Sydney Australia', 'South American', 'Asia', 'Eastern Europe', 'Central Eastern Europe']
+                          'Sydney Australia', 'South American', 'Asia', 'Eastern Europe', 'Central Eastern Europe',
+                          'America']
 
     def loopThroughLeadsAndDoStuff(self):
         for i in range(len(self.sponsorsList)):
