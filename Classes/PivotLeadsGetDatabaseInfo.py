@@ -77,13 +77,21 @@ class PivotLeadsGetDatabaseInfo(object):
     def getPivotLeadId(self):
         pivotLeadIds = []
 
-        if self.tag:
+        if self.tag and self.keyword:
             rows = self.db.getRows(
                 "select PivotLeadId from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 pivotLeadIds.append(str(row.PivotLeadId))
-        else:
+        elif self.keyword:
             rows = self.db.getRows("select PivotLeadId from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+            for row in rows:
+                pivotLeadIds.append(str(row.PivotLeadId))
+        elif self.tag:
+            rows = self.db.getRows("select * from dbo.PivotLeads where Tag='" + self.tag + "'")
+            for row in rows:
+                pivotLeadIds.append(str(row.PivotLeadId))
+        else:
+            rows = self.db.getRows("select * from dbo.PivotLeads")
             for row in rows:
                 pivotLeadIds.append(str(row.PivotLeadId))
         return pivotLeadIds
