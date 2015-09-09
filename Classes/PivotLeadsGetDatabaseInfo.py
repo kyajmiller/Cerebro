@@ -33,13 +33,21 @@ class PivotLeadsGetDatabaseInfo(object):
     def getAbstracts(self):
         abstracts = []
 
-        if self.tag:
+        if self.tag and self.keyword:
             rows = self.db.getRows(
                 "select Abstract from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 abstracts.append(row.Abstract)
-        else:
+        elif self.keyword:
             rows = self.db.getRows("select Abstract from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+            for row in rows:
+                abstracts.append(row.Abstract)
+        elif self.tag:
+            rows = self.db.getRows("select * from dbo.PivotLeads where Tag='" + self.tag + "'")
+            for row in rows:
+                abstracts.append(row.Abstract)
+        else:
+            rows = self.db.getRows("select * from dbo.PivotLeads")
             for row in rows:
                 abstracts.append(row.Abstract)
         return abstracts
