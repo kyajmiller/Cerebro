@@ -1289,4 +1289,40 @@ to just run over the descriptions. It'll be crap at best.
 --Will end up needing an exception for race stuff. Don't want African American to return 'African' and 'American'
 
 
-Finished classifiers: FastWebLeads, Fatomei
+Finished classifiers: FastWebLeads, Fatomei, GrantForward, CollegeGreenLight, Chegg
+
+9/9 Notes:
+-Not sure how much of the regex search I got implemented last week... having a break is good but I didn't take good notes on what I got done so who knows
+-I think so far I've got the regex search running over the GPEs, so hasn't been implemented for organizations yet. Not sure if ran tests on it yet so will do that
+-Seems like it brought up text-only accuracy just slightly, will test on full thing; brought up accuracy to 89%, so improvement
+-Will implement to search on organizations, then should be finished with the whole thing
+-Did the implementation, it doesn't seem to affect the test thing at all, probably because there weren't a whole lot of scenarios in the testing data where a regex search run over the organization would make or break it
+-It's pretty much done though.
+
+-Potential issues: typical racial terms like American Indian, Alaskan, Asian, etc. will pose problems, but ehhh
+-Yeah will need to filter these out, beginning to have problems
+-Was sort of able to implement a filter to not pull out 'Alaska' if encounter 'Alaskan' or 'Indian'/'India' if encounter 'American Indian', so that's okay
+-Other than the handful of issues it's having with overzealously filtering out Alaska/India(n), the gpe regex is a huge success. I don't see it so much in the testing data
+but in the normal data there are a ton of instances where the gpe regex search is having a huge effect. So yay!
+
+-need to get figures for Ken on how many scholarships pulled out
+Chegg: (59) 48
+CollegeGreenLight: (26) 26
+FastWeb: (95) 81
+Fatomei: (830) 334
+GrantForward: (36517) 1171
+Iefa: (1161) 556
+Pivot: (19102) 2325
+Scholarsite: (95) 95
+Unigo: (91) 91
+
+Total: 57976 total, 4727 scholarships (8%)
+
+-Need to finish writing the implementation classes, then ask Don-E what to do next
+-Still need to do: Iefa, Pivot, Scholarsite, Unigo
+
+-Things done today that haven't already been noted:
+-added functionality to remove gpes based on existing phrases in infotext, such as African American, Asian American, District of Columbia, etc.
+-PivotLeads bad scholarship classifier
+-Updated PivotLeadsGetDatabaseInfo to work with optional keywork parameter; added sponsor function
+-Removed redundant entries to otherGPEs since the regex search made some of them useless
