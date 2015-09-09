@@ -26,12 +26,11 @@ class ClassifyBadScholarships(object):
         self.statesList = self.getStatesList()
         self.usCitiesList = self.getUSCitiesList()
         self.otherGPES = ['U.S.', 'U.S.A.', 'US', 'USA', 'UK', 'EU', 'European', 'African', 'Middle East', 'British',
-                          'English', 'Europe', 'Soviet', 'Asian', 'Chinas', 'New England', 'Tibetan', 'Tibet',
-                          'Britain', 'South America', 'China Hong Kong', 'New York City', 'Florence', 'Milano', 'Korea',
-                          'Korean', 'East Tennessee', 'NYC', 'Barcelona', 'Balkan', 'Felician', 'Dubai', 'Sydney',
-                          'Sydney Australia', 'South American', 'Asia', 'Eastern Europe', 'Central Eastern Europe',
-                          'America', 'North America', 'Bethesda', 'Central America', 'Central American',
-                          'Bethesda Maryland', 'Eurasia', 'Scandinavia', 'Scandinavian', 'Scandinavians', 'Africa',
+                          'English', 'Europe', 'Soviet', 'Asian', 'New England', 'Tibetan', 'Tibet', 'Britain',
+                          'South America', 'New York City', 'Florence', 'Milano', 'Korea', 'Korean', 'NYC', 'Barcelona',
+                          'Balkan', 'Felician', 'Dubai', 'Sydney', 'South American', 'Asia', 'Eastern Europe',
+                          'Central Eastern Europe', 'America', 'North America', 'Bethesda', 'Central America',
+                          'Central American', 'Eurasia', 'Scandinavia', 'Scandinavian', 'Scandinavians', 'Africa',
                           'North American', 'Rhineland', 'Detroit']
 
     def loopThroughLeadsAndDoStuff(self):
