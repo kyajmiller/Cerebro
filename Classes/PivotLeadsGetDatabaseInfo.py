@@ -118,6 +118,29 @@ class PivotLeadsGetDatabaseInfo(object):
                 sourceTexts.append(row.SourceText)
         return sourceTexts
 
+    def getSponsors(self):
+        sponsors = []
+
+        if self.keyword and self.tag:
+            rows = self.db.getRows(
+                "select * from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+        elif self.keyword:
+            rows = self.db.getRows("select * from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+        elif self.tag:
+            rows = self.db.getRows("select * from dbo.PivotLeads where Tag='" + self.tag + "'")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+        else:
+            rows = self.db.getRows("select * from dbo.PivotLeads")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+
+        return sponsors
+
     def getListStringConcatendatedAbstractEligibility(self):
         comboAbstractsEligibilitiesList = []
 
