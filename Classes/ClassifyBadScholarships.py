@@ -242,7 +242,8 @@ class ClassifyBadScholarships(object):
     def scanGeoPoliticalEntities(self, geoPoliticalEntities, infoText):
         badTextGPEs = False
 
-        allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American', 'North America']
+        allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American', 'North America',
+                       'North American']
 
         filteredGPEs = []
         badGPEs = []
