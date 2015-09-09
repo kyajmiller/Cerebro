@@ -31,7 +31,8 @@ class ClassifyBadScholarships(object):
                           'Balkan', 'Felician', 'Dubai', 'Sydney', 'South American', 'Asia', 'Eastern Europe',
                           'Central Eastern Europe', 'America', 'North America', 'Bethesda', 'Central America',
                           'Central American', 'Eurasia', 'Scandinavia', 'Scandinavian', 'Scandinavians', 'Africa',
-                          'North American', 'Rhineland', 'Detroit']
+                          'North American', 'Rhineland', 'Detroit', 'Bavaria', 'Bavarian', 'Latin America',
+                          'Latin American']
 
     def loopThroughLeadsAndDoStuff(self):
         for i in range(len(self.infoTextList)):
@@ -271,12 +272,7 @@ class ClassifyBadScholarships(object):
         if len(regexFoundGPEs):
             print('GPEs from GPEs (Regex): %s' % regexFoundGPEs)
 
-        findDistrictOfColumbia = re.search('district of columbia', infoText.lower())
-        if findDistrictOfColumbia:
-            if 'Columbia' in filteredGPEs:
-                filteredGPEs.remove('Columbia')
-            if 'Washington' in filteredGPEs:
-                filteredGPEs.remove('Washington')
+        filteredGPEs = self.filterOutGPEsDemographicsPhrases(filteredGPEs, infoText)
 
         if len(filteredGPEs) > 0:
             print("Filtered GPES: %s" % filteredGPEs)
@@ -400,3 +396,25 @@ class ClassifyBadScholarships(object):
                     goodGPEs.remove('India')
 
         return goodGPEs
+
+    def filterOutGPEsDemographicsPhrases(self, gpesList, infoText):
+        filteredGPEs = gpesList
+
+        findAfricanAmerican = re.search('African American', CleanText.cleanALLtheText(infoText))
+        if findAfricanAmerican:
+            if 'African' in filteredGPEs:
+                filteredGPEs.remove('African')
+
+        findAsianAmerican = re.search('Asian American', CleanText.cleanALLtheText(infoText))
+        if findAsianAmerican:
+            if 'Asian' in filteredGPEs:
+                filteredGPEs.remove('Asian')
+
+        findDistrictOfColumbia = re.search('district of columbia', infoText.lower())
+        if findDistrictOfColumbia:
+            if 'Columbia' in filteredGPEs:
+                filteredGPEs.remove('Columbia')
+            if 'Washington' in filteredGPEs:
+                filteredGPEs.remove('Washington')
+
+        return filteredGPEs
