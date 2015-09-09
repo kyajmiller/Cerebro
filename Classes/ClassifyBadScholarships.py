@@ -124,6 +124,10 @@ class ClassifyBadScholarships(object):
 
         organizations = actualOrganizations
 
+        regexGPEsFromOrganizations = self.findGPEsWithRegex(organizations)
+        for gpe in regexGPEsFromOrganizations:
+            geoPoliticalEntities.append(gpe)
+
         if len(organizations) > 0:
             print('Organizations: %s' % organizations)
         if len(geoPoliticalEntities) > 0:
