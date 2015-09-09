@@ -7,6 +7,7 @@ from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuat
 from Classes.TokenizeIntoSentences import TokenizeIntoSentences
 from Classes.CleanText import CleanText
 from Classes.SUDBConnect import SUDBConnect
+from Classes.CleanText import CleanText
 
 
 class ClassifyBadScholarships(object):
@@ -391,7 +392,9 @@ class ClassifyBadScholarships(object):
             if re.search('Alaskan', namedEntity):
                 if 'Alaska' in goodGPEs:
                     goodGPEs.remove('Alaska')
-            if re.search('American\n? Indian', namedEntity) or re.search('Native\n? Indian', namedEntity):
+            if re.search('American Indian', CleanText.cleanALLtheText(namedEntity)) or re.search('Native American',
+                                                                                                 CleanText.cleanALLtheText(
+                                                                                                         namedEntity)):
                 if 'Indian' in goodGPEs:
                     goodGPEs.remove('Indian')
                 if 'India' in goodGPEs:
