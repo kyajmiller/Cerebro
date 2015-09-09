@@ -55,13 +55,21 @@ class PivotLeadsGetDatabaseInfo(object):
     def getEligibilities(self):
         eligibilities = []
 
-        if self.tag:
+        if self.tag and self.keyword:
             rows = self.db.getRows(
                 "select Eligibility from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 eligibilities.append(row.Eligibility)
-        else:
+        elif self.keyword:
             rows = self.db.getRows("select Eligibility from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+            for row in rows:
+                eligibilities.append(row.Eligibility)
+        elif self.tag:
+            rows = self.db.getRows("select * from dbo.PivotLeads where Tag='" + self.tag + "'")
+            for row in rows:
+                eligibilities.append(row.Eligibility)
+        else:
+            rows = self.db.getRows("select * from dbo.PivotLeads")
             for row in rows:
                 eligibilities.append(row.Eligibility)
         return eligibilities
