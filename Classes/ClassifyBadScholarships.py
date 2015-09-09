@@ -31,7 +31,7 @@ class ClassifyBadScholarships(object):
                           'Sydney Australia', 'South American', 'Asia', 'Eastern Europe', 'Central Eastern Europe',
                           'America', 'North America', 'Bethesda', 'Central America', 'Central American',
                           'Bethesda Maryland', 'Eurasia', 'Scandinavia', 'Scandinavian', 'Scandinavians', 'Africa',
-                          'North American', 'Rhineland']
+                          'North American', 'Rhineland', 'Detroit']
 
     def loopThroughLeadsAndDoStuff(self):
         for i in range(len(self.infoTextList)):
@@ -391,8 +391,10 @@ class ClassifyBadScholarships(object):
             if re.search('Alaskan', namedEntity):
                 if 'Alaska' in goodGPEs:
                     goodGPEs.remove('Alaska')
-            if re.search('American Indian', namedEntity) or re.search('Native Indian', namedEntity):
+            if re.search('American\n? Indian', namedEntity) or re.search('Native\n? Indian', namedEntity):
                 if 'Indian' in goodGPEs:
                     goodGPEs.remove('Indian')
+                if 'India' in goodGPEs:
+                    goodGPEs.remove('India')
 
         return goodGPEs
