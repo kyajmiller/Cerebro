@@ -132,6 +132,8 @@ class ClassifyBadScholarships(object):
             print('Organizations: %s' % organizations)
         if len(geoPoliticalEntities) > 0:
             print('GPEs: %s' % geoPoliticalEntities)
+        if len(regexGPEsFromOrganizations) > 0:
+            print('GPEs from Organizations (Regex): %s' % regexGPEsFromOrganizations)
 
         badText = self.scanOrganizations(organizations)
 
@@ -264,8 +266,10 @@ class ClassifyBadScholarships(object):
                 badGPEs.append(gpe)
 
         regexFoundGPEs = self.findGPEsWithRegex(badGPEs)
-        for foundGPE in regexFoundGPEs:
-            filteredGPEs.append(foundGPE)
+        for gpe in regexFoundGPEs:
+            filteredGPEs.append(gpe)
+        if len(regexFoundGPEs):
+            print('GPEs from GPEs (Regex): %s' % regexFoundGPEs)
 
         findDistrictOfColumbia = re.search('district of columbia', infoText.lower())
         if findDistrictOfColumbia:
@@ -375,4 +379,20 @@ class ClassifyBadScholarships(object):
             if findUSCities:
                 foundGPEs.append(findUSCities.group())
 
+        gpesAfterDemographicFiltering = self.checkRegexGPEsAgainstDemographicsList(foundGPEs, namedEntitiesList)
+        foundGPEs = gpesAfterDemographicFiltering
+
         return foundGPEs
+
+    def checkRegexGPEsAgainstDemographicsList(self, regexGPEs, namedEntityList):
+        goodGPEs = regexGPEs
+
+        for namedEntity in namedEntityList:
+            if re.search('Alaskan', namedEntity):
+                if 'Alaska' in goodGPEs:
+                    goodGPEs.remove('Alaska')
+            if re.search('American Indian', namedEntity) or re.search('Native Indian', namedEntity):
+                if 'Indian' in goodGPEs:
+                    goodGPEs.remove('Indian')
+
+        return goodGPEs
