@@ -99,13 +99,21 @@ class PivotLeadsGetDatabaseInfo(object):
     def getSourceText(self):
         sourceTexts = []
 
-        if self.tag:
+        if self.tag and self.keyword:
             rows = self.db.getRows(
                 "select SourceText from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 sourceTexts.append(row.SourceText)
-        else:
+        elif self.keyword:
             rows = self.db.getRows("select SourceText from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+            for row in rows:
+                sourceTexts.append(row.SourceText)
+        elif self.tag:
+            rows = self.db.getRows("select * from dbo.PivotLeads where Tag='" + self.tag + "'")
+            for row in rows:
+                sourceTexts.append(row.SourceText)
+        else:
+            rows = self.db.getRows("select * from dbo.PivotLeads")
             for row in rows:
                 sourceTexts.append(row.SourceText)
         return sourceTexts
