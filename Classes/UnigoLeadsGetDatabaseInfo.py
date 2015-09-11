@@ -22,3 +22,21 @@ class UnigoLeadsGetDatabaseInfo(object):
             requirements.append(row.Requirements)
 
         return requirements
+
+    def getSponsors(self):
+        sponsors = []
+
+        rows = self.db.getRows("select * from dbo.UnigoLeads")
+        for row in rows:
+            sponsors.append(row.Sponsor)
+
+        return sponsors
+
+    def getAdditionalInfo(self):
+        additionalInfo = []
+
+        rows = self.db.getRows("select * from dbo.UnigoLeads")
+        for row in rows:
+            additionalInfo.append(row.AdditionalInfo)
+
+        return additionalInfo
