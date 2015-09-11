@@ -12,11 +12,11 @@ class Scholarship360LeadsGetDatabaseInfo(object):
         if self.tag:
             rows = self.db.getRows("select * from dbo.Scholarships360Leads where Tag='" + self.tag + "'")
             for row in rows:
-                scholarships360LeadsIds.append(row.Scholarships360LeadId)
+                scholarships360LeadsIds.append(row.Scholarship360LeadId)
         else:
             rows = self.db.getRows("select * from dbo.Scholarships360Leads")
             for row in rows:
-                scholarships360LeadsIds.append(row.Scholarships360LeadId)
+                scholarships360LeadsIds.append(row.Scholarship360LeadId)
 
         return scholarships360LeadsIds
 
