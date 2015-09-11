@@ -33,3 +33,32 @@ class Scholarship360LeadsGetDatabaseInfo(object):
                 descriptions.append(row.Description)
 
         return descriptions
+
+    def getTitles(self):
+        titles = []
+
+        if self.tag:
+            rows = self.db.getRows("select * from dbo.Scholarships360Leads where Tag='" + self.tag + "'")
+            for row in rows:
+                titles.append(row.Name)
+        else:
+            rows = self.db.getRows("select * from dbo.Scholarships360Leads")
+            for row in rows:
+                titles.append(row.Name)
+
+        return titles
+
+    def getTitleDescriptionList(self):
+        wholeList = []
+
+        titlesList = self.getTitles()
+        descriptionsList = self.getDescriptions()
+
+        for i in range(len(titlesList)):
+            title = titlesList[i]
+            description = descriptionsList[i]
+
+            listOfItems = [title, description]
+            wholeList.append(listOfItems)
+
+        return wholeList
