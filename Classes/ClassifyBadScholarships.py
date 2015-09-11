@@ -246,7 +246,7 @@ class ClassifyBadScholarships(object):
         badTextGPEs = False
 
         allowedGPEs = ['United States', 'U.S.', 'America', 'Arizona', 'Tucson', 'US', 'American', 'North America',
-                       'North American']
+                       'North American', 'USA']
 
         filteredGPEs = []
         badGPEs = []
