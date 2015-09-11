@@ -1332,3 +1332,36 @@ Total: 57976 total, 4727 scholarships (8%)
 -Meeting today at 11, talk about project, figure out what to work on next.
 -Will rerun the classifier over Pivot, see if there's anymore tweaking to be done
 -Otherwise, write classifier class for Scholarsite and Unigo, then ask Don-E what to do next
+--ScholarsiteLeads doesn't have a getDatabaseInfo class, need to write that
+--I just realized scholarsiteLeads doesn't need to have the thing run over it, as that site is set up by university, and all I have pulled out is UA specific stuff. So nvm.
+-Realized that somehow the Scholarshipsp360Leads database got messed up, so reran the thing to populate that database, need to run the funding classifier over it
+--Write the getDatabaseInfo class, run funding classifier, then run bad scholarship classifier
+-I just realized that USA wasn't in the good GPEs list, that is so bad...
+
+New Longish Term Goals:
+-Need to Learn C#
+--This is going to suck
+--Going to rewrite pretty much everything that's been done so far into C#, so will get lots of practice
+--Will be good for resume and future jobs stuff
+
+-Get Fellowships #s for Ken
+--Send email
+
+-Crawl website in email
+
+-Fix parsers
+--majors, gpa, class status
+
+Fellowships numbers
+Chegg: (59) 2
+CollegeGreenLight: (26) 0
+FastWeb: (95) 1
+Fatomei: (830) 262
+GrantForward: (36517) 2743
+Iefa: (1161) 235
+Pivot: (19102) 3481
+Scholarsite: (95) 0
+Scholarships360: (49) 2 fellowships 39 scholarships
+Unigo: (91) 0
+
+Total: 4766 scholarships (8.2%), 6726 fellowships (11.6%), 58025 total
