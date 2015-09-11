@@ -1326,3 +1326,9 @@ Total: 57976 total, 4727 scholarships (8%)
 -PivotLeads bad scholarship classifier
 -Updated PivotLeadsGetDatabaseInfo to work with optional keywork parameter; added sponsor function
 -Removed redundant entries to otherGPEs since the regex search made some of them useless
+
+
+9/11 Notes:
+-Meeting today at 11, talk about project, figure out what to work on next.
+-Will rerun the classifier over Pivot, see if there's anymore tweaking to be done
+-Otherwise, write classifier class for Scholarsite and Unigo, then ask Don-E what to do next
