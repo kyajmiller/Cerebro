@@ -1365,3 +1365,15 @@ Scholarships360: (49) 2 fellowships 39 scholarships
 Unigo: (91) 0
 
 Total: 4766 scholarships (8.2%), 6726 fellowships (11.6%), 58025 total
+
+
+9/14 Notes:
+-yay watching C# tutorial videos, will keep notes here on stuff I learn
+-Console = the same thing console always is, it's basically where stuff gets printed out for the user
+-Console.WriteLine() = print
+-Use "" for strings, not sure if '' works yet
+-Console.ReadLine() makes the console window pop up so you can see it and read what you told the console to write
+-Single line comments = //; multiline comments = /* ... */
+-Lines have to end in ; (end of line marker)
+-To format code conveniently in VS, go to Edit, Advanced, Format Document
+-static void Main is basically def Main, type the main code executeables here 
