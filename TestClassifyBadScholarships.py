@@ -1,12 +1,14 @@
 import unittest
-from Classes.NERTesting import NERTesting
+import nltk
+from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
+from Classes.ClassifyBadScholarships import ClassifyBadScholarships
 from Classes.ComputeAccuracy import ComputeAccuracy
 from Classes.SUDBConnect import SUDBConnect
 
 
 class TestStringMethods(unittest.TestCase):
     def test_checkSponsorBadInstitutions(self):
-        nertest = NERTesting(['blah'], ['blah'])
+        nertest = ClassifyBadScholarships(['blah'], ['blah'])
 
         sponsor1 = 'University of Arizona'
         testSponsor1 = nertest.checkBadSponsor(sponsor1)
@@ -25,15 +27,54 @@ class TestStringMethods(unittest.TestCase):
         self.assertTrue(testSponsor4)
 
     def test_CheckBadText(self):
-        nertest = NERTesting(['blah'], ['blah'])
+        nertest = ClassifyBadScholarships(['blah'], ['blah'])
 
         infoText = 'I go to the University of Arizona in Tucson, Arizona'
         testText = nertest.checkBadText(infoText)
         self.assertFalse(testText)
 
-        infoText = 'You must go to a university in Albania'
+        # infoText = 'You must go to a university in Albania'
+        # testText = nertest.checkBadText(infoText)
+        # self.assertTrue(testText)
+
+    def test_CheckBadTextRewrite(self):
+        nertest = ClassifyBadScholarships(['blah'], ['blah'])
+
+        infoText = 'CollegeWeekLive gives away $1,000 per month just for viewing and visiting US colleges online. Winning is easy - all you need to do is login to CollegeWeekLive and visit 3 colleges that interest you. One lucky winner will be awarded a $1,000 scholarship every month. And many other winners may find the college of their dreams.'
         testText = nertest.checkBadText(infoText)
-        self.assertTrue(testText)
+        # self.assertFalse(testText)
+
+    def test_nltkNERParsing(self):
+        testString = 'Natural Sciences and Engineering Research Council of Canada'
+        unigrams = TokenizeOnWhitespacePunctuation(testString, keepCaps=True).getUnigrams()
+        posTagged = nltk.pos_tag(unigrams)
+        chunked = nltk.ne_chunk(posTagged)
+        getGPEs = []
+
+        for treeBranch in chunked:
+            if hasattr(treeBranch, 'label') and treeBranch.label() == 'GPE':
+                getGPEs.append(str(treeBranch))
+
+        self.assertEqual(1, len(getGPEs))
+
+        testString = 'Milwaukee Foundation'
+        unigrams = TokenizeOnWhitespacePunctuation(testString, keepCaps=True).getUnigrams()
+        posTagged = nltk.pos_tag(unigrams)
+        chunked = nltk.ne_chunk(posTagged)
+        # returns (S (PERSON Milwaukee/NNP) (ORGANIZATION Foundation/NNP))
+
+        testString = 'New England Board of Higher Education'
+        unigrams = TokenizeOnWhitespacePunctuation(testString, keepCaps=True).getUnigrams()
+        posTagged = nltk.pos_tag(unigrams)
+        chunked = nltk.ne_chunk(posTagged)
+        # returns (S (GPE New/NNP)(ORGANIZATION England/NNP Board/NNP) of/IN (PERSON Higher/NNP Education/NNP))
+
+        testString = 'New England Board of Higher Education'
+        unigrams = TokenizeOnWhitespacePunctuation(testString).getUnigrams()
+        posTagged = nltk.pos_tag(unigrams)
+        chunked = nltk.ne_chunk(posTagged)
+        # returns (S new/JJ england/NN board/NN of/IN higher/JJR education/NN)
+        # shows that ntlk ne_chunk relies on capitalization to work
 
     def test_normalRun(self):
         # set up
@@ -44,7 +85,7 @@ class TestStringMethods(unittest.TestCase):
         iefaLeadTrainingIdList = []
         actualBad = []
         concatenatedDescriptionOCList = []
-        rows = db.getRows("select * from dbo.IefaLeadsTrainingItems")
+        rows = db.getRows("select * from dbo.IefaLeadsTrainingItems where BadScholarship!='Maybe'")
         for row in rows:
             sponsorsList.append(row.Sponsor)
             descriptionList.append(row.Description)
@@ -57,7 +98,7 @@ class TestStringMethods(unittest.TestCase):
             concatenatedDescriptionOCList.append(conatenatedItem)
 
         # test
-        testNER = NERTesting(sponsorsList, concatenatedDescriptionOCList)
+        testNER = ClassifyBadScholarships(sponsorsList, concatenatedDescriptionOCList)
         predictedBad = testNER.loopThroughLeadsAndDoStuff()
 
         accuracy = ComputeAccuracy(actualBad, predictedBad).calculateAccuracy()
@@ -92,7 +133,7 @@ class TestStringMethods(unittest.TestCase):
             concatenatedDescriptionOCList.append(conatenatedItem)
 
         # test
-        testNER = NERTesting(sponsorsList, concatenatedDescriptionOCList, test='sponsorOnly')
+        testNER = ClassifyBadScholarships(sponsorsList, concatenatedDescriptionOCList, test='sponsorOnly')
         sponsorPredictedBad = testNER.loopThroughLeadsAndDoStuff()
 
         accuracy = ComputeAccuracy(actualBad, sponsorPredictedBad).calculateAccuracy()
@@ -127,7 +168,7 @@ class TestStringMethods(unittest.TestCase):
             concatenatedDescriptionOCList.append(conatenatedItem)
 
         # test
-        testNER = NERTesting(sponsorsList, concatenatedDescriptionOCList, test='infoTextOnly')
+        testNER = ClassifyBadScholarships(sponsorsList, concatenatedDescriptionOCList, test='infoTextOnly')
         infoTextPredictedBad = testNER.loopThroughLeadsAndDoStuff()
 
         accuracy = ComputeAccuracy(actualBad, infoTextPredictedBad).calculateAccuracy()
@@ -139,6 +180,34 @@ class TestStringMethods(unittest.TestCase):
             predicted = infoTextPredictedBad[i]
             db.insertUpdateOrDelete(
                 "update dbo.IefaLeadsTrainingItems set InfoTestPredictedTag='" + predicted + "' where IefaLeadTrainingId='" + iefaLeadTrainingId + "'")
+
+    def test_infoTextOnlyNoInsert(self):
+        # set up
+        db = SUDBConnect()
+        sponsorsList = []
+        descriptionList = []
+        ocList = []
+        iefaLeadTrainingIdList = []
+        actualBad = []
+        concatenatedDescriptionOCList = []
+        rows = db.getRows("select * from dbo.IefaLeadsTrainingItems where BadScholarship!='Maybe'")
+        for row in rows:
+            sponsorsList.append(row.Sponsor)
+            descriptionList.append(row.Description)
+            ocList.append(row.OtherCriteria)
+            actualBad.append(row.BadScholarship)
+            iefaLeadTrainingIdList.append(str(row.IefaLeadTrainingId))
+
+        for i in range(len(descriptionList)):
+            conatenatedItem = '%s %s' % (descriptionList[i], ocList[i])
+            concatenatedDescriptionOCList.append(conatenatedItem)
+
+        # test
+        testNER = ClassifyBadScholarships(sponsorsList, concatenatedDescriptionOCList, test='infoTextOnly')
+        infoTextPredictedBad = testNER.loopThroughLeadsAndDoStuff()
+
+        accuracy = ComputeAccuracy(actualBad, infoTextPredictedBad).calculateAccuracy()
+        print(accuracy)
 
 if __name__ == '__main__':
     unittest.main()

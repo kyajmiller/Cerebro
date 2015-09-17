@@ -3,7 +3,7 @@ from Classes.CleanText import CleanText
 
 
 class PivotLeadsGetDatabaseInfo(object):
-    def __init__(self, keyword, tag=None):
+    def __init__(self, keyword=None, tag=None):
         self.tag = tag
         self.keyword = keyword
         self.db = SUDBConnect()
@@ -11,13 +11,21 @@ class PivotLeadsGetDatabaseInfo(object):
     def getTitles(self):
         titles = []
 
-        if self.tag:
+        if self.tag and self.keyword:
             rows = self.db.getRows(
                 "select Name from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 titles.append(row.Name)
-        else:
+        elif self.keyword:
             rows = self.db.getRows("select Name from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+            for row in rows:
+                titles.append(row.Name)
+        elif self.tag:
+            rows = self.db.getRows("select * from dbo.PivotLeads where Tag='" + self.tag + "'")
+            for row in rows:
+                titles.append(row.Name)
+        else:
+            rows = self.db.getRows("select * from dbo.PivotLeads")
             for row in rows:
                 titles.append(row.Name)
         return titles
@@ -25,13 +33,21 @@ class PivotLeadsGetDatabaseInfo(object):
     def getAbstracts(self):
         abstracts = []
 
-        if self.tag:
+        if self.tag and self.keyword:
             rows = self.db.getRows(
                 "select Abstract from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 abstracts.append(row.Abstract)
-        else:
+        elif self.keyword:
             rows = self.db.getRows("select Abstract from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+            for row in rows:
+                abstracts.append(row.Abstract)
+        elif self.tag:
+            rows = self.db.getRows("select * from dbo.PivotLeads where Tag='" + self.tag + "'")
+            for row in rows:
+                abstracts.append(row.Abstract)
+        else:
+            rows = self.db.getRows("select * from dbo.PivotLeads")
             for row in rows:
                 abstracts.append(row.Abstract)
         return abstracts
@@ -39,13 +55,21 @@ class PivotLeadsGetDatabaseInfo(object):
     def getEligibilities(self):
         eligibilities = []
 
-        if self.tag:
+        if self.tag and self.keyword:
             rows = self.db.getRows(
                 "select Eligibility from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 eligibilities.append(row.Eligibility)
-        else:
+        elif self.keyword:
             rows = self.db.getRows("select Eligibility from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+            for row in rows:
+                eligibilities.append(row.Eligibility)
+        elif self.tag:
+            rows = self.db.getRows("select * from dbo.PivotLeads where Tag='" + self.tag + "'")
+            for row in rows:
+                eligibilities.append(row.Eligibility)
+        else:
+            rows = self.db.getRows("select * from dbo.PivotLeads")
             for row in rows:
                 eligibilities.append(row.Eligibility)
         return eligibilities
@@ -53,13 +77,21 @@ class PivotLeadsGetDatabaseInfo(object):
     def getPivotLeadId(self):
         pivotLeadIds = []
 
-        if self.tag:
+        if self.tag and self.keyword:
             rows = self.db.getRows(
                 "select PivotLeadId from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 pivotLeadIds.append(str(row.PivotLeadId))
-        else:
+        elif self.keyword:
             rows = self.db.getRows("select PivotLeadId from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+            for row in rows:
+                pivotLeadIds.append(str(row.PivotLeadId))
+        elif self.tag:
+            rows = self.db.getRows("select * from dbo.PivotLeads where Tag='" + self.tag + "'")
+            for row in rows:
+                pivotLeadIds.append(str(row.PivotLeadId))
+        else:
+            rows = self.db.getRows("select * from dbo.PivotLeads")
             for row in rows:
                 pivotLeadIds.append(str(row.PivotLeadId))
         return pivotLeadIds
@@ -67,16 +99,47 @@ class PivotLeadsGetDatabaseInfo(object):
     def getSourceText(self):
         sourceTexts = []
 
-        if self.tag:
+        if self.tag and self.keyword:
             rows = self.db.getRows(
                 "select SourceText from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 sourceTexts.append(row.SourceText)
-        else:
+        elif self.keyword:
             rows = self.db.getRows("select SourceText from dbo.PivotLeads where Keyword='" + self.keyword + "'")
             for row in rows:
                 sourceTexts.append(row.SourceText)
+        elif self.tag:
+            rows = self.db.getRows("select * from dbo.PivotLeads where Tag='" + self.tag + "'")
+            for row in rows:
+                sourceTexts.append(row.SourceText)
+        else:
+            rows = self.db.getRows("select * from dbo.PivotLeads")
+            for row in rows:
+                sourceTexts.append(row.SourceText)
         return sourceTexts
+
+    def getSponsors(self):
+        sponsors = []
+
+        if self.keyword and self.tag:
+            rows = self.db.getRows(
+                "select * from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+        elif self.keyword:
+            rows = self.db.getRows("select * from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+        elif self.tag:
+            rows = self.db.getRows("select * from dbo.PivotLeads where Tag='" + self.tag + "'")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+        else:
+            rows = self.db.getRows("select * from dbo.PivotLeads")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+
+        return sponsors
 
     def getListStringConcatendatedAbstractEligibility(self):
         comboAbstractsEligibilitiesList = []

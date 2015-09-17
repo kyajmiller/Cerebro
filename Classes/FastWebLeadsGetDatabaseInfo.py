@@ -62,6 +62,20 @@ class FastWebLeadsGetDatabaseInfo(object):
 
         return fastWebLeadsIds
 
+    def getSponsors(self):
+        sponsors = []
+
+        if self.tag:
+            rows = self.db.getRows("select * from dbo.FastWebLeads where Tag='" + self.tag + "'")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+        else:
+            rows = self.db.getRows("select * from dbo.FastWebLeads")
+            for row in rows:
+                sponsors.append(row.Sponsor)
+
+        return sponsors
+
     def getConcatenatedDescriptionSourceText(self):
         concatenatedItems = []
 

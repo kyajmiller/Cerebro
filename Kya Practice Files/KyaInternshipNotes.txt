@@ -1088,6 +1088,292 @@ Let's just work on sponsors for now:
 -Other than that, a lot of what's left is just stuff that must have been negatively tagged due to whatever's in the text
 -Going to add a column to the table that already has the info text concatenated for ease of reading
 
+8/28 Notes:
+-Keep tuning thing. Joy.
+-Going to shift focus from the sponsors to the info text, as there's not a whole lot left in sponsors that really jumps out at the moment.
+--If necessary, try to filter out locations in sponsors if decide to test the NER parser on sponsors.
+--Actually did just test the NER parser to see if it pulled out anything bad, it actually worked; will test more
+---As in, it returned True for a bad item in 'Natural Sciences and Engineering Research Council of Canada', which means it probably pinged off of Canada
+---Going to manually check to see if this is what really happened... Cause it's possible that it pinged off the whole thing as an organization, which might have made it mad
+---Ran it manually so I could see the NEs extracted, it pulled out Canada which is good, and then that would flag the GPE filter to say no. So might be able to try implementing that into the sponsor filter
+---mmk, nvm, it doesn't actually work. It liked the Canada one because there were non-capitalized words in the string, so the whole thing didn't get chunked together
+---But 'Milwaukee Foundation' gets the whole thing chunked as an Organization, which is technically what it *should* do, but it's annoying. Means I can't use the NER to pull out GPEs reliably
+----Unless there's a way to make it only look for GPEs? nvm there's no way to do that
+----I LIED THAT'S NOT WHAT'S HAPPENING
+----I actually just ran it, and for whatever reason it's pulling out Milwaukee as a person? I can't really set it to filter out people because, well, people
+----Will try another one...
+----Yeah don't run the damn NER parser over the sponsors, it's retarded.
+New England Board of Higher Education =
+(S
+  (GPE New/NNP)
+  (ORGANIZATION England/NNP Board/NNP)
+  of/IN
+  (PERSON Higher/NNP Education/NNP))
+That's not supposed to happen.
+-...I wonder what would happen if I turned off the caps. --> Absolutely nothing, doesn't pull out anything.
+-TIL the NER parser relies 100% on capitalization. Woe betide me if any of these scholarships I'm trying to classify have weird capitalization
+-I'm strongly tempted to see what would happen if I just run the whole damn thing through a ML algorithm. Will have to see.
+
+-As of right now, with the sponsor checker about as tuned as I think I can get it for the moment, running a full test (sponsors + text) has a 77.87769784172663 accuracy
+-Tells me that there's definitely some solid problems with the text search, as the sponsor search alone had an 80% accuracy
+-I really do want to try running it through ML but I'm not 100% sure that my manual tags are right... will just wait for now...
+
+-Now to work on infoText stuff
+-As of right now, the parser works by tokenizing into unigrams, running the NER parser over the thing, and if it finds an organization with an educational institution
+keyword in it, flags it as bad text
+-This isn't really all that good for instances like CollegeWeekLive
+-Will try rethinking how this parser works
+-So, in the instance of CollegeWeekLive, it pulls it out as an organization, which is what it's supposed to do. The next step in the original parser is to check for the keywords.
+--Maybe I could make it only check for those keywords followed by spaces?
+-ugh just adding a space in the regex doesn't seem to help, will try something else
+--not sure why though, College\s shouldn't match 'College'
+----ahhh lol I see why it broke, I just did a join with \s| but College is at the end of the list so it didn't get the space
+-now it works, doesn't flag CollegeWeekLive anymore, this is good
+-So another problem - CollegeWeekLive also gets flagged as a GPE, which is really awkward. I have no idea why
+-I really can't afford to have to babysit the NER search because it's doing stuff like this. Maybe have a filter for if it gets pulled out as an organization, remove from GPE list... It's fucking weird though
+-This is so awkward
+-Might need to make a GPE/organization list for the entirety of the info text, have each sentence add to it, then filter through them, since the NER parser might label something differently from sentence to sentence.
+-So weird.
+-That ended up working, so okay
+-With the current fix, checked accuracy, dropped accuracy down to 62.23021582733813; this thing needs a lot of help
+-Thankfully I've realized there's a way that I can see everything it's pulling out very efficiently by printing it, so will make another unit test just to do this
+-Huge problem. This thing is obnoxious. It keeps pulling out lots of stuff as GPEs, and of course my GPE filter is having a fit.
+--Stuff like 'Completed' is getting marked as a GPE.
+-Will need a really good filter to flag extracted GPEs properly cause that's just not good.
+-I just realized that the changes I made to it is literally flagging EVERYTHING as a bad scholarship. That is so not good
+-I HAVE NO IDEA WHY IT'S BEING BAD
+-I'm not very smart. It's showing everything as being tagged as 'yes' because I have the filter set to show me only 'Yes' tagged things. Nice job Kya.
+-I wonder what happens to the accuracy if I don't use the otherCriteria stuff. Some of the stuff being pulled out as a wrong tag is stuff that is weirdly formatted in a bullet point and is making the NER parser mad.
+-Actually kind of have to use the OtherCriteria stuff because a lot of it has university/country information that will be vital to classifying the thing
+-I'm just not sure what to do here. I could do a search for bullet points and just uncapitalize the very first word that follows, but what happens if it's something that should be capitalized?
+-Going to check out how my program tokenizes sentences and maybe if the ones with bullet points are coming back as shorter sentences, I'll filter out everything below a certain length. That might help with dealing with fragments
+-Okay, so it turns out that the bullet points are not being transformed into separate sentences, but are all being put as the same sentence (since no punctuation)
+-I'm going to try prepping the text before hand to clean up bullet-point esque stuff and sub in periods. See what happens
+--Did absolutely nothing. Joy. I think it's because the periods end up in weird spots that it just doesn't help and the sentence tokenizer still says nope.
+-Honestly I think it's because the NER parser is just really freaking weird. It tags 'Completed' in 'Completed application' as a GPE but 'Official transcripts' gets nothing
+-It's really annoying
+
+-Yeah I might not use the GPE search at all because it's pulling out a lot of bullshit
+-Taking out the GPE NER search is really crippling though. I need to have some way to reliably pull out bad locations, but the GPE search is just awful
+-I'll try the standford ner search and see how it goes
+--Though unfortunately it doesn't have a nice chunking ability, so I'll have to write that in myself.
+
+-Looking at the documentation for the Stanford NER tagger, I REALLY don't want to use it. There's damn near 0 documentation because it wasn't intended to work with python
+-So have to use a wrapper for it, but then THOSE HAVE NO DOCUMENTATION EITHER
+-So I'm sort of back at the beginning of either I can try to get a database of place names (really?) or just say fuck it
+-I have no idea
+
+-fuck it, going to set up a NB, see what happens
 
 
+8/31 Notes:
+-After resting for a few days, hopefully have more perspective on what options I can take to solve this problem
+-Already feeling overwhelmed this semester, and it's only the beginning of the second week
 
+Possible Solution:
+-Have separate functions to parse Organizations/GPEs
+-Feed into the function the tokenized sentences
+-From there, Organization can continue as it already does (word tokenize, blah blah)
+-GPEs will be different. Run regex to grab the first letter of each sentence and make it lower case
+-Run regex to find bullets/asterisks, grab first letter and lowercase it.
+-This should hopefully help to reduce the number of superfluous uppercase items in the text, and should therefore hopefully clean up the GPE parser
+
+Other possible ideas:
+-Try to get list of all countries/US states/major world cities, put in database
+-Then run the results of the GPE parser against that list?
+-Kind of defeats the purpose of using the GPE parser cause could just use a regex to do the same thing, but whatever
+
+Update:
+-So far, uncapitalizing the first word of the sentence and the first word after a bullet seems to have solved the problem. I"ve only tested on 10 things, but
+none of them are pulling out non-GPEs in the GPE section anymore. Will keep checking on more stuff
+-Noticed that for some reason 'College' isn't being flagged properly in organization
+--Realized that I don't have a regex to check for end of string stuff...
+-After checking over 50-ish things, there are some things that are getting pulled out as GPEs that shouldn't be, but significantly less than before
+-Need a way to filter out the rest of these things
+-Some of the stuff that's getting pulled out are capitalized majors/education related words
+-I could run the GPEs through the majors list? Though that might hurt some of the area studies things
+-I STILL NEED TO IMPLEMENT STUDY ABROAD
+-Will implement search against majors list, that should remove some of the stuff, but I might straight up need an exceptions words list as I don't really have any other ways to prevent the GPE parser from grabbing them
+-I could check everything against the unigrams and be like, if the same word appears at all but as a lower case word, it's probably not a named entity
+--This might have a hell of run time, but it could be effective...
+-Can start out by filtering out everything that is all caps that isn't two letters long (to allow for state abbreviations and stuff like US/EU)
+-So had it filter through the majors list, realized it took out 'English' since that's in the list... Might need to go through the majors list and see what majors are just countries and yeah
+-THIS THING RUNS SLOW NOW HOLY SHIT
+-ugh. Adding in the filters is supposed to make it run better, but it's not... fml.
+-Going to test the whole thing with the sponsors too and see what I've got - so far a total accuracy of 81.4%. That's not bad at all.
+-Compared to the accuracy of the separate tests (sponsors only - 80.1; text only - 61.7%), the sponsors check is by far the most important, as it adds 20% to the
+accuracy. It is able to stand alone. Adding the text search only increases the overall accuracy by 1.3%. That's still something, but not really...
+
+-Going to insert the predicted stuff from the text only search and see what I can find to fix
+-Forgot to check accuracy ratings against the stuff that isn't labeled as 'maybe'
+--Text: 65%; Sponsor: 80.1%; Total: 85.8%
+I AM REALLY SATISFIED BY THIS
+-Going to try implementing the study abroad exception and see what happens
+-Oh god I realized that my fixing of the 'English' exception was adding it to the overall list and not to the relevant list, need to see what happens... I'm anticipating an increase in accuracy
+-Increased accuracy to 65.5%
+-Will try adding the study abroad thing in now
+-Only increased accuracy a little bit (65.5 --> 65.53) but that's still better than nothing at all
+Overall accuracy up to 86.74%. I think it's good now.
+-Also added in 'teach abroad', brought up accuracy to 87.1%
+
+Things I've noticed that I really can't fix:
+-If the InfoText only ever refers to a educational institution by its acronym, and the sponsor text doesn't have it too... can't really do much there
+-Sometimes a location isn't pulled out as a GPE, but instead as an organization.
+-Sometimes something gets flagged as a GPE but it's not. I can't think of much else to do with this that I haven't already tried...
+-Instances of education words used but aren't actually a college/uni
+
+-So, if the classifier is done, can probably start running the classifier over the existing scholarships
+-Tables to work on:
+-CheggLeads
+-CollegeGreenLightLeads
+-FastWebLeads
+-FatomeiLeads
+-GrantForwardLeads
+-IefaLeads
+-PivotLeads
+-Scholarships360Leads
+-ScholarsiteLeads
+-UnigoLeads
+
+-Starting out by making a superclass to use with each of the specific class - RunBadScholarshipClassifier
+-Finished RunBadScholarshipClassifierOnCheggLeads
+-I'm really iffy about how well this thing works, but I can't think of any other way to improve it so just kinda go with it
+
+9/2 Notes:
+-Because I'm really not satisfied with how much I was able to filter out the bad-tagged GPEs, going to try making a database of locations to check them against
+-Going to make a table of countries/capitals; a second table of states/capitals; third table of major US cities and major world cities
+-Then will have classifier call each of these lists, filter out anything that isn't there
+-Might also filter the Organizations through these lists in case a GPE is incorrectly tagged as an org
+-Would prefer to still use the NER parser rather than just use a regex of the lists because might run a bit faster.
+-Might also need to add the adjective form of the country to the countries list. So, for example, Japan would have Japan, Tokyo, Japanese
+
+-Made the countries/capitals table and the US states/capitals/major cities table
+-Forreal, if this list can't capture at least some indication of any GPE the program could toss at it, then it's so obscure that it won't even matter
+-Updated the classifier with the list, and ugh. Dropped text accuracy down to 61%. Not sure what the issue is
+-going to reimplement the thing to print out the gpes and see what the problem is
+-That's really disappointing though.
+-Okay, realized there were a lot of general GPEs that got filtered out (stuff like European, Asian, etc), so I just added those back to the list, accuracy back up to 64.2%
+-Will look back through and see if there's anymore that need to be added back in
+-Still need to implement the GPE search over the organizations search for the stray GPEs that end up in there
+-Going to add in a filter for English to try to capture 'English language' as an exception- AHAHAHA DON'T FUCKING DO THIS THAT WAS BAD (51%)
+-I am really satisfied though that this has pretty much completely solved the problem of bs GPEs getting through. Now it's just a matter of readding GPEs that should be tested
+-Trying to add a filter for studyabroad/teach abroad that forces the gpe to be a foreign country/city (to prevent something like 'need to live in utah for study abroad') - 65.3409090909091
+-Yay! Filtering out mistagged GPEs from organizations back to GPEs is an increase in accuracy - 67.23484848484848, this is all so good
+-Added all of the extra GPEs that were missed in testing, accuracy up to 67.42424242424242
+-So overall, the whole thing raised accuracy by 2ish percent, which isn't a whole lot, but it'll significantly reduce the number of false positives that the program would have from mislabeled GPEs
+-So I anticipate that the overall accuracy should have been increased by quite a bit more...
+--An increase from 87.1% to 88.82575757575758; not as much as I was hoping, but it's still good
+-For some reason 'district of columbia' isn't working too well, but I'll worry about that later
+
+9/4 Notes:
+-I really don't want to play with the Classifier anymore.
+--Added America and North America to otherGPEs, added North America to allowed GPEs, not sure if that was a good idea because while it's non-specific, it's also kinda broad
+-Need to write the rest of the classes to run the Classifier over the rest of the databases, then run them
+-Ken sent email to check out new site for crawler, so need to do that
+-Meeting at 11ish
+
+-Apparently 'Independence' is a city somewhere, but I don't need it to be a GPE, so I need to remove that from the list
+--Fixed, just added a conditional statement for it
+--I could probably just remove it from the database, which probably would make more sense... will do that instead
+-I really really need to fix Disctrict of Columbia. It's bothering me. I don't know what to do with it but I don't like it
+--Fixed it. Do regex search over info text for district of columbia, if found, add to filteredGPEs, remove columbia from filtered gpes
+--Added district of columbia to okay gpes because it's annoying otherwise
+-Working on FatomeiLeads classifier thing, this one is weird because for Fatomei there was no way to actually grab the sponsor information, so this one will have
+to just run over the descriptions. It'll be crap at best.
+
+-Very tempted to add in a regex search for the non-filtered regexes to get dumb stuff that escapes like City + State or State Colleges, etc.
+-After looking over everything, definitely going to attempt to implement a regex search over the other GPEs/Organizations. I'm seeing a couple of game-changing GPEs popping up
+--The regexes will be huge though, so it'll have quite a bit of runtime...
+--Also not sure how to handle the couple of instances of ' in words, might need to do a regex replace over them to add a \
+---nvm apostrophes don't need to be escaped
+--Will end up needing an exception for race stuff. Don't want African American to return 'African' and 'American'
+
+
+Finished classifiers: FastWebLeads, Fatomei, GrantForward, CollegeGreenLight, Chegg
+
+9/9 Notes:
+-Not sure how much of the regex search I got implemented last week... having a break is good but I didn't take good notes on what I got done so who knows
+-I think so far I've got the regex search running over the GPEs, so hasn't been implemented for organizations yet. Not sure if ran tests on it yet so will do that
+-Seems like it brought up text-only accuracy just slightly, will test on full thing; brought up accuracy to 89%, so improvement
+-Will implement to search on organizations, then should be finished with the whole thing
+-Did the implementation, it doesn't seem to affect the test thing at all, probably because there weren't a whole lot of scenarios in the testing data where a regex search run over the organization would make or break it
+-It's pretty much done though.
+
+-Potential issues: typical racial terms like American Indian, Alaskan, Asian, etc. will pose problems, but ehhh
+-Yeah will need to filter these out, beginning to have problems
+-Was sort of able to implement a filter to not pull out 'Alaska' if encounter 'Alaskan' or 'Indian'/'India' if encounter 'American Indian', so that's okay
+-Other than the handful of issues it's having with overzealously filtering out Alaska/India(n), the gpe regex is a huge success. I don't see it so much in the testing data
+but in the normal data there are a ton of instances where the gpe regex search is having a huge effect. So yay!
+
+-need to get figures for Ken on how many scholarships pulled out
+Chegg: (59) 48
+CollegeGreenLight: (26) 26
+FastWeb: (95) 81
+Fatomei: (830) 334
+GrantForward: (36517) 1171
+Iefa: (1161) 556
+Pivot: (19102) 2325
+Scholarsite: (95) 95
+Unigo: (91) 91
+
+Total: 57976 total, 4727 scholarships (8%)
+
+-Need to finish writing the implementation classes, then ask Don-E what to do next
+-Still need to do: Iefa, Pivot, Scholarsite, Unigo
+
+-Things done today that haven't already been noted:
+-added functionality to remove gpes based on existing phrases in infotext, such as African American, Asian American, District of Columbia, etc.
+-PivotLeads bad scholarship classifier
+-Updated PivotLeadsGetDatabaseInfo to work with optional keywork parameter; added sponsor function
+-Removed redundant entries to otherGPEs since the regex search made some of them useless
+
+
+9/11 Notes:
+-Meeting today at 11, talk about project, figure out what to work on next.
+-Will rerun the classifier over Pivot, see if there's anymore tweaking to be done
+-Otherwise, write classifier class for Scholarsite and Unigo, then ask Don-E what to do next
+--ScholarsiteLeads doesn't have a getDatabaseInfo class, need to write that
+--I just realized scholarsiteLeads doesn't need to have the thing run over it, as that site is set up by university, and all I have pulled out is UA specific stuff. So nvm.
+-Realized that somehow the Scholarshipsp360Leads database got messed up, so reran the thing to populate that database, need to run the funding classifier over it
+--Write the getDatabaseInfo class, run funding classifier, then run bad scholarship classifier
+-I just realized that USA wasn't in the good GPEs list, that is so bad...
+
+New Longish Term Goals:
+-Need to Learn C#
+--This is going to suck
+--Going to rewrite pretty much everything that's been done so far into C#, so will get lots of practice
+--Will be good for resume and future jobs stuff
+
+-Get Fellowships #s for Ken
+--Send email
+
+-Crawl website in email
+
+-Fix parsers
+--majors, gpa, class status
+
+Fellowships numbers
+Chegg: (59) 2
+CollegeGreenLight: (26) 0
+FastWeb: (95) 1
+Fatomei: (830) 262
+GrantForward: (36517) 2743
+Iefa: (1161) 235
+Pivot: (19102) 3481
+Scholarsite: (95) 0
+Scholarships360: (49) 2 fellowships 39 scholarships
+Unigo: (91) 0
+
+Total: 4766 scholarships (8.2%), 6726 fellowships (11.6%), 58025 total
+
+
+9/14 Notes:
+-yay watching C# tutorial videos, will keep notes here on stuff I learn
+-Console = the same thing console always is, it's basically where stuff gets printed out for the user
+-Console.WriteLine() = print
+-Use "" for strings, not sure if '' works yet
+-Console.ReadLine() makes the console window pop up so you can see it and read what you told the console to write
+-Single line comments = //; multiline comments = /* ... */
+-Lines have to end in ; (end of line marker)
+-To format code conveniently in VS, go to Edit, Advanced, Format Document
+-static void Main is basically def Main, type the main code executeables here 

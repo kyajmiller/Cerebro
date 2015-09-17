@@ -32,6 +32,15 @@ class CollegeGreenLightLeadsGetDatabaseInfo(object):
 
         return collegeGreenLightLeadIds
 
+    def getSponsors(self):
+        sponsors = []
+
+        rows = self.db.getRows("select * from dbo.CollegeGreenLightLeads")
+        for row in rows:
+            sponsors.append(row.Sponsor)
+
+        return sponsors
+
     def getConcatenatedDescriptionSourceText(self):
         listConcatenatedItems = []
 

@@ -28,7 +28,7 @@ class TestStringMethods(unittest.TestCase):
         db = SUDBConnect()
         keyword = 'East Asian Studies'
         testListConcatenatedDescriptionEligibility = GrantForwardItemsGetDatabaseInfo(
-            keyword).getListStringConcatenatedDescriptionEligibility()
+            keyword=keyword).getListStringConcatenatedDescriptionEligibility()
         firstCombo = testListConcatenatedDescriptionEligibility[0]
 
         # test
