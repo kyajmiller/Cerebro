@@ -1376,4 +1376,105 @@ Total: 4766 scholarships (8.2%), 6726 fellowships (11.6%), 58025 total
 -Single line comments = //; multiline comments = /* ... */
 -Lines have to end in ; (end of line marker)
 -To format code conveniently in VS, go to Edit, Advanced, Format Document
--static void Main is basically def Main, type the main code executeables here 
+-static void Main is basically def Main, type the main code executeables here
+
+9/16 Notes:
+-When using Console.Read() it'll only show the things before that line. So you can't have multiple of those cause it's only gonna show the stuff before the first one
+-variable names are case sensitive as usual
+-use var when you either don't know what to call a particular data type, or if you don't want to explicitly say what something is
+-otherwise just use string/int whatever
+-if you want to convert an int to a string, use blah.ToString()
+-int.Parse(stringNumber) converts a string that has a valid int to an int. Int then behaves like int (can be addeed and stuff)
+-dude this is cool
+-if you want to capture user input, do something like userInput = Console.ReadLine() and it'll read in what the user typed in and store it as the variable
+-Console.ReadLine() does a lot of stuff, sort of confusing but okay
+-So if I typed in 'kitty' it'll save the value as 'kitty'
+-Conditional statements:
+-the if statement is in parentheses like
+if (userValue == "kitty")
+{
+    Console.WriteLine("You won a new kitty!")
+}
+-Turns out you don't actually need {} when the if/else if/else statements are followed by a single line of code. Otherwise you need to have the {}
+-Visual studio's GIT thing is poop. Good luck if you need to revert anything. Need to ask Don-E to take a look at why sourceTree isn't working cause this sucks
+-String interpolation is really stupid. For newer versions of C# you could do something like
+string cat = "cat"
+string iLikeCats = $"I like {cat}s"
+-but VS 2013 doesn't like that so you have to do:
+string iLikeCats = string.Format("I like {0}s", cat)
+-And if you wanted to print that you could do something like:
+Console.WriteLine("I like {0}s", cat)
+-This is strange but okay
+
+-Time to start rewriting stuff. This is going to be interesting
+-Will start with the basic Parsing stuff:
+-Parser, GPA, Majors, ClassStanding
+
+9/21 Notes:
+MOre C# stuff, rewrite regexes to use regwhy system, weird, okay.
+Example of regex conversion below
+original regex from GPAParser: 'g\.?p\.?a\.?|grade\spoint\saverage|maintain'
+regwhy equivalent
+
+var GPALanguageRegWhy = new RegWhyExpression();
+                List<string> literals = new List<String>();
+                literals.Add("grade point average");
+                literals.Add("maintain");
+                GPALanguageRegWhy.Append("g");
+                GPALanguageRegWhy.MatchZeroOrOneToSearch(GPALanguageRegWhy.Characters.Period);
+                GPALanguageRegWhy.Append("p");
+                GPALanguageRegWhy.MatchZeroOrOneToSearch(GPALanguageRegWhy.Characters.Period);
+                GPALanguageRegWhy.Append("a");
+                GPALanguageRegWhy.MatchZeroOrOneToSearch(GPALanguageRegWhy.Characters.Period);
+                GPALanguageRegWhy.MatchAnyofTheseStringsToSearch(literals);
+                GPALanguageRegWhy.Append(GPALanguageRegWhy.Characters.OrCondition);
+                literals.Clear();
+                literals.Add("maintain");
+                GPALanguageRegWhy.MatchAnyofTheseStringsToSearch(literals);
+                return GPALanguageRegWhy.SearchPattern;
+
+                /*
+                GPALanguageRegWhy.Append(GPALanguageRegWhy.Characters.OrCondition);
+                GPALanguageRegWhy.Append("grade");
+                GPALanguageRegWhy.Append(GPALanguageRegWhy.Characters.AnyWhitespace);
+                GPALanguageRegWhy.Append("point");
+                GPALanguageRegWhy.Append(GPALanguageRegWhy.Characters.AnyWhitespace);
+                GPALanguageRegWhy.Append("average");
+                GPALanguageRegWhy.Append(GPALanguageRegWhy.Characters.OrCondition);
+                GPALanguageRegWhy.Append("maintain");
+                 */ this goes in place of the literals if you didn't want to use the .MatchAnyOfTheseStringsToSearch function
+
+-we managed to get GPAParser up and running, so that's good.
+-the regwhy system is kind of weird when making the regexes (it's not exactly the same as the default regex) but they work well enough
+-Need to work on frame work for ClassStandingParser. Need to become familiar with using SQL with C#
+
+9/23 Notes:
+-Finished rewriting ClassStandingParser to C#, C# works weird in the conversion but it's working so its okay
+-Rahul wrote the GenderParser so that's also done
+-Will attempt to convert Majors parser a bit
+-conversion of majorsParser going pretty well, pretty much finished except needs RegWhy conversion
+
+9/28 Notes:
+-YAY CRAWLING I'VE MISSED YOU OMG
+-crawl website: http://www.mastersineducation.net/scholarships/
+-see if it actually has anything on it worth crawling (cross fingers)
+
+-it has stuff so yay
+-Editor's picks stuff first, then scholarships
+-grab clicky divs, click all first, then pull
+
+-clicky divs: "//section[@class='scholarships']/div[@class='tab h-results']/div[@class='h-result js-has-toggle']/div[@class='h-result-header js-toggle']"
+-title divs: "//section[@class='scholarships']/div[@class='tab h-results']/div[@class='h-result js-has-toggle active']/div[@class='h-result-header js-toggle active']/h3"
+only works after clicky divs are clicked, use TextContent to get the title text
+
+
+
+
+
+
+
+
+
+
+
+
