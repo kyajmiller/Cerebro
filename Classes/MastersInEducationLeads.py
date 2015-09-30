@@ -26,9 +26,20 @@ class MastersInEducationLeads(object):
         for title in titlesDivs:
             titlesList.append(title.get_attribute('textContent'))
 
+        titlesList = [CleanText.cleanALLtheText(title) for title in titlesList]
+
         return titlesList
 
+    def getAmountsList(self):
+        amountsList = []
 
+        amountsDivs = self.driver.find_elements_by_xpath("//dt[text() = 'Amount']/following-sibling::dd[1]")
+        for amount in amountsDivs:
+            amountsList.append(amount.get_attribute('textContent'))
+
+        amountsList = [CleanText.cleanALLtheText(amount) for amount in amountsList]
+
+        return amountsList
 
 
 MastersInEducationLeads()
