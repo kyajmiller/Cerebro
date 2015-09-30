@@ -18,5 +18,17 @@ class MastersInEducationLeads(object):
         for clickyDiv in visibleClickyDivs:
             clickyDiv.click()
 
+    def getTitlesList(self):
+        titlesList = []
+
+        titlesDivs = self.driver.find_elements_by_xpath(
+            "//section[@class='scholarships']/div[@class='tab h-results']/div[@class='h-result js-has-toggle active']/div[@class='h-result-header js-toggle active']/h3")
+        for title in titlesDivs:
+            titlesList.append(title.get_attribute('textContent'))
+
+        return titlesList
+
+
+
 
 MastersInEducationLeads()
