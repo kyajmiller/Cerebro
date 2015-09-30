@@ -28,11 +28,11 @@ class MastersInEducationLeads(object):
         for clickyDiv in visibleClickyDivs:
             clickyDiv.click()
 
-        titlesList = self.getTitlesList()
-        amountsList = self.getAmountsList()
-        deadlinesList = self.getDeadlinesList()
-        descriptionsList = self.getDescriptionsList()
-        sourceWebsitesList = self.getSourceWebsitesList()
+        titlesList = self.getTitlesListEditors()
+        amountsList = self.getAmountsListEditors()
+        deadlinesList = self.getDeadlinesListEditors()
+        descriptionsList = self.getDescriptionsListEditors()
+        sourceWebsitesList = self.getSourceWebsitesListEditors()
 
         for i in range(len(titlesList)):
             title = titlesList[i]
@@ -50,7 +50,7 @@ class MastersInEducationLeads(object):
         for clickyDiv in visibleClickyDivs:
             clickyDiv.click()
 
-    def getTitlesList(self):
+    def getTitlesListEditors(self):
         titlesList = []
 
         titlesDivs = self.driver.find_elements_by_xpath(
@@ -62,7 +62,7 @@ class MastersInEducationLeads(object):
 
         return titlesList
 
-    def getAmountsList(self):
+    def getAmountsListEditors(self):
         amountsList = []
 
         amountsDivs = self.driver.find_elements_by_xpath("//dt[text() = 'Amount']/following-sibling::dd[1]")
@@ -73,7 +73,7 @@ class MastersInEducationLeads(object):
 
         return amountsList
 
-    def getDeadlinesList(self):
+    def getDeadlinesListEditors(self):
         deadlinesList = []
 
         deadlinesDivs = self.driver.find_elements_by_xpath(
@@ -85,7 +85,7 @@ class MastersInEducationLeads(object):
 
         return deadlinesList
 
-    def getDescriptionsList(self):
+    def getDescriptionsListEditors(self):
         descriptionsList = []
 
         descriptionsDivs = self.driver.find_elements_by_xpath(
@@ -97,7 +97,7 @@ class MastersInEducationLeads(object):
 
         return descriptionsList
 
-    def getSourceWebsitesList(self):
+    def getSourceWebsitesListEditors(self):
         sourceWebsitesList = []
 
         linksDivs = self.driver.find_elements_by_xpath(
