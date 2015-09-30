@@ -50,6 +50,21 @@ class MastersInEducationLeads(object):
         for clickyDiv in visibleClickyDivs:
             clickyDiv.click()
 
+        titlesList = self.getTitlesListScholarships()
+        deadlinesList = self.getDeadlinesListScholarships()
+        descriptionsList = self.getDescriptionsListScholarships()
+        sourceWebsitesList = self.getSourceWebsitesListScholarships()
+
+        for i in range(len(titlesList)):
+            title = titlesList[i]
+            amount = ''
+            deadline = deadlinesList[i]
+            description = descriptionsList[i]
+            sourceWebsite = sourceWebsitesList[i]
+
+            resultArray = [title, amount, deadline, description, sourceWebsite]
+            self.resultsArrays.append(resultArray)
+
     def getTitlesListEditors(self):
         titlesList = []
 
