@@ -48,7 +48,6 @@ class MastersInEducationLeads(object):
         mastersInEducationLeadArray = [title, amount, deadline, description, sourceWebsite, sourceText]
         self.mastersInEducationLeadsArrays.append(mastersInEducationLeadArray)
 
-
     def getEditorsPicks(self):
         visibleClickyDivs = self.driver.find_elements_by_xpath(
             "//section[@class='scholarships']/div[@class='tab h-results']/div[@class='h-result js-has-toggle']/div[@class='h-result-header js-toggle']")
