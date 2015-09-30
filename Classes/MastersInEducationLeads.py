@@ -65,7 +65,15 @@ class MastersInEducationLeads(object):
 
         return descriptionsList
 
+    def getSourceWebsitesList(self):
+        sourceWebsitesList = []
 
+        linksDivs = self.driver.find_elements_by_xpath(
+            "//div[@class = 'h-result-header js-toggle active']/following-sibling::div[@class = 'js-target hide scholarship-content']/p/following-sibling::div[@class='text-center']/a[@class = 'btn']")
+        for link in linksDivs:
+            sourceWebsitesList.append(link.get_attribute('href'))
+
+        return sourceWebsitesList
 
 
 MastersInEducationLeads()
