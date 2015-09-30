@@ -10,13 +10,36 @@ class MastersInEducationLeads(object):
         self.driver.get(self.base_url + 'scholarships')
         self.driver.implicitly_wait(2)
 
+        self.resultsArrays = []
+
         self.getInfoOnCurrentPage()
+
+    def loopOverPages(self):
+        self.getInfoOnCurrentPage()
+
 
     def getInfoOnCurrentPage(self):
         visibleClickyDivs = self.driver.find_elements_by_xpath(
             "//section[@class='scholarships']/div[@class='tab h-results']/div[@class='h-result js-has-toggle']/div[@class='h-result-header js-toggle']")
         for clickyDiv in visibleClickyDivs:
             clickyDiv.click()
+
+        titlesList = self.getTitlesList()
+        amountsList = self.getAmountsList()
+        deadlinesList = self.getDeadlinesList()
+        descriptionsList = self.getDescriptionsList()
+        sourceWebsitesList = self.getSourceWebsitesList()
+
+        for i in range(len(titlesList)):
+            title = titlesList[i]
+            amount = amountsList[i]
+            deadline = deadlinesList[i]
+            description = descriptionsList[i]
+            sourceWebsite = sourceWebsitesList[i]
+
+            resultArray = [title, amount, deadline, description, sourceWebsite]
+            self.resultsArrays.append(resultArray)
+
 
     def getTitlesList(self):
         titlesList = []
