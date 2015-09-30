@@ -53,6 +53,18 @@ class MastersInEducationLeads(object):
 
         return deadlinesList
 
+    def getDescriptionsList(self):
+        descriptionsList = []
+
+        descriptionsDivs = self.driver.find_elements_by_xpath(
+            "//dt[text() = 'Amount']/following-sibling::dt[text() = 'Deadline']/following-sibling::dd[1]")
+        for description in descriptionsDivs:
+            descriptionsList.append(description.get_attribute('textContent'))
+
+        descriptionsList = [CleanText.cleanALLtheText(description) for description in descriptionsList]
+
+        return descriptionsList
+
 
 
 
