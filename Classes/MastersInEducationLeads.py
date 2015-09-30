@@ -62,6 +62,18 @@ class MastersInEducationLeads(object):
 
         return titlesList
 
+    def getTitlesListScholarships(self):
+        titlesList = []
+
+        titlesDivs = self.driver.find_elements_by_xpath(
+            "//section[@class='scholarships']/div[@class='tab']/section/div/div/h3")
+        for title in titlesDivs:
+            titlesList.append(title.get_attribute('textContent'))
+
+        titlesList = [CleanText.cleanALLtheText(title) for title in titlesList]
+
+        return titlesList
+
     def getAmountsListEditors(self):
         amountsList = []
 
