@@ -6,8 +6,8 @@ from Classes.CleanText import CleanText
 class MastersInEducationLeads(object):
     def __init__(self):
         self.driver = webdriver.Firefox()
-        self.base_url = 'http://www.mastersineducation.net/'
-        self.driver.get(self.base_url + 'scholarships')
+        self.base_url = 'http://www.mastersineducation.net'
+        self.driver.get(self.base_url + '/scholarships')
         self.driver.implicitly_wait(2)
 
         self.resultsArrays = []
@@ -20,6 +20,9 @@ class MastersInEducationLeads(object):
         self.driver.find_element_by_xpath("//section[@id='main-content']/div/section/ul/li[2]").click()
         self.driver.implicitly_wait(2)
         self.getScholarshipsPicks()
+        nextScholarshipPage = self.checkIfNextPage()
+        while nextScholarshipPage:
+            self.goToNextPage()
 
 
     def getEditorsPicks(self):
@@ -167,5 +170,18 @@ class MastersInEducationLeads(object):
             sourceWebsitesList.append(link.get_attribute('href'))
 
         return sourceWebsitesList
+
+    def checkIfNextPage(self):
+        checkNextPage = self.driver.find_elements_by_xpath("//a[@title = 'Next']")
+        if checkNextPage != []:
+            return True
+        else:
+            return False
+
+    def goToNextPage(self):
+        if self.checkIfNextPage():
+            nextPageUrl = self.driver.find_element_by_xpath("//a[@title = 'Next']").get_attribute('href')
+            self.driver.get(nextPageUrl)
+            self.driver.implicitly_wait(2)
 
 MastersInEducationLeads()
