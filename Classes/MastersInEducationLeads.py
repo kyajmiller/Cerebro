@@ -23,6 +23,7 @@ class MastersInEducationLeads(object):
         nextScholarshipPage = self.checkIfNextPage()
         while nextScholarshipPage:
             self.goToNextPage()
+            nextScholarshipPage = self.checkIfNextPage()
 
 
     def getEditorsPicks(self):
