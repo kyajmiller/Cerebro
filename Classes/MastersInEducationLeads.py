@@ -19,7 +19,8 @@ class MastersInEducationLeads(object):
 
         self.driver.find_element_by_xpath("//section[@id='main-content']/div/section/ul/li[2]").click()
         self.driver.implicitly_wait(2)
-        self.getEditorsPicks()
+        self.getScholarshipsPicks()
+
 
     def getEditorsPicks(self):
         visibleClickyDivs = self.driver.find_elements_by_xpath(
@@ -43,6 +44,11 @@ class MastersInEducationLeads(object):
             resultArray = [title, amount, deadline, description, sourceWebsite]
             self.resultsArrays.append(resultArray)
 
+    def getScholarshipsPicks(self):
+        visibleClickyDivs = self.driver.find_elements_by_xpath(
+            "//section[@class = 'scholarships']/div[@class = 'tab']/section/div/div[@class = 'h-result-header js-toggle']")
+        for clickyDiv in visibleClickyDivs:
+            clickyDiv.click()
 
     def getTitlesList(self):
         titlesList = []
