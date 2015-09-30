@@ -121,6 +121,18 @@ class MastersInEducationLeads(object):
 
         return descriptionsList
 
+    def getDescriptionsListScholarships(self):
+        descriptionsList = []
+
+        descriptionsDivs = self.driver.find_elements_by_xpath(
+            "//section[@class = 'scholarships']/div[@class = 'tab']/section/div/div/p")
+        for description in descriptionsDivs:
+            descriptionsList.append(description.get_attribute('textContent'))
+
+        descriptionsList = [CleanText.cleanALLtheText(description) for description in descriptionsList]
+
+        return descriptionsList
+
     def getSourceWebsitesListEditors(self):
         sourceWebsitesList = []
 
