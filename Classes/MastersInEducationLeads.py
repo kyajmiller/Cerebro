@@ -41,5 +41,19 @@ class MastersInEducationLeads(object):
 
         return amountsList
 
+    def getDeadlinesList(self):
+        deadlinesList = []
+
+        deadlinesDivs = self.driver.find_elements_by_xpath(
+            "//dt[text() = 'Amount']/following-sibling::dt[text() = 'Deadline']/following-sibling::dd[1]")
+        for deadline in deadlinesDivs:
+            deadlinesList.append(deadline.get_attribute('textContent'))
+
+        deadlinesList = [CleanText.cleanALLtheText(deadline) for deadline in deadlinesList]
+
+        return deadlinesList
+
+
+
 
 MastersInEducationLeads()
