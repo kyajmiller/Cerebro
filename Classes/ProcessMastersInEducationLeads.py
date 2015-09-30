@@ -10,4 +10,4 @@ class ProcessMastersInEducationLeads(object):
             InsertMastersInEducationArrayIntoDB(leadArray)
 
 
-ProcessMastersInEducationLeads()
+ProcessMastersInEducationLeads.getMastersInEducationLeadsAndInsertIntoDB()
