@@ -1465,9 +1465,32 @@ var GPALanguageRegWhy = new RegWhyExpression();
 
 -clicky divs: "//section[@class='scholarships']/div[@class='tab h-results']/div[@class='h-result js-has-toggle']/div[@class='h-result-header js-toggle']"
 -title divs: "//section[@class='scholarships']/div[@class='tab h-results']/div[@class='h-result js-has-toggle active']/div[@class='h-result-header js-toggle active']/h3"
-only works after clicky divs are clicked, use TextContent to get the title text
+only works after clicky divs are clicked, use TextContent to get the title
 
+9/30 Notes:
+-continue working on MastersInEducationLeads
 
+-title divs: "//section[@class='scholarships']/div[@class='tab h-results']/div[@class='h-result js-has-toggle active']/div[@class='h-result-header js-toggle active']/h3"
+only works after clicky divs are clicked, use TextContent to get the title
+-amount divs: "//dt[text() = 'Amount']/following-sibling::dd[1]" textContent
+-deadline divs: "//dt[text() = 'Amount']/following-sibling::dt[text() = 'Deadline']/following-sibling::dd[1]" textContent
+-description divs: "//dt[text() = 'Amount']/following-sibling::dt[text() = 'Deadline']/following-sibling::dd[1]" textContent
+-link divs: "//div[@class = 'h-result-header js-toggle active']/following-sibling::div[@class = 'js-target hide scholarship-content']/p/following-sibling::div[@class='text-center']/a[@class = 'btn']"
+href
+
+turns out the scholarships section has different xpaths for its elements, so...
+
+clicky divs: "//section[@class = 'scholarships']/div[@class = 'tab']/section/div/div[@class = 'h-result-header js-toggle']"
+titles: "//section[@class='scholarships']/div[@class='tab']/section/div/div/h3"
+
+the deadlines div is acting really really weird...
+deadlines: "//dt[text() = 'Renewable']/preceding-sibling::dt[text() = 'Deadline']/following-sibling::dd[1]" textContent
+description: "//section[@class = 'scholarships']/div[@class = 'tab']/section/div/div/p"
+link: "//section[@class = 'scholarships']/div[@class = 'tab']/section/div/div/p/following-sibling::div[@class='text-center']/a[@class = 'btn']"
+
+nextpage button: "//a[@title = 'Next']"
+
+mastersInEducationLeads is pretty much done
 
 
 
