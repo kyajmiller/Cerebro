@@ -12,13 +12,16 @@ class MastersInEducationLeads(object):
 
         self.resultsArrays = []
 
-        self.getInfoOnCurrentPage()
+        self.loopOverPages()
 
     def loopOverPages(self):
-        self.getInfoOnCurrentPage()
+        self.getEditorsPicks()
 
+        self.driver.find_element_by_xpath("//section[@id='main-content']/div/section/ul/li[2]").click()
+        self.driver.implicitly_wait(2)
+        self.getEditorsPicks()
 
-    def getInfoOnCurrentPage(self):
+    def getEditorsPicks(self):
         visibleClickyDivs = self.driver.find_elements_by_xpath(
             "//section[@class='scholarships']/div[@class='tab h-results']/div[@class='h-result js-has-toggle']/div[@class='h-result-header js-toggle']")
         for clickyDiv in visibleClickyDivs:
