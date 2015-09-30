@@ -11,8 +11,17 @@ class MastersInEducationLeads(object):
         self.driver.implicitly_wait(2)
 
         self.resultsArrays = []
+        self.mastersInEducationLeadsArrays = []
 
+    def getLeads(self):
         self.loopOverPages()
+
+        for resultArray in self.resultsArrays:
+            self.makeLeadArray(resultArray)
+
+        self.driver.quit()
+
+        return self.mastersInEducationLeadsArrays
 
     def loopOverPages(self):
         self.getEditorsPicks()
@@ -23,7 +32,21 @@ class MastersInEducationLeads(object):
         nextScholarshipPage = self.checkIfNextPage()
         while nextScholarshipPage:
             self.goToNextPage()
+            self.getScholarshipsPicks()
             nextScholarshipPage = self.checkIfNextPage()
+
+    def makeLeadArray(self, resultArray):
+        title = resultArray[0]
+        amount = resultArray[1]
+        deadline = resultArray[2]
+        description = resultArray[3]
+        sourceWebsite = resultArray[4]
+        sourceText = RipPage.getPageSource(sourceWebsite)
+
+        sourceText = CleanText.cleanALLtheText(sourceText)
+
+        mastersInEducationLeadArray = [title, amount, deadline, description, sourceWebsite, sourceText]
+        self.mastersInEducationLeadsArrays.append(mastersInEducationLeadArray)
 
 
     def getEditorsPicks(self):
@@ -185,4 +208,5 @@ class MastersInEducationLeads(object):
             self.driver.get(nextPageUrl)
             self.driver.implicitly_wait(2)
 
-MastersInEducationLeads()
+
+MastersInEducationLeads().getLeads()
