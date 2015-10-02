@@ -33,3 +33,17 @@ class MastersInEducationLeadsGetDatabaseInfo(object):
                 descriptions.append(row.Description)
 
         return descriptions
+
+    def getMastersInEducationLeadIds(self):
+        mastersInEducationLeadIds = []
+
+        if self.tag:
+            rows = self.db.getRows("select * from dbo.MastersInEducationLeads where Tag='" + self.tag + "'")
+            for row in rows:
+                mastersInEducationLeadIds.append(row.MastersInEducationLeadId)
+        else:
+            rows = self.db.getRows("select * from dbo.MastersInEducationLeads")
+            for row in rows:
+                mastersInEducationLeadIds.append(row.MastersInEducationLeadId)
+
+        return mastersInEducationLeadIds
