@@ -207,5 +207,3 @@ class MastersInEducationLeads(object):
             self.driver.get(nextPageUrl)
             self.driver.implicitly_wait(2)
 
-
-MastersInEducationLeads().getLeads()
