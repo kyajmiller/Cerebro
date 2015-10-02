@@ -1493,11 +1493,24 @@ nextpage button: "//a[@title = 'Next']"
 mastersInEducationLeads is pretty much done
 
 
+10/2 Notes:
+-after a bunch of stupidity trying to get MastersInEducationLeads to actually work, it has finally worked and the stuff has
+been inserted into the database.
+-going to classify the scholarships and then try to run badscholarship classifier on it
+-made MastersInEducationLeadsGetDatabaseInfo class, so far has titles, descriptions, and ids things
 
+Going to attempt something that may or may not be good
+-There's a lot of criteria that goes into identifying which class year a scholarship is referring to. Enough nuance that
+a simple regular expression search isn't really going to cut it
+-Since there's a lot of data already labeled by the researchers for class year and scholarship information, I could perhaps use that info
+to build a vector based classifier
+-One potential issue already: a lot (if not all) of these have multiple labels attached to them, so how to handle multiple classifications
+-Could have something trained on each possible classification, but ehhhhh. That could be very time consuming to run, but it could be effective
+-Will start by focusing on a single label or group of labels. Will have to see if any are mutually exclusive.
+-Luckily if I do the single groups there's a lot of positive and negative examples to use.
+--This may not be the case for all of the possible classifications
 
-
-
-
-
-
-
+Things to consider:
+-feature selection
+-The training data and the testing data are completely different. What's in the database is very carefully written versus the raw website data. This could potentially be very bad.
+--Granted, with proper feature selection this might be a non issue, but I don't know... If the feature selection has to be very specific then it defeats the purpose of the classifier
