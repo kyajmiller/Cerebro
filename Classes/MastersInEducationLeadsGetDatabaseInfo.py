@@ -47,3 +47,10 @@ class MastersInEducationLeadsGetDatabaseInfo(object):
                 mastersInEducationLeadIds.append(row.MastersInEducationLeadId)
 
         return mastersInEducationLeadIds
+
+    def getTitleDescriptionList(self):
+        titlesList = self.getTitles()
+        descriptionsList = self.getDescriptions()
+
+        titleDescriptionsList = [[titlesList[i], descriptionsList[i]] for i in range(len(titlesList))]
+        return titleDescriptionsList
