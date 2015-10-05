@@ -3,13 +3,19 @@ from Classes.CleanText import CleanText
 
 
 class GetDatabaseInfoScholarshipsWithClassStatuses(object):
-    def __init__(self, requirementNeeded):
+    def __init__(self, requirementNeeded=None, useNot=False):
         self.requirementNeeded = requirementNeeded
         self.formattedRequirementNeeded = '%' + self.requirementNeeded + '%'
         self.db = SUDBConnect()
 
-        self.rows = self.db.getRows(
-            "select * from dbo.ScholarshipsWithClassStatuses where RequirementNeeded like '" + self.formattedRequirementNeeded + "'")
+        if self.requirementNeeded and useNot:
+            self.rows = self.db.getRows(
+                "select * from dbo.ScholarshipsWithClassStatuses where RequimentNeeded not like '" + self.formattedRequirementNeeded + "'")
+        elif self.requirementNeeded:
+            self.rows = self.db.getRows(
+                "select * from dbo.ScholarshipsWithClassStatuses where RequirementNeeded like '" + self.formattedRequirementNeeded + "'")
+        else:
+            self.rows = self.db.getRows("select * from dbo.ScholarshipsWithClassStatuses")
 
         print(len(self.rows))
 
