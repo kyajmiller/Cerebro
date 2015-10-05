@@ -1,0 +1,5 @@
+import pandas
+import itertools
+from sklearn.linear_model import LogisticRegression
+from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
+    GetDatabaseInfoScholarshipsWithClassStatuses
