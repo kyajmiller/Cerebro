@@ -1,4 +1,5 @@
 from Classes.SUDBConnect import SUDBConnect
+from Classes.CleanText import CleanText
 
 
 class GetDatabaseInfoScholarshipsWithClassStatuses(object):
@@ -10,14 +11,20 @@ class GetDatabaseInfoScholarshipsWithClassStatuses(object):
         self.rows = self.db.getRows(
             "select * from dbo.ScholarshipsWithClassStatuses where RequirementNeeded like '" + self.formattedRequirementNeeded + "'")
 
+        print(len(self.rows))
+
     def getScholarshipDescriptionsList(self):
         scholarshipDescriptionsList = []
 
         for row in self.rows:
-            scholarshipDescriptionsList.append(row.ScholarshipDescription)
+            scholarshipDescriptionsList.append(CleanText.cleanALLtheText(row.ScholarshipDescription))
 
         return scholarshipDescriptionsList
 
+    def getEligibilitiesList(self):
+        eligibilitiesList = []
 
+        for row in self.rows:
+            eligibilitiesList.append(CleanText.cleanALLtheText(row.Eligibility))
 
-GetDatabaseInfoScholarshipsWithClassStatuses("cheese")
+        return eligibilitiesList
