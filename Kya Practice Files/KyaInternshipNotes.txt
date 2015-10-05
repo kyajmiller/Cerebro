@@ -1514,3 +1514,12 @@ Things to consider:
 -feature selection
 -The training data and the testing data are completely different. What's in the database is very carefully written versus the raw website data. This could potentially be very bad.
 --Granted, with proper feature selection this might be a non issue, but I don't know... If the feature selection has to be very specific then it defeats the purpose of the classifier
+
+10/5 Notes:
+-Need to write class to get database information with RequirementNeeded where clause. Need to use sql LIKE statement
+-This is pretty much done
+-Nevermind, I need to set this up to make the RequirementNeeded clause optional, as well as give an optional parameter for NOT
+-I'm already apprehensive about doing this this way because I honestly don't understand a lot of the logic behind some of these labels
+-For example, just looking at the 'Junior' label alone, more than half of the ones I'm seeing don't mention really anything to do with junior at all
+-Also issues with a scholarship being labeled 'freshman, sophomore, junior, senior' when the scholarship mentions 'undergrad'... I don't know how to make it label that particular way
+This is going to be really awful
