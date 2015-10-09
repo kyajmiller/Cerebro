@@ -20,23 +20,35 @@ class ClassifyClassStatus(object):
         self.trainingVectors = []
         self.testingVectors = []
 
+        self.logisticRegressionClassifier = LogisticRegression()
+
+    def trainTestAndGetResults(self):
+        print("Results for label '%s':" % self.classStatus)
+
+    def trainLogisticRegressionClassifier(self):
+        trainingFeaturesList = [trainingInstance['features'] for trainingInstance in self.training]
+        testingFeaturesList = [testingInstance['features'] for testingInstance in self.testing]
+
+        trainingLabels = [trainingInstance['label'] for trainingInstance in self.training]
+
+        featuresSeries = pandas.Series(list(itertools.chain(*trainingFeaturesList)))
+        featuresValueCounts = featuresSeries.value_counts()
+        featuresValueCountsIndexes = featuresValueCounts.index
+
+        self.trainingVectors = self.makeFeaturesVectors(trainingFeaturesList, featuresValueCountsIndexes)
+        self.testingVectors = self.makeFeaturesVectors(testingFeaturesList, featuresValueCountsIndexes)
+
+        self.logisticRegressionClassifier.fit(self.trainingVectors, trainingLabels)
+
+    def testLogisticRegressionClassifier(self):
+        self.dataFrame['prediction'] = self.logisticRegressionClassifier.predict(self.testingVectors)
+
     def makeDataFrame(self):
         frame = pandas.DataFrame(columns=['label', 'features'])
         for index, value in enumerate(self.testing):
             frame.loc[index] = [value['label'], value['features']]
 
         return frame
-
-    def trainLogisticRegressionClassifier(self):
-        totalTrainingFeaturesList = [trainingInstance['features'] for trainingInstance in self.training]
-        totalTestingFeaturesList = [testingInstance['features'] for testingInstance in self.testing]
-
-        featuresSeries = pandas.Series(list(itertools.chain(*totalTrainingFeaturesList)))
-        featuresValueCounts = featuresSeries.value_counts()
-        featuresValueCountsIndexes = featuresValueCounts.index
-
-        self.trainingVectors = self.makeFeaturesVectors(totalTrainingFeaturesList, featuresValueCountsIndexes)
-        self.testingVectors = self.makeFeaturesVectors(totalTestingFeaturesList, featuresValueCountsIndexes)
 
     def makeFeaturesVectors(self, totalFeaturesList, featuresValueCountsIndexes):
         featuresVectors = numpy.matrix(numpy.zeros((len(totalFeaturesList), featuresValueCountsIndexes.shape[0] + 1)))
