@@ -15,6 +15,14 @@ class TestStringMethods(unittest.TestCase):
         totalSetSize = len(training) + len(testing)
         self.assertEqual(math.ceil(totalSetSize * trainingPercentage), len(training))
 
+    def test_makeTrainingTestingSetBadPercentage(self):
+        desiredClassStatus = 'Senior'
+        setToWorkWith = MakeDataSetClassifyClassStatus(desiredClassStatus)
+
+        trainingPercentage = 2
+        trainingSetAndTestingSet = setToWorkWith.makeTrainingAndTestingSets(trainingPercentage)
+        self.assertIsNone(trainingSetAndTestingSet)
+
 
 if __name__ == '__main__':
     unittest.main()
