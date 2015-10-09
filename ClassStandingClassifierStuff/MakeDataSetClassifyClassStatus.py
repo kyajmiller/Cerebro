@@ -15,7 +15,7 @@ class MakeDataSetClassifyClassStatus():
                                                                              useNot=True)
         self.fullDataSet = []
 
-    def makeTrainingAndTestingSets(self, trainingPercentage):
+    def makeTrainingAndTestingSets(self, trainingPercentage=0.8):
         if trainingPercentage >= 0 and trainingPercentage <= 1:
             self.makeDataLinesGoodLabel()
             self.makeDataLinesBadLabel()
