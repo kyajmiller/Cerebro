@@ -32,6 +32,9 @@ class GetDatabaseInfoScholarshipsWithClassStatuses(object):
         eligibilitiesList = []
 
         for row in self.rows:
-            eligibilitiesList.append(CleanText.cleanALLtheText(row.Eligibility))
+            eligibilitiesList.append(row.Eligibility)
+
+        eligibilitiesList = [CleanText.cleanALLtheText(eligibility) for eligibility in eligibilitiesList if
+                             type(eligibility) == str]
 
         return eligibilitiesList
