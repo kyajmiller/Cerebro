@@ -6,10 +6,11 @@ import math
 
 
 class MakeDataSetClassifyClassStatus():
-    def __init__(self, classStatusToUse):
-        self.classStatusToUse = classStatusToUse
-        self.labelGood = classStatusToUse
-        self.labelBad = 'Other'
+    def __init__(self, labels):
+        self.labels = labels
+        self.classStatusToUse = self.labels[0]
+        self.labelGood = self.labels[0]
+        self.labelBad = self.labels[1]
         self.goodClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(requirementNeeded=self.classStatusToUse)
         self.badClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(requirementNeeded=self.classStatusToUse,
                                                                              useNot=True)
