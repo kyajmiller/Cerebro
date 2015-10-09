@@ -1,6 +1,7 @@
 from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
 from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
     GetDatabaseInfoScholarshipsWithClassStatuses
+import math
 
 
 class MakeDataSetClassifyClassStatus():
@@ -12,7 +13,19 @@ class MakeDataSetClassifyClassStatus():
         self.badClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(requirementNeeded=self.classStatusToUse,
                                                                              useNot=True)
         self.fullDataSet = []
+        self.makeDataLinesGoodLabel()
+        self.makeDataLinesBadLabel()
 
+    def makeTrainingAndTestingSets(self):
+        numTotalLinesFullSet = len(self.fullDataSet)
+        trainingPercentage = 0.80
+        howManyLinesToGrabTraining = math.ceil(numTotalLinesFullSet * trainingPercentage)
+        trainingSet = self.fullDataSet[:howManyLinesToGrabTraining]
+        numRemainingLines = len(self.fullDataSet) - len(trainingSet)
+        testingSet = self.fullDataSet[numRemainingLines:]
+
+        separateSets = [trainingSet, testingSet]
+        return separateSets
 
     def makeDataLinesGoodLabel(self):
         scholarshipDescriptions = self.goodClassStatusDB.getScholarshipDescriptionsList()
