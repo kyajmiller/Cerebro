@@ -19,14 +19,19 @@ class MakeDataSetClassifyClassStatus():
         shuffle(self.fullDataSet)
 
     def makeTrainingAndTestingSets(self, trainingPercentage):
-        numTotalEntries = len(self.fullDataSet)
-        numTrainingEntries = math.ceil(numTotalEntries * trainingPercentage)
-        numTestingEntries = numTotalEntries - numTrainingEntries
+        if trainingPercentage >= 0 and trainingPercentage <= 1:
+            numTotalEntries = len(self.fullDataSet)
+            numTrainingEntries = math.ceil(numTotalEntries * trainingPercentage)
+            numTestingEntries = numTotalEntries - numTrainingEntries
 
-        trainingSet = self.fullDataSet[:numTrainingEntries]
-        testingSet = self.fullDataSet[-numTestingEntries:]
+            trainingSet = self.fullDataSet[:numTrainingEntries]
+            testingSet = self.fullDataSet[-numTestingEntries:]
 
-        return [trainingSet, testingSet]
+            return [trainingSet, testingSet]
+
+        else:
+            print('Not a real percentage, please enter a float between 0 and 1.')
+            return None
 
     def makeDataLinesGoodLabel(self):
         scholarshipDescriptions = self.goodClassStatusDB.getScholarshipDescriptionsList()
