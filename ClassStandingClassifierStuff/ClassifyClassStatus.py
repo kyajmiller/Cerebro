@@ -73,7 +73,7 @@ class ClassifyClassStatus(object):
 
         return totalFeaturesList
 
-    def getStatistics(self, actualLablesList, predictedLabelsList, desiredLabel):
+    def getTrueFalsePositivesNegatives(self, actualLablesList, predictedLabelsList, desiredLabel):
         truePositives = 0
         trueNegatives = 0
         falsePositives = 0
