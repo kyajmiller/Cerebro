@@ -1,6 +1,7 @@
 from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
 from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
     GetDatabaseInfoScholarshipsWithClassStatuses
+from random import shuffle
 import math
 
 
@@ -15,6 +16,7 @@ class MakeDataSetClassifyClassStatus():
         self.fullDataSet = []
         self.makeDataLinesGoodLabel()
         self.makeDataLinesBadLabel()
+        shuffle(self.fullDataSet)
 
     def makeTrainingAndTestingSets(self, trainingPercentage):
         numTotalEntries = len(self.fullDataSet)
@@ -67,14 +69,3 @@ class MakeDataSetClassifyClassStatus():
 
             dataLine = {'label': self.labelBad, 'features': features}
             self.fullDataSet.append(dataLine)
-
-
-testClass = MakeDataSetClassifyClassStatus('Junior')
-print(len(testClass.fullDataSet))
-trainingSetAndTestingSet = testClass.makeTrainingAndTestingSets()
-'''
-training = trainingSetAndTestingSet[0]
-testing = trainingSetAndTestingSet[1]
-print(len(training))
-print(len(testing))
-'''
