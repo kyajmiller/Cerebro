@@ -50,8 +50,7 @@ class ClassifyClassStatus(object):
         self.trainingVectors = self.makeFeaturesVectors(trainingFeaturesList, featuresValueCountsIndexes)
         self.testingVectors = self.makeFeaturesVectors(testingFeaturesList, featuresValueCountsIndexes)
 
-        self.logisticRegressionClassifier.fit(self.trainingVectors,
-                                              [trainingInstance['label'] for trainingInstance in self.training])
+        self.logisticRegressionClassifier.fit(self.trainingVectors, trainingLabels)
 
     def testLogisticRegressionClassifier(self):
         self.dataFrame['prediction'] = self.logisticRegressionClassifier.predict(self.testingVectors)
