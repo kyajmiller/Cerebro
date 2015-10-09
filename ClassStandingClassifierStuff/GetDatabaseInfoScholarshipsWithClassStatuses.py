@@ -10,7 +10,7 @@ class GetDatabaseInfoScholarshipsWithClassStatuses(object):
 
         if self.requirementNeeded and useNot:
             self.rows = self.db.getRows(
-                "select * from dbo.ScholarshipsWithClassStatuses where RequimentNeeded not like '" + self.formattedRequirementNeeded + "'")
+                "select * from dbo.ScholarshipsWithClassStatuses where RequirementNeeded not like '" + self.formattedRequirementNeeded + "'")
         elif self.requirementNeeded:
             self.rows = self.db.getRows(
                 "select * from dbo.ScholarshipsWithClassStatuses where RequirementNeeded like '" + self.formattedRequirementNeeded + "'")
