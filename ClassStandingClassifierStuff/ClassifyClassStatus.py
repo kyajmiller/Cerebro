@@ -23,6 +23,9 @@ class ClassifyClassStatus(object):
         self.logisticRegressionClassifier = LogisticRegression()
 
     def trainTestAndGetResults(self):
+        self.trainLogisticRegressionClassifier()
+        self.testLogisticRegressionClassifier()
+
         print("Results for label '%s':" % self.classStatus)
 
     def trainLogisticRegressionClassifier(self):
@@ -69,3 +72,23 @@ class ClassifyClassStatus(object):
                         featuresValueCountsIndexesValue]
 
         return totalFeaturesList
+
+    def getStatistics(self, actualLablesList, predictedLabelsList, desiredLabel):
+        truePositives = 0
+        trueNegatives = 0
+        falsePositives = 0
+        falseNegatives = 0
+
+        for actualLabel, predictedLabel in zip(actualLablesList, predictedLabelsList):
+            if actualLabel == predictedLabel:
+                if actualLabel == desiredLabel:
+                    truePositives += 1
+                else:
+                    trueNegatives += 1
+            else:
+                if actualLabel == desiredLabel:
+                    falseNegatives += 1
+                else:
+                    falsePositives += 1
+
+        return truePositives, trueNegatives, falsePositives, falseNegatives
