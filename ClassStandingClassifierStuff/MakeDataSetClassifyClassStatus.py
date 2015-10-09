@@ -7,8 +7,30 @@ from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses i
 class MakeDataSetClassifyClassStatus():
     def __init__(self, classStatusToUse):
         self.classStatusToUse = classStatusToUse
-        self.isClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(requirementNeeded=self.classStatusToUse)
-        self.notClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(requirementNeeded=self.classStatusToUse,
+        self.labelGood = classStatusToUse
+        self.labelBad = 'Other'
+        self.goodClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(requirementNeeded=self.classStatusToUse)
+        self.badClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(requirementNeeded=self.classStatusToUse,
                                                                              useNot=True)
 
-    def makeFeaturesSet(self):
+    def makeSetGoodLabel(self):
+        scholarshipDescriptions = self.goodClassStatusDB.getScholarshipDescriptionsList()
+        eligibilities = self.goodClassStatusDB.getEligibilitiesList()
+        dataSet = []
+
+        for i in range(len(scholarshipDescriptions)):
+            description = scholarshipDescriptions[i]
+            eligibility = eligibilities[i]
+            features = []
+
+            concatenatedText = '%s %s' % (description, eligibility)
+            unigrams = TokenizeOnWhitespacePunctuation(concatenatedText, keepCaps=False).getUnigrams()
+            bigrams = ['%s %s' % (unigrams[i], unigrams[i + 1]) for i in range(len(unigrams) - 1)]
+
+            for unigram in unigrams:
+                features.append(unigram)
+            for bigram in bigrams:
+                features.append(bigram)
+
+            dataLine = {'label': self.labelGood, 'features': features}
+            dataSet.append(dataLine)
