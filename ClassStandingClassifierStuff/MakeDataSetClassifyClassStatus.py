@@ -20,8 +20,10 @@ class MakeDataSetClassifyClassStatus():
         numTotalLinesFullSet = len(self.fullDataSet)
         trainingPercentage = 0.80
         howManyLinesToGrabTraining = math.ceil(numTotalLinesFullSet * trainingPercentage)
+
         trainingSet = self.fullDataSet[:howManyLinesToGrabTraining]
         numRemainingLines = len(self.fullDataSet) - len(trainingSet)
+
         testingSet = self.fullDataSet[numRemainingLines:]
 
         separateSets = [trainingSet, testingSet]
