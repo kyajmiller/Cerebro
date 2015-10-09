@@ -92,3 +92,17 @@ class ClassifyClassStatus(object):
                     falsePositives += 1
 
         return truePositives, trueNegatives, falsePositives, falseNegatives
+
+    def computeMetrics(self, truePositives, trueNegatives, falsePositives, falseNegatives):
+        accuracy = (truePositives + trueNegatives) / (truePositives + trueNegatives + falsePositives + falseNegatives)
+        precision = truePositives / (truePositives + falsePositives)
+        recall = truePositives / (truePositives + falseNegatives)
+        f1 = 2 * ((precision * recall) / (precision + recall))
+
+        return accuracy, precision, recall, f1
+
+    def printMetrics(self, accuracy, precision, recall, f1):
+        print('Accuracy:\t%s' % accuracy)
+        print('Precision:\t%s' % precision)
+        print('Recall:\t\t%s' % recall)
+        print('F1:\t\t%s' % f1)
