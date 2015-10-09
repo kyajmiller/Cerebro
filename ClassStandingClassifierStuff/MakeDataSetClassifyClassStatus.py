@@ -14,12 +14,13 @@ class MakeDataSetClassifyClassStatus():
         self.badClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(requirementNeeded=self.classStatusToUse,
                                                                              useNot=True)
         self.fullDataSet = []
-        self.makeDataLinesGoodLabel()
-        self.makeDataLinesBadLabel()
-        shuffle(self.fullDataSet)
 
     def makeTrainingAndTestingSets(self, trainingPercentage):
         if trainingPercentage >= 0 and trainingPercentage <= 1:
+            self.makeDataLinesGoodLabel()
+            self.makeDataLinesBadLabel()
+            shuffle(self.fullDataSet)
+
             numTotalEntries = len(self.fullDataSet)
             numTrainingEntries = math.ceil(numTotalEntries * trainingPercentage)
             numTestingEntries = numTotalEntries - numTrainingEntries
