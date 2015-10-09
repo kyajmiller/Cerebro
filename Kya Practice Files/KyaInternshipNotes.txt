@@ -1523,3 +1523,15 @@ Things to consider:
 -For example, just looking at the 'Junior' label alone, more than half of the ones I'm seeing don't mention really anything to do with junior at all
 -Also issues with a scholarship being labeled 'freshman, sophomore, junior, senior' when the scholarship mentions 'undergrad'... I don't know how to make it label that particular way
 This is going to be really awful
+
+10/7 Notes:
+-Work on feature selection
+-Start with unigrams + bigrams; remove capitalization, keep stopwords for now
+-Made the class MakeDataSetClassifyClassStatus, takes a class term to use, like 'Junior'
+-has a function MakeTrainingAndTestingSet which takes a percentage value between 0 and 1, added a unit test to enforce this
+-need to download winpython 3.4 because even though I'm not importing scipy, sklearn's linear regression needs it.... and I really
+don't feel like figuring out how to compile scipy on this computer right now
+-wrote the class to train and test the logistic regression classifier
+
+-need to make sure that functions are actually returning the right things lol
+-this will take a while to run so hopefully it will run overnight and be fine
