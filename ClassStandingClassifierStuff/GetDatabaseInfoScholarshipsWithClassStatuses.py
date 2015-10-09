@@ -24,7 +24,7 @@ class GetDatabaseInfoScholarshipsWithClassStatuses(object):
             scholarshipDescriptionsList.append(row.ScholarshipDescription)
 
         scholarshipDescriptionsList = [CleanText.cleanALLtheText(description) for description in
-                                       scholarshipDescriptionsList]
+                                       scholarshipDescriptionsList if type(description) == str]
 
         return scholarshipDescriptionsList
 
