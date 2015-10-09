@@ -17,6 +17,9 @@ class ClassifyClassStatus(object):
 
         self.dataFrame = self.makeDataFrame()
 
+        self.trainingVectors = []
+        self.testingVectors = []
+
     def makeDataFrame(self):
         frame = pandas.DataFrame(columns=['label', 'features'])
         for index, value in enumerate(self.testing):
@@ -25,13 +28,15 @@ class ClassifyClassStatus(object):
         return frame
 
     def trainLogisticRegressionClassifier(self):
-        totalFeaturesList = [trainingLine['features'] for trainingLine in self.training]
+        totalTrainingFeaturesList = [trainingInstance['features'] for trainingInstance in self.training]
+        totalTestingFeaturesList = [testingInstance['features'] for testingInstance in self.testing]
 
-        featuresSeries = pandas.Series(list(itertools.chain(*totalFeaturesList)))
+        featuresSeries = pandas.Series(list(itertools.chain(*totalTrainingFeaturesList)))
         featuresValueCounts = featuresSeries.value_counts()
         featuresValueCountsIndexes = featuresValueCounts.index
 
-        trainingVectors = self.makeFeaturesVectors(totalFeaturesList, featuresValueCountsIndexes)
+        self.trainingVectors = self.makeFeaturesVectors(totalTrainingFeaturesList, featuresValueCountsIndexes)
+        self.testingVectors = self.makeFeaturesVectors(totalTestingFeaturesList, featuresValueCountsIndexes)
 
     def makeFeaturesVectors(self, totalFeaturesList, featuresValueCountsIndexes):
         featuresVectors = numpy.matrix(numpy.zeros((len(totalFeaturesList), featuresValueCountsIndexes.shape[0] + 1)))
