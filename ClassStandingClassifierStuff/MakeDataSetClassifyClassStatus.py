@@ -16,18 +16,15 @@ class MakeDataSetClassifyClassStatus():
         self.makeDataLinesGoodLabel()
         self.makeDataLinesBadLabel()
 
-    def makeTrainingAndTestingSets(self):
-        numTotalLinesFullSet = len(self.fullDataSet)
-        trainingPercentage = 0.80
-        howManyLinesToGrabTraining = math.ceil(numTotalLinesFullSet * trainingPercentage)
+    def makeTrainingAndTestingSets(self, trainingPercentage):
+        numTotalEntries = len(self.fullDataSet)
+        numTrainingEntries = math.ceil(numTotalEntries * trainingPercentage)
+        numTestingEntries = numTotalEntries - numTrainingEntries
 
-        trainingSet = self.fullDataSet[:howManyLinesToGrabTraining]
-        numRemainingLines = len(self.fullDataSet) - len(trainingSet)
+        trainingSet = self.fullDataSet[:numTrainingEntries]
+        testingSet = self.fullDataSet[-numTestingEntries:]
 
-        testingSet = self.fullDataSet[numRemainingLines:]
-
-        separateSets = [trainingSet, testingSet]
-        return separateSets
+        return [trainingSet, testingSet]
 
     def makeDataLinesGoodLabel(self):
         scholarshipDescriptions = self.goodClassStatusDB.getScholarshipDescriptionsList()
@@ -70,3 +67,14 @@ class MakeDataSetClassifyClassStatus():
 
             dataLine = {'label': self.labelBad, 'features': features}
             self.fullDataSet.append(dataLine)
+
+
+testClass = MakeDataSetClassifyClassStatus('Junior')
+print(len(testClass.fullDataSet))
+trainingSetAndTestingSet = testClass.makeTrainingAndTestingSets()
+'''
+training = trainingSetAndTestingSet[0]
+testing = trainingSetAndTestingSet[1]
+print(len(training))
+print(len(testing))
+'''
