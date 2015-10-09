@@ -11,7 +11,8 @@ class MakeDataSetClassifyClassStatus():
         self.goodClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(requirementNeeded=self.classStatusToUse)
         self.badClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(requirementNeeded=self.classStatusToUse,
                                                                              useNot=True)
-        self.dataset = []
+        self.fullDataSet = []
+
 
     def makeDataLinesGoodLabel(self):
         scholarshipDescriptions = self.goodClassStatusDB.getScholarshipDescriptionsList()
@@ -32,7 +33,7 @@ class MakeDataSetClassifyClassStatus():
                 features.append(bigram)
 
             dataLine = {'label': self.labelGood, 'features': features}
-            self.dataset.append(dataLine)
+            self.fullDataSet.append(dataLine)
 
     def makeDataLinesBadLabel(self):
         scholarshipDescriptions = self.badClassStatusDB.getScholarshipDescriptionsList()
@@ -53,4 +54,4 @@ class MakeDataSetClassifyClassStatus():
                 features.append(bigram)
 
             dataLine = {'label': self.labelBad, 'features': features}
-            self.dataset.append(dataLine)
+            self.fullDataSet.append(dataLine)
