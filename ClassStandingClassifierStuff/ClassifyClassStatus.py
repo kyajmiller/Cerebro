@@ -25,23 +25,30 @@ class ClassifyClassStatus(object):
         return frame
 
     def trainLogisticRegressionClassifier(self):
-        features = pandas.Series(list(itertools.chain(*[trainingLine['features'] for trainingLine in self.training])))
-        features = features.value_counts()
+        totalFeaturesList = [trainingLine['features'] for trainingLine in self.training]
 
-    def makeFeaturesVectors(self, featuresValues, featuresCounts):
-        featuresVectors = numpy.matrix(numpy.zeros((len(featuresValues), featuresCounts.shape[0] + 1)))
+        featuresSeries = pandas.Series(list(itertools.chain(*totalFeaturesList)))
+        featuresValueCounts = featuresSeries.value_counts()
+        featuresValueCountsIndexes = featuresValueCounts.index
+
+        trainingVectors = self.makeFeaturesVectors(totalFeaturesList, featuresValueCountsIndexes)
+
+    def makeFeaturesVectors(self, totalFeaturesList, featuresValueCountsIndexes):
+        featuresVectors = numpy.matrix(numpy.zeros((len(totalFeaturesList), featuresValueCountsIndexes.shape[0] + 1)))
 
         # insert bias
         featuresVectors[:, 0] = 1
 
-        for featuresValuesIndex, featuresValuesData in enumerate(featuresValues):
+        for totalFeaturesIndex, totalFeaturesData in enumerate(totalFeaturesList):
             # make regular vector
-            featuresValuesData = pandas.Series(featuresValuesData)
-            vectorCounts = featuresValuesData.value_counts()
+            totalFeaturesData = pandas.Series(totalFeaturesData)
+            vectorCounts = totalFeaturesData.value_counts()
 
             # make features vector
-            for featuresCountsIndex, featuresCountsValue in enumerate(featuresCounts):
-                if featuresCountsValue in vectorCounts.index:
-                    featuresVectors[featuresValuesIndex, featuresCountsIndex + 1] = vectorCounts.ix[featuresCountsValue]
+            for featuresValueCountsIndexesIndex, featuresValueCountsIndexesValue in enumerate(
+                    featuresValueCountsIndexes):
+                if featuresValueCountsIndexesValue in vectorCounts.index:
+                    featuresVectors[totalFeaturesIndex, featuresValueCountsIndexesIndex + 1] = vectorCounts.ix[
+                        featuresValueCountsIndexesValue]
 
-        return featuresValues
+        return totalFeaturesList
