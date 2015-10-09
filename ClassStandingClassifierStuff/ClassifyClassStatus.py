@@ -9,6 +9,7 @@ class ClassifyClassStatus(object):
     def __init__(self, classStatus, trainingPercentage):
         self.classStatus = classStatus
         self.trainingPercentage = trainingPercentage
+        self.badLabel = 'Other'
 
         trainingTestingList = MakeDataSetClassifyClassStatus(classStatus).makeTrainingAndTestingSets(
             self.trainingPercentage)
@@ -27,6 +28,14 @@ class ClassifyClassStatus(object):
         self.testLogisticRegressionClassifier()
 
         print("Results for label '%s':" % self.classStatus)
+        self.printMetrics(*self.computeMetrics(
+            *self.getTrueFalsePositivesNegatives(self.dataFrame['label'], self.dataFrame['prediction'],
+                                                 desiredLabel=self.classStatus)))
+
+        print("Results for label '%s':" % self.badLabel)
+        self.printMetrics(*self.computeMetrics(
+            *self.getTrueFalsePositivesNegatives(self.dataFrame['label'], self.dataFrame['prediction'],
+                                                 desiredLabel=self.badLabel)))
 
     def trainLogisticRegressionClassifier(self):
         trainingFeaturesList = [trainingInstance['features'] for trainingInstance in self.training]
