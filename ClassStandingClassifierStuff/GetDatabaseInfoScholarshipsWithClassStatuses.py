@@ -21,7 +21,10 @@ class GetDatabaseInfoScholarshipsWithClassStatuses(object):
         scholarshipDescriptionsList = []
 
         for row in self.rows:
-            scholarshipDescriptionsList.append(CleanText.cleanALLtheText(row.ScholarshipDescription))
+            scholarshipDescriptionsList.append(row.ScholarshipDescription)
+
+        scholarshipDescriptionsList = [CleanText.cleanALLtheText(description) for description in
+                                       scholarshipDescriptionsList]
 
         return scholarshipDescriptionsList
 
