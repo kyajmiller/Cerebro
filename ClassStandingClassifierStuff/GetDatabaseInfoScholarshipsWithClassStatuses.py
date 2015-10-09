@@ -17,8 +17,6 @@ class GetDatabaseInfoScholarshipsWithClassStatuses(object):
         else:
             self.rows = self.db.getRows("select * from dbo.ScholarshipsWithClassStatuses")
 
-        print(len(self.rows))
-
     def getScholarshipDescriptionsList(self):
         scholarshipDescriptionsList = []
 
