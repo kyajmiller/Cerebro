@@ -91,7 +91,8 @@ class MakeDataSetClassifyClassStatus():
 
         sentences = TokenizeIntoSentences().doTokenize(text)
         for sentence in sentences:
-            sentenceUnigrams = TokenizeOnWhitespacePunctuation(sentence, keepCaps=False).getUnigrams()
+            sentenceUnigrams = TokenizeOnWhitespacePunctuation(sentence, keepCaps=False,
+                                                               applyStopwords=True).getUnigrams()
             if getUnigrams:
                 for sentenceUnigram in sentenceUnigrams:
                     unigrams.append(sentenceUnigram)
