@@ -6,7 +6,9 @@ from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeData
 
 
 class ClassifyClassStatusFromPretrainedModel(object):
-    def __init__(self, trainedModelInputFile, testingDataTextList, testingDataIdsList):
+    def __init__(self, trainedModelInputFile, trainedFeaturesValueCountsIndexesFile, testingDataTextList,
+                 testingDataIdsList):
+        self.trainedFeaturesValueCountsIndexesFile = trainedFeaturesValueCountsIndexesFile
         self.trainedModelInputFile = trainedModelInputFile
         self.testingDataTextList = testingDataTextList
         self.testingDataIdsList = testingDataIdsList
@@ -16,21 +18,20 @@ class ClassifyClassStatusFromPretrainedModel(object):
 
         self.dataFrame = self.makeDataFrame()
 
-        self.testingVectors = []
-
-        modelInput = open(trainedModelInputFile, 'rb')
+        modelInput = open(self.trainedModelInputFile, 'rb')
         self.logisticRegressionClassifier = pickle.load(modelInput)
         modelInput.close()
 
+        featuresValueCountsInput = open(self.trainedFeaturesValueCountsIndexesFile, 'rb')
+        self.featuresValueCountsIndexes = pickle.load(featuresValueCountsInput)
+        featuresValueCountsInput.close()
+
     def testLogisticRegressionClassifier(self):
         testingFeaturesList = [testingInstance['features'] for testingInstance in self.testing]
-        featuresSeries = pandas.Series(list(itertools.chain(*testingFeaturesList)))
-        featuresValueCounts = featuresSeries.value_counts()
-        featuresValueCountsIndexes = featuresValueCounts.index
-        self.testingVectors = self.makeFeaturesVectors(testingFeaturesList, featuresValueCountsIndexes)
+        testingVectors = self.makeFeaturesVectors(testingFeaturesList, self.featuresValueCountsIndexes)
 
         print('Classifying test data...')
-        self.dataFrame['prediction'] = self.logisticRegressionClassifier.predict(self.testingVectors)
+        self.dataFrame['prediction'] = self.logisticRegressionClassifier.predict(testingVectors)
 
     def makeDataFrame(self):
         frame = pandas.DataFrame(columns=['label', 'scholarshipId', 'features'])
