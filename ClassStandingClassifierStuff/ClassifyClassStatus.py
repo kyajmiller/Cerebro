@@ -39,6 +39,10 @@ class ClassifyClassStatus(object):
             *self.getTrueFalsePositivesNegatives(self.dataFrame['label'], self.dataFrame['prediction'],
                                                  desiredLabel=self.badLabel)))
 
+    def trainAndSaveModel(self):
+        self.trainLogisticRegressionClassifier()
+        self.saveTrainedModelToFile()
+
     def saveTrainedModelToFile(self):
         if not self.modelSaveFile:
             print('No save file declared.')
@@ -47,8 +51,8 @@ class ClassifyClassStatus(object):
             pickle.dump(self.logisticRegressionClassifier, saveFileOutput)
             saveFileOutput.close()
 
-
     def trainLogisticRegressionClassifier(self):
+        print('Training Logistic Regression Classifier for %s' % self.classStatus)
         trainingFeaturesList = [trainingInstance['features'] for trainingInstance in self.training]
         testingFeaturesList = [testingInstance['features'] for testingInstance in self.testing]
 
