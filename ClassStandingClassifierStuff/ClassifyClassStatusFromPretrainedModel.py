@@ -1,8 +1,5 @@
 import pandas
-import itertools
-import numpy
 import pickle
-from sklearn.linear_model import LogisticRegression
 from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
 
 
@@ -21,9 +18,21 @@ class ClassifyClassStatusFromPretrainedModel(object):
         self.logisticRegressionClassifier = pickle.load(modelInput)
         modelInput.close()
 
+    def testLogisticRegressionClassifier(self):
+        print('Classifying test data...')
+        self.dataFrame['prediction'] = self.logisticRegressionClassifier.predict(self.testingVectors)
+
     def makeDataFrame(self):
         frame = pandas.DataFrame(columns=['label', 'scholarshipId', 'features'])
         for index, value in enumerate(self.testing):
             frame.loc[index] = [value['label'], value['scholarshipId'], value['features']]
 
         return frame
+
+    def displayResults(self):
+        self.testLogisticRegressionClassifier()
+        predictions = self.dataFrame['prediction']
+        ids = self.dataFrame['scholarshipIds']
+
+        for predictedLabel, id in zip(predictions, ids):
+            print('%s: %s' % (id, predictedLabel))
