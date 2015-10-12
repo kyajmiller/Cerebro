@@ -9,7 +9,7 @@ class TestStringMethods(unittest.TestCase):
         classStatus = 'Freshman'
         modelSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedLRModel' % classStatus
         featuresValueCountsSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % classStatus
-        databaseInfo = GetDatabaseInfoScholarshipsWithClassStatuses('Freshman')
+        databaseInfo = GetDatabaseInfoScholarshipsWithClassStatuses()
         dataTextList = databaseInfo.getConcatenatedDescriptionsEligibilities()
         idsList = databaseInfo.getScholarshipsWithClassStatusIdsList()
         testClassify = ClassifyClassStatusFromPretrainedModel(trainedModelInputFile=modelSaveFile,
