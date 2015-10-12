@@ -1,12 +1,24 @@
 import unittest
+import re
 from ClassStandingClassifierStuff.ClassifyClassStatusFromPreviouslyUntrainedModel import ClassifyClassStatusTrainFirst
 
 
 class TestStringMethods(unittest.TestCase):
+    def test_trainHighSchoolSeniorModel(self):
+        classStatus = 'High School Senior'
+        fileClassStatus = re.sub(' ', '', classStatus)
+        modelSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+                                                     modelSaveFile=modelSaveFile,
+                                                     featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
+        testClassify.trainAndSaveModel()
+
     def test_trainFreshmanModel(self):
         classStatus = 'Freshman'
-        modelSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedLRModel' % classStatus
-        featuresValueCountsSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % classStatus
+        fileClassStatus = re.sub(' ', '', classStatus)
+        modelSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
         testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
                                                      modelSaveFile=modelSaveFile,
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
@@ -14,8 +26,39 @@ class TestStringMethods(unittest.TestCase):
 
     def test_trainSophomoreModel(self):
         classStatus = 'Sophomore'
-        modelSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedLRModel' % classStatus
-        featuresValueCountsSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % classStatus
+        fileClassStatus = re.sub(' ', '', classStatus)
+        modelSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+                                                     modelSaveFile=modelSaveFile,
+                                                     featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
+        testClassify.trainAndSaveModel()
+
+    def test_trainJuniorModel(self):
+        classStatus = 'Junior'
+        fileClassStatus = re.sub(' ', '', classStatus)
+        modelSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+                                                     modelSaveFile=modelSaveFile,
+                                                     featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
+        testClassify.trainAndSaveModel()
+
+    def test_trainSeniorModel(self):
+        classStatus = 'Senior'
+        fileClassStatus = re.sub(' ', '', classStatus)
+        modelSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+                                                     modelSaveFile=modelSaveFile,
+                                                     featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
+        testClassify.trainAndSaveModel()
+
+    def test_trainMastersLevelGraduateModel(self):
+        classStatus = 'High School Senior'
+        fileClassStatus = re.sub(' ', '', classStatus)
+        modelSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
         testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
                                                      modelSaveFile=modelSaveFile,
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
