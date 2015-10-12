@@ -1,15 +1,17 @@
 import pandas
 import itertools
 import numpy
+import pickle
 from sklearn.linear_model import LogisticRegression
 from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
 
 
 class ClassifyClassStatus(object):
-    def __init__(self, classStatus, trainingPercentage):
+    def __init__(self, classStatus, trainingPercentage, modelSaveFile=None):
         self.classStatus = classStatus
         self.trainingPercentage = trainingPercentage
         self.badLabel = 'Other'
+        self.modelSaveFile = modelSaveFile
 
         trainingTestingList = MakeDataSetClassifyClassStatus(classStatus).makeTrainingAndTestingSets(
             self.trainingPercentage)
@@ -36,6 +38,15 @@ class ClassifyClassStatus(object):
         self.printMetrics(*self.computeMetrics(
             *self.getTrueFalsePositivesNegatives(self.dataFrame['label'], self.dataFrame['prediction'],
                                                  desiredLabel=self.badLabel)))
+
+    def saveTrainedModelToFile(self):
+        if not self.modelSaveFile:
+            print('No save file declared.')
+        else:
+            saveFileOutput = open(self.modelSaveFile, 'wb')
+            pickle.dump(self.logisticRegressionClassifier, saveFileOutput)
+            saveFileOutput.close()
+
 
     def trainLogisticRegressionClassifier(self):
         trainingFeaturesList = [trainingInstance['features'] for trainingInstance in self.training]
