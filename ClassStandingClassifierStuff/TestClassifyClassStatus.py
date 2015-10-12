@@ -7,6 +7,14 @@ class TestStringMethods(unittest.TestCase):
         testClassify = ClassifyClassStatus(classStatus='Junior', trainingPercentage=0.8)
         testClassify.trainTestAndGetResults()
 
+    def test_classifySeniorGetResults(self):
+        testClassify = ClassifyClassStatus(classStatus='Senior', trainingPercentage=0.8)
+        testClassify.trainTestAndGetResults()
+
+    def test_classifyMastersLevelGraduateGetResults(self):
+        testClassify = ClassifyClassStatus(classStatus='Senior', trainingPercentage=0.8)
+        testClassify.trainTestAndGetResults()
+
 
 if __name__ == '__main__':
     unittest.main()
