@@ -43,6 +43,6 @@ class GetDatabaseInfoScholarshipsWithClassStatuses(object):
         idsList = []
 
         for row in self.rows:
-            idsList.append(str(row.ScholarshipsWithClassStatusID))
+            idsList.append(str(row.ScholarshipsWithClassStatusId))
 
         return idsList
