@@ -56,9 +56,9 @@ class ClassifyClassStatus(object):
         self.dataFrame['prediction'] = self.logisticRegressionClassifier.predict(self.testingVectors)
 
     def makeDataFrame(self):
-        frame = pandas.DataFrame(columns=['label', 'features'])
+        frame = pandas.DataFrame(columns=['label', 'scholarshipId', 'features'])
         for index, value in enumerate(self.testing):
-            frame.loc[index] = [value['label'], value['features']]
+            frame.loc[index] = [value['label'], value['scholarshipId'], value['features']]
 
         return frame
 
