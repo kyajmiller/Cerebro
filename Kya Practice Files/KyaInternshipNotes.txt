@@ -1535,3 +1535,121 @@ don't feel like figuring out how to compile scipy on this computer right now
 
 -need to make sure that functions are actually returning the right things lol
 -this will take a while to run so hopefully it will run overnight and be fine
+
+10/12 Notes:
+-So the classifier was successful, and on the first run for 'junior' it had an 81% accuracy - not too shabby
+Results for label 'Junior':
+Accuracy:	0.8136054421768707
+Precision:	0.8138138138138138
+Recall:		0.7832369942196532
+F1:		0.7982326951399116
+Results for label 'Other':
+Accuracy:	0.8136054421768707
+Precision:	0.8134328358208955
+Recall:		0.8406169665809768
+F1:		0.8268015170670038
+
+-First major tweaking - fixed it so it only grabs sentence specific bigrams instead of grabbing bigrams across sentence boundaries
+    -need to test to see if this has any real effects on accuracy
+    -okay so it did, small increase to 82% yay
+Results for label 'Junior':
+Accuracy:	0.8217687074829932
+Precision:	0.8096514745308311
+Recall:		0.8342541436464088
+F1:			0.8217687074829932
+Results for label 'Other':
+Accuracy:	0.8217687074829932
+Precision:	0.8342541436464088
+Recall:		0.8096514745308311
+F1:			0.8217687074829932
+
+-try taking out stopwords, see if that has any effect
+    -another small accuracy increase, yay for small victories
+Results for label 'Junior':
+Accuracy:	0.8231292517006803
+Precision:	0.8149171270718232
+Recall:		0.8240223463687151
+F1:			0.8194444444444444
+Results for label 'Other':
+Accuracy:	0.8231292517006803
+Precision:	0.8310991957104558
+Recall:		0.8222811671087533
+F1:			0.8266666666666667
+
+-Going to try testing this on some other labels to see if this decent accuracy rating is across all of them or just specific
+to junior
+    -this is actually pretty interesting, 'Senior' has much higher accuracy than junior at 85%
+Results for label 'Senior':
+Accuracy:	0.8517006802721089
+Precision:	0.8723809523809524
+Recall:		0.916
+F1:			0.8936585365853658
+Results for label 'Other':
+Accuracy:	0.8517006802721089
+Precision:	0.8
+Recall:		0.7148936170212766
+F1:			0.755056179775281
+    -hopefully all of the others follow this trend instead of having some awful drop off somewhere...
+    -will try again for Masters Level Graduate
+Results for label 'Masters Level Graduate':
+Accuracy:	0.8462585034013606
+Precision:	0.7540983606557377
+Recall:		0.6699029126213593
+F1:			0.7095115681233933
+Results for label 'Other':
+Accuracy:	0.8462585034013606
+Precision:	0.8768115942028986
+Recall:		0.9149338374291115
+F1:			0.8954671600370028
+
+    -and once again for High School Senior just to have another value to add into averages
+Results for label 'High School Senior':
+Accuracy:	0.8598639455782313
+Precision:	0.7848101265822784
+Recall:		0.7815126050420168
+F1:			0.7831578947368419
+Results for label 'Other':
+Accuracy:	0.8598639455782313
+Precision:	0.8955823293172691
+Recall:		0.89738430583501
+F1:			0.8964824120603017
+
+-So the average across (at least) these tests is 82.3 + 85.1 + 84.6 + 85.98  / 4 = 84.5%
+-I am okay with this
+-Will avoid tweaking any further unless absolutely necessary, can't think of anything obvious to try that might bring up
+accuracy; could try trigrams later
+-Going to declare some text files and save the models trained over all of the current data
+
+-Need to figure out how to store training data and then read it back into the classifier so that it doesn't have to retrain every time, but not sure how to do this
+-Use pickle to save to datafile
+    -Code will look something like
+    import pickle
+    blah = LogisticRegression()
+    blah.fit(blah blah)
+    saveFile = open('savefile.txt', 'wb')
+    pickle.dump(blah, saveFile)
+    saveFile.close()
+
+    later...
+    import pickle
+    saveFile = open('savefile.txt', 'rb')
+    blah = pickle.load(saveFile)
+-So, ultimately, want to tweak each model to run at maximum accuracy, then want to do some sort of ensemble classification
+-Run each model for each label over the data, if for a given example two models return a label (non-other label) then assign that label
+-Need a way to pull out the predicted labels from the frame in order to save them
+-Also need to pull out id numbers from the database and push them along to the training/testing frames so when saving
+predicted labels to the database we know which label goes where
+
+-I just realized that there's going to be conflicts between 'senior' and 'high school senior' because the LIKE sql statement doesn't care...
+-was able to resolve this
+
+-Also just realized that if I want to run the classifier from a pretrained file, I will need to make a slightly different class because all of the conditional
+statements would be obnoxious
+-Will write this and then make a superclass for the shared functions between this one and the one that is training and testing from the same dataset
+
+-So my life sucks
+-Ended up writing a completely separate class for pretrained, since it shares almost no functions with the untrained version, so no superclass really needed
+-Did however realize that pretrained does rely on the featuresValueCountsIndexes collected during training in order to make the testing vectors,
+so in order to import those to the pretrained file, need to save those to a file too.
+-There's now a billion files. I'm not even sure if I've gotten everything all together because there's just so much crap
+-Every time something dies randomly due to a typo, I too die a little inside
