@@ -1653,3 +1653,6 @@ statements would be obnoxious
 so in order to import those to the pretrained file, need to save those to a file too.
 -There's now a billion files. I'm not even sure if I've gotten everything all together because there's just so much crap
 -Every time something dies randomly due to a typo, I too die a little inside
+
+-Okay, so was able to run it, it runs, yay yay yay
+-Going to set compy to train this stuff while I'm gone, and then should be able to do more later
