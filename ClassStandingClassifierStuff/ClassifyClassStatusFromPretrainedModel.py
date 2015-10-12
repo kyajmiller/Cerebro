@@ -1,5 +1,7 @@
 import pandas
 import pickle
+import numpy
+import itertools
 from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
 
 
@@ -21,6 +23,12 @@ class ClassifyClassStatusFromPretrainedModel(object):
         modelInput.close()
 
     def testLogisticRegressionClassifier(self):
+        testingFeaturesList = [testingInstance['features'] for testingInstance in self.testing]
+        featuresSeries = pandas.Series(list(itertools.chain(*testingFeaturesList)))
+        featuresValueCounts = featuresSeries.value_counts()
+        featuresValueCountsIndexes = featuresValueCounts.index
+        self.testingVectors = self.makeFeaturesVectors(testingFeaturesList, featuresValueCountsIndexes)
+
         print('Classifying test data...')
         self.dataFrame['prediction'] = self.logisticRegressionClassifier.predict(self.testingVectors)
 
@@ -30,6 +38,26 @@ class ClassifyClassStatusFromPretrainedModel(object):
             frame.loc[index] = [value['label'], value['scholarshipId'], value['features']]
 
         return frame
+
+    def makeFeaturesVectors(self, totalFeaturesList, featuresValueCountsIndexes):
+        featuresVectors = numpy.matrix(numpy.zeros((len(totalFeaturesList), featuresValueCountsIndexes.shape[0] + 1)))
+
+        # insert bias
+        featuresVectors[:, 0] = 1
+
+        for totalFeaturesIndex, totalFeaturesData in enumerate(totalFeaturesList):
+            # make regular vector
+            totalFeaturesData = pandas.Series(totalFeaturesData)
+            vectorCounts = totalFeaturesData.value_counts()
+
+            # make features vector
+            for featuresValueCountsIndexesIndex, featuresValueCountsIndexesValue in enumerate(
+                    featuresValueCountsIndexes):
+                if featuresValueCountsIndexesValue in vectorCounts.index:
+                    featuresVectors[totalFeaturesIndex, featuresValueCountsIndexesIndex + 1] = vectorCounts.ix[
+                        featuresValueCountsIndexesValue]
+
+        return featuresVectors
 
     def displayResults(self):
         self.testLogisticRegressionClassifier()
