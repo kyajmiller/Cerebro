@@ -13,6 +13,7 @@ class ClassifyClassStatus(object):
         self.badLabel = 'Other'
         self.modelSaveFile = modelSaveFile
 
+        print('Creating datasets...')
         trainingTestingList = MakeDataSetClassifyClassStatus(classStatus).makeTrainingAndTestingSets(
             self.trainingPercentage)
         self.training = trainingTestingList[0]
@@ -47,12 +48,13 @@ class ClassifyClassStatus(object):
         if not self.modelSaveFile:
             print('No save file declared.')
         else:
+            print("Saving model to file '%s'..." % self.modelSaveFile)
             saveFileOutput = open(self.modelSaveFile, 'wb')
             pickle.dump(self.logisticRegressionClassifier, saveFileOutput)
             saveFileOutput.close()
 
     def trainLogisticRegressionClassifier(self):
-        print('Training Logistic Regression Classifier for %s' % self.classStatus)
+        print("Training Logistic Regression Classifier for '%s'..." % self.classStatus)
         trainingFeaturesList = [trainingInstance['features'] for trainingInstance in self.training]
         testingFeaturesList = [testingInstance['features'] for testingInstance in self.testing]
 
@@ -68,6 +70,7 @@ class ClassifyClassStatus(object):
         self.logisticRegressionClassifier.fit(self.trainingVectors, trainingLabels)
 
     def testLogisticRegressionClassifier(self):
+        print('Classifying test data...')
         self.dataFrame['prediction'] = self.logisticRegressionClassifier.predict(self.testingVectors)
 
     def makeDataFrame(self):
