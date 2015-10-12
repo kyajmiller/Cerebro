@@ -54,7 +54,6 @@ class ClassifyClassStatus(object):
             saveFileOutput.close()
 
     def trainLogisticRegressionClassifier(self):
-        print("Training Logistic Regression Classifier for '%s'..." % self.classStatus)
         trainingFeaturesList = [trainingInstance['features'] for trainingInstance in self.training]
         testingFeaturesList = [testingInstance['features'] for testingInstance in self.testing]
 
@@ -64,9 +63,11 @@ class ClassifyClassStatus(object):
         featuresValueCounts = featuresSeries.value_counts()
         featuresValueCountsIndexes = featuresValueCounts.index
 
+        print('Creating features vectors...')
         self.trainingVectors = self.makeFeaturesVectors(trainingFeaturesList, featuresValueCountsIndexes)
         self.testingVectors = self.makeFeaturesVectors(testingFeaturesList, featuresValueCountsIndexes)
 
+        print("Training Logistic Regression Classifier for '%s'..." % self.classStatus)
         self.logisticRegressionClassifier.fit(self.trainingVectors, trainingLabels)
 
     def testLogisticRegressionClassifier(self):
