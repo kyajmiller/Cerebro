@@ -37,10 +37,12 @@ class MakeDataSetClassifyClassStatus():
     def makeDataLinesGoodLabel(self):
         scholarshipDescriptions = self.goodClassStatusDB.getScholarshipDescriptionsList()
         eligibilities = self.goodClassStatusDB.getEligibilitiesList()
+        idsList = self.goodClassStatusDB.getScholarshipsWithClassStatusIdsList()
 
         for i in range(len(scholarshipDescriptions)):
             description = scholarshipDescriptions[i]
             eligibility = eligibilities[i]
+            scholarshipClassStatusId = idsList[i]
             features = []
 
             concatenatedText = '%s %s' % (description, eligibility)
@@ -52,16 +54,18 @@ class MakeDataSetClassifyClassStatus():
             for bigram in bigrams:
                 features.append(bigram)
 
-            dataLine = {'label': self.labelGood, 'features': features}
+            dataLine = {'label': self.labelGood, 'scholarshipId': scholarshipClassStatusId, 'features': features}
             self.fullDataSet.append(dataLine)
 
     def makeDataLinesBadLabel(self):
         scholarshipDescriptions = self.badClassStatusDB.getScholarshipDescriptionsList()
         eligibilities = self.badClassStatusDB.getEligibilitiesList()
+        idsList = self.badClassStatusDB.getScholarshipsWithClassStatusIdsList()
 
         for i in range(len(scholarshipDescriptions)):
             description = scholarshipDescriptions[i]
             eligibility = eligibilities[i]
+            scholarshipClassStatusId = idsList[i]
             features = []
 
             concatenatedText = '%s %s' % (description, eligibility)
@@ -73,5 +77,5 @@ class MakeDataSetClassifyClassStatus():
             for bigram in bigrams:
                 features.append(bigram)
 
-            dataLine = {'label': self.labelBad, 'features': features}
+            dataLine = {'label': self.labelBad, 'scholarshipId': scholarshipClassStatusId, 'features': features}
             self.fullDataSet.append(dataLine)
