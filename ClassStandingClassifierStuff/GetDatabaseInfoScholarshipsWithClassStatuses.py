@@ -8,7 +8,10 @@ class GetDatabaseInfoScholarshipsWithClassStatuses(object):
         self.formattedRequirementNeeded = '%' + self.requirementNeeded + '%'
         self.db = SUDBConnect()
 
-        if self.requirementNeeded and useNot:
+        if self.requirementNeeded == 'Senior':
+            self.rows = self.db.getRows(
+                "select * from dbo.ScholarshipsWithClassStatuses where RequirementNeeded like 'Senior' and RequirementNeeded not like '%High School Senior%'")
+        elif self.requirementNeeded and useNot:
             self.rows = self.db.getRows(
                 "select * from dbo.ScholarshipsWithClassStatuses where RequirementNeeded not like '" + self.formattedRequirementNeeded + "'")
         elif self.requirementNeeded:
