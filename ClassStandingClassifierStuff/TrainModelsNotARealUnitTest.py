@@ -5,7 +5,8 @@ from ClassStandingClassifierStuff.ClassifyClassStatusUntrained import ClassifyCl
 class TestStringMethods(unittest.TestCase):
     def test_trainFreshmanModel(self):
         testClassify = ClassifyClassStatusTrainFirst(classStatus='Freshman', trainingPercentage=0.99,
-                                           modelSaveFile='ClassifierTrainedModels\FreshmanClassStatusTrainedLRModel')
+                                                     modelSaveFile='ClassifierTrainedModels\FreshmanClassStatusTrainedLRModel',
+                                                     featuresValuesCountsSaveFile='ClasifierTrainedModels\FreshmanClassStatusTrainedFeaturesValueCounts')
         testClassify.trainAndSaveModel()
 
 
