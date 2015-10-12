@@ -7,11 +7,12 @@ from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeData
 
 
 class ClassifyClassStatusTrainFirst(object):
-    def __init__(self, classStatus, trainingPercentage, modelSaveFile=None):
+    def __init__(self, classStatus, trainingPercentage, modelSaveFile=None, featuresValuesCountsSaveFile=None):
         self.classStatus = classStatus
         self.trainingPercentage = trainingPercentage
         self.badLabel = 'Other'
         self.modelSaveFile = modelSaveFile
+        self.featuresValueCountsSaveFile = featuresValuesCountsSaveFile
 
         print('Creating datasets...')
         trainingTestingList = MakeDataSetClassifyClassStatus(self.classStatus).makeTrainingAndTestingSets(
@@ -24,6 +25,7 @@ class ClassifyClassStatusTrainFirst(object):
         self.trainingVectors = []
         self.testingVectors = []
 
+        self.featuresValueCountsIndexes = []
         self.logisticRegressionClassifier = LogisticRegression()
 
     def trainTestAndGetResults(self):
@@ -43,14 +45,24 @@ class ClassifyClassStatusTrainFirst(object):
     def trainAndSaveModel(self):
         self.trainLogisticRegressionClassifier()
         self.saveTrainedModelToFile()
+        self.saveFeaturesValueCountIndexesToFile()
 
     def saveTrainedModelToFile(self):
         if not self.modelSaveFile:
-            print('No save file declared.')
+            print('No model save file declared.')
         else:
             print("Saving model to file '%s'..." % self.modelSaveFile)
             saveFileOutput = open(self.modelSaveFile, 'wb')
             pickle.dump(self.logisticRegressionClassifier, saveFileOutput)
+            saveFileOutput.close()
+
+    def saveFeaturesValueCountIndexesToFile(self):
+        if not self.featuresValueCountsSaveFile:
+            print('No features value counts save file declared.')
+        else:
+            print("Saving features value counts to file '%s'" % self.featuresValueCountsSaveFile)
+            saveFileOutput = open(self.featuresValueCountsSaveFile, 'wb')
+            pickle.dump(self.featuresValueCountsIndexes, saveFileOutput)
             saveFileOutput.close()
 
     def trainLogisticRegressionClassifier(self):
@@ -62,6 +74,7 @@ class ClassifyClassStatusTrainFirst(object):
         featuresSeries = pandas.Series(list(itertools.chain(*trainingFeaturesList)))
         featuresValueCounts = featuresSeries.value_counts()
         featuresValueCountsIndexes = featuresValueCounts.index
+        self.featuresValueCountsIndexes = featuresValueCountsIndexes
 
         print('Creating features vectors...')
         self.trainingVectors = self.makeFeaturesVectors(trainingFeaturesList, featuresValueCountsIndexes)
