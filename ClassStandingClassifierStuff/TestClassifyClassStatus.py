@@ -1,22 +1,22 @@
 import unittest
-from ClassStandingClassifierStuff.ClassifyClassStatus import ClassifyClassStatus
+from ClassStandingClassifierStuff.ClassifyClassStatusTrainFirst import ClassifyClassStatusTrainFirst
 
 
 class TestStringMethods(unittest.TestCase):
     def test_classifyJuniorGetResults(self):
-        testClassify = ClassifyClassStatus(classStatus='Junior', trainingPercentage=0.8)
+        testClassify = ClassifyClassStatusTrainFirst(classStatus='Junior', trainingPercentage=0.8)
         testClassify.trainTestAndGetResults()
 
     def test_classifySeniorGetResults(self):
-        testClassify = ClassifyClassStatus(classStatus='Senior', trainingPercentage=0.8)
+        testClassify = ClassifyClassStatusTrainFirst(classStatus='Senior', trainingPercentage=0.8)
         testClassify.trainTestAndGetResults()
 
     def test_classifyMastersLevelGraduateGetResults(self):
-        testClassify = ClassifyClassStatus(classStatus='Masters Level Graduate', trainingPercentage=0.8)
+        testClassify = ClassifyClassStatusTrainFirst(classStatus='Masters Level Graduate', trainingPercentage=0.8)
         testClassify.trainTestAndGetResults()
 
     def test_classifyHighSchoolSeniorGetResults(self):
-        testClassify = ClassifyClassStatus(classStatus='High School Senior', trainingPercentage=0.8)
+        testClassify = ClassifyClassStatusTrainFirst(classStatus='High School Senior', trainingPercentage=0.8)
         testClassify.trainTestAndGetResults()
 
 
