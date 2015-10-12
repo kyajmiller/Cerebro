@@ -114,4 +114,4 @@ class ClassifyClassStatus(object):
         print('Accuracy:\t%s' % accuracy)
         print('Precision:\t%s' % precision)
         print('Recall:\t\t%s' % recall)
-        print('F1:\t\t%s' % f1)
+        print('F1:\t\t\t%s' % f1)
