@@ -38,3 +38,11 @@ class GetDatabaseInfoScholarshipsWithClassStatuses(object):
                              type(eligibility) == str]
 
         return eligibilitiesList
+
+    def getScholarshipsWithClassStatusIdsList(self):
+        idsList = []
+
+        for row in self.rows():
+            idsList.append(str(row.ScholarshipsWithClassStatusID))
+
+        return idsList
