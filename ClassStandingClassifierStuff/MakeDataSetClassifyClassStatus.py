@@ -1,4 +1,5 @@
 from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
+from Classes.TokenizeIntoSentences import TokenizeIntoSentences
 from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
     GetDatabaseInfoScholarshipsWithClassStatuses
 from random import shuffle
@@ -46,8 +47,10 @@ class MakeDataSetClassifyClassStatus():
             features = []
 
             concatenatedText = '%s %s' % (description, eligibility)
-            unigrams = TokenizeOnWhitespacePunctuation(concatenatedText, keepCaps=False).getUnigrams()
-            bigrams = ['%s %s' % (unigrams[i], unigrams[i + 1]) for i in range(len(unigrams) - 1)]
+
+            ngramsList = self.getUnigramsAndBigrams(concatenatedText)
+            unigrams = ngramsList[0]
+            bigrams = ngramsList[1]
 
             for unigram in unigrams:
                 features.append(unigram)
@@ -79,3 +82,31 @@ class MakeDataSetClassifyClassStatus():
 
             dataLine = {'label': self.labelBad, 'scholarshipId': scholarshipClassStatusId, 'features': features}
             self.fullDataSet.append(dataLine)
+
+    def getNgrams(self, text, getUnigrams=True, getBigrams=True, getTrigrams=False):
+        unigrams = []
+        bigrams = []
+        trigrams = []
+
+        sentences = TokenizeIntoSentences().doTokenize(text)
+        for sentence in sentences:
+            sentenceUnigrams = TokenizeOnWhitespacePunctuation(sentence, keepCaps=False).getUnigrams()
+            if getUnigrams:
+                for sentenceUnigram in sentenceUnigrams:
+                    unigrams.append(sentenceUnigram)
+
+            if getBigrams:
+                sentenceBigrams = ['%s %s' % (sentenceUnigrams[i], sentenceUnigrams[i + 1]) for i in
+                                   range(len(sentenceUnigrams) - 1)]
+                for sentenceBigram in sentenceBigrams:
+                    bigrams.append(sentenceBigram)
+
+            if getTrigrams:
+                sentenceTrigrams = ['%s %s %s' % (sentenceUnigrams[i], sentenceUnigrams[i + 1], sentenceUnigrams[i + 2])
+                                    for i in range(len(sentenceUnigrams) - 2)]
+                for sentenceTrigram in sentenceTrigrams:
+                    trigrams.append(sentenceTrigram)
+
+        ngramsList = [unigrams, bigrams, trigrams]
+
+        return ngramsList
