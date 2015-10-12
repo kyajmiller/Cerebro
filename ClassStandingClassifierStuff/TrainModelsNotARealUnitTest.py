@@ -1,10 +1,10 @@
 import unittest
-from ClassStandingClassifierStuff.ClassifyClassStatus import ClassifyClassStatus
+from ClassStandingClassifierStuff.ClassifyClassStatusTrainFirst import ClassifyClassStatusTrainFirst
 
 
 class TestStringMethods(unittest.TestCase):
     def test_trainFreshmanModel(self):
-        testClassify = ClassifyClassStatus(classStatus='Freshman', trainingPercentage=0.99,
+        testClassify = ClassifyClassStatusTrainFirst(classStatus='Freshman', trainingPercentage=0.99,
                                            modelSaveFile='ClassifierTrainedModels\FreshmanClassStatusTrainedLRModel')
         testClassify.trainAndSaveModel()
 
