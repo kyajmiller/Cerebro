@@ -42,7 +42,7 @@ class GetDatabaseInfoScholarshipsWithClassStatuses(object):
     def getScholarshipsWithClassStatusIdsList(self):
         idsList = []
 
-        for row in self.rows():
+        for row in self.rows:
             idsList.append(str(row.ScholarshipsWithClassStatusID))
 
         return idsList
