@@ -134,14 +134,5 @@ class TestStringMethods(unittest.TestCase):
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
         testClassify.trainAndSaveModel()
 
-    def test_seeIfCanWriteToFile(self):
-        classStatus = 'Freshman'
-        featuresValueCountsSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % classStatus
-        outputFile = open(featuresValueCountsSaveFile, 'w')
-        outputFile.write('cheese')
-        outputFile.close()
-
-
-
 if __name__ == '__main__':
     unittest.main()
