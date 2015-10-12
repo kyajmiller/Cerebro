@@ -63,7 +63,7 @@ class ClassifyClassStatusFromPretrainedModel(object):
     def displayResults(self):
         self.testLogisticRegressionClassifier()
         predictions = self.dataFrame['prediction']
-        ids = self.dataFrame['scholarshipIds']
+        ids = self.dataFrame['scholarshipId']
 
         for predictedLabel, id in zip(predictions, ids):
             print('%s: %s' % (id, predictedLabel))
