@@ -49,3 +49,18 @@ class GetDatabaseInfoScholarshipsWithClassStatuses(object):
             idsList.append(str(row.ScholarshipsWithClassStatusId))
 
         return idsList
+
+    def getConcatenatedDescriptionsEligibilities(self):
+        descriptionsList = self.getScholarshipDescriptionsList()
+        eligibilitiesList = self.getEligibilitiesList()
+
+        concatenatedItemsList = []
+
+        for i in range(len(descriptionsList)):
+            description = descriptionsList[i]
+            eligibility = eligibilitiesList[i]
+
+            concatenatedItem = '%s %s' % (description, eligibility)
+            concatenatedItemsList.append(concatenatedItem)
+
+        return concatenatedItemsList
