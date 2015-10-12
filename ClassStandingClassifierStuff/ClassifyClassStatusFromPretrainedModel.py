@@ -4,11 +4,13 @@ from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeData
 
 
 class ClassifyClassStatusFromPretrainedModel(object):
-    def __init__(self, trainedModelInputFile, testingData):
+    def __init__(self, trainedModelInputFile, testingDataTextList, testingDataIdsList):
         self.trainedModelInputFile = trainedModelInputFile
-        self.testingData = testingData
+        self.testingDataTextList = testingDataTextList
+        self.testingDataIdsList = testingDataIdsList
 
-        self.testing = MakeDataSetClassifyClassStatus().makeOnlyTrainingSet()
+        self.testing = MakeDataSetClassifyClassStatus(testingDataTextList=self.testingDataTextList,
+                                                      testingDataIds=testingDataIdsList).makeOnlyTrainingSet()
 
         self.dataFrame = self.makeDataFrame()
 
