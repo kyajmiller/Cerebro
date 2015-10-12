@@ -12,7 +12,7 @@ class TestStringMethods(unittest.TestCase):
         testClassify.trainTestAndGetResults()
 
     def test_classifyMastersLevelGraduateGetResults(self):
-        testClassify = ClassifyClassStatus(classStatus='Senior', trainingPercentage=0.8)
+        testClassify = ClassifyClassStatus(classStatus='Masters Level Graduate', trainingPercentage=0.8)
         testClassify.trainTestAndGetResults()
 
 
