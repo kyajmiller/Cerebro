@@ -14,7 +14,7 @@ class ClassifyClassStatusTrainFirst(object):
         self.modelSaveFile = modelSaveFile
 
         print('Creating datasets...')
-        trainingTestingList = MakeDataSetClassifyClassStatus(classStatus).makeTrainingAndTestingSets(
+        trainingTestingList = MakeDataSetClassifyClassStatus(self.classStatus).makeTrainingAndTestingSets(
             self.trainingPercentage)
         self.training = trainingTestingList[0]
         self.testing = trainingTestingList[1]
