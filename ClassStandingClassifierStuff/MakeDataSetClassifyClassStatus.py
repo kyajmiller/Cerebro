@@ -7,14 +7,43 @@ import math
 
 
 class MakeDataSetClassifyClassStatus():
-    def __init__(self, classStatus, badLabel='Other'):
+    def __init__(self, classStatus='', badLabel='Other', testingDataTextList=None, testingDataIds=None):
+        self.testingDataIds = testingDataIds
+        self.testingDataTextList = testingDataTextList
         self.classStatusToUse = classStatus
         self.labelGood = classStatus
         self.labelBad = badLabel
-        self.goodClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(requirementNeeded=self.classStatusToUse)
-        self.badClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(requirementNeeded=self.classStatusToUse,
+
+        if classStatus != '':
+            self.goodClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(
+                requirementNeeded=self.classStatusToUse)
+            self.badClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(
+                requirementNeeded=self.classStatusToUse,
                                                                              useNot=True)
         self.fullDataSet = []
+
+    def makeOnlyTrainingSet(self):
+        testingDataSet = []
+
+        if self.testingDataTextList and self.testingDataIds:
+            for i in range(len(self.testingDataTextList)):
+                dataText = self.testingDataTextList[i]
+                scholarshipId = self.testingDataIds[i]
+                features = []
+
+                ngramsList = self.getNgrams(dataText, getUnigrams=True, getBigrams=True, getTrigrams=False)
+                unigrams = ngramsList[0]
+                bigrams = ngramsList[1]
+
+                for unigram in unigrams:
+                    features.append(unigram)
+                for bigram in bigrams:
+                    features.append(bigram)
+
+                dataLine = {'label': self.classStatusToUse, 'scholarshipId': scholarshipId, 'features': features}
+                testingDataSet.append(dataLine)
+
+        return testingDataSet
 
     def makeTrainingAndTestingSets(self, trainingPercentage=0.8):
         if trainingPercentage >= 0 and trainingPercentage <= 1:
