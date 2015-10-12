@@ -1,5 +1,5 @@
 import unittest
-from ClassStandingClassifierStuff.ClassifyClassStatusUntrained import ClassifyClassStatusTrainFirst
+from ClassStandingClassifierStuff.ClassifyClassStatusFromPreviouslyUntrainedModel import ClassifyClassStatusTrainFirst
 
 
 class TestStringMethods(unittest.TestCase):
