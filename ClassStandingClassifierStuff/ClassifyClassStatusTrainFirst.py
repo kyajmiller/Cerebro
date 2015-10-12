@@ -6,7 +6,7 @@ from sklearn.linear_model import LogisticRegression
 from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
 
 
-class ClassifyClassStatus(object):
+class ClassifyClassStatusTrainFirst(object):
     def __init__(self, classStatus, trainingPercentage, modelSaveFile=None):
         self.classStatus = classStatus
         self.trainingPercentage = trainingPercentage
