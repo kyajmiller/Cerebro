@@ -48,7 +48,7 @@ class MakeDataSetClassifyClassStatus():
 
             concatenatedText = '%s %s' % (description, eligibility)
 
-            ngramsList = self.getUnigramsAndBigrams(concatenatedText)
+            ngramsList = self.getNgrams(concatenatedText, getUnigrams=True, getBigrams=True, getTrigrams=False)
             unigrams = ngramsList[0]
             bigrams = ngramsList[1]
 
@@ -72,8 +72,9 @@ class MakeDataSetClassifyClassStatus():
             features = []
 
             concatenatedText = '%s %s' % (description, eligibility)
-            unigrams = TokenizeOnWhitespacePunctuation(concatenatedText, keepCaps=False).getUnigrams()
-            bigrams = ['%s %s' % (unigrams[i], unigrams[i + 1]) for i in range(len(unigrams) - 1)]
+            ngramsList = self.getNgrams(concatenatedText, getUnigrams=True, getBigrams=True, getTrigrams=False)
+            unigrams = ngramsList[0]
+            bigrams = ngramsList[1]
 
             for unigram in unigrams:
                 features.append(unigram)
