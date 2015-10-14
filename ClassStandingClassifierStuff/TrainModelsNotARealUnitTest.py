@@ -105,7 +105,7 @@ class TestStringMethods(unittest.TestCase):
         print("Training for '%s' complete." % classStatus)
 
     def test_trainMastersLevelGraduateModel(self):
-        classStatus = 'High School Senior'
+        classStatus = 'Masters Level Graduate'
         fileClassStatus = re.sub(' ', '', classStatus)
         modelSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
         featuresValueCountsSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
