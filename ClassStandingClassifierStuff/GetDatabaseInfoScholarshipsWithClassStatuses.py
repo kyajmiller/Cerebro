@@ -5,13 +5,15 @@ from Classes.CleanText import CleanText
 class GetDatabaseInfoScholarshipsWithClassStatuses(object):
     def __init__(self, requirementNeeded=None, useNot=False):
         self.requirementNeeded = requirementNeeded
-        self.formattedRequirementNeeded = '%' + self.requirementNeeded + '%'
+        self.useNot = useNot
+        if self.requirementNeeded:
+            self.formattedRequirementNeeded = '%' + self.requirementNeeded + '%'
         self.db = SUDBConnect()
 
         if self.requirementNeeded == 'Senior':
             self.rows = self.db.getRows(
                 "select * from dbo.ScholarshipsWithClassStatuses where RequirementNeeded like '%Senior%' and RequirementNeeded not like '%High School Senior%'")
-        elif self.requirementNeeded and useNot:
+        elif self.requirementNeeded and self.useNot:
             self.rows = self.db.getRows(
                 "select * from dbo.ScholarshipsWithClassStatuses where RequirementNeeded not like '" + self.formattedRequirementNeeded + "'")
         elif self.requirementNeeded:
