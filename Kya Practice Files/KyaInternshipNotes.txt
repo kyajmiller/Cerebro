@@ -1656,3 +1656,9 @@ so in order to import those to the pretrained file, need to save those to a file
 
 -Okay, so was able to run it, it runs, yay yay yay
 -Going to set compy to train this stuff while I'm gone, and then should be able to do more later
+
+10/14 Notes:
+-Still having problems with my unit tests not able to find and connect to the right files... kind of annoying.
+-So need to rerun each training by hand to make sure everything works...
+-a huge part of the issue is that I'm having to use file paths relative to the unit test, which is annoying as hell whenever I move things around
+-should be okay now though
