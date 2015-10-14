@@ -6,10 +6,18 @@ from ClassStandingClassifierStuff.ClassifyClassStatusFromPreviouslyUntrainedMode
 class TestStringMethods(unittest.TestCase):
     def test_trainHighSchoolSeniorModel(self):
         classStatus = 'High School Senior'
-        print("Training '%s' model..." % classStatus)
         fileClassStatus = re.sub(' ', '', classStatus)
-        modelSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
-        featuresValueCountsSaveFile = '..\ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        modelSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+
+        # first check to see if can open files:
+        testOpenModelSaveFile = open(modelSaveFile, 'rb')
+        testOpenModelSaveFile.close()
+        testOpenFVCSaveFile = open(featuresValueCountsSaveFile, 'rb')
+        testOpenFVCSaveFile.close()
+
+        # do training and save to files
+        print("Training '%s' model..." % classStatus)
         testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
                                                      modelSaveFile=modelSaveFile,
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
