@@ -19,6 +19,10 @@ class TestStringMethods(unittest.TestCase):
         testClassify = ClassifyClassStatusTrainFirst(classStatus='High School Senior', trainingPercentage=0.8)
         testClassify.trainTestAndGetResults()
 
+    def test_classifyFreshmanGetResults(self):
+        testClassify = ClassifyClassStatusTrainFirst(classStatus='Freshman', trainingPercentage=0.8)
+        testClassify.trainTestAndGetResults()
+
 
 if __name__ == '__main__':
     unittest.main()
