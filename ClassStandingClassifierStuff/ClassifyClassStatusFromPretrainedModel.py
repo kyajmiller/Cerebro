@@ -65,5 +65,23 @@ class ClassifyClassStatusFromPretrainedModel(object):
         predictions = self.dataFrame['prediction']
         ids = self.dataFrame['scholarshipId']
 
+        countClassStatusPredictions = 0
+        countOtherPredictions = 0
+        total = 0
+
+        classStatusLabel = ''
+
         for predictedLabel, id in zip(predictions, ids):
             print('%s: %s' % (id, predictedLabel))
+            total += 1
+            if predictedLabel == 'Other':
+                countOtherPredictions += 1
+            else:
+                countClassStatusPredictions += 1
+                classStatusLabel = predictedLabel
+
+        print('\n')
+        print("Counts for '%s': %s/%s (%s percent)" % (
+        classStatusLabel, countClassStatusPredictions, total, (countClassStatusPredictions / total) * 100))
+        print("Counts for 'Other': %s/%s (%s percent)" % (
+        countOtherPredictions, total, (countOtherPredictions / total) * 100))
