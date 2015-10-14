@@ -10,7 +10,7 @@ class GetDatabaseInfoScholarshipsWithClassStatuses(object):
 
         if self.requirementNeeded == 'Senior':
             self.rows = self.db.getRows(
-                "select * from dbo.ScholarshipsWithClassStatuses where RequirementNeeded like 'Senior' and RequirementNeeded not like '%High School Senior%'")
+                "select * from dbo.ScholarshipsWithClassStatuses where RequirementNeeded like '%Senior%' and RequirementNeeded not like '%High School Senior%'")
         elif self.requirementNeeded and useNot:
             self.rows = self.db.getRows(
                 "select * from dbo.ScholarshipsWithClassStatuses where RequirementNeeded not like '" + self.formattedRequirementNeeded + "'")
