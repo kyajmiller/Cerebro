@@ -81,7 +81,7 @@ class ClassifyClassStatusFromPretrainedModel(object):
                 classStatusLabel = predictedLabel
 
         print('\n')
-        print("Counts for '%s': %s/%s (%s percent)" % (
+        print("Counts for '%s': %s/%s (%.2f percent)" % (
         classStatusLabel, countClassStatusPredictions, total, (countClassStatusPredictions / total) * 100))
-        print("Counts for 'Other': %s/%s (%s percent)" % (
+        print("Counts for 'Other': %s/%s (%.2f percent)" % (
         countOtherPredictions, total, (countOtherPredictions / total) * 100))
