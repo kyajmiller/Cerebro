@@ -26,6 +26,11 @@ class ClassifyClassStatusFromPretrainedModel(object):
         self.featuresValueCountsIndexes = pickle.load(featuresValueCountsInput)
         featuresValueCountsInput.close()
 
+    def returnPredictions(self):
+        self.testLogisticRegressionClassifier()
+        predictions = self.dataFrame['prediction']
+        return predictions
+
     def testLogisticRegressionClassifier(self):
         testingFeaturesList = [testingInstance['features'] for testingInstance in self.testing]
         testingVectors = self.makeFeaturesVectors(testingFeaturesList, self.featuresValueCountsIndexes)
