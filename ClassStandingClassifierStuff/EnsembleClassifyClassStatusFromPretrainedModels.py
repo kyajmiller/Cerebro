@@ -41,8 +41,8 @@ class EnsembleClassifyClassStatusFromPretrainedModels(object):
         return listArrayOfIdsAndFilteredPredictions
 
     def classifyFromPretrainedModel(self, classStatusString):
-        LRModelInputFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % classStatusString
-        featuresValueCountsInputFile = 'ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % classStatusString
+        LRModelInputFile = '..\ClassifierTrainedModels\%sClassStatusTrainedLRModel' % classStatusString
+        featuresValueCountsInputFile = '..\ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % classStatusString
 
         predictionsList = ClassifyClassStatusFromPretrainedModel(trainedModelInputFile=LRModelInputFile,
                                                                  trainedFeaturesValueCountsIndexesFile=featuresValueCountsInputFile,
@@ -69,3 +69,8 @@ class EnsembleClassifyClassStatusFromPretrainedModels(object):
 
         for id, predctionList in zip(ids, predictionsLists):
             print('%s: %s' % (id, predctionList))
+
+    def testToCheckRelativeFilePaths(self):
+        testFilePath = '..\ClassifierTrainedModels\%sClassStatusTrainedLRModel' % 'HighSchoolSenior'
+        openTestFile = open(testFilePath, 'rb')
+        openTestFile.close()
