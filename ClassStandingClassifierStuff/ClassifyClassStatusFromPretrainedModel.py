@@ -1,7 +1,6 @@
 import pandas
 import pickle
 import numpy
-import itertools
 from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
 
 
