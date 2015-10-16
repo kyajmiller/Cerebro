@@ -35,7 +35,7 @@ class ClassifyClassStatusFromPretrainedModel(object):
         testingFeaturesList = [testingInstance['features'] for testingInstance in self.testing]
         testingVectors = self.makeFeaturesVectors(testingFeaturesList, self.featuresValueCountsIndexes)
 
-        print('Classifying test data...')
+        print('Classifying data...')
         self.dataFrame['prediction'] = self.logisticRegressionClassifier.predict(testingVectors)
 
     def makeDataFrame(self):
@@ -46,6 +46,7 @@ class ClassifyClassStatusFromPretrainedModel(object):
         return frame
 
     def makeFeaturesVectors(self, totalFeaturesList, featuresValueCountsIndexes):
+        print('Making features vectors...')
         featuresVectors = numpy.matrix(numpy.zeros((len(totalFeaturesList), featuresValueCountsIndexes.shape[0] + 1)))
 
         # insert bias
