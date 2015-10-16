@@ -27,11 +27,11 @@ class ClassifyClassStatusFromPretrainedModel(object):
         featuresValueCountsInput.close()
 
     def returnPredictions(self):
-        self.testLogisticRegressionClassifier()
+        self.doLogisticRegressionClassification()
         predictions = self.dataFrame['prediction']
         return predictions
 
-    def testLogisticRegressionClassifier(self):
+    def doLogisticRegressionClassification(self):
         testingFeaturesList = [testingInstance['features'] for testingInstance in self.testing]
         testingVectors = self.makeFeaturesVectors(testingFeaturesList, self.featuresValueCountsIndexes)
 
@@ -66,7 +66,7 @@ class ClassifyClassStatusFromPretrainedModel(object):
         return featuresVectors
 
     def displayResults(self):
-        self.testLogisticRegressionClassifier()
+        self.doLogisticRegressionClassification()
         predictions = self.dataFrame['prediction']
         ids = self.dataFrame['scholarshipId']
 
