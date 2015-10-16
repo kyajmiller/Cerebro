@@ -6,7 +6,7 @@ class EnsembleClassifyClassStatusFromPretrainedModels(object):
         self.listTextsToClassify = listTextsToClassify
         self.listAssociatedIds = listAssociatedIds
 
-    def doAllClassificationsAndReturnPredictionsListsById(self):
+    def doAllClassificationsAndReturnFilteredPredictionsListsById(self):
         highSchoolSeniorPredictions = self.classifyFromPretrainedModel('HighSchoolSenior')
         freshmanPredictions = self.classifyFromPretrainedModel('Freshman')
         sophomorePredictions = self.classifyFromPretrainedModel('Sophomore')
@@ -19,9 +19,26 @@ class EnsembleClassifyClassStatusFromPretrainedModels(object):
         pharmacySchoolStudentPredictions = self.classifyFromPretrainedModel('PharmacySchoolStudent')
         dnpPredictions = self.classifyFromPretrainedModel('DNP')
         postBaccalaureatePredictions = self.classifyFromPretrainedModel('PostBaccalaureate')
-        postDoctoralPredictions = self.classifyFromPretrainedModel('Postdoctoral')
+        postdoctoralPredictions = self.classifyFromPretrainedModel('Postdoctoral')
 
-        listArrayOfIdsAndPredictions = []
+        listArrayOfIdsAndFilteredPredictions = []
+
+        for i in range(len(self.listAssociatedIds)):
+            id = self.listAssociatedIds[i]
+
+            unfilteredPredictionsList = [highSchoolSeniorPredictions[i], freshmanPredictions[i],
+                                         sophomorePredictions[i], juniorPredictions[i], seniorPredictions[i],
+                                         mastersLevelGraduatePredictions[i], phdLevelGraduatePredictions[i],
+                                         nonDegreeSeekingGraduatePredictions[i], medicalSchoolStudentPredictions[i],
+                                         pharmacySchoolStudentPredictions[i], dnpPredictions[i],
+                                         postBaccalaureatePredictions[i], postdoctoralPredictions[i]]
+
+            filteredPredictionsList = self.filterOutOtherPredictions(unfilteredPredictionsList)
+
+            idAndFilteredPredictionsArray = [id, filteredPredictionsList]
+            listArrayOfIdsAndFilteredPredictions.append(idAndFilteredPredictionsArray)
+
+        return listArrayOfIdsAndFilteredPredictions
 
     def classifyFromPretrainedModel(self, classStatusString):
         LRModelInputFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % classStatusString
@@ -33,3 +50,12 @@ class EnsembleClassifyClassStatusFromPretrainedModels(object):
                                                                  testingDataIdsList=self.listAssociatedIds).returnPredictions()
 
         return predictionsList
+
+    def filterOutOtherPredictions(self, unfilteredPredictionsList):
+        filteredPredictions = []
+
+        for prediction in unfilteredPredictionsList:
+            if prediction != 'Other':
+                filteredPredictions.append(prediction)
+
+        return filteredPredictions
