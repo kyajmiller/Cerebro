@@ -44,11 +44,13 @@ class EnsembleClassifyClassStatusFromPretrainedModels(object):
         LRModelInputFile = '..\ClassifierTrainedModels\%sClassStatusTrainedLRModel' % classStatusString
         featuresValueCountsInputFile = '..\ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % classStatusString
 
+        print('Doing Classification for %s...' % classStatusString)
         predictionsList = ClassifyClassStatusFromPretrainedModel(trainedModelInputFile=LRModelInputFile,
                                                                  trainedFeaturesValueCountsIndexesFile=featuresValueCountsInputFile,
                                                                  testingDataTextList=self.listTextsToClassify,
                                                                  testingDataIdsList=self.listAssociatedIds).returnPredictions()
 
+        print('%s Classification Finished.' % classStatusString)
         return predictionsList
 
     def filterOutOtherPredictions(self, unfilteredPredictionsList):
