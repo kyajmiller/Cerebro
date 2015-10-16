@@ -21,9 +21,24 @@ class EnsembleClassifyClassStatusFromPretrainedModels(object):
         postBaccalaureatePredictions = self.classifyFromPretrainedModel('PostBaccalaureate')
         postdoctoralPredictions = self.classifyFromPretrainedModel('Postdoctoral')
 
+        print(len(self.listAssociatedIds))
+        print(len(highSchoolSeniorPredictions))
+        print(len(freshmanPredictions))
+        print(len(sophomorePredictions))
+        print(len(juniorPredictions))
+        print(len(seniorPredictions))
+        print(len(mastersLevelGraduatePredictions))
+        print(len(phdLevelGraduatePredictions))
+        print(len(nonDegreeSeekingGraduatePredictions))
+        print(len(medicalSchoolStudentPredictions))
+        print(len(pharmacySchoolStudentPredictions))
+        print(len(dnpPredictions))
+        print(len(postBaccalaureatePredictions))
+        print(len(postdoctoralPredictions))
+
         listArrayOfIdsAndFilteredPredictions = []
 
-        for i in range(len(self.listAssociatedIds)):
+        for i in range(len(self.listAssociatedIds) - 1):
             id = self.listAssociatedIds[i]
 
             unfilteredPredictionsList = [highSchoolSeniorPredictions[i], freshmanPredictions[i],
