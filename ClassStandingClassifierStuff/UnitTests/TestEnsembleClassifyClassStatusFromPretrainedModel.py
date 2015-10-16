@@ -11,6 +11,11 @@ class TestStringMethods(unittest.TestCase):
         dataTextList = databaseInfo.getConcatenatedDescriptionsEligibilities()
         idsList = databaseInfo.getScholarshipsWithClassStatusIdsList()
         ensembleClassifyTest = EnsembleClassifyClassStatusFromPretrainedModels(dataTextList, idsList)
+
+        # this is here to check if the relative file paths are right
+        # ensembleClassifyTest.testToCheckRelativeFilePaths()
+
+        # actual test
         ensembleClassifyTest.displayResults()
 
 
