@@ -1671,3 +1671,11 @@ so in order to import those to the pretrained file, need to save those to a file
 2. class itself pulls models + fvcs from directory, ready to classify
 3. for each model, call ClassifyClassStatusFromPretrainedModel. Needs to return the data frame with predicted values
     -this is assuming that each row in the dataframes all line up together. This shouldn't be a problem
+    -in that case, might be better to just have it return the list of predictions, as the main class will already have the
+    list of ids already, and the predictions should all be in order...
+4. iterate through each list, pull out id and related predictions; declare a list, check each prediction, if not 'other' then
+add to the list, return the list
+5. store predictions list into database. figure out how to compare predictions list to db list. Should be okay
+
+-This is pretty much taking a very long time for each run, had some issues with indexing but should be okay. Will inspect output on Monday
+when come back in
