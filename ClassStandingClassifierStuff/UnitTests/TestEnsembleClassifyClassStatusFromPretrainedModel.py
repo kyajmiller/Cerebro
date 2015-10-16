@@ -6,17 +6,18 @@ from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses i
 
 
 class TestStringMethods(unittest.TestCase):
-    def test_runModelOnFreshman(self):
+    def test_runEnsembleClassifier(self):
         databaseInfo = GetDatabaseInfoScholarshipsWithClassStatuses()
         dataTextList = databaseInfo.getConcatenatedDescriptionsEligibilities()
         idsList = databaseInfo.getScholarshipsWithClassStatusIdsList()
         ensembleClassifyTest = EnsembleClassifyClassStatusFromPretrainedModels(dataTextList, idsList)
 
-        # this is here to check if the relative file paths are right
-        # ensembleClassifyTest.testToCheckRelativeFilePaths()
-
-        # actual test
         ensembleClassifyTest.displayResults()
+
+    def test_CheckIfCanReachRelativeFilePaths(self):
+        # this is here to check if the relative file paths are right
+        ensembleClassifyTest = EnsembleClassifyClassStatusFromPretrainedModels('blah', 'blah')
+        ensembleClassifyTest.testToCheckRelativeFilePaths()
 
 
 if __name__ == '__main__':
