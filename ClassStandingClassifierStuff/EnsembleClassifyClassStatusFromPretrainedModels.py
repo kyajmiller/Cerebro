@@ -59,3 +59,13 @@ class EnsembleClassifyClassStatusFromPretrainedModels(object):
                 filteredPredictions.append(prediction)
 
         return filteredPredictions
+
+    def displayResults(self):
+        listArrayOfIdsAndFilteredPredictions = self.doAllClassificationsAndReturnFilteredPredictionsListsById()
+        ids = [listArrayOfIdsAndFilteredPrediction[0] for listArrayOfIdsAndFilteredPrediction in
+               listArrayOfIdsAndFilteredPredictions]
+        predictionsLists = [listArrayOfIdsAndFilteredPrediction[1] for listArrayOfIdsAndFilteredPrediction in
+                            listArrayOfIdsAndFilteredPredictions]
+
+        for id, predctionList in zip(ids, predictionsLists):
+            print('%s: %s' % (id, predctionList))
