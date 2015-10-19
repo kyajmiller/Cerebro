@@ -13,7 +13,9 @@ class CalculateEnsembleClassifierAccuracy(object):
 
         self.calculateExactMatchAccuracy()
         self.calculateNumLabelsAccuracy()
-        self.calculateAverageAccuracyWithinLists(self.actualLabels, self.predictedLabels)
+        print(
+            "Average Accuracy Across Labels: %.2f percent" % self.calculateAverageAccuracyWithinLists(self.actualLabels,
+                                                                                                      self.predictedLabels))
 
     def convertActualLabelStringsToList(self):
         actualLabelLists = []
@@ -66,7 +68,7 @@ class CalculateEnsembleClassifierAccuracy(object):
                 accuracyCount += labelAccuracy
 
         averageAccuracy = (accuracyCount / total) * 100
-        print("Average Accuracy Across Labels: %.2f percent" % averageAccuracy)
+        return averageAccuracy
 
     def calculateNumLabelsAccuracy(self):
         total = len(self.actualLabels)
@@ -90,6 +92,21 @@ class CalculateEnsembleClassifierAccuracy(object):
         print("Num labels matches: %.2f percent" % (percentMatches * 100))
         print("Num labels greater: %.2f percent" % (percentGreater * 100))
         print("Num labels smaller: %.2f percent" % (percentSmaller * 100))
+
+    def calculateListAccuracyWithinMatchedGreaterOrLesserListLengths(self):
+        matchedLengthLabels = []
+        predictedGreaterLengthLabels = []
+        predictedLesserLengthLabels = []
+
+        for actual, predicted in zip(self.actualLabels, self.predictedLabels):
+            if len(actual) == len(predicted):
+                matchedLengthLabels.append([actual, predicted])
+            elif len(predicted) > len(actual):
+                predictedGreaterLengthLabels.append([actual, predicted])
+            else:
+                predictedLesserLengthLabels.append([actual, predicted])
+
+
 
 
 CalculateEnsembleClassifierAccuracy()
