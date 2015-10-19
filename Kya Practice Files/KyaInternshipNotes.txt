@@ -1679,3 +1679,44 @@ add to the list, return the list
 
 -This is pretty much taking a very long time for each run, had some issues with indexing but should be okay. Will inspect output on Monday
 when come back in
+
+10/19 Notes:
+-Looks like everything ran relatively well with the ensemble classifier. Was able to get the program to return a list of
+each non-Other match for each scholarship. I'm not sure overall how accurate the classifier is (that, and it's a little
+ridiculous to test against your training data). Will run it again, this time storing the predicted labels in the database
+and do some comparisons
+-this really does take forever to run
+-finished classifying and stored predicted labels in the database
+-wrote class to compare the ensemble predicted labels to the actual labels
+    -Interestingly enough, despite the fact that the individual classifiers have really good accuracy, the ensemble is kinda crappy
+    -Only have exact match accuracy of around 17%, which is pretty dismal
+    -Really comes down to the 15% average bad labels being scattered everywhere
+    -Will make other functions to compare label lists of varying sizes to get stats for those.
+    -Added calculations for accuracy within lists: averaging about 56.46% accuracy within predicted labels
+        -So on average, 56% of the predicted labels in a given label list are actually right...
+        -Not very good honestly
+
+-I'm not entirely sure how to make the ensemble classifier work better. The separate parts work fine, but ugh.
+-Perhaps more training data for the individual ones, but that still doesn't help that much
+
+-Reading online about multilabel classification (multiple labels on single target, different from multiclass where you separate
+targets into multiple different classes, and receives only a single label). Might try this.
+-It seems like what I was already trying to do was a One-Vs-The-Rest classification system, where each class has own classifier
+    -I could try using sklearn's version of this and see what it comes back as.
+
+-So how to use the OneVsRestClassifier
+-Seems like it needs to use SVC from sklearn.svm; I don't know the difference between the types, though. Not sure which one
+to use with my data
+-I need to figure out how to format Y values
+-should be a list of lists, assuming that those are lists of labels? Will have to see lol
+
+
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.svm import SVC
+
+make features vectors
+X = features vectors
+Y = labels
+
+classify = OneVsRestClassifier(SVC())
+classify.fit(X, Y)
