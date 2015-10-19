@@ -11,6 +11,10 @@ class CalculateEnsembleClassifierAccuracy(object):
         self.actualLabels = self.convertActualLabelStringsToList()
         self.predictedLabels = self.convertPredictedLabelStringsToList()
 
+        self.calculateExactMatchAccuracy()
+        self.calculateNumLabelsAccuracy()
+        self.calculateAverageAccuracyWithinLists(self.actualLabels, self.predictedLabels)
+
     def convertActualLabelStringsToList(self):
         actualLabelLists = []
 
@@ -47,11 +51,11 @@ class CalculateEnsembleClassifierAccuracy(object):
 
         print("Exact Match Accuracy: %.2f percent" % accuracy)
 
-    def calculateAverageAccuracyWithinLists(self):
-        total = len(self.actualLabels)
+    def calculateAverageAccuracyWithinLists(self, actualLabels, predictedLabels):
+        total = len(actualLabels)
         accuracyCount = 0
 
-        for actualLabel, predictedLabel in zip(self.actualLabels, self.predictedLabels):
+        for actualLabel, predictedLabel in zip(actualLabels, predictedLabels):
             numAccurateLabels = 0
             totalLabels = len(predictedLabel)
             if totalLabels > 0:
@@ -88,10 +92,4 @@ class CalculateEnsembleClassifierAccuracy(object):
         print("Num labels smaller: %.2f percent" % (percentSmaller * 100))
 
 
-
-
-
-
-CalculateEnsembleClassifierAccuracy().calculateExactMatchAccuracy()
-CalculateEnsembleClassifierAccuracy().calculateAverageAccuracyWithinLists()
-CalculateEnsembleClassifierAccuracy().calculateNumLabelsAccuracy()
+CalculateEnsembleClassifierAccuracy()
