@@ -16,6 +16,7 @@ class CalculateEnsembleClassifierAccuracy(object):
         print(
             "Average Accuracy Across Labels: %.2f percent" % self.calculateAverageAccuracyWithinLists(self.actualLabels,
                                                                                                       self.predictedLabels))
+        self.calculateListAccuracyWithinMatchedGreaterOrLesserListLengths()
 
     def convertActualLabelStringsToList(self):
         actualLabelLists = []
@@ -94,17 +95,37 @@ class CalculateEnsembleClassifierAccuracy(object):
         print("Num labels smaller: %.2f percent" % (percentSmaller * 100))
 
     def calculateListAccuracyWithinMatchedGreaterOrLesserListLengths(self):
-        matchedLengthLabels = []
-        predictedGreaterLengthLabels = []
-        predictedLesserLengthLabels = []
+        matchedLengthLabelsActual = []
+        matchedLengthLabelsPredicted = []
+        greaterLengthLabelsActual = []
+        greaterLengthLabelsPredicted = []
+        lesserLengthLabelsActual = []
+        lesserLengthLabelsPredicted = []
 
         for actual, predicted in zip(self.actualLabels, self.predictedLabels):
             if len(actual) == len(predicted):
-                matchedLengthLabels.append([actual, predicted])
+                matchedLengthLabelsActual.append(actual)
+                matchedLengthLabelsPredicted.append(predicted)
             elif len(predicted) > len(actual):
-                predictedGreaterLengthLabels.append([actual, predicted])
+                greaterLengthLabelsActual.append(actual)
+                greaterLengthLabelsPredicted.append(predicted)
             else:
-                predictedLesserLengthLabels.append([actual, predicted])
+                lesserLengthLabelsActual.append(actual)
+                lesserLengthLabelsPredicted.append(predicted)
+
+        listAccuracyMatches = self.calculateAverageAccuracyWithinLists(matchedLengthLabelsActual,
+                                                                       matchedLengthLabelsPredicted)
+        listAccuracyGreater = self.calculateAverageAccuracyWithinLists(greaterLengthLabelsActual,
+                                                                       greaterLengthLabelsPredicted)
+        listAccuracyLesser = self.calculateAverageAccuracyWithinLists(lesserLengthLabelsActual,
+                                                                      lesserLengthLabelsPredicted)
+
+        print("Average Accuracy Within Matched Length Lists: %.2f percent" % listAccuracyMatches)
+        print("Average Accuracy Within Greater Length Lists: %.2f percent" % listAccuracyGreater)
+        print("Average Accuracy Within Lesser Length Lists: %.2f percent" % listAccuracyLesser)
+
+
+
 
 
 
