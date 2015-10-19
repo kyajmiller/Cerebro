@@ -66,3 +66,11 @@ class GetDatabaseInfoScholarshipsWithClassStatuses(object):
             concatenatedItemsList.append(concatenatedItem)
 
         return concatenatedItemsList
+
+    def getEnsembleClassifierPredictions(self):
+        predictionsList = []
+
+        for row in self.rows:
+            predictionsList.append(row.EnsembleClassifierPrediction)
+
+        return predictionsList
