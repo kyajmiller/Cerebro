@@ -143,7 +143,7 @@ class ClassifyClassStatusTrainFirst(object):
         return accuracy, precision, recall, f1
 
     def printMetrics(self, accuracy, precision, recall, f1):
-        print('Accuracy:\t%s' % accuracy)
-        print('Precision:\t%s' % precision)
-        print('Recall:\t\t%s' % recall)
-        print('F1:\t\t\t%s' % f1)
+        print('Accuracy:\t%.4f' % accuracy)
+        print('Precision:\t%.4f' % precision)
+        print('Recall:\t\t%.4f' % recall)
+        print('F1:\t\t\t%.4f' % f1)
