@@ -8,8 +8,6 @@ class CalculateEnsembleClassifierAccuracy(object):
         self.actualLabels = databaseInfo.getRequirementNeededList()
         self.predictedLabels = databaseInfo.getEnsembleClassifierPredictions()
 
-        print(self.convertActualLabelStringsToList()[5])
-
     def convertActualLabelStringsToList(self):
         actualLabelLists = []
 
@@ -20,5 +18,14 @@ class CalculateEnsembleClassifierAccuracy(object):
 
         return actualLabelLists
 
+    def convertPredictedLabelStringsToList(self):
+        predictedLabelLists = []
 
-CalculateEnsembleClassifierAccuracy()
+        for predictedLabelString in self.predictedLabels:
+            if predictedLabelString is None:
+                predictedLabelList = []
+            else:
+                predictedLabelList = predictedLabelString.split(', ')
+            predictedLabelLists.append(predictedLabelList)
+
+        return predictedLabelLists
