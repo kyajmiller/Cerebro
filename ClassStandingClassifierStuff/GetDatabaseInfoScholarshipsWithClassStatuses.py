@@ -74,3 +74,11 @@ class GetDatabaseInfoScholarshipsWithClassStatuses(object):
             predictionsList.append(row.EnsembleClassifierPrediction)
 
         return predictionsList
+
+    def getRequirementNeededList(self):
+        requirementNeededList = []
+
+        for row in self.rows:
+            requirementNeededList.append(row.RequirementNeeded)
+
+        return requirementNeededList
