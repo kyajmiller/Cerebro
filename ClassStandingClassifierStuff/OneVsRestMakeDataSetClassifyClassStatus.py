@@ -16,7 +16,7 @@ class OneVsRestMakeDataSetClassifyClassStatus(object):
             numTrainingEntries = math.ceil(numTotalEntries * trainingPercentage)
             numTestingEntries = numTotalEntries - numTrainingEntries
 
-            trainingSet = dataSet[dataSet:numTrainingEntries]
+            trainingSet = dataSet[:numTrainingEntries]
             testingSet = dataSet[-numTestingEntries:]
 
             return [trainingSet, testingSet]
@@ -25,15 +25,33 @@ class OneVsRestMakeDataSetClassifyClassStatus(object):
             return None
 
     @staticmethod
-    def makeBinaryLabelFullDataSet(firstLabel, secondLabel, firstLabelTextList, secondLabelTextList, firstLabelIdsList,
-                                   secondLabelIdsList):
-        firstLabelDataset = OneVsRestMakeDataSetClassifyClassStatus.makeDataSet(firstLabel,
-                                                                                             firstLabelTextList,
-                                                                                             firstLabelIdsList)
-        secondLabelDataset = OneVsRestMakeDataSetClassifyClassStatus.makeDataSet(secondLabel,
-                                                                                              secondLabelTextList,
-                                                                                              secondLabelIdsList)
+    def makeBinaryLabelTrainingAndTestingSet(firstLabel, secondLabel, firstLabelTextList, secondLabelTextList,
+                                             firstLabelIdsList, secondLabelIdsList, trainingPercentage=0.8):
+        if trainingPercentage > 0 and trainingPercentage < 1:
+            fullDataSet = []
+            firstLabelDataset = OneVsRestMakeDataSetClassifyClassStatus.makeDataSet(firstLabel, firstLabelTextList,
+                                                                                    firstLabelIdsList)
+            secondLabelDataset = OneVsRestMakeDataSetClassifyClassStatus.makeDataSet(secondLabel, secondLabelTextList,
+                                                                                     secondLabelIdsList)
 
+            for dataLine in firstLabelDataset:
+                fullDataSet.append(dataLine)
+            for dataLine in secondLabelDataset:
+                fullDataSet.append(dataLine)
+
+            shuffle(fullDataSet)
+
+            numTotalEntries = len(fullDataSet)
+            numTrainingEntries = math.ceil(numTotalEntries * trainingPercentage)
+            numTestingEntries = numTotalEntries - numTrainingEntries
+
+            trainingSet = fullDataSet[:numTrainingEntries]
+            testingSet = fullDataSet[-numTestingEntries:]
+
+            return [trainingSet, testingSet]
+        else:
+            print('Not a real percentage, please enter a float between 0 and 1.')
+            return None
 
     @staticmethod
     def makeDataSet(label, dataTextList, idsList):
