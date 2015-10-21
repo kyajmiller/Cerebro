@@ -3,7 +3,7 @@ import itertools
 import numpy
 import pickle
 from sklearn.linear_model import LogisticRegression
-from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
+from ClassStandingClassifierStuff.OVRLRMakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
 
 
 class ClassifyClassStatusTrainFirst(object):

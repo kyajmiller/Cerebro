@@ -1,6 +1,6 @@
 import unittest
 import math
-from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
+from ClassStandingClassifierStuff.OVRLRMakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
 
 
 class TestStringMethods(unittest.TestCase):
