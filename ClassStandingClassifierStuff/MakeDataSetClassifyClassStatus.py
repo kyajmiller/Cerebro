@@ -4,11 +4,11 @@ from random import shuffle
 import math
 
 
-class OneVsRestMakeDataSetClassifyClassStatus(object):
+class MakeDataSetClassifyClassStatus(object):
     @staticmethod
     def makeMultilabelTrainingAndTestingSet(dataTextList, labelsList, idsList, trainingPercentage=0.8, ):
         if trainingPercentage > 0 and trainingPercentage < 1:
-            dataSet = OneVsRestMakeDataSetClassifyClassStatus.makeDataSet(dataTextList, labelsList,
+            dataSet = MakeDataSetClassifyClassStatus.makeDataSet(dataTextList, labelsList,
                                                                                         idsList)
             shuffle(dataSet)
 
@@ -29,9 +29,9 @@ class OneVsRestMakeDataSetClassifyClassStatus(object):
                                              firstLabelIdsList, secondLabelIdsList, trainingPercentage=0.8):
         if trainingPercentage > 0 and trainingPercentage < 1:
             fullDataSet = []
-            firstLabelDataset = OneVsRestMakeDataSetClassifyClassStatus.makeDataSet(firstLabel, firstLabelTextList,
+            firstLabelDataset = MakeDataSetClassifyClassStatus.makeDataSet(firstLabel, firstLabelTextList,
                                                                                     firstLabelIdsList)
-            secondLabelDataset = OneVsRestMakeDataSetClassifyClassStatus.makeDataSet(secondLabel, secondLabelTextList,
+            secondLabelDataset = MakeDataSetClassifyClassStatus.makeDataSet(secondLabel, secondLabelTextList,
                                                                                      secondLabelIdsList)
 
             for dataLine in firstLabelDataset:
@@ -63,7 +63,7 @@ class OneVsRestMakeDataSetClassifyClassStatus(object):
 
             features = []
 
-            ngramsList = OneVsRestMakeDataSetClassifyClassStatus.getNgrams(dataText, getUnigrams=True, getBigrams=True,
+            ngramsList = MakeDataSetClassifyClassStatus.getNgrams(dataText, getUnigrams=True, getBigrams=True,
                                                                            getTrigrams=False)
             unigrams = ngramsList[0]
             bigrams = ngramsList[1]
