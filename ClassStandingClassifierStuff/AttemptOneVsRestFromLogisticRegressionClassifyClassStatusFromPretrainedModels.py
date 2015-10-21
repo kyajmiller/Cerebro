@@ -1,4 +1,5 @@
-from ClassStandingClassifierStuff.ClassifyClassStatusFromPretrainedModel import ClassifyClassStatusFromPretrainedModel
+from ClassStandingClassifierStuff.LogisticRegressionClassifyClassStatusFromPretrainedModel import \
+    LogisticRegressionClassifyClassStatusFromPretrainedModel
 
 
 class EnsembleClassifyClassStatusFromPretrainedModels(object):
@@ -45,7 +46,8 @@ class EnsembleClassifyClassStatusFromPretrainedModels(object):
         featuresValueCountsInputFile = '..\ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % classStatusString
 
         print('Doing Classification for %s...' % classStatusString)
-        predictionsList = ClassifyClassStatusFromPretrainedModel(trainedModelInputFile=LRModelInputFile,
+        predictionsList = LogisticRegressionClassifyClassStatusFromPretrainedModel(
+            trainedModelInputFile=LRModelInputFile,
                                                                  trainedFeaturesValueCountsIndexesFile=featuresValueCountsInputFile,
                                                                  testingDataTextList=self.listTextsToClassify,
                                                                  testingDataIdsList=self.listAssociatedIds).returnPredictions()

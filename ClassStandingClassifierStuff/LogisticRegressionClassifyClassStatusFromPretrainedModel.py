@@ -4,7 +4,7 @@ import numpy
 from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
 
 
-class ClassifyClassStatusFromPretrainedModel(object):
+class LogisticRegressionClassifyClassStatusFromPretrainedModel(object):
     def __init__(self, trainedModelInputFile, trainedFeaturesValueCountsIndexesFile, testingDataTextList,
                  testingDataIdsList):
         self.trainedFeaturesValueCountsIndexesFile = trainedFeaturesValueCountsIndexesFile
