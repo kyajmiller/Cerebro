@@ -11,7 +11,13 @@ class GoodCallLeads(object):
         self.driver.get(self.base_url + "scholarships/search")
         self.driver.implicitly_wait(2)
 
-        self.goToNextPage()
+        self.loopThroughResultsPages()
+
+    def loopThroughResultsPages(self):
+        nextPageExists = self.checkIfNextPage()
+        while nextPageExists:
+            self.goToNextPage()
+            nextPageExists = self.checkIfNextPage()
 
     def goToNextPage(self):
         if self.checkIfNextPage():
