@@ -5,14 +5,11 @@ import math
 
 
 class OneVsRestMakeDataSetClassifyClassStatus(object):
-    def __init__(self, dataTextList, labelsList, idsList):
-        self.dataTextList = dataTextList
-        self.labelsList = labelsList
-        self.idsList = idsList
-
-    def makeTrainingAndTestingSet(self, trainingPercentage=0.8):
+    @staticmethod
+    def makeMultilabelTrainingAndTestingSet(dataTextList, labelsList, idsList, trainingPercentage=0.8, ):
         if trainingPercentage > 0 and trainingPercentage < 1:
-            dataSet = self.makeFullDataSet()
+            dataSet = OneVsRestMakeDataSetClassifyClassStatus.makeMultilabelFullDataSet(dataTextList, labelsList,
+                                                                                        idsList)
             shuffle(dataSet)
 
             numTotalEntries = len(dataSet)
@@ -27,16 +24,18 @@ class OneVsRestMakeDataSetClassifyClassStatus(object):
             print('Not a real percentage, please enter a float between 0 and 1.')
             return None
 
-    def makeFullDataSet(self):
+    @staticmethod
+    def makeMultilabelFullDataSet(dataTextList, labelsList, idsList):
         fullDataSet = []
-        for i in range(len(self.dataTextList)):
-            dataText = self.dataTextList[i]
-            scholarshipId = self.idsList[i]
-            labels = self.labelsList[i]
+        for i in range(len(dataTextList)):
+            dataText = dataTextList[i]
+            scholarshipId = idsList[i]
+            labels = labelsList[i]
 
             features = []
 
-            ngramsList = self.getNgrams(dataText, getUnigrams=True, getBigrams=True, getTrigrams=False)
+            ngramsList = OneVsRestMakeDataSetClassifyClassStatus.getNgrams(dataText, getUnigrams=True, getBigrams=True,
+                                                                           getTrigrams=False)
             unigrams = ngramsList[0]
             bigrams = ngramsList[1]
 
@@ -50,7 +49,8 @@ class OneVsRestMakeDataSetClassifyClassStatus(object):
 
         return fullDataSet
 
-    def getNgrams(self, text, getUnigrams=True, getBigrams=True, getTrigrams=False):
+    @staticmethod
+    def getNgrams(text, getUnigrams=True, getBigrams=True, getTrigrams=False):
         unigrams = []
         bigrams = []
         trigrams = []
