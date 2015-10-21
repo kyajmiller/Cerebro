@@ -3,7 +3,9 @@ import itertools
 import numpy
 import pickle
 from sklearn.linear_model import LogisticRegression
-from ClassStandingClassifierStuff.OVRLRMakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
+from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
+from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
+    GetDatabaseInfoScholarshipsWithClassStatuses
 
 
 class ClassifyClassStatusTrainFirst(object):
@@ -15,8 +17,18 @@ class ClassifyClassStatusTrainFirst(object):
         self.featuresValueCountsSaveFile = featuresValuesCountsSaveFile
 
         print('Creating datasets...')
-        trainingTestingList = MakeDataSetClassifyClassStatus(self.classStatus).makeTrainingAndTestingSets(
-            self.trainingPercentage)
+        goodClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(requirementNeeded=self.classStatus)
+        badClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(requirementNeeded=self.classStatus, useNot=True)
+
+        goodClassStatusIds = goodClassStatusDB.getScholarshipsWithClassStatusIdsList()
+        goodClassStatusDataTextList = goodClassStatusDB.getConcatenatedDescriptionsEligibilities()
+        badClassStatusIds = badClassStatusDB.getScholarshipsWithClassStatusIdsList()
+        badClassStatusDataTextList = badClassStatusDB.getConcatenatedDescriptionsEligibilities()
+
+        trainingTestingList = MakeDataSetClassifyClassStatus.makeBinaryLabelTrainingAndTestingSet(
+            firstLabel=self.classStatus, secondLabel=self.badLabel, firstLabelTextList=goodClassStatusDataTextList,
+            secondLabelTextList=badClassStatusDataTextList, firstLabelIdsList=goodClassStatusIds,
+            secondLabelIdsList=badClassStatusIds, trainingPercentage=0.8)
         self.training = trainingTestingList[0]
         self.testing = trainingTestingList[1]
 
