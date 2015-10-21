@@ -15,6 +15,18 @@ class OneVsRestMakeDataSetClassifyClassStatus(object):
             dataSet = self.makeFullDataSet()
             shuffle(dataSet)
 
+            numTotalEntries = len(dataSet)
+            numTrainingEntries = math.ceil(numTotalEntries * trainingPercentage)
+            numTestingEntries = numTotalEntries - numTrainingEntries
+
+            trainingSet = dataSet[dataSet:numTrainingEntries]
+            testingSet = dataSet[-numTestingEntries:]
+
+            return [trainingSet, testingSet]
+        else:
+            print('Not a real percentage, please enter a float between 0 and 1.')
+            return None
+
     def makeFullDataSet(self):
         fullDataSet = []
         for i in range(len(self.dataTextList)):
