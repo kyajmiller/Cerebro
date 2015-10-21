@@ -43,7 +43,7 @@ class TestStringMethods(unittest.TestCase):
         trainingSetAndTestingSet = MakeDataSetClassifyClassStatus.makeBinaryLabelTrainingAndTestingSet(
             firstLabel=desiredClassStatus, secondLabel='Other', firstLabelTextList=goodClassStatusDataTextList,
             secondLabelTextList=badClassStatusDataTextList, firstLabelIdsList=goodClassStatusIds,
-            secondLabelIdsList=badClassStatusIds, trainingPercentage=0.8)
+            secondLabelIdsList=badClassStatusIds, trainingPercentage=trainingPercentage)
 
         self.assertIsNone(trainingSetAndTestingSet)
 
