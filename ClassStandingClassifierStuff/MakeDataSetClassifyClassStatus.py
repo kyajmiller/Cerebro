@@ -18,8 +18,7 @@ class MakeDataSetClassifyClassStatus():
             self.goodClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(
                 requirementNeeded=self.classStatusToUse)
             self.badClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(
-                requirementNeeded=self.classStatusToUse,
-                                                                             useNot=True)
+                requirementNeeded=self.classStatusToUse, useNot=True)
         self.fullDataSet = []
 
     def makeOnlyTrainingSet(self):
