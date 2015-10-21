@@ -36,16 +36,13 @@ class GoodCallLeads(object):
         if self.checkIfElementExists():
             pass
 
-
-
     def getTitlesList(self):
         titlesList = []
 
         titlesDivs = self.driver.find_elements_by_xpath("//div[@class='main-details clearfix']/h2/a")
         for title in titlesDivs:
-            titlesList.append(title.get_attribute('textContent'))
+            titlesList.append(CleanText.cleanALLtheText(title.get_attribute('textContent')))
 
-        titlesList = [CleanText.cleanALLtheText(title) for title in titlesList]
         return titlesList
 
     def getResultsPagesLinksList(self):
@@ -68,6 +65,14 @@ class GoodCallLeads(object):
 
         return numAwardsList
 
+    def getAmountsList(self):
+        amountsList = []
+
+        amountsDivs = self.driver.find_elements_by_xpath("//div[@class='amount']")
+        for amountDiv in amountsDivs:
+            amountsList.append(CleanText.cleanALLtheText(re.sub('Amount', '', amountDiv.get_attribute('textContent'))))
+
+        return amountsList
 
     def goToNextPage(self):
         if self.checkIfNextPage():
