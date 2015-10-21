@@ -26,6 +26,14 @@ class GoodCallLeads(object):
             self.getResultsOnCurrentPage()
             nextPageExists = self.checkIfNextPage()
 
+    def getInfoFromResultPage(self, resultPageLink):
+        self.driver.get(resultPageLink)
+        self.driver.implicitly_wait(2)
+
+        description = ''
+
+
+
     def getTitlesList(self):
         titlesList = []
 
@@ -54,6 +62,13 @@ class GoodCallLeads(object):
     def checkIfNextPage(self):
         nextPageButton = self.driver.find_elements_by_link_text('Next Page')
         if nextPageButton != []:
+            return True
+        else:
+            return False
+
+    def checkIfElementExists(self, xpath):
+        checkElementExists = self.driver.find_elements_by_xpath(xpath)
+        if checkElementExists != []:
             return True
         else:
             return False
