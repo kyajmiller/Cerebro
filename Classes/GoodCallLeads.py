@@ -11,5 +11,7 @@ class GoodCallLeads(object):
         self.driver.get(self.base_url + "scholarships/search")
         self.driver.implicitly_wait(2)
 
+        self.driver.find_element_by_link_text("Next Page").click()
+
 
 GoodCallLeads()
