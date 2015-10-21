@@ -1,7 +1,7 @@
 import unittest
 import re
 from ClassStandingClassifierStuff.LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel import \
-    ClassifyClassStatusTrainFirst
+    LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel
 
 
 class TestStringMethods(unittest.TestCase):
@@ -19,7 +19,8 @@ class TestStringMethods(unittest.TestCase):
 
         # do training and save to files
         print("Training '%s' model..." % classStatus)
-        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+        testClassify = LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel(classStatus=classStatus,
+                                                                                         trainingPercentage=0.99,
                                                      modelSaveFile=modelSaveFile,
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
         testClassify.trainAndSaveModel()
@@ -39,7 +40,8 @@ class TestStringMethods(unittest.TestCase):
 
         # do training and save to files
         print("Training '%s' model..." % classStatus)
-        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+        testClassify = LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel(classStatus=classStatus,
+                                                                                         trainingPercentage=0.99,
                                                      modelSaveFile=modelSaveFile,
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
         testClassify.trainAndSaveModel()
@@ -59,7 +61,8 @@ class TestStringMethods(unittest.TestCase):
 
         # do training and save to files
         print("Training '%s' model..." % classStatus)
-        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+        testClassify = LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel(classStatus=classStatus,
+                                                                                         trainingPercentage=0.99,
                                                      modelSaveFile=modelSaveFile,
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
         testClassify.trainAndSaveModel()
@@ -79,7 +82,8 @@ class TestStringMethods(unittest.TestCase):
 
         # do training and save to files
         print("Training '%s' model..." % classStatus)
-        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+        testClassify = LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel(classStatus=classStatus,
+                                                                                         trainingPercentage=0.99,
                                                      modelSaveFile=modelSaveFile,
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
         testClassify.trainAndSaveModel()
@@ -99,7 +103,8 @@ class TestStringMethods(unittest.TestCase):
 
         # do training and save to files
         print("Training '%s' model..." % classStatus)
-        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+        testClassify = LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel(classStatus=classStatus,
+                                                                                         trainingPercentage=0.99,
                                                      modelSaveFile=modelSaveFile,
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
         testClassify.trainAndSaveModel()
@@ -119,7 +124,8 @@ class TestStringMethods(unittest.TestCase):
 
         # do training and save to files
         print("Training '%s' model..." % classStatus)
-        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+        testClassify = LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel(classStatus=classStatus,
+                                                                                         trainingPercentage=0.99,
                                                      modelSaveFile=modelSaveFile,
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
         testClassify.trainAndSaveModel()
@@ -139,7 +145,8 @@ class TestStringMethods(unittest.TestCase):
 
         # do training and save to files
         print("Training '%s' model..." % classStatus)
-        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+        testClassify = LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel(classStatus=classStatus,
+                                                                                         trainingPercentage=0.99,
                                                      modelSaveFile=modelSaveFile,
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
         testClassify.trainAndSaveModel()
@@ -159,7 +166,8 @@ class TestStringMethods(unittest.TestCase):
 
         # do training and save to files
         print("Training '%s' model..." % classStatus)
-        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+        testClassify = LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel(classStatus=classStatus,
+                                                                                         trainingPercentage=0.99,
                                                      modelSaveFile=modelSaveFile,
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
         testClassify.trainAndSaveModel()
@@ -179,7 +187,8 @@ class TestStringMethods(unittest.TestCase):
 
         # do training and save to files
         print("Training '%s' model..." % classStatus)
-        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+        testClassify = LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel(classStatus=classStatus,
+                                                                                         trainingPercentage=0.99,
                                                      modelSaveFile=modelSaveFile,
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
         testClassify.trainAndSaveModel()
@@ -199,7 +208,8 @@ class TestStringMethods(unittest.TestCase):
 
         # do training and save to files
         print("Training '%s' model..." % classStatus)
-        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+        testClassify = LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel(classStatus=classStatus,
+                                                                                         trainingPercentage=0.99,
                                                      modelSaveFile=modelSaveFile,
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
         testClassify.trainAndSaveModel()
@@ -219,7 +229,8 @@ class TestStringMethods(unittest.TestCase):
 
         # do training and save to files
         print("Training '%s' model..." % classStatus)
-        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+        testClassify = LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel(classStatus=classStatus,
+                                                                                         trainingPercentage=0.99,
                                                      modelSaveFile=modelSaveFile,
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
         testClassify.trainAndSaveModel()
@@ -239,7 +250,8 @@ class TestStringMethods(unittest.TestCase):
 
         # do training and save to files
         print("Training '%s' model..." % classStatus)
-        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+        testClassify = LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel(classStatus=classStatus,
+                                                                                         trainingPercentage=0.99,
                                                      modelSaveFile=modelSaveFile,
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
         testClassify.trainAndSaveModel()
@@ -259,7 +271,8 @@ class TestStringMethods(unittest.TestCase):
 
         # do training and save to files
         print("Training '%s' model..." % classStatus)
-        testClassify = ClassifyClassStatusTrainFirst(classStatus=classStatus, trainingPercentage=0.99,
+        testClassify = LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel(classStatus=classStatus,
+                                                                                         trainingPercentage=0.99,
                                                      modelSaveFile=modelSaveFile,
                                                      featuresValuesCountsSaveFile=featuresValueCountsSaveFile)
         testClassify.trainAndSaveModel()
