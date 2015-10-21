@@ -1493,11 +1493,230 @@ nextpage button: "//a[@title = 'Next']"
 mastersInEducationLeads is pretty much done
 
 
+10/2 Notes:
+-after a bunch of stupidity trying to get MastersInEducationLeads to actually work, it has finally worked and the stuff has
+been inserted into the database.
+-going to classify the scholarships and then try to run badscholarship classifier on it
+-made MastersInEducationLeadsGetDatabaseInfo class, so far has titles, descriptions, and ids things
+
+Going to attempt something that may or may not be good
+-There's a lot of criteria that goes into identifying which class year a scholarship is referring to. Enough nuance that
+a simple regular expression search isn't really going to cut it
+-Since there's a lot of data already labeled by the researchers for class year and scholarship information, I could perhaps use that info
+to build a vector based classifier
+-One potential issue already: a lot (if not all) of these have multiple labels attached to them, so how to handle multiple classifications
+-Could have something trained on each possible classification, but ehhhhh. That could be very time consuming to run, but it could be effective
+-Will start by focusing on a single label or group of labels. Will have to see if any are mutually exclusive.
+-Luckily if I do the single groups there's a lot of positive and negative examples to use.
+--This may not be the case for all of the possible classifications
+
+Things to consider:
+-feature selection
+-The training data and the testing data are completely different. What's in the database is very carefully written versus the raw website data. This could potentially be very bad.
+--Granted, with proper feature selection this might be a non issue, but I don't know... If the feature selection has to be very specific then it defeats the purpose of the classifier
+
+10/5 Notes:
+-Need to write class to get database information with RequirementNeeded where clause. Need to use sql LIKE statement
+-This is pretty much done
+-Nevermind, I need to set this up to make the RequirementNeeded clause optional, as well as give an optional parameter for NOT
+-I'm already apprehensive about doing this this way because I honestly don't understand a lot of the logic behind some of these labels
+-For example, just looking at the 'Junior' label alone, more than half of the ones I'm seeing don't mention really anything to do with junior at all
+-Also issues with a scholarship being labeled 'freshman, sophomore, junior, senior' when the scholarship mentions 'undergrad'... I don't know how to make it label that particular way
+This is going to be really awful
+
+10/7 Notes:
+-Work on feature selection
+-Start with unigrams + bigrams; remove capitalization, keep stopwords for now
+-Made the class MakeDataSetClassifyClassStatus, takes a class term to use, like 'Junior'
+-has a function MakeTrainingAndTestingSet which takes a percentage value between 0 and 1, added a unit test to enforce this
+-need to download winpython 3.4 because even though I'm not importing scipy, sklearn's linear regression needs it.... and I really
+don't feel like figuring out how to compile scipy on this computer right now
+-wrote the class to train and test the logistic regression classifier
+
+-need to make sure that functions are actually returning the right things lol
+-this will take a while to run so hopefully it will run overnight and be fine
+
+10/12 Notes:
+-So the classifier was successful, and on the first run for 'junior' it had an 81% accuracy - not too shabby
+Results for label 'Junior':
+Accuracy:	0.8136054421768707
+Precision:	0.8138138138138138
+Recall:		0.7832369942196532
+F1:		0.7982326951399116
+Results for label 'Other':
+Accuracy:	0.8136054421768707
+Precision:	0.8134328358208955
+Recall:		0.8406169665809768
+F1:		0.8268015170670038
+
+-First major tweaking - fixed it so it only grabs sentence specific bigrams instead of grabbing bigrams across sentence boundaries
+    -need to test to see if this has any real effects on accuracy
+    -okay so it did, small increase to 82% yay
+Results for label 'Junior':
+Accuracy:	0.8217687074829932
+Precision:	0.8096514745308311
+Recall:		0.8342541436464088
+F1:			0.8217687074829932
+Results for label 'Other':
+Accuracy:	0.8217687074829932
+Precision:	0.8342541436464088
+Recall:		0.8096514745308311
+F1:			0.8217687074829932
+
+-try taking out stopwords, see if that has any effect
+    -another small accuracy increase, yay for small victories
+Results for label 'Junior':
+Accuracy:	0.8231292517006803
+Precision:	0.8149171270718232
+Recall:		0.8240223463687151
+F1:			0.8194444444444444
+Results for label 'Other':
+Accuracy:	0.8231292517006803
+Precision:	0.8310991957104558
+Recall:		0.8222811671087533
+F1:			0.8266666666666667
+
+-Going to try testing this on some other labels to see if this decent accuracy rating is across all of them or just specific
+to junior
+    -this is actually pretty interesting, 'Senior' has much higher accuracy than junior at 85%
+Results for label 'Senior':
+Accuracy:	0.8517006802721089
+Precision:	0.8723809523809524
+Recall:		0.916
+F1:			0.8936585365853658
+Results for label 'Other':
+Accuracy:	0.8517006802721089
+Precision:	0.8
+Recall:		0.7148936170212766
+F1:			0.755056179775281
+    -hopefully all of the others follow this trend instead of having some awful drop off somewhere...
+    -will try again for Masters Level Graduate
+Results for label 'Masters Level Graduate':
+Accuracy:	0.8462585034013606
+Precision:	0.7540983606557377
+Recall:		0.6699029126213593
+F1:			0.7095115681233933
+Results for label 'Other':
+Accuracy:	0.8462585034013606
+Precision:	0.8768115942028986
+Recall:		0.9149338374291115
+F1:			0.8954671600370028
+
+    -and once again for High School Senior just to have another value to add into averages
+Results for label 'High School Senior':
+Accuracy:	0.8598639455782313
+Precision:	0.7848101265822784
+Recall:		0.7815126050420168
+F1:			0.7831578947368419
+Results for label 'Other':
+Accuracy:	0.8598639455782313
+Precision:	0.8955823293172691
+Recall:		0.89738430583501
+F1:			0.8964824120603017
+
+-So the average across (at least) these tests is 82.3 + 85.1 + 84.6 + 85.98  / 4 = 84.5%
+-I am okay with this
+-Will avoid tweaking any further unless absolutely necessary, can't think of anything obvious to try that might bring up
+accuracy; could try trigrams later
+-Going to declare some text files and save the models trained over all of the current data
+
+-Need to figure out how to store training data and then read it back into the classifier so that it doesn't have to retrain every time, but not sure how to do this
+-Use pickle to save to datafile
+    -Code will look something like
+    import pickle
+    blah = LogisticRegression()
+    blah.fit(blah blah)
+    saveFile = open('savefile.txt', 'wb')
+    pickle.dump(blah, saveFile)
+    saveFile.close()
+
+    later...
+    import pickle
+    saveFile = open('savefile.txt', 'rb')
+    blah = pickle.load(saveFile)
+-So, ultimately, want to tweak each model to run at maximum accuracy, then want to do some sort of ensemble classification
+-Run each model for each label over the data, if for a given example two models return a label (non-other label) then assign that label
+-Need a way to pull out the predicted labels from the frame in order to save them
+-Also need to pull out id numbers from the database and push them along to the training/testing frames so when saving
+predicted labels to the database we know which label goes where
+
+-I just realized that there's going to be conflicts between 'senior' and 'high school senior' because the LIKE sql statement doesn't care...
+-was able to resolve this
+
+-Also just realized that if I want to run the classifier from a pretrained file, I will need to make a slightly different class because all of the conditional
+statements would be obnoxious
+-Will write this and then make a superclass for the shared functions between this one and the one that is training and testing from the same dataset
+
+-So my life sucks
+-Ended up writing a completely separate class for pretrained, since it shares almost no functions with the untrained version, so no superclass really needed
+-Did however realize that pretrained does rely on the featuresValueCountsIndexes collected during training in order to make the testing vectors,
+so in order to import those to the pretrained file, need to save those to a file too.
+-There's now a billion files. I'm not even sure if I've gotten everything all together because there's just so much crap
+-Every time something dies randomly due to a typo, I too die a little inside
+
+-Okay, so was able to run it, it runs, yay yay yay
+-Going to set compy to train this stuff while I'm gone, and then should be able to do more later
+
+10/14 Notes:
+-Still having problems with my unit tests not able to find and connect to the right files... kind of annoying.
+-So need to rerun each training by hand to make sure everything works...
+-a huge part of the issue is that I'm having to use file paths relative to the unit test, which is annoying as hell whenever I move things around
+-should be okay now though
+
+10/16 Notes:
+-Going to attempt to build an ensemble classification system using trained models
+-Need to make new table column to store results of this method
+-Potential steps
+1. read in table rows, get concatenated data, feed in data list + ids list to classification (arguments to main system)
+2. class itself pulls models + fvcs from directory, ready to classify
+3. for each model, call ClassifyClassStatusFromPretrainedModel. Needs to return the data frame with predicted values
+    -this is assuming that each row in the dataframes all line up together. This shouldn't be a problem
+    -in that case, might be better to just have it return the list of predictions, as the main class will already have the
+    list of ids already, and the predictions should all be in order...
+4. iterate through each list, pull out id and related predictions; declare a list, check each prediction, if not 'other' then
+add to the list, return the list
+5. store predictions list into database. figure out how to compare predictions list to db list. Should be okay
+
+-This is pretty much taking a very long time for each run, had some issues with indexing but should be okay. Will inspect output on Monday
+when come back in
+
+10/19 Notes:
+-Looks like everything ran relatively well with the ensemble classifier. Was able to get the program to return a list of
+each non-Other match for each scholarship. I'm not sure overall how accurate the classifier is (that, and it's a little
+ridiculous to test against your training data). Will run it again, this time storing the predicted labels in the database
+and do some comparisons
+-this really does take forever to run
+-finished classifying and stored predicted labels in the database
+-wrote class to compare the ensemble predicted labels to the actual labels
+    -Interestingly enough, despite the fact that the individual classifiers have really good accuracy, the ensemble is kinda crappy
+    -Only have exact match accuracy of around 17%, which is pretty dismal
+    -Really comes down to the 15% average bad labels being scattered everywhere
+    -Will make other functions to compare label lists of varying sizes to get stats for those.
+    -Added calculations for accuracy within lists: averaging about 56.46% accuracy within predicted labels
+        -So on average, 56% of the predicted labels in a given label list are actually right...
+        -Not very good honestly
+
+-I'm not entirely sure how to make the ensemble classifier work better. The separate parts work fine, but ugh.
+-Perhaps more training data for the individual ones, but that still doesn't help that much
+
+-Reading online about multilabel classification (multiple labels on single target, different from multiclass where you separate
+targets into multiple different classes, and receives only a single label). Might try this.
+-It seems like what I was already trying to do was a One-Vs-The-Rest classification system, where each class has own classifier
+    -I could try using sklearn's version of this and see what it comes back as.
+
+-So how to use the OneVsRestClassifier
+-Seems like it needs to use SVC from sklearn.svm; I don't know the difference between the types, though. Not sure which one
+to use with my data
+-I need to figure out how to format Y values
+-should be a list of lists, assuming that those are lists of labels? Will have to see lol
 
 
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.svm import SVC
 
+make features vectors
+X = features vectors
+Y = labels
 
-
-
-
-
+classify = OneVsRestClassifier(SVC())
+classify.fit(X, Y)
