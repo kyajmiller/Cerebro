@@ -1,6 +1,7 @@
 import unittest
 import re
-from ClassStandingClassifierStuff.ClassifyClassStatusFromPreviouslyUntrainedModel import ClassifyClassStatusTrainFirst
+from ClassStandingClassifierStuff.LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel import \
+    ClassifyClassStatusTrainFirst
 
 
 class TestStringMethods(unittest.TestCase):
