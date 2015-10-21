@@ -32,9 +32,27 @@ class GoodCallLeads(object):
         self.driver.implicitly_wait(2)
 
         description = ''
+        sponsor = ''
+        classStatus = ''
+        major = ''
+        gender = ''
+        ethnicity = ''
+        grades = ''
+        testScores = ''
+        geography = ''
+        deadline = ''
+        essayInfo = ''
+        sourceWebsite = ''
+        sourceText = ''
 
-        if self.checkIfElementExists():
-            pass
+        if self.checkIfElementExists("//div[@id='main-column']/p[1]"):
+            description = self.driver.find_element_by_xpath("//div[@id='main-column']/p[1]").get_attribute(
+                'textContent')
+            description = CleanText.cleanALLtheText(description)
+
+        if self.checkIfElementExists("//div[@id='main-column']/p[2]"):
+            sponsor = self.driver.find_element_by_xpath("//div[@id='main-column']/p[2]").get_attribute('textContent')
+            sponsor = CleanText.cleanALLtheText(re.sub('Sponsor:', '', sponsor))
 
     def getTitlesList(self):
         titlesList = []
