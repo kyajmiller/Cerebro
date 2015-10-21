@@ -1,7 +1,5 @@
 from Classes.TokenizeIntoSentences import TokenizeIntoSentences
 from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
-from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
-    GetDatabaseInfoScholarshipsWithClassStatuses
 from random import shuffle
 import math
 
