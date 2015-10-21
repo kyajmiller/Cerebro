@@ -21,7 +21,7 @@ class MakeDataSetClassifyClassStatus():
                 requirementNeeded=self.classStatusToUse, useNot=True)
         self.fullDataSet = []
 
-    def makeOnlyTrainingSet(self):
+    def makeOnlyTestingSet(self):
         testingDataSet = []
 
         if self.testingDataTextList and self.testingDataIds:

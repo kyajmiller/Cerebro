@@ -13,7 +13,7 @@ class ClassifyClassStatusFromPretrainedModel(object):
         self.testingDataIdsList = testingDataIdsList
 
         self.testing = MakeDataSetClassifyClassStatus(testingDataTextList=self.testingDataTextList,
-                                                      testingDataIds=testingDataIdsList).makeOnlyTrainingSet()
+                                                      testingDataIds=testingDataIdsList).makeOnlyTestingSet()
 
         self.dataFrame = self.makeDataFrame()
 
