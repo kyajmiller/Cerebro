@@ -11,7 +11,19 @@ class GoodCallLeads(object):
         self.driver.get(self.base_url + "scholarships/search")
         self.driver.implicitly_wait(2)
 
-        self.driver.find_element_by_link_text("Next Page").click()
+        self.goToNextPage()
+
+    def goToNextPage(self):
+        if self.checkIfNextPage():
+            self.driver.find_element_by_link_text("Next Page").click()
+            self.driver.implicitly_wait(2)
+
+    def checkIfNextPage(self):
+        nextPageButton = self.driver.find_elements_by_link_text('Next Page')
+        if nextPageButton != []:
+            return True
+        else:
+            return False
 
 
 GoodCallLeads()
