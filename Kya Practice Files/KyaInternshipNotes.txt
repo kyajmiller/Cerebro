@@ -1720,3 +1720,16 @@ Y = labels
 
 classify = OneVsRestClassifier(SVC())
 classify.fit(X, Y)
+
+10/21 Notes:
+-Try implementing the OVR classifier, see what happens
+-Need to get more info about how the labels should be fed in, should they be a list?
+-Looking at the examples used on the website, the Y values are a 'tuple of lists', so I"m guessing a list?
+-I'm going to try importing the thing they used and print out the Y values so I can see them
+-Okay, after testing, it is indeed a list of lists.
+-Realizing that the OVR needs another classifier to use with it as the base binary classifier.
+    -In the examples it uses SVC (support vector classification)
+    -so theoretically I could use the LR classifier in its place
+    -Will try both and see what happens
+-Rewrote makeDataSet class to use static methods and not be retarded. Something's wrong with it though...
+    -turns out I just didn't include an argument, all is well
