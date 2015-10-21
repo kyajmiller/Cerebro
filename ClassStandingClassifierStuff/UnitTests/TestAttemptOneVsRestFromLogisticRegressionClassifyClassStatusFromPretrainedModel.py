@@ -1,5 +1,5 @@
 import unittest
-from ClassStandingClassifierStuff.AttemptOneVsRestClassifyClassStatusFromPretrainedModels import \
+from ClassStandingClassifierStuff.AttemptOneVsRestFromLogisticRegressionClassifyClassStatusFromPretrainedModels import \
     EnsembleClassifyClassStatusFromPretrainedModels
 from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
     GetDatabaseInfoScholarshipsWithClassStatuses
