@@ -1,3 +1,4 @@
+import re
 from selenium import webdriver
 from Classes.CleanText import CleanText
 from Classes.RipPage import RipPage
@@ -32,6 +33,9 @@ class GoodCallLeads(object):
 
         description = ''
 
+        if self.checkIfElementExists():
+            pass
+
 
 
     def getTitlesList(self):
@@ -53,6 +57,17 @@ class GoodCallLeads(object):
             resultsPagesUrls.append(moreInfoDiv.get_attribute('href'))
 
         return resultsPagesUrls
+
+    def getNumAwardsList(self):
+        numAwardsList = []
+
+        numAwardsDivs = self.driver.find_elements_by_xpath("//div[@class='award-count']")
+        for awardDiv in numAwardsDivs:
+            numAwardsList.append(
+                CleanText.cleanALLtheText(re.sub('# Awards', '', awardDiv.get_attribute('textContent'))))
+
+        return numAwardsList
+
 
     def goToNextPage(self):
         if self.checkIfNextPage():
