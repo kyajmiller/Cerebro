@@ -12,8 +12,8 @@ class OneVsRestMakeDataSetClassifyClassStatus(object):
 
     def makeTrainingAndTestingSet(self, trainingPercentage=0.8):
         if trainingPercentage > 0 and trainingPercentage < 1:
-            self.makeFullDataSet()
-            shuffle()
+            dataSet = self.makeFullDataSet()
+            shuffle(dataSet)
 
     def makeFullDataSet(self):
         fullDataSet = []
@@ -35,6 +35,8 @@ class OneVsRestMakeDataSetClassifyClassStatus(object):
 
             dataLine = {'label': labels, 'id': scholarshipId, 'features': features}
             fullDataSet.append(dataLine)
+
+        return fullDataSet
 
     def getNgrams(self, text, getUnigrams=True, getBigrams=True, getTrigrams=False):
         unigrams = []
