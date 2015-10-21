@@ -15,12 +15,15 @@ class GoodCallLeads(object):
 
     def getResultsOnCurrentPage(self):
         titlesList = self.getTitlesList()
-
+        resultsPagesLinks = self.getResultsPagesLinksList()
 
     def loopThroughResultsPages(self):
+        self.getResultsOnCurrentPage()
+
         nextPageExists = self.checkIfNextPage()
         while nextPageExists:
             self.goToNextPage()
+            self.getResultsOnCurrentPage()
             nextPageExists = self.checkIfNextPage()
 
     def getTitlesList(self):
@@ -32,6 +35,16 @@ class GoodCallLeads(object):
 
         titlesList = [CleanText.cleanALLtheText(title) for title in titlesList]
         return titlesList
+
+    def getResultsPagesLinksList(self):
+        resultsPagesUrls = []
+
+        moreInfoDivs = self.driver.find_elements_by_xpath(
+            "//div[@class='one-card-actions']/a[@class='action-button info']")
+        for moreInfoDiv in moreInfoDivs:
+            resultsPagesUrls.append(moreInfoDiv.get_attribute('href'))
+
+        return resultsPagesUrls
 
     def goToNextPage(self):
         if self.checkIfNextPage():
