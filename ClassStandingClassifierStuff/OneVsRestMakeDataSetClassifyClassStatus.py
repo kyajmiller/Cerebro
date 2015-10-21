@@ -12,10 +12,10 @@ class OneVsRestMakeDataSetClassifyClassStatus(object):
 
     def makeTrainingAndTestingSet(self, trainingPercentage=0.8):
         if trainingPercentage > 0 and trainingPercentage < 1:
-            self.makeDataLines()
+            self.makeFullDataSet()
             shuffle()
 
-    def makeDataLines(self):
+    def makeFullDataSet(self):
         fullDataSet = []
         for i in range(len(self.dataTextList)):
             dataText = self.dataTextList[i]
