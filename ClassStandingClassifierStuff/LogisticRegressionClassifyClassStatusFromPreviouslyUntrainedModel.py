@@ -8,7 +8,7 @@ from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses i
     GetDatabaseInfoScholarshipsWithClassStatuses
 
 
-class ClassifyClassStatusTrainFirst(object):
+class LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel(object):
     def __init__(self, classStatus, trainingPercentage, modelSaveFile=None, featuresValuesCountsSaveFile=None):
         self.classStatus = classStatus
         self.trainingPercentage = trainingPercentage

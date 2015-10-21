@@ -1,5 +1,6 @@
 import unittest
-from ClassStandingClassifierStuff.ClassifyClassStatusFromPretrainedModel import ClassifyClassStatusFromPretrainedModel
+from ClassStandingClassifierStuff.LogisticRegressionClassifyClassStatusFromPretrainedModel import \
+    LogisticRegressionClassifyClassStatusFromPretrainedModel
 from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
     GetDatabaseInfoScholarshipsWithClassStatuses
 
@@ -20,7 +21,7 @@ class TestStringMethods(unittest.TestCase):
         databaseInfo = GetDatabaseInfoScholarshipsWithClassStatuses()
         dataTextList = databaseInfo.getConcatenatedDescriptionsEligibilities()
         idsList = databaseInfo.getScholarshipsWithClassStatusIdsList()
-        testClassify = ClassifyClassStatusFromPretrainedModel(trainedModelInputFile=modelSaveFile,
+        testClassify = LogisticRegressionClassifyClassStatusFromPretrainedModel(trainedModelInputFile=modelSaveFile,
                                                               trainedFeaturesValueCountsIndexesFile=featuresValueCountsSaveFile,
                                                               testingDataTextList=dataTextList,
                                                               testingDataIdsList=idsList)
