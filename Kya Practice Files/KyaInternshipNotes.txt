@@ -1733,3 +1733,33 @@ classify.fit(X, Y)
     -Will try both and see what happens
 -Rewrote makeDataSet class to use static methods and not be retarded. Something's wrong with it though...
     -turns out I just didn't include an argument, all is well
+
+-Need to make webcrawler for Goodcall http://www.goodcall.com/scholarships/search
+-Ken wants another crawler done for Unigo. https://www.unigo.com/scholarships
+    -I'm pretty sure the one I have done will be enough, but will recheck it out for thoroughness' sake
+
+GoodCallLeads Info
+title divs: "//div[@class='main-details clearfix']/h2/a" .textContent
+more info divs: "//div[@class='one-card-actions']/a[@class='action-button info']"
+numawards: "//div[@class='award-count']", filter out '# Awards'
+amount: "//div[@class='amount']" filter out 'Amount'
+
+result page stuff
+description: "//div[@id='main-column']/p[1]"
+sponsor: "//div[@id='main-column']/p[2]"
+school year: "//tr/td[contains(text(), 'School Year')]/following-sibling::td"
+major: "//tr/td[contains(text(), 'School Year')]/following-sibling::td"
+gender: "//tr/td[contains(text(), 'Gender')]/following-sibling::td"
+ethnicity: "//tr/td[contains(text(), 'Ethnicity')]/following-sibling::td"
+grades: "//tr/td[contains(text(), 'Grades')]/following-sibling::td"
+test scores: "//tr/td[contains(text(), 'Test Scores')]/following-sibling::td"
+geography: "//tr/td[contains(text(), 'Geography')]/following-sibling::td"
+deadline: "//span[@class='deadline data']", filter out stuff in parentheses
+essay info: "//div[@class='listing-info']/h3[contains(text(), 'Essay')]/following-sibling::p"
+-need to be able to grab multiple instances of this, return a list of these things
+essay length: "//div[@id='essay-length']"
+-same as essay info
+-might want to combine each essay p with its associated length div
+external link: "//a[@class='action-button visit-site']" .href
+
+
