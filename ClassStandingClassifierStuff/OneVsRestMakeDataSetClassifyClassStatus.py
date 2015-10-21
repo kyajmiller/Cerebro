@@ -8,7 +8,7 @@ class OneVsRestMakeDataSetClassifyClassStatus(object):
     @staticmethod
     def makeMultilabelTrainingAndTestingSet(dataTextList, labelsList, idsList, trainingPercentage=0.8, ):
         if trainingPercentage > 0 and trainingPercentage < 1:
-            dataSet = OneVsRestMakeDataSetClassifyClassStatus.makeMultilabelFullDataSet(dataTextList, labelsList,
+            dataSet = OneVsRestMakeDataSetClassifyClassStatus.makeDataSet(dataTextList, labelsList,
                                                                                         idsList)
             shuffle(dataSet)
 
@@ -25,43 +25,19 @@ class OneVsRestMakeDataSetClassifyClassStatus(object):
             return None
 
     @staticmethod
-    def makeMultilabelFullDataSet(dataTextList, labelsList, idsList):
-        fullDataSet = []
-        for i in range(len(dataTextList)):
-            dataText = dataTextList[i]
-            scholarshipId = idsList[i]
-            labels = labelsList[i]
-
-            features = []
-
-            ngramsList = OneVsRestMakeDataSetClassifyClassStatus.getNgrams(dataText, getUnigrams=True, getBigrams=True,
-                                                                           getTrigrams=False)
-            unigrams = ngramsList[0]
-            bigrams = ngramsList[1]
-
-            for unigram in unigrams:
-                features.append(unigram)
-            for bigram in bigrams:
-                features.append(bigram)
-
-            dataLine = {'label': labels, 'id': scholarshipId, 'features': features}
-            fullDataSet.append(dataLine)
-
-        return fullDataSet
-
-    @staticmethod
     def makeBinaryLabelFullDataSet(firstLabel, secondLabel, firstLabelTextList, secondLabelTextList, firstLabelIdsList,
                                    secondLabelIdsList):
-        firstLabelDataset = OneVsRestMakeDataSetClassifyClassStatus.makeLabelSpecificDataSet(firstLabel,
+        firstLabelDataset = OneVsRestMakeDataSetClassifyClassStatus.makeDataSet(firstLabel,
                                                                                              firstLabelTextList,
                                                                                              firstLabelIdsList)
-        secondLabelDataset = OneVsRestMakeDataSetClassifyClassStatus.makeLabelSpecificDataSet(secondLabel,
+        secondLabelDataset = OneVsRestMakeDataSetClassifyClassStatus.makeDataSet(secondLabel,
                                                                                               secondLabelTextList,
                                                                                               secondLabelIdsList)
 
+
     @staticmethod
-    def makeLabelSpecificDataSet(label, dataTextList, idsList):
-        labelSpecificDataSet = []
+    def makeDataSet(label, dataTextList, idsList):
+        dataSet = []
 
         for i in range(len(dataTextList)):
             dataText = dataTextList[i]
@@ -80,9 +56,9 @@ class OneVsRestMakeDataSetClassifyClassStatus(object):
                 features.append(bigram)
 
             dataLine = {'label': label, 'id': scholarshipId, 'features': features}
-            labelSpecificDataSet.append(dataLine)
+            dataSet.append(dataLine)
 
-        return labelSpecificDataSet
+        return dataSet
 
     @staticmethod
     def getNgrams(text, getUnigrams=True, getBigrams=True, getTrigrams=False):
