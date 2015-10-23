@@ -164,7 +164,9 @@ class GoodCallLeads(object):
                     combinedParts.append(combined)
                     essayInfo = ' '.join(combinedParts)
             else:
-                essayInfo = ' '.join(essayPart1)
+                essayInfo = [CleanText.cleanALLtheText(essayPart.get_attribute('textContent')) for essayPart in
+                             essayPart1]
+                essayInfo = ' '.join(essayInfo)
 
         if self.checkIfElementExists("//a[@class='action-button visit-site']"):
             sourceWebsite = self.driver.find_element_by_xpath("//a[@class='action-button visit-site']").get_attribute(
