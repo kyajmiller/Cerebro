@@ -1767,4 +1767,6 @@ external link: "//a[@class='action-button visit-site']" .href
 -Need to email Sandiway and Peter to see if they will be on my internship committee.
     -Emails sent, now time to wait. Hopefully they don't say no because I don't have anyone else I can really bother.
 -Continue working on GoodCall leads
+-It's pretty much finished, just needs to be run; will fix runtime errors as they occur
+-I really really hate webscraping. Hit shift once and the entire thing just dies.
 
