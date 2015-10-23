@@ -228,6 +228,3 @@ class GoodCallLeads(object):
             return True
         else:
             return False
-
-
-GoodCallLeads()
