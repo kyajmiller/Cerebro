@@ -49,7 +49,25 @@ class GoodCallLeads(object):
             nextPageExists = self.checkIfNextPage()
 
     def makeLeadsArrays(self, title, resultPageLink, numAwards, amount):
-        pass
+        resultPageInfo = self.getInfoFromResultPage(resultPageLink)
+
+        description = resultPageInfo[0]
+        sponsor = resultPageInfo[1]
+        classStatus = resultPageInfo[2]
+        major = resultPageInfo[3]
+        gender = resultPageInfo[4]
+        ethnicity = resultPageInfo[5]
+        grades = resultPageInfo[6]
+        testScores = resultPageInfo[7]
+        geography = resultPageInfo[8]
+        deadline = resultPageInfo[9]
+        essayInfo = resultPageInfo[10]
+        sourceWebsite = resultPageInfo[11]
+        sourceText = resultPageInfo[12]
+
+        goodCallLead = [title, resultPageLink, numAwards, amount, description, sponsor, classStatus, major, gender,
+                        ethnicity, grades, testScores, geography, deadline, essayInfo, sourceWebsite, sourceText]
+        self.goodCallLeads.append(goodCallLead)
 
     def getInfoFromResultPage(self, resultPageLink):
         self.driver.get(resultPageLink)
@@ -196,6 +214,3 @@ class GoodCallLeads(object):
             return True
         else:
             return False
-
-
-GoodCallLeads()
