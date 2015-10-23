@@ -1763,3 +1763,8 @@ essay length: "//div[@id='essay-length']"
 external link: "//a[@class='action-button visit-site']" .href
 
 
+10/23 Notes:
+-Need to email Sandiway and Peter to see if they will be on my internship committee.
+    -Emails sent, now time to wait. Hopefully they don't say no because I don't have anyone else I can really bother.
+-Continue working on GoodCall leads
+
