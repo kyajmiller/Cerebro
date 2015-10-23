@@ -12,11 +12,32 @@ class GoodCallLeads(object):
         self.driver.get(self.base_url + "scholarships/search")
         self.driver.implicitly_wait(2)
 
+        self.incompleteLeadsArrays = []
+        self.goodCallLeads = []
+
+    def getLeads(self):
         self.loopThroughResultsPages()
+
+        for incompleteArray in self.incompleteLeadsArrays:
+            title = incompleteArray[0]
+            resultPageLink = incompleteArray[1]
+            numAwards = incompleteArray[2]
+            amount = incompleteArray[3]
+
+            self.makeLeadsArrays(title, resultPageLink, numAwards, amount)
+
+        self.driver.quit()
+        return self.goodCallLeads
 
     def getResultsOnCurrentPage(self):
         titlesList = self.getTitlesList()
         resultsPagesLinks = self.getResultsPagesLinksList()
+        numAwardsList = self.getNumAwardsList()
+        amountsList = self.getAmountsList()
+
+        for title, link, numAwards, amount in zip(titlesList, resultsPagesLinks, numAwardsList, amountsList):
+            incompleteResultArray = [title, link, numAwards, amount]
+            self.incompleteLeadsArrays.append(incompleteResultArray)
 
     def loopThroughResultsPages(self):
         self.getResultsOnCurrentPage()
@@ -26,6 +47,9 @@ class GoodCallLeads(object):
             self.goToNextPage()
             self.getResultsOnCurrentPage()
             nextPageExists = self.checkIfNextPage()
+
+    def makeLeadsArrays(self, title, resultPageLink, numAwards, amount):
+        pass
 
     def getInfoFromResultPage(self, resultPageLink):
         self.driver.get(resultPageLink)
