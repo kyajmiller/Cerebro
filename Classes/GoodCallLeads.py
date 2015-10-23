@@ -42,8 +42,6 @@ class GoodCallLeads(object):
         geography = ''
         deadline = ''
         essayInfo = ''
-        essayPart1 = []
-        essayPart2 = []
         sourceWebsite = ''
         sourceText = ''
 
@@ -94,6 +92,29 @@ class GoodCallLeads(object):
         if self.checkIfElementExists("//span[@class='deadline data']"):
             deadline = self.driver.find_element_by_xpath("//span[@class='deadline data']").get_attribute('textContent')
             deadline = CleanText.cleanALLtheText(re.sub('\(\.*?\)', '', deadline))
+
+        if self.checkIfElementExists("//div[@class='listing-info']/h3[contains(text(), 'Essay')]/following-sibling::p"):
+            essayPart1 = self.driver.find_elements_by_xpath(
+                "//div[@class='listing-info']/h3[contains(text(), 'Essay')]/following-sibling::p")
+            essayPart2 = self.driver.find_elements_by_xpath("//div[@id='essay-length']")
+            combinedParts = []
+            for i in range(len(essayPart1)):
+                part1 = CleanText.cleanALLtheText(essayPart1[i].get_attribute('textContent'))
+                part2 = CleanText.cleanALLtheText(essayPart2[i].get_attribute('textContent'))
+                combined = '%s %s' % (part1, part2)
+                combinedParts.append(combined)
+
+            essayInfo = ' '.join(combinedParts)
+
+        if self.checkIfElementExists("//a[@class='action-button visit-site']"):
+            sourceWebsite = self.driver.find_element_by_xpath("//a[@class='action-button visit-site']").get_attribute(
+                'href')
+            sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(sourceWebsite))
+
+        resultPageInfoArray = [description, sponsor, classStatus, major, gender, ethnicity, grades, testScores,
+                               geography, deadline, essayInfo, sourceWebsite, sourceText]
+
+        return resultPageInfoArray
 
     def getTitlesList(self):
         titlesList = []
