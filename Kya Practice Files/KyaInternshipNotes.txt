@@ -1770,3 +1770,6 @@ external link: "//a[@class='action-button visit-site']" .href
 -It's pretty much finished, just needs to be run; will fix runtime errors as they occur
 -I really really hate webscraping. Hit shift once and the entire thing just dies.
 
+10/28 notes
+- need to rerun goodcall leads stuff, didn't filter out everything properly
+- added lines to the insert class to update the existing db entries
