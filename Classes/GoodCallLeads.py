@@ -100,50 +100,50 @@ class GoodCallLeads(object):
             classStatus = self.driver.find_element_by_xpath(
                 "//tr/td[contains(text(), 'School Year')]/following-sibling::td").get_attribute('textContent')
             classStatus = CleanText.cleanALLtheText(classStatus)
-            if classStatus == 'No Restrictions':
-                classStatus = ''
+            classStatus = re.sub('No Restrictions Listed', '', classStatus)
+            classStatus = re.sub('No Restrictions', '', classStatus)
 
         if self.checkIfElementExists("//tr/td[contains(text(), 'School Year')]/following-sibling::td"):
             major = self.driver.find_element_by_xpath(
                 "//tr/td[contains(text(), 'School Year')]/following-sibling::td").get_attribute('textContent')
             major = CleanText.cleanALLtheText(major)
-            if major == 'No Restrictions':
-                major = ''
+            major = re.sub('No Restrictions Listed', '', major)
+            major = re.sub('No Restrictions', '', major)
 
         if self.checkIfElementExists("//tr/td[contains(text(), 'Gender')]/following-sibling::td"):
             gender = self.driver.find_element_by_xpath(
                 "//tr/td[contains(text(), 'Gender')]/following-sibling::td").get_attribute('textContent')
             gender = CleanText.cleanALLtheText(gender)
-            if gender == 'No Restrictions':
-                gender = ''
+            gender = re.sub('No Restrictions Listed', '', gender)
+            gender = re.sub('No Restrictions', '', gender)
 
         if self.checkIfElementExists("//tr/td[contains(text(), 'Ethnicity')]/following-sibling::td"):
             ethnicity = self.driver.find_element_by_xpath(
                 "//tr/td[contains(text(), 'Ethnicity')]/following-sibling::td").get_attribute('textContent')
             ethnicity = CleanText.cleanALLtheText(ethnicity)
-            if ethnicity == 'No Restrictions':
-                ethnicity = ''
+            ethnicity = re.sub('No Restrictions Listed', '', ethnicity)
+            ethnicity = re.sub('No Restrictions', '', ethnicity)
 
         if self.checkIfElementExists("//tr/td[contains(text(), 'Grades')]/following-sibling::td"):
             grades = self.driver.find_element_by_xpath(
                 "//tr/td[contains(text(), 'Grades')]/following-sibling::td").get_attribute('textContent')
             grades = CleanText.cleanALLtheText(grades)
-            if grades == 'No Restrictions':
-                grades = ''
+            grades = re.sub('No Restrictions Listed', '', grades)
+            grades = re.sub('No Restrictions', '', grades)
 
         if self.checkIfElementExists("//tr/td[contains(text(), 'Test Scores')]/following-sibling::td"):
             testScores = self.driver.find_element_by_xpath(
                 "//tr/td[contains(text(), 'Test Scores')]/following-sibling::td").get_attribute('textContent')
             testScores = CleanText.cleanALLtheText(testScores)
-            if testScores == 'No Restrictions':
-                testScores = ''
+            testScores = re.sub('No Restrictions Listed', '', testScores)
+            testScores = re.sub('No Restrictions', '', testScores)
 
         if self.checkIfElementExists("//tr/td[contains(text(), 'Geography')]/following-sibling::td"):
             geography = self.driver.find_element_by_xpath(
                 "//tr/td[contains(text(), 'Geography')]/following-sibling::td").get_attribute('textContent')
             geography = CleanText.cleanALLtheText(geography)
-            if geography == 'No Restrictions':
-                geography = ''
+            geography = re.sub('No Restrictions Listed', '', geography)
+            geography = re.sub('No Restrictions', '', geography)
 
         if self.checkIfElementExists("//span[@class='deadline data']"):
             deadline = self.driver.find_element_by_xpath("//span[@class='deadline data']").get_attribute('textContent')
