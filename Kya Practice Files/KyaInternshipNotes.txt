@@ -1773,3 +1773,5 @@ external link: "//a[@class='action-button visit-site']" .href
 10/28 notes
 - need to rerun goodcall leads stuff, didn't filter out everything properly
 - added lines to the insert class to update the existing db entries
+-both sandiway and peter have agreed to be on my committee, which is awesome
+-will try to have internship report first draft done by the end of the semester
