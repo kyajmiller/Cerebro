@@ -1720,3 +1720,58 @@ Y = labels
 
 classify = OneVsRestClassifier(SVC())
 classify.fit(X, Y)
+
+10/21 Notes:
+-Try implementing the OVR classifier, see what happens
+-Need to get more info about how the labels should be fed in, should they be a list?
+-Looking at the examples used on the website, the Y values are a 'tuple of lists', so I"m guessing a list?
+-I'm going to try importing the thing they used and print out the Y values so I can see them
+-Okay, after testing, it is indeed a list of lists.
+-Realizing that the OVR needs another classifier to use with it as the base binary classifier.
+    -In the examples it uses SVC (support vector classification)
+    -so theoretically I could use the LR classifier in its place
+    -Will try both and see what happens
+-Rewrote makeDataSet class to use static methods and not be retarded. Something's wrong with it though...
+    -turns out I just didn't include an argument, all is well
+
+-Need to make webcrawler for Goodcall http://www.goodcall.com/scholarships/search
+-Ken wants another crawler done for Unigo. https://www.unigo.com/scholarships
+    -I'm pretty sure the one I have done will be enough, but will recheck it out for thoroughness' sake
+
+GoodCallLeads Info
+title divs: "//div[@class='main-details clearfix']/h2/a" .textContent
+more info divs: "//div[@class='one-card-actions']/a[@class='action-button info']"
+numawards: "//div[@class='award-count']", filter out '# Awards'
+amount: "//div[@class='amount']" filter out 'Amount'
+
+result page stuff
+description: "//div[@id='main-column']/p[1]"
+sponsor: "//div[@id='main-column']/p[2]"
+school year: "//tr/td[contains(text(), 'School Year')]/following-sibling::td"
+major: "//tr/td[contains(text(), 'School Year')]/following-sibling::td"
+gender: "//tr/td[contains(text(), 'Gender')]/following-sibling::td"
+ethnicity: "//tr/td[contains(text(), 'Ethnicity')]/following-sibling::td"
+grades: "//tr/td[contains(text(), 'Grades')]/following-sibling::td"
+test scores: "//tr/td[contains(text(), 'Test Scores')]/following-sibling::td"
+geography: "//tr/td[contains(text(), 'Geography')]/following-sibling::td"
+deadline: "//span[@class='deadline data']", filter out stuff in parentheses
+essay info: "//div[@class='listing-info']/h3[contains(text(), 'Essay')]/following-sibling::p"
+-need to be able to grab multiple instances of this, return a list of these things
+essay length: "//div[@id='essay-length']"
+-same as essay info
+-might want to combine each essay p with its associated length div
+external link: "//a[@class='action-button visit-site']" .href
+
+
+10/23 Notes:
+-Need to email Sandiway and Peter to see if they will be on my internship committee.
+    -Emails sent, now time to wait. Hopefully they don't say no because I don't have anyone else I can really bother.
+-Continue working on GoodCall leads
+-It's pretty much finished, just needs to be run; will fix runtime errors as they occur
+-I really really hate webscraping. Hit shift once and the entire thing just dies.
+
+10/28 notes
+- need to rerun goodcall leads stuff, didn't filter out everything properly
+- added lines to the insert class to update the existing db entries
+-both sandiway and peter have agreed to be on my committee, which is awesome
+-will try to have internship report first draft done by the end of the semester

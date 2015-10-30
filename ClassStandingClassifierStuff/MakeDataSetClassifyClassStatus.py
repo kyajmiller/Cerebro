@@ -1,83 +1,70 @@
-from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
 from Classes.TokenizeIntoSentences import TokenizeIntoSentences
-from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
-    GetDatabaseInfoScholarshipsWithClassStatuses
+from Classes.TokenizeOnWhitespacePunctuation import TokenizeOnWhitespacePunctuation
 from random import shuffle
 import math
 
 
-class MakeDataSetClassifyClassStatus():
-    def __init__(self, classStatus='', badLabel='Other', testingDataTextList=None, testingDataIds=None):
-        self.testingDataIds = testingDataIds
-        self.testingDataTextList = testingDataTextList
-        self.classStatusToUse = classStatus
-        self.labelGood = classStatus
-        self.labelBad = badLabel
+class MakeDataSetClassifyClassStatus(object):
+    @staticmethod
+    def makeMultilabelTrainingAndTestingSet(dataTextList, labelsList, idsList, trainingPercentage=0.8, ):
+        if trainingPercentage > 0 and trainingPercentage < 1:
+            dataSet = MakeDataSetClassifyClassStatus.makeDataSet(dataTextList, labelsList,
+                                                                                        idsList)
+            shuffle(dataSet)
 
-        if classStatus != '':
-            self.goodClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(
-                requirementNeeded=self.classStatusToUse)
-            self.badClassStatusDB = GetDatabaseInfoScholarshipsWithClassStatuses(
-                requirementNeeded=self.classStatusToUse,
-                                                                             useNot=True)
-        self.fullDataSet = []
-
-    def makeOnlyTrainingSet(self):
-        testingDataSet = []
-
-        if self.testingDataTextList and self.testingDataIds:
-            for i in range(len(self.testingDataTextList)):
-                dataText = self.testingDataTextList[i]
-                scholarshipId = self.testingDataIds[i]
-                features = []
-
-                ngramsList = self.getNgrams(dataText, getUnigrams=True, getBigrams=True, getTrigrams=False)
-                unigrams = ngramsList[0]
-                bigrams = ngramsList[1]
-
-                for unigram in unigrams:
-                    features.append(unigram)
-                for bigram in bigrams:
-                    features.append(bigram)
-
-                dataLine = {'label': self.classStatusToUse, 'scholarshipId': scholarshipId, 'features': features}
-                testingDataSet.append(dataLine)
-
-        return testingDataSet
-
-    def makeTrainingAndTestingSets(self, trainingPercentage=0.8):
-        if trainingPercentage >= 0 and trainingPercentage <= 1:
-            self.makeDataLinesGoodLabel()
-            self.makeDataLinesBadLabel()
-            shuffle(self.fullDataSet)
-
-            numTotalEntries = len(self.fullDataSet)
+            numTotalEntries = len(dataSet)
             numTrainingEntries = math.ceil(numTotalEntries * trainingPercentage)
             numTestingEntries = numTotalEntries - numTrainingEntries
 
-            trainingSet = self.fullDataSet[:numTrainingEntries]
-            testingSet = self.fullDataSet[-numTestingEntries:]
+            trainingSet = dataSet[:numTrainingEntries]
+            testingSet = dataSet[-numTestingEntries:]
 
             return [trainingSet, testingSet]
-
         else:
             print('Not a real percentage, please enter a float between 0 and 1.')
             return None
 
-    def makeDataLinesGoodLabel(self):
-        scholarshipDescriptions = self.goodClassStatusDB.getScholarshipDescriptionsList()
-        eligibilities = self.goodClassStatusDB.getEligibilitiesList()
-        idsList = self.goodClassStatusDB.getScholarshipsWithClassStatusIdsList()
+    @staticmethod
+    def makeBinaryLabelTrainingAndTestingSet(firstLabel, secondLabel, firstLabelTextList, secondLabelTextList,
+                                             firstLabelIdsList, secondLabelIdsList, trainingPercentage=0.8):
+        if trainingPercentage > 0 and trainingPercentage < 1:
+            fullDataSet = []
+            firstLabelDataset = MakeDataSetClassifyClassStatus.makeDataSet(firstLabel, firstLabelTextList,
+                                                                                    firstLabelIdsList)
+            secondLabelDataset = MakeDataSetClassifyClassStatus.makeDataSet(secondLabel, secondLabelTextList,
+                                                                                     secondLabelIdsList)
 
-        for i in range(len(scholarshipDescriptions)):
-            description = scholarshipDescriptions[i]
-            eligibility = eligibilities[i]
-            scholarshipClassStatusId = idsList[i]
+            for dataLine in firstLabelDataset:
+                fullDataSet.append(dataLine)
+            for dataLine in secondLabelDataset:
+                fullDataSet.append(dataLine)
+
+            shuffle(fullDataSet)
+
+            numTotalEntries = len(fullDataSet)
+            numTrainingEntries = math.ceil(numTotalEntries * trainingPercentage)
+            numTestingEntries = numTotalEntries - numTrainingEntries
+
+            trainingSet = fullDataSet[:numTrainingEntries]
+            testingSet = fullDataSet[-numTestingEntries:]
+
+            return [trainingSet, testingSet]
+        else:
+            print('Not a real percentage, please enter a float between 0 and 1.')
+            return None
+
+    @staticmethod
+    def makeDataSet(label, dataTextList, idsList):
+        dataSet = []
+
+        for i in range(len(dataTextList)):
+            dataText = dataTextList[i]
+            scholarshipId = idsList[i]
+
             features = []
 
-            concatenatedText = '%s %s' % (description, eligibility)
-
-            ngramsList = self.getNgrams(concatenatedText, getUnigrams=True, getBigrams=True, getTrigrams=False)
+            ngramsList = MakeDataSetClassifyClassStatus.getNgrams(dataText, getUnigrams=True, getBigrams=True,
+                                                                           getTrigrams=False)
             unigrams = ngramsList[0]
             bigrams = ngramsList[1]
 
@@ -86,34 +73,13 @@ class MakeDataSetClassifyClassStatus():
             for bigram in bigrams:
                 features.append(bigram)
 
-            dataLine = {'label': self.labelGood, 'scholarshipId': scholarshipClassStatusId, 'features': features}
-            self.fullDataSet.append(dataLine)
+            dataLine = {'label': label, 'id': scholarshipId, 'features': features}
+            dataSet.append(dataLine)
 
-    def makeDataLinesBadLabel(self):
-        scholarshipDescriptions = self.badClassStatusDB.getScholarshipDescriptionsList()
-        eligibilities = self.badClassStatusDB.getEligibilitiesList()
-        idsList = self.badClassStatusDB.getScholarshipsWithClassStatusIdsList()
+        return dataSet
 
-        for i in range(len(scholarshipDescriptions)):
-            description = scholarshipDescriptions[i]
-            eligibility = eligibilities[i]
-            scholarshipClassStatusId = idsList[i]
-            features = []
-
-            concatenatedText = '%s %s' % (description, eligibility)
-            ngramsList = self.getNgrams(concatenatedText, getUnigrams=True, getBigrams=True, getTrigrams=False)
-            unigrams = ngramsList[0]
-            bigrams = ngramsList[1]
-
-            for unigram in unigrams:
-                features.append(unigram)
-            for bigram in bigrams:
-                features.append(bigram)
-
-            dataLine = {'label': self.labelBad, 'scholarshipId': scholarshipClassStatusId, 'features': features}
-            self.fullDataSet.append(dataLine)
-
-    def getNgrams(self, text, getUnigrams=True, getBigrams=True, getTrigrams=False):
+    @staticmethod
+    def getNgrams(text, getUnigrams=True, getBigrams=True, getTrigrams=False):
         unigrams = []
         bigrams = []
         trigrams = []

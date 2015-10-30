@@ -81,4 +81,14 @@ class GetDatabaseInfoScholarshipsWithClassStatuses(object):
         for row in self.rows:
             requirementNeededList.append(row.RequirementNeeded)
 
+        filteredRequirementNeededList = []
+
+        for actualLabelString in requirementNeededList:
+            unformattedActualLabelList = actualLabelString.split(',')
+            filteredList = [label for label in unformattedActualLabelList if label != '']
+            filteredList = sorted(filteredList)
+            filteredRequirementNeededList.append(filteredList)
+
+        requirementNeededList = filteredRequirementNeededList
+
         return requirementNeededList
