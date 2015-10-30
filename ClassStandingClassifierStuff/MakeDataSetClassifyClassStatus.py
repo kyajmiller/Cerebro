@@ -19,7 +19,7 @@ class MakeDataSetClassifyClassStatus(object):
             trainingSet = dataSet[:numTrainingEntries]
             testingSet = dataSet[-numTestingEntries:]
 
-            return [trainingSet, testingSet]
+            return trainingSet, testingSet
         else:
             print('Not a real percentage, please enter a float between 0 and 1.')
             return None
@@ -48,7 +48,7 @@ class MakeDataSetClassifyClassStatus(object):
             trainingSet = fullDataSet[:numTrainingEntries]
             testingSet = fullDataSet[-numTestingEntries:]
 
-            return [trainingSet, testingSet]
+            return trainingSet, testingSet
         else:
             print('Not a real percentage, please enter a float between 0 and 1.')
             return None
