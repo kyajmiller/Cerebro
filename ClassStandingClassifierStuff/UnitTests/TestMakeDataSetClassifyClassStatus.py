@@ -47,6 +47,20 @@ class TestStringMethods(unittest.TestCase):
 
         self.assertIsNone(trainingSetAndTestingSet)
 
+    def test_makeMultilabelTrainingAndTestingSets(self):
+        dataTextList = GetDatabaseInfoScholarshipsWithClassStatuses().getConcatenatedDescriptionsEligibilities()
+        labelsList = GetDatabaseInfoScholarshipsWithClassStatuses().getRequirementNeededList()
+        idsList = GetDatabaseInfoScholarshipsWithClassStatuses().getScholarshipsWithClassStatusIdsList()
+        trainingPercentage = 0.9
+
+        trainingSet, testingSet = MakeDataSetClassifyClassStatus.makeMultilabelTrainingAndTestingSet(dataTextList,
+                                                                                                     labelsList,
+                                                                                                     idsList,
+                                                                                                     trainingPercentage)
+        totalSetSize = len(trainingSet) + len(testingSet)
+
+        self.assertEqual(math.ceil(totalSetSize * trainingPercentage), len(trainingSet))
+
 
 if __name__ == '__main__':
     unittest.main()
