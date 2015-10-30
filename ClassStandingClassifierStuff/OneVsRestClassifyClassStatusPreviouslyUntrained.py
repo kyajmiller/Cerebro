@@ -23,12 +23,14 @@ class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
 
         self.oneVsRestClassifier = OneVsRestClassifier(LogisticRegression())
 
-
-
     def trainOVRClassifier(self):
         trainingLabelsList = [trainingInstance['label'] for trainingInstance in self.trainingSet]
         trainingVectors = self.getTrainingAndTestingVectors(trainingOnly=True, both=False)
         self.oneVsRestClassifier.fit(trainingVectors, trainingLabelsList)
+
+    def testOVRClassifier(self):
+        testingVectors = self.getTrainingAndTestingVectors(both=False, trainingOnly=True)
+        self.dataFrame['prediction'] = self.oneVsRestClassifier.predict(testingVectors)
 
     def getTrainingAndTestingVectors(self, both=True, trainingOnly=False, testingOnly=False):
         trainingFeaturesList = [trainingInstance['features'] for trainingInstance in self.trainingSet]
