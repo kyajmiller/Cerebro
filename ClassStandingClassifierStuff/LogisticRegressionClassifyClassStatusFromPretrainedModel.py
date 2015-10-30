@@ -38,9 +38,9 @@ class LogisticRegressionClassifyClassStatusFromPretrainedModel(object):
         self.dataFrame['prediction'] = self.logisticRegressionClassifier.predict(testingVectors)
 
     def makeDataFrame(self):
-        frame = pandas.DataFrame(columns=['scholarshipId', 'features'])
+        frame = pandas.DataFrame(columns=['id', 'features'])
         for index, value in enumerate(self.testing):
-            frame.loc[index] = [value['scholarshipId'], value['features']]
+            frame.loc[index] = [value['id'], value['features']]
 
         return frame
 
@@ -68,7 +68,7 @@ class LogisticRegressionClassifyClassStatusFromPretrainedModel(object):
     def displayResults(self):
         self.doLogisticRegressionClassification()
         predictions = self.dataFrame['prediction']
-        ids = self.dataFrame['scholarshipId']
+        ids = self.dataFrame['id']
 
         countClassStatusPredictions = 0
         countOtherPredictions = 0
