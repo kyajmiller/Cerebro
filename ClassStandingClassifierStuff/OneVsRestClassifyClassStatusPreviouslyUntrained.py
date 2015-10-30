@@ -16,7 +16,13 @@ class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
 
         self.trainingSet, self.testingSet = MakeDataSetClassifyClassStatus.makeMultilabelTrainingAndTestingSet(
             self.dataTextList, self.labelsList, self.idsList, self.trainingPercentage)
+
         self.dataFrame = self.makeDataFrame()
+
+        self.trainingVectors = []
+        self.testingVectors = []
+
+        self.oneVsRestClassifier = OneVsRestClassifier(LogisticRegression())
 
     def makeDataFrame(self):
         frame = pandas.DataFrame(columns=['label', 'scholarshipId', 'features'])
