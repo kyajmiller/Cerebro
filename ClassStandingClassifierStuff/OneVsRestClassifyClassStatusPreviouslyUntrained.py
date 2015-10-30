@@ -87,11 +87,18 @@ class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
         actualLabels = self.dataFrame['label']
         predictedLabels = self.dataFrame['prediction']
 
+        total = len(predictedLabels)
+        matches = 0
+
         for actualLabel, predictedLabel in zip(actualLabels, predictedLabels):
             if sorted(actualLabel) == sorted(predictedLabel):
                 matchMessage = 'Matched!'
+                matches += 1
             else:
                 matchMessage = 'No match.'
 
             formattedString = '%s Actual label: %s; Predicted label: %s' % (matchMessage, actualLabel, predictedLabel)
             print(formattedString)
+
+        accuracy = matches / total
+        print('Total accuracy: %.2f' % accuracy)
