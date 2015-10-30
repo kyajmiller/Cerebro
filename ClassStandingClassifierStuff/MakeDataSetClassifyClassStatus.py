@@ -8,8 +8,7 @@ class MakeDataSetClassifyClassStatus(object):
     @staticmethod
     def makeMultilabelTrainingAndTestingSet(dataTextList, labelsList, idsList, trainingPercentage=0.8):
         if trainingPercentage > 0 and trainingPercentage < 1:
-            dataSet = MakeDataSetClassifyClassStatus.makeDataSet(dataTextList, labelsList,
-                                                                                        idsList)
+            dataSet = MakeDataSetClassifyClassStatus.makeDataSet(labelsList, dataTextList, idsList)
             shuffle(dataSet)
 
             numTotalEntries = len(dataSet)
