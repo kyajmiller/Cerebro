@@ -6,7 +6,7 @@ import math
 
 class MakeDataSetClassifyClassStatus(object):
     @staticmethod
-    def makeMultilabelTrainingAndTestingSet(dataTextList, labelsList, idsList, trainingPercentage=0.8, ):
+    def makeMultilabelTrainingAndTestingSet(dataTextList, labelsList, idsList, trainingPercentage=0.8):
         if trainingPercentage > 0 and trainingPercentage < 1:
             dataSet = MakeDataSetClassifyClassStatus.makeDataSet(dataTextList, labelsList,
                                                                                         idsList)
