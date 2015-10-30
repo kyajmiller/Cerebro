@@ -77,9 +77,9 @@ class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
         return featuresVectors
 
     def makeDataFrame(self):
-        frame = pandas.DataFrame(columns=['label', 'scholarshipId', 'features'])
+        frame = pandas.DataFrame(columns=['label', 'id', 'features'])
         for index, value in enumerate(self.testingSet):
-            frame.loc[index] = [value['label'], value['scholarshipId'], value['features']]
+            frame.loc[index] = [value['label'], value['id'], value['features']]
 
         return frame
 
