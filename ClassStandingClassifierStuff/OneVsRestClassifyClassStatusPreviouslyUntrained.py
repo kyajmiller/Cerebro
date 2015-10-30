@@ -20,9 +20,14 @@ class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
         self.dataFrame = self.makeDataFrame()
 
         self.trainingVectors = []
+        self.featuresValueCountIndexes = []
+
         self.testingVectors = []
 
         self.oneVsRestClassifier = OneVsRestClassifier(LogisticRegression())
+
+    def trainOVRClassifier(self):
+
 
     def makeDataFrame(self):
         frame = pandas.DataFrame(columns=['label', 'scholarshipId', 'features'])
