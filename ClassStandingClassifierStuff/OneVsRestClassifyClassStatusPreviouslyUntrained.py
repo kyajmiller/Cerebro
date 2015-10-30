@@ -23,6 +23,11 @@ class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
 
         self.oneVsRestClassifier = OneVsRestClassifier(LogisticRegression())
 
+    def trainTestAndDisplayResults(self):
+        self.trainOVRClassifier()
+        self.testOVRClassifier()
+        self.printResults()
+
     def trainOVRClassifier(self):
         trainingLabelsList = [trainingInstance['label'] for trainingInstance in self.trainingSet]
         trainingVectors = self.getTrainingAndTestingVectors(trainingOnly=True, both=False)
