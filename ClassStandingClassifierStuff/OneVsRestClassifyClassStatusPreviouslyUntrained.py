@@ -77,3 +77,16 @@ class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
             frame.loc[index] = [value['label'], value['scholarshipId'], value['features']]
 
         return frame
+
+    def printResults(self):
+        actualLabels = self.dataFrame['label']
+        predictedLabels = self.dataFrame['prediction']
+
+        for actualLabel, predictedLabel in zip(actualLabels, predictedLabels):
+            if sorted(actualLabel) == sorted(predictedLabel):
+                matchMessage = 'Matched!'
+            else:
+                matchMessage = 'No match.'
+
+            formattedString = '%s Actual label: %s; Predicted label: %s' % (matchMessage, actualLabel, predictedLabel)
+            print(formattedString)
