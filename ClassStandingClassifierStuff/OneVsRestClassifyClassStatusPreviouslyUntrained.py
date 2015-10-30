@@ -45,6 +45,7 @@ class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
     def trainOVRClassifier(self):
         trainingLabelsList = [trainingInstance['label'] for trainingInstance in self.trainingSet]
         trainingVectors = self.getTrainingAndTestingVectors(trainingOnly=True, both=False)
+        self.oneVsRestClassifier.fit(trainingVectors, trainingLabelsList)
 
 
     def makeFeaturesVectors(self, totalFeaturesList, featuresValueCountsIndexes):
