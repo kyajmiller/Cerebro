@@ -31,21 +31,21 @@ class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
         featuresValueCounts = featuresSeries.value_counts()
         self.featuresValueCountIndexes = featuresValueCounts.index
 
-        if both:
-            trainingVectors = self.makeFeaturesVectors(trainingFeaturesList, self.featuresValueCountIndexes)
-            testingVectors = self.makeFeaturesVectors(testingFeaturesList, self.featuresValueCountIndexes)
-            return trainingVectors, testingVectors
-        elif trainingOnly:
+        if trainingOnly:
             trainingVectors = self.makeFeaturesVectors(trainingFeaturesList, self.featuresValueCountIndexes)
             return trainingVectors
         elif testingOnly:
             testingVectors = self.makeFeaturesVectors(testingFeaturesList, self.featuresValueCountIndexes)
             return testingVectors
+        elif both:
+            trainingVectors = self.makeFeaturesVectors(trainingFeaturesList, self.featuresValueCountIndexes)
+            testingVectors = self.makeFeaturesVectors(testingFeaturesList, self.featuresValueCountIndexes)
+            return trainingVectors, testingVectors
 
     def trainOVRClassifier(self):
+        trainingLabelsList = [trainingInstance['label'] for trainingInstance in self.trainingSet]
+        trainingVectors = self.getTrainingAndTestingVectors(trainingOnly=True, both=False)
 
-
-        self.oneVsRestClassifier.fit(self.trainingVectors, trainingLabelsList)
 
     def makeFeaturesVectors(self, totalFeaturesList, featuresValueCountsIndexes):
         featuresVectors = numpy.matrix(numpy.zeros((len(totalFeaturesList), featuresValueCountsIndexes.shape[0] + 1)))
