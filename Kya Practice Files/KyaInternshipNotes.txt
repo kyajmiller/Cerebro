@@ -1775,3 +1775,21 @@ external link: "//a[@class='action-button visit-site']" .href
 - added lines to the insert class to update the existing db entries
 -both sandiway and peter have agreed to be on my committee, which is awesome
 -will try to have internship report first draft done by the end of the semester
+
+10/30 Notes:
+-GoodCallLeads ended up running through okay, managed to update everything
+-Only issue is that I forgot to filter out stuff in parentheses for deadline stuff, so I will have to add that in.
+    -not going to rerun it today, as it would take all of my work time and babysitting this thing for 7+ hours with
+    no netflix is extremely dull.
+
+-Going to start back on trying to implement the OVR classifier.
+-Also need to check out Unigo again (see if I need to update that classifier), and https://app.oregonstudentaid.gov/Catalog/Default.aspx
+
+-built the entire OVR classifier, wasn't too bad, still untested
+-godspeed, OVR classifier, godspeed
+-for christs sake make sure the right damn interpreter is on
+-THINGS ARE BREAKING AND I DON'T EVEN KNOW HOW THEY COULD BREAK WTF
+-I think the issue was that when trying to make the training and testing sets for the multilabel system, I didn't call
+    the makeDataSet function correctly - the arguments for the dataTextList and the labelsList were mixed up.
+    should be fixed now
+-Now having issues with immutable types. For some reason it's throwing a type error over the format of my labels, so I'll need to figure out how to fix this.
