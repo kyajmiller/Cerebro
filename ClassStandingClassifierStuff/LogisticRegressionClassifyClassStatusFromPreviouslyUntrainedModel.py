@@ -100,9 +100,9 @@ class LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel(object):
         self.dataFrame['prediction'] = self.logisticRegressionClassifier.predict(self.testingVectors)
 
     def makeDataFrame(self):
-        frame = pandas.DataFrame(columns=['label', 'scholarshipId', 'features'])
+        frame = pandas.DataFrame(columns=['label', 'id', 'features'])
         for index, value in enumerate(self.testing):
-            frame.loc[index] = [value['label'], value['scholarshipId'], value['features']]
+            frame.loc[index] = [value['label'], value['id'], value['features']]
 
         return frame
 
