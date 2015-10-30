@@ -19,22 +19,31 @@ class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
 
         self.dataFrame = self.makeDataFrame()
 
-        self.trainingVectors = []
         self.featuresValueCountIndexes = []
-
-        self.testingVectors = []
 
         self.oneVsRestClassifier = OneVsRestClassifier(LogisticRegression())
 
-    def trainOVRClassifier(self):
+    def getTrainingAndTestingVectors(self, both=True, trainingOnly=False, testingOnly=False):
         trainingFeaturesList = [trainingInstance['features'] for trainingInstance in self.trainingSet]
-        trainingLabelsList = [trainingInstance['label'] for trainingInstance in self.trainingSet]
+        testingFeaturesList = [testingInstance['features'] for testingInstance in self.testingSet]
 
         featuresSeries = pandas.Series(list(itertools.chain(*trainingFeaturesList)))
         featuresValueCounts = featuresSeries.value_counts()
         self.featuresValueCountIndexes = featuresValueCounts.index
 
-        self.trainingVectors = self.makeFeaturesVectors(trainingFeaturesList, self.featuresValueCountIndexes)
+        if both:
+            trainingVectors = self.makeFeaturesVectors(trainingFeaturesList, self.featuresValueCountIndexes)
+            testingVectors = self.makeFeaturesVectors(testingFeaturesList, self.featuresValueCountIndexes)
+            return trainingVectors, testingVectors
+        elif trainingOnly:
+            trainingVectors = self.makeFeaturesVectors(trainingFeaturesList, self.featuresValueCountIndexes)
+            return trainingVectors
+        elif testingOnly:
+            testingVectors = self.makeFeaturesVectors(testingFeaturesList, self.featuresValueCountIndexes)
+            return testingVectors
+
+    def trainOVRClassifier(self):
+
 
         self.oneVsRestClassifier.fit(self.trainingVectors, trainingLabelsList)
 
