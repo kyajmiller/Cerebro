@@ -24,6 +24,12 @@ class OneVsRestClassifyClassStatusFromPretrainedModel(object):
         self.pretrainedFeaturesValueCountIndexes = pickle.load(pretrainedFeaturesValueCountsInput)
         pretrainedFeaturesValueCountsInput.close()
 
+    def getPredictions(self):
+        self.testOVRClassifier()
+        predictions = self.dataFrame['prediction']
+
+        return predictions
+
     def testOVRClassifier(self):
         testingFeaturesList = [testingInstance['features'] for testingInstance in self.testingSet]
         testingVectors = self.makeFeaturesVectors(testingFeaturesList, self.pretrainedFeaturesValueCountIndexes)
