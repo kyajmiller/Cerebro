@@ -1,8 +1,6 @@
 import unittest
-import re
 from ClassStandingClassifierStuff.OneVsRestClassifyClassStatusPreviouslyUntrained import \
     OneVsRestClassifyClassStatusPreviouslyUntrained
-import unittest
 from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
     GetDatabaseInfoScholarshipsWithClassStatuses
 
