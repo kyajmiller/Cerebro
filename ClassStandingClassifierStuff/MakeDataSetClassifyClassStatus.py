@@ -53,12 +53,17 @@ class MakeDataSetClassifyClassStatus(object):
             return None
 
     @staticmethod
-    def makeDataSet(labelsList, dataTextList, idsList):
+    def makeDataSet(labels, dataTextList, idsList):
         dataSet = []
 
         for i in range(len(dataTextList)):
             dataText = dataTextList[i]
             scholarshipId = idsList[i]
+            label = ''
+            if type(labels) == list:
+                label = labels[i]
+            elif type(labels) == str:
+                label = labels
 
             features = []
 
@@ -72,7 +77,7 @@ class MakeDataSetClassifyClassStatus(object):
             for bigram in bigrams:
                 features.append(bigram)
 
-            dataLine = {'label': labelsList, 'id': scholarshipId, 'features': features}
+            dataLine = {'label': label, 'id': scholarshipId, 'features': features}
             dataSet.append(dataLine)
 
         return dataSet
