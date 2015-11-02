@@ -61,6 +61,21 @@ class TestStringMethods(unittest.TestCase):
 
         self.assertEqual(math.ceil(totalSetSize * trainingPercentage), len(trainingSet))
 
+    def test_SeeWhatTheMultilabelTrainingSetIsActuallyPassingAsLabels(self):
+        dataTextList = GetDatabaseInfoScholarshipsWithClassStatuses().getConcatenatedDescriptionsEligibilities()
+        labelsList = GetDatabaseInfoScholarshipsWithClassStatuses().getRequirementNeededList()
+        idsList = GetDatabaseInfoScholarshipsWithClassStatuses().getScholarshipsWithClassStatusIdsList()
+        trainingPercentage = 0.9
+
+        trainingSet, testingSet = MakeDataSetClassifyClassStatus.makeMultilabelTrainingAndTestingSet(dataTextList,
+                                                                                                     labelsList,
+                                                                                                     idsList,
+                                                                                                     trainingPercentage)
+
+        trainingLabels = [trainingInstance['label'] for trainingInstance in trainingSet]
+        self.assertEqual(type(trainingLabels[1]), list)
+        self.assertEqual(type(trainingLabels[1][0]), str)
+
 
 if __name__ == '__main__':
     unittest.main()
