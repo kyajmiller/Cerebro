@@ -28,6 +28,11 @@ class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
         self.testOVRClassifier()
         self.printResults()
 
+    def trainAndSaveOVRModel(self, modelSaveFile, featuresValueCountsSaveFile):
+        self.trainOVRClassifier()
+        self.saveTrainedModelToFile(modelSaveFile)
+        self.saveFeaturesValueCountsIndexesToFile(featuresValueCountsSaveFile)
+
     def trainOVRClassifier(self):
         trainingLabelsList = [trainingInstance['label'] for trainingInstance in self.trainingSet]
         trainingVectors = self.getTrainingAndTestingVectors(trainingOnly=True, both=False)
@@ -102,3 +107,13 @@ class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
 
         accuracy = matches / total
         print('Total accuracy: %.2f' % (accuracy * 100))
+
+    def saveTrainedModelToFile(self, modelSaveFile):
+        saveFileOutput = open(modelSaveFile, 'wb')
+        pickle.dump(self.oneVsRestClassifier, saveFileOutput)
+        saveFileOutput.close()
+
+    def saveFeaturesValueCountsIndexesToFile(self, featuresValueCountsSaveFile):
+        saveFileOutput = open(featuresValueCountsSaveFile, 'wb')
+        pickle.dump(self.featuresValueCountIndexes, saveFileOutput)
+        saveFileOutput.close()
