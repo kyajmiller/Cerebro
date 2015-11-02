@@ -17,7 +17,7 @@ class OneVsRestClassifyClassStatusFromPretrainedModel(object):
         self.dataFrame = self.makeDataFrame()
 
         pretrainedModelInput = open(self.pretrainedModelFile, 'rb')
-        self.oneVsRestLRClassifier = pickle.load(pretrainedModelInput)
+        self.oneVsRestClassifier = pickle.load(pretrainedModelInput)
         pretrainedModelInput.close()
 
         pretrainedFeaturesValueCountsInput = open(self.pretrainedFeatureValueCountsFile, 'rb')
@@ -27,6 +27,7 @@ class OneVsRestClassifyClassStatusFromPretrainedModel(object):
     def testOVRClassifier(self):
         testingFeaturesList = [testingInstance['features'] for testingInstance in self.testingSet]
         testingVectors = self.makeFeaturesVectors(testingFeaturesList, self.pretrainedFeaturesValueCountIndexes)
+        self.dataFrame['prediction'] = self.oneVsRestClassifier.predict(testingVectors)
 
     def makeFeaturesVectors(self, totalFeaturesList, featuresValueCountsIndexes):
         featuresVectors = numpy.matrix(numpy.zeros((len(totalFeaturesList), featuresValueCountsIndexes.shape[0] + 1)))
