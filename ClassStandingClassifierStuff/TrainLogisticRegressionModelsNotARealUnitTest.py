@@ -8,8 +8,8 @@ class TestStringMethods(unittest.TestCase):
     def test_trainHighSchoolSeniorModel(self):
         classStatus = 'High School Senior'
         fileClassStatus = re.sub(' ', '', classStatus)
-        modelSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
-        featuresValueCountsSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        modelSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
 
         # first check to see if can open files:
         testOpenModelSaveFile = open(modelSaveFile, 'rb')
@@ -29,8 +29,8 @@ class TestStringMethods(unittest.TestCase):
     def test_trainFreshmanModel(self):
         classStatus = 'Freshman'
         fileClassStatus = re.sub(' ', '', classStatus)
-        modelSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
-        featuresValueCountsSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        modelSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
 
         # first check to see if can open files:
         testOpenModelSaveFile = open(modelSaveFile, 'rb')
@@ -50,8 +50,8 @@ class TestStringMethods(unittest.TestCase):
     def test_trainSophomoreModel(self):
         classStatus = 'Sophomore'
         fileClassStatus = re.sub(' ', '', classStatus)
-        modelSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
-        featuresValueCountsSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        modelSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
 
         # first check to see if can open files:
         testOpenModelSaveFile = open(modelSaveFile, 'rb')
@@ -71,8 +71,8 @@ class TestStringMethods(unittest.TestCase):
     def test_trainJuniorModel(self):
         classStatus = 'Junior'
         fileClassStatus = re.sub(' ', '', classStatus)
-        modelSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
-        featuresValueCountsSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        modelSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
 
         # first check to see if can open files:
         testOpenModelSaveFile = open(modelSaveFile, 'rb')
@@ -92,8 +92,8 @@ class TestStringMethods(unittest.TestCase):
     def test_trainSeniorModel(self):
         classStatus = 'Senior'
         fileClassStatus = re.sub(' ', '', classStatus)
-        modelSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
-        featuresValueCountsSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        modelSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
 
         # first check to see if can open files:
         testOpenModelSaveFile = open(modelSaveFile, 'rb')
@@ -113,8 +113,8 @@ class TestStringMethods(unittest.TestCase):
     def test_trainMastersLevelGraduateModel(self):
         classStatus = 'Masters Level Graduate'
         fileClassStatus = re.sub(' ', '', classStatus)
-        modelSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
-        featuresValueCountsSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        modelSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
 
         # first check to see if can open files:
         testOpenModelSaveFile = open(modelSaveFile, 'rb')
@@ -134,8 +134,8 @@ class TestStringMethods(unittest.TestCase):
     def test_trainPhDLevelGraduateModel(self):
         classStatus = 'Ph.D. Level Graduate'
         fileClassStatus = 'PhDLevelGraduate'
-        modelSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
-        featuresValueCountsSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        modelSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
 
         # first check to see if can open files:
         testOpenModelSaveFile = open(modelSaveFile, 'rb')
@@ -155,8 +155,8 @@ class TestStringMethods(unittest.TestCase):
     def test_trainNonDegreeSeekingGraduateModel(self):
         classStatus = 'Non-degree Seeking Graduate'
         fileClassStatus = 'NonDegreeSeekingGraduate'
-        modelSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
-        featuresValueCountsSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        modelSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
 
         # first check to see if can open files:
         testOpenModelSaveFile = open(modelSaveFile, 'rb')
@@ -176,8 +176,8 @@ class TestStringMethods(unittest.TestCase):
     def test_trainMedicalSchoolStudentModel(self):
         classStatus = 'Medical School Student'
         fileClassStatus = re.sub(' ', '', classStatus)
-        modelSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
-        featuresValueCountsSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        modelSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
 
         # first check to see if can open files:
         testOpenModelSaveFile = open(modelSaveFile, 'rb')
@@ -197,8 +197,8 @@ class TestStringMethods(unittest.TestCase):
     def test_trainPharmacySchoolStudentModel(self):
         classStatus = 'Pharmacy School Student'
         fileClassStatus = re.sub(' ', '', classStatus)
-        modelSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
-        featuresValueCountsSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        modelSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
 
         # first check to see if can open files:
         testOpenModelSaveFile = open(modelSaveFile, 'rb')
@@ -218,8 +218,8 @@ class TestStringMethods(unittest.TestCase):
     def test_trainDNPModel(self):
         classStatus = 'Doctor of Nursing Practice (DNP)'
         fileClassStatus = 'DNP'
-        modelSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
-        featuresValueCountsSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        modelSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
 
         # first check to see if can open files:
         testOpenModelSaveFile = open(modelSaveFile, 'rb')
@@ -239,8 +239,8 @@ class TestStringMethods(unittest.TestCase):
     def test_trainPostBaccalaureateModel(self):
         classStatus = 'Post-Baccalaureate'
         fileClassStatus = 'PostBaccalaureate'
-        modelSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
-        featuresValueCountsSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        modelSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
 
         # first check to see if can open files:
         testOpenModelSaveFile = open(modelSaveFile, 'rb')
@@ -260,8 +260,8 @@ class TestStringMethods(unittest.TestCase):
     def test_trainPostdoctoralModel(self):
         classStatus = 'Postdoctoral'
         fileClassStatus = re.sub(' ', '', classStatus)
-        modelSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedLRModel' % fileClassStatus
-        featuresValueCountsSaveFile = 'ClassifierTrainedModels\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
+        modelSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedLRModel' % fileClassStatus
+        featuresValueCountsSaveFile = 'LogisticRegressionTrainedClassifiers\%sClassStatusTrainedFeaturesValueCounts' % fileClassStatus
 
         # first check to see if can open files:
         testOpenModelSaveFile = open(modelSaveFile, 'rb')
