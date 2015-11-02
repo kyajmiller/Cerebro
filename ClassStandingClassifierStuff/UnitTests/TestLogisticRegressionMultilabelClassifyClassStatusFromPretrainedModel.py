@@ -1,6 +1,6 @@
 import unittest
-from ClassStandingClassifierStuff.AttemptOneVsRestFromLogisticRegressionClassifyClassStatusFromPretrainedModels import \
-    EnsembleClassifyClassStatusFromPretrainedModels
+from ClassStandingClassifierStuff.LogisticRegressionMultilabelClassifyClassStatusFromPretrainedModels import \
+    LogisticRegressionMultilabelClassifyClassStatusFromPretrainedModels
 from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
     GetDatabaseInfoScholarshipsWithClassStatuses
 from Classes.SUDBConnect import SUDBConnect
@@ -11,13 +11,14 @@ class TestStringMethods(unittest.TestCase):
         databaseInfo = GetDatabaseInfoScholarshipsWithClassStatuses()
         dataTextList = databaseInfo.getConcatenatedDescriptionsEligibilities()
         idsList = databaseInfo.getScholarshipsWithClassStatusIdsList()
-        ensembleClassifyTest = EnsembleClassifyClassStatusFromPretrainedModels(dataTextList, idsList)
+        ensembleClassifyTest = LogisticRegressionMultilabelClassifyClassStatusFromPretrainedModels(dataTextList,
+                                                                                                   idsList)
 
         ensembleClassifyTest.displayResults()
 
     def test_CheckIfCanReachRelativeFilePaths(self):
         # this is here to check if the relative file paths are right
-        ensembleClassifyTest = EnsembleClassifyClassStatusFromPretrainedModels('blah', 'blah')
+        ensembleClassifyTest = LogisticRegressionMultilabelClassifyClassStatusFromPretrainedModels('blah', 'blah')
         ensembleClassifyTest.testToCheckRelativeFilePaths()
 
     def test_RunEnsembleClassifierInsertResultsIntoDB(self):
@@ -27,7 +28,8 @@ class TestStringMethods(unittest.TestCase):
         idsList = databaseInfoExtract.getScholarshipsWithClassStatusIdsList()
 
         # run classifier, return results
-        ensembleClassifyTest = EnsembleClassifyClassStatusFromPretrainedModels(dataTextList, idsList)
+        ensembleClassifyTest = LogisticRegressionMultilabelClassifyClassStatusFromPretrainedModels(dataTextList,
+                                                                                                   idsList)
         idsAndPredictionsList = ensembleClassifyTest.doAllClassificationsAndReturnFilteredPredictionsListsById()
 
         # insert results into db

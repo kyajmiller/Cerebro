@@ -2,7 +2,7 @@ from ClassStandingClassifierStuff.LogisticRegressionClassifyClassStatusFromPretr
     LogisticRegressionClassifyClassStatusFromPretrainedModel
 
 
-class EnsembleClassifyClassStatusFromPretrainedModels(object):
+class LogisticRegressionMultilabelClassifyClassStatusFromPretrainedModels(object):
     def __init__(self, listTextsToClassify, listAssociatedIds):
         self.listTextsToClassify = listTextsToClassify
         self.listAssociatedIds = listAssociatedIds
