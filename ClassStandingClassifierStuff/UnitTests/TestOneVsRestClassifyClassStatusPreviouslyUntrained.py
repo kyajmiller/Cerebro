@@ -22,10 +22,10 @@ class TestStringMethods(unittest.TestCase):
                                                                        trainingPercentage=0.8)
 
         trainingSet = testClassify.trainingSet
-        trainingLables = [training['label'] for training in trainingSet]
-        self.assertEqual(type(trainingLables), list)
-        self.assertEqual(type(trainingLables[1]), list)
-        self.assertEqual(type(trainingLables[1][0]), str)
+        trainingLabels = [training['label'] for training in trainingSet]
+        self.assertEqual(type(trainingLabels), list)
+        self.assertEqual(type(trainingLabels[1]), list)
+        self.assertEqual(type(trainingLabels[1][0]), str)
 
 
 if __name__ == '__main__':
