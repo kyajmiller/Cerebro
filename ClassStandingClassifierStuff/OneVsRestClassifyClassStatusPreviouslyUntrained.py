@@ -101,4 +101,4 @@ class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
             print(formattedString)
 
         accuracy = matches / total
-        print('Total accuracy: %.2f' % accuracy * 100)
+        print('Total accuracy: %.2f' % (accuracy * 100))
