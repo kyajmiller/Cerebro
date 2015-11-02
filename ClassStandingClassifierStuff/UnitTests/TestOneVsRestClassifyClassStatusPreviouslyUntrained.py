@@ -14,7 +14,7 @@ class TestStringMethods(unittest.TestCase):
                                                                        trainingPercentage=0.8)
         testClassify.trainTestAndDisplayResults()
 
-    def test_DoesTheDamnThingActuallyTrainProperlyJesusChrist(self):
+    def test_makeSureTheLabelsListIsAListOfListsOfStrings(self):
         dataTextList = GetDatabaseInfoScholarshipsWithClassStatuses().getConcatenatedDescriptionsEligibilities()
         labelsList = GetDatabaseInfoScholarshipsWithClassStatuses().getRequirementNeededList()
         idsList = GetDatabaseInfoScholarshipsWithClassStatuses().getScholarshipsWithClassStatusIdsList()
@@ -23,8 +23,9 @@ class TestStringMethods(unittest.TestCase):
 
         trainingSet = testClassify.trainingSet
         trainingLables = [training['label'] for training in trainingSet]
-        print(trainingLables[1])
-        print(trainingLables[2])
+        self.assertEqual(type(trainingLables), list)
+        self.assertEqual(type(trainingLables[1]), list)
+        self.assertEqual(type(trainingLables[1][0]), str)
 
 
 if __name__ == '__main__':
