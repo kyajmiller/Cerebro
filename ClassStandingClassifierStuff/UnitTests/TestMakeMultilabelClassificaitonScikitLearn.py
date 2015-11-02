@@ -8,6 +8,8 @@ class TestStringMethods(unittest.TestCase):
         X, Y = make_multilabel_classification(n_classes=10, n_labels=3, allow_unlabeled=False)
         print(Y)
         print(len(Y), len(X))
+        print(type(Y))  # what type of thing is the whole thing
+        print(type(Y[1]))  # what type of thing are the individual parts
 
 
 if __name__ == '__main__':
