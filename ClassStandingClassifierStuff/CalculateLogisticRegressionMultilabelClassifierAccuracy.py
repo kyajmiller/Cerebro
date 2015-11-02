@@ -2,7 +2,7 @@ from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses i
     GetDatabaseInfoScholarshipsWithClassStatuses
 
 
-class CalculateEnsembleClassifierAccuracy(object):
+class CalculateLogisticRegressionMultilabelClassifierAccuracy(object):
     def __init__(self):
         databaseInfo = GetDatabaseInfoScholarshipsWithClassStatuses()
         self.actualLabels = databaseInfo.getRequirementNeededList()
@@ -125,9 +125,4 @@ class CalculateEnsembleClassifierAccuracy(object):
         print("Average Accuracy Within Lesser Length Lists: %.2f percent" % listAccuracyLesser)
 
 
-
-
-
-
-
-CalculateEnsembleClassifierAccuracy()
+CalculateLogisticRegressionMultilabelClassifierAccuracy()
