@@ -9,9 +9,9 @@ class TestStringMethods(unittest.TestCase):
         # really just want to see what format the X and Y values are
         X, Y = make_multilabel_classification(n_classes=10, n_labels=3, allow_unlabeled=False)
         print(Y)
-        print(len(Y), len(X))
-        print(type(Y))  # what type of thing is the whole thing
-        print(type(Y[1]))  # what type of thing are the individual parts
+        self.assertEqual(len(X), len(Y))
+        self.assertEqual(type(Y), list)  # what type of thing is the whole thing
+        self.assertEqual(type(Y[1]), list)  # what type of thing are the individual parts
 
         # try training the OVR and see what happens
         testClassifier = OneVsRestClassifier(LogisticRegression())
@@ -23,8 +23,7 @@ class TestStringMethods(unittest.TestCase):
         for i in range(len(fakeY)):
             if i % 2 == 0:
                 fakeY[i] = ['meow', 'bird']
-        print(fakeY)
-        print(len(fakeY), len(X))
+        self.assertEqual(len(X), len(fakeY))
 
         # now try training the OVR
         testClassifier = OneVsRestClassifier(LogisticRegression())
