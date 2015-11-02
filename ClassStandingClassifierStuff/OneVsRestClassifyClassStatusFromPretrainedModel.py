@@ -11,7 +11,7 @@ class OneVsRestClassifyClassStatusFromPretrainedModel(object):
         self.testingDataTextList = testingDataTextList
         self.testingDataIdsList = testingDataIdsList
 
-        self.trainingSet = MakeDataSetClassifyClassStatus.makeDataSet(labels='', dataTextList=self.testingDataTextList,
+        self.testingSet = MakeDataSetClassifyClassStatus.makeDataSet(labels='', dataTextList=self.testingDataTextList,
                                                                       idsList=self.testingDataIdsList)
 
         self.dataFrame = self.makeDataFrame()
@@ -23,6 +23,30 @@ class OneVsRestClassifyClassStatusFromPretrainedModel(object):
         pretrainedFeaturesValueCountsInput = open(self.pretrainedFeatureValueCountsFile, 'rb')
         self.pretrainedFeaturesValueCountIndexes = pickle.load(pretrainedFeaturesValueCountsInput)
         pretrainedFeaturesValueCountsInput.close()
+
+    def testOVRClassifier(self):
+        testingFeaturesList = [testingInstance['features'] for testingInstance in self.testingSet]
+        testingVectors = self.makeFeaturesVectors(testingFeaturesList, self.pretrainedFeaturesValueCountIndexes)
+
+    def makeFeaturesVectors(self, totalFeaturesList, featuresValueCountsIndexes):
+        featuresVectors = numpy.matrix(numpy.zeros((len(totalFeaturesList), featuresValueCountsIndexes.shape[0] + 1)))
+
+        # insert bias
+        featuresVectors[:, 0] = 1
+
+        for totalFeaturesIndex, totalFeaturesData in enumerate(totalFeaturesList):
+            # make regular vector
+            totalFeaturesData = pandas.Series(totalFeaturesData)
+            vectorCounts = totalFeaturesData.value_counts()
+
+            # make features vector
+            for featuresValueCountsIndexesIndex, featuresValueCountsIndexesValue in enumerate(
+                    featuresValueCountsIndexes):
+                if featuresValueCountsIndexesValue in vectorCounts.index:
+                    featuresVectors[totalFeaturesIndex, featuresValueCountsIndexesIndex + 1] = vectorCounts.ix[
+                        featuresValueCountsIndexesValue]
+
+        return featuresVectors
 
     def makeDataFrame(self):
         frame = pandas.DataFrame(columns=['label', 'id', 'features'])
