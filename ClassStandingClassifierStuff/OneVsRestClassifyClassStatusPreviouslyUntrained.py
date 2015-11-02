@@ -34,7 +34,7 @@ class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
         self.oneVsRestClassifier.fit(trainingVectors, trainingLabelsList)
 
     def testOVRClassifier(self):
-        testingVectors = self.getTrainingAndTestingVectors(both=False, trainingOnly=True)
+        testingVectors = self.getTrainingAndTestingVectors(both=False, testingOnly=True)
         self.dataFrame['prediction'] = self.oneVsRestClassifier.predict(testingVectors)
 
     def getTrainingAndTestingVectors(self, both=True, trainingOnly=False, testingOnly=False):
