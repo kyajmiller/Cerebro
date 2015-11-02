@@ -12,7 +12,7 @@ class LogisticRegressionClassifyClassStatusFromPretrainedModel(object):
         self.testingDataTextList = testingDataTextList
         self.testingDataIdsList = testingDataIdsList
 
-        self.testing = MakeDataSetClassifyClassStatus.makeDataSet(label='', dataTextList=self.testingDataTextList,
+        self.testing = MakeDataSetClassifyClassStatus.makeDataSet(labels='', dataTextList=self.testingDataTextList,
                                                                   idsList=self.testingDataIdsList)
 
         self.dataFrame = self.makeDataFrame()
