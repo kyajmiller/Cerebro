@@ -2,6 +2,9 @@ import unittest
 from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
     GetDatabaseInfoScholarshipsWithClassStatuses
 from Classes.CleanText import CleanText
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.datasets import make_multilabel_classification
+from sklearn.linear_model import LogisticRegression
 
 
 class TestStringMethods(unittest.TestCase):
@@ -30,6 +33,23 @@ class TestStringMethods(unittest.TestCase):
         self.assertIsNotNone(descriptionsList)
         self.assertIsNotNone(eligibilitiesList)
         self.assertEqual(len(descriptionsList), len(eligibilitiesList))
+
+    def test_CheckLabelsListFormat(self):
+        # get the list of labels, 100
+        dbinfo = GetDatabaseInfoScholarshipsWithClassStatuses()
+        listOLabels = dbinfo.getRequirementNeededList()
+        self.assertEqual(type(listOLabels), list)
+        self.assertEqual(type(listOLabels[1]), list)
+        first100Labels = listOLabels[:100]
+        self.assertEqual(len(first100Labels), 100)
+
+        # get fake data
+        X, Y = make_multilabel_classification(n_classes=10, n_labels=3, allow_unlabeled=False)
+
+        # test the OVR
+        testClassifiier = OneVsRestClassifier(LogisticRegression())
+        testClassifiier.fit(X, first100Labels)
+
 
 
 if __name__ == '__main__':
