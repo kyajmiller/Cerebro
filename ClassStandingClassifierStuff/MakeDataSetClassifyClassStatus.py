@@ -6,10 +6,9 @@ import math
 
 class MakeDataSetClassifyClassStatus(object):
     @staticmethod
-    def makeMultilabelTrainingAndTestingSet(dataTextList, labelsList, idsList, trainingPercentage=0.8, ):
+    def makeMultilabelTrainingAndTestingSet(dataTextList, labelsList, idsList, trainingPercentage=0.8):
         if trainingPercentage > 0 and trainingPercentage < 1:
-            dataSet = MakeDataSetClassifyClassStatus.makeDataSet(dataTextList, labelsList,
-                                                                                        idsList)
+            dataSet = MakeDataSetClassifyClassStatus.makeDataSet(labelsList, dataTextList, idsList)
             shuffle(dataSet)
 
             numTotalEntries = len(dataSet)
@@ -19,7 +18,7 @@ class MakeDataSetClassifyClassStatus(object):
             trainingSet = dataSet[:numTrainingEntries]
             testingSet = dataSet[-numTestingEntries:]
 
-            return [trainingSet, testingSet]
+            return trainingSet, testingSet
         else:
             print('Not a real percentage, please enter a float between 0 and 1.')
             return None
@@ -48,18 +47,23 @@ class MakeDataSetClassifyClassStatus(object):
             trainingSet = fullDataSet[:numTrainingEntries]
             testingSet = fullDataSet[-numTestingEntries:]
 
-            return [trainingSet, testingSet]
+            return trainingSet, testingSet
         else:
             print('Not a real percentage, please enter a float between 0 and 1.')
             return None
 
     @staticmethod
-    def makeDataSet(label, dataTextList, idsList):
+    def makeDataSet(labels, dataTextList, idsList):
         dataSet = []
 
         for i in range(len(dataTextList)):
             dataText = dataTextList[i]
             scholarshipId = idsList[i]
+            label = ''
+            if type(labels) == list:
+                label = labels[i]
+            elif type(labels) == str:
+                label = labels
 
             features = []
 
