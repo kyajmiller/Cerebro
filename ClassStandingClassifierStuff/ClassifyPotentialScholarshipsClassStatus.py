@@ -19,7 +19,8 @@ class ClassifyPotentialScholarshipsClassStatus(object):
                                                                         self.dataTextList,
                                                                         self.potentialScholarshipIdsList)
 
-        self.
+        self.predictedClassStatuses = self.OneVsRestClassifier.getPredictions()
+        self.insertResultsIntoDB()
 
     def getDataTextList(self):
         dataTextList = []
@@ -36,3 +37,6 @@ class ClassifyPotentialScholarshipsClassStatus(object):
             scholarshipIdsList.append(row.PotentialScholarshipId)
 
         return scholarshipIdsList
+
+    def insertResultsIntoDB(self):
+        pass
