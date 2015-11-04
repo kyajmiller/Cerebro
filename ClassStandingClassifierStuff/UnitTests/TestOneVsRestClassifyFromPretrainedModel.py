@@ -1,6 +1,6 @@
 import unittest
-from ClassStandingClassifierStuff.OneVsRestClassifyClassStatusFromPretrainedModel import \
-    OneVsRestClassifyClassStatusFromPretrainedModel
+from ClassStandingClassifierStuff.OneVsRestClassifyFromPretrainedModel import \
+    OneVsRestClassifyFromPretrainedModel
 from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
     GetDatabaseInfoScholarshipsWithClassStatuses
 from Classes.SUDBConnect import SUDBConnect
@@ -15,9 +15,9 @@ class TestStringMethods(unittest.TestCase):
         # run classifier, return results
         pretrainedOVRLRModelFilePath = '..\OneVsRestLRTrainedClassifiers\OneVsRestLRTrainedModel'
         pretrainedOVRLRFeaturesValueCountsIndexesFilePath = '..\OneVsRestLRTrainedClassifiers\OneVsRestLRTrainedFeaturesValueCounts'
-        testClassifier = OneVsRestClassifyClassStatusFromPretrainedModel(pretrainedOVRLRModelFilePath,
-                                                                         pretrainedOVRLRFeaturesValueCountsIndexesFilePath,
-                                                                         dataTextList, idsList)
+        testClassifier = OneVsRestClassifyFromPretrainedModel(pretrainedOVRLRModelFilePath,
+                                                              pretrainedOVRLRFeaturesValueCountsIndexesFilePath,
+                                                              dataTextList, idsList)
         predictions, ids = testClassifier.getPredictionsAndIds()
 
         # insert results into db

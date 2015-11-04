@@ -1,6 +1,6 @@
 from Classes.SUDBConnect import SUDBConnect
-from ClassStandingClassifierStuff.OneVsRestClassifyClassStatusFromPretrainedModel import \
-    OneVsRestClassifyClassStatusFromPretrainedModel
+from ClassStandingClassifierStuff.OneVsRestClassifyFromPretrainedModel import \
+    OneVsRestClassifyFromPretrainedModel
 
 
 class ClassifyPotentialScholarships(object):
@@ -14,10 +14,10 @@ class ClassifyPotentialScholarships(object):
         self.dataTextList = self.getDataTextList()
         self.potentialScholarshipIdsList = self.getScholarshipIdsList()
 
-        self.OneVsRestClassifier = OneVsRestClassifyClassStatusFromPretrainedModel(self.oneVsRestPretrainedModelFile,
-                                                                                   self.oneVsRestPretrainedFeaturesValueCountsFile,
-                                                                                   self.dataTextList,
-                                                                                   self.potentialScholarshipIdsList)
+        self.OneVsRestClassifier = OneVsRestClassifyFromPretrainedModel(self.oneVsRestPretrainedModelFile,
+                                                                        self.oneVsRestPretrainedFeaturesValueCountsFile,
+                                                                        self.dataTextList,
+                                                                        self.potentialScholarshipIdsList)
 
     def getDataTextList(self):
         dataTextList = []

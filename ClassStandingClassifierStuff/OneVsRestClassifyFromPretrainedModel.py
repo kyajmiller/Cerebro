@@ -4,7 +4,7 @@ import numpy
 from ClassStandingClassifierStuff.MakeDataSet import MakeDataSet
 
 
-class OneVsRestClassifyClassStatusFromPretrainedModel(object):
+class OneVsRestClassifyFromPretrainedModel(object):
     def __init__(self, pretrainedModelFile, pretrainedFeatureValueCountsFile, testingDataTextList, testingDataIdsList):
         self.pretrainedModelFile = pretrainedModelFile
         self.pretrainedFeatureValueCountsFile = pretrainedFeatureValueCountsFile
