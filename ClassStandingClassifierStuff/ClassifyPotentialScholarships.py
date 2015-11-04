@@ -12,7 +12,7 @@ class ClassifyPotentialScholarships(object):
         self.oneVsRestPretrainedFeaturesValueCountsFile = 'OneVsRestLRTrainedClassifiers/OneVsRestLRTrainedFeaturesValueCounts'
 
         self.dataTextList = self.getDataTextList()
-        self.potentialScholarshipIdsList = self.getScholarshipIds()
+        self.potentialScholarshipIdsList = self.getScholarshipIdsList()
 
     def getDataTextList(self):
         dataTextList = []
@@ -22,5 +22,10 @@ class ClassifyPotentialScholarships(object):
 
         return dataTextList
 
-    def getScholarshipIds(self):
-        pass
+    def getScholarshipIdsList(self):
+        scholarshipIdsList = []
+
+        for row in self.rows:
+            scholarshipIdsList.append(row.PotentialScholarshipId)
+
+        return scholarshipIdsList
