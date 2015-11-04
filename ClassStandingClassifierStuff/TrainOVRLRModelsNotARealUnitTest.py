@@ -1,6 +1,6 @@
 import unittest
-from ClassStandingClassifierStuff.OneVsRestClassifyClassStatusPreviouslyUntrained import \
-    OneVsRestClassifyClassStatusPreviouslyUntrained
+from ClassStandingClassifierStuff.OneVsRestClassifyPreviouslyUntrained import \
+    OneVsRestClassifyPreviouslyUntrained
 from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
     GetDatabaseInfoScholarshipsWithClassStatuses
 
@@ -20,8 +20,8 @@ class TestStringMethods(unittest.TestCase):
         dataTextList = GetDatabaseInfoScholarshipsWithClassStatuses().getConcatenatedDescriptionsEligibilities()
         labelsList = GetDatabaseInfoScholarshipsWithClassStatuses().getRequirementNeededList()
         idsList = GetDatabaseInfoScholarshipsWithClassStatuses().getScholarshipsWithClassStatusIdsList()
-        testClassify = OneVsRestClassifyClassStatusPreviouslyUntrained(dataTextList, labelsList, idsList,
-                                                                       trainingPercentage=0.99)
+        testClassify = OneVsRestClassifyPreviouslyUntrained(dataTextList, labelsList, idsList,
+                                                            trainingPercentage=0.99)
         testClassify.trainAndSaveOVRModel(modelSaveFile, featuresValueCountsSaveFile)
 
 

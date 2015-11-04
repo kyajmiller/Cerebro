@@ -7,7 +7,7 @@ from sklearn.linear_model import LogisticRegression
 from ClassStandingClassifierStuff.MakeDataSet import MakeDataSet
 
 
-class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
+class OneVsRestClassifyPreviouslyUntrained(object):
     def __init__(self, dataTextList, labelsList, idsList, trainingPercentage=0.8):
         self.dataTextList = dataTextList
         self.labelsList = labelsList

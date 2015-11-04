@@ -1,6 +1,6 @@
 import unittest
-from ClassStandingClassifierStuff.OneVsRestClassifyClassStatusPreviouslyUntrained import \
-    OneVsRestClassifyClassStatusPreviouslyUntrained
+from ClassStandingClassifierStuff.OneVsRestClassifyPreviouslyUntrained import \
+    OneVsRestClassifyPreviouslyUntrained
 from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
     GetDatabaseInfoScholarshipsWithClassStatuses
 
@@ -10,16 +10,16 @@ class TestStringMethods(unittest.TestCase):
         dataTextList = GetDatabaseInfoScholarshipsWithClassStatuses().getConcatenatedDescriptionsEligibilities()
         labelsList = GetDatabaseInfoScholarshipsWithClassStatuses().getRequirementNeededList()
         idsList = GetDatabaseInfoScholarshipsWithClassStatuses().getScholarshipsWithClassStatusIdsList()
-        testClassify = OneVsRestClassifyClassStatusPreviouslyUntrained(dataTextList, labelsList, idsList,
-                                                                       trainingPercentage=0.8)
+        testClassify = OneVsRestClassifyPreviouslyUntrained(dataTextList, labelsList, idsList,
+                                                            trainingPercentage=0.8)
         testClassify.trainTestAndDisplayResults()
 
     def test_makeSureTheLabelsListIsAListOfListsOfStrings(self):
         dataTextList = GetDatabaseInfoScholarshipsWithClassStatuses().getConcatenatedDescriptionsEligibilities()
         labelsList = GetDatabaseInfoScholarshipsWithClassStatuses().getRequirementNeededList()
         idsList = GetDatabaseInfoScholarshipsWithClassStatuses().getScholarshipsWithClassStatusIdsList()
-        testClassify = OneVsRestClassifyClassStatusPreviouslyUntrained(dataTextList, labelsList, idsList,
-                                                                       trainingPercentage=0.8)
+        testClassify = OneVsRestClassifyPreviouslyUntrained(dataTextList, labelsList, idsList,
+                                                            trainingPercentage=0.8)
 
         trainingSet = testClassify.trainingSet
         trainingLabels = [training['label'] for training in trainingSet]
