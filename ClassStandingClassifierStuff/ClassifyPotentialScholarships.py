@@ -14,6 +14,11 @@ class ClassifyPotentialScholarships(object):
         self.dataTextList = self.getDataTextList()
         self.potentialScholarshipIdsList = self.getScholarshipIdsList()
 
+        self.OneVsRestClassifier = OneVsRestClassifyClassStatusFromPretrainedModel(self.oneVsRestPretrainedModelFile,
+                                                                                   self.oneVsRestPretrainedFeaturesValueCountsFile,
+                                                                                   self.dataTextList,
+                                                                                   self.potentialScholarshipIdsList)
+
     def getDataTextList(self):
         dataTextList = []
 
