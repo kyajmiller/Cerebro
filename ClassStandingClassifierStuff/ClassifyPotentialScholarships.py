@@ -6,14 +6,21 @@ from ClassStandingClassifierStuff.OneVsRestClassifyClassStatusFromPretrainedMode
 class ClassifyPotentialScholarships(object):
     def __init__(self):
         self.db = SUDBConnect()
+        self.rows = self.db.getRows("select * from dbo.ClassifiedPotentialScholarships")
+
         self.oneVsRestPretrainedModelFile = 'OneVsRestLRTrainedClassifiers/OneVsRestLRTrainedModel'
         self.oneVsRestPretrainedFeaturesValueCountsFile = 'OneVsRestLRTrainedClassifiers/OneVsRestLRTrainedFeaturesValueCounts'
 
-        self.dataTextList = self.getDataText()
+        self.dataTextList = self.getDataTextList()
         self.potentialScholarshipIdsList = self.getScholarshipIds()
 
-    def getDataText(self):
-        pass
+    def getDataTextList(self):
+        dataTextList = []
+
+        for row in self.rows:
+            dataTextList.append(row.Description)
+
+        return dataTextList
 
     def getScholarshipIds(self):
         pass
