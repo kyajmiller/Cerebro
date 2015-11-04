@@ -3,7 +3,7 @@ from ClassStandingClassifierStuff.OneVsRestClassifyFromPretrainedModel import \
     OneVsRestClassifyFromPretrainedModel
 
 
-class ClassifyPotentialScholarships(object):
+class ClassifyPotentialScholarshipsClassStatus(object):
     def __init__(self):
         self.db = SUDBConnect()
         self.rows = self.db.getRows("select * from dbo.ClassifiedPotentialScholarships")
@@ -18,6 +18,8 @@ class ClassifyPotentialScholarships(object):
                                                                         self.oneVsRestPretrainedFeaturesValueCountsFile,
                                                                         self.dataTextList,
                                                                         self.potentialScholarshipIdsList)
+
+        self.
 
     def getDataTextList(self):
         dataTextList = []
