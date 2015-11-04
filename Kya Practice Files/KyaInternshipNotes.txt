@@ -1832,3 +1832,18 @@ each individual label had an 85% accuracy and that the issues came from matching
     -While the OVR classifier has an overall better accuracy, I'm not sure about the individual labels
 -Training has been finished for the OVRLR classifier, will try testing both now
 -Wrote a class to import the pretrained classifier and do the classification, should work although untested
+
+11/4 Notes:
+-When don-E gets in, will need to ask what db Rahul moved all of the potentials to so I can know where to pull from for the classifier
+-So goal for today: run the classifier over all the things.
+-Okay, so the table is in Scholarship Universe; table name = ScholarshipUniverse.dbo.PotentialScholarships
+-Going to make another table within Spiderman that will hold the classifier information; import the PotentialScholarshipId and Description, put those in
+the new db with the classifier stuff
+-Might be able to finally try and make the table; this worked, imported the scholarship id and the descriptions from the original table
+-Now time to make class ClassifyPotentialScholarships and run the classifier
+-Made the class, time to run
+-lol I broke compy. Too much data for it, it can't do it
+    -Going to try splitting up the data to run in parts, starting with halves, but I have a feeling that will still be too big; will try
+    quarters next
+-All of the grant forward stuff died. I am sad now.
+-Splitting everything into halves seems to have solved the previous problem. Forgot to convert the tuples into strings but it's okay
