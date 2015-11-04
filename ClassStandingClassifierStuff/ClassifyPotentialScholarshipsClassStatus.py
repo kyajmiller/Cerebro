@@ -39,4 +39,6 @@ class ClassifyPotentialScholarshipsClassStatus(object):
         return scholarshipIdsList
 
     def insertResultsIntoDB(self):
-        pass
+        for prediction, potentialScholarshipId in zip(self.predictedClassStatuses, self.potentialScholarshipIdsList):
+            self.db.insertUpdateOrDelete(
+                "update dbo.ClassifiedPotentialScholarships set ClassStatusPrediction='" + prediction + "' where PotentialScholarshipId='" + potentialScholarshipId + "'")
