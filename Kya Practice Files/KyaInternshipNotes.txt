@@ -1793,3 +1793,42 @@ external link: "//a[@class='action-button visit-site']" .href
     the makeDataSet function correctly - the arguments for the dataTextList and the labelsList were mixed up.
     should be fixed now
 -Now having issues with immutable types. For some reason it's throwing a type error over the format of my labels, so I'll need to figure out how to fix this.
+
+
+11/2 Notes:
+-I really need to figure out how to format my list of labels for each training instance, otherwise fucked.
+-In the original example given, the make_multilabel thing, the Ys are given as a list of lists. Need to check more into that.
+-Confirmed that it's a list of lists. Why is the thing being bad then?
+-Did a test fitting, worked okay.... so... bleh
+-Okay, so made a list of fakeYs, was a list of lists, thing didn't give me any problems, so that means that my original formatting is all fucky somewhere
+-I DON'T KNOW WHY IT'S STILL BEING BAD
+-CLEARLY THE DATABASE IS FINE, SO THERE'S SOMETHING WRONG SOMEWHERE ELSE.
+-WTF
+-So something went really horribly wrong somewhere lol. For whatever reason, every training label is in fact the entire list of list of all the labels.
+-This thing needs Jesus.
+-I need to figure out what the hell is passing all of the damn labels list as each individual label. Probably somewhere in the MakeDataSet class
+    -Can confirm, something is bad here
+    -Turned out that my makeDataSet function is kinda shitty, was intended to work with both lists of label and a single label string but was
+    just passing the entire label argument as the label, made sure to add in a check for whether that argument is a list or a string and
+    pass stuff appropriately
+-IT SHOULD FINALLY WORK NOW
+-PLS WORK
+-Okay, so now that the labels thing is fixed, it looks like it doesn't seem to have any problems with training...
+    -Now just need to see what is up with the testing. It's giving me a pandas error for the predictions, so I'm not sure if they're just not
+    matching up right (if it's off by one) or if something else is wrong
+    -turns out it was making the testing vectors of the training set instead of the testing set, simple fix
+-The entire thing works, first run through (with 80% of the data as training) gave an accuracy of only 22%
+-That's not horrible, because it's still an increase over the other ensemble classifier, but at least for the other one I could say that
+each individual label had an 85% accuracy and that the issues came from matching lists.
+-I don't know the accuracy for the individual labels under the OVR classifier.
+-one major thing the OVR classifier has going for it is that it is infinitely faster. Like WAY faster.
+-Another thing about the OVR classifier is that it could just be straight up suffering from a lack of training. 3000 samples is really nothing.
+    -When I increased the training set size to 99%, increased overall accuracy to 28%. This could either be due to
+    an increased amount of training having a good effect, or the size of the testing set is smaller too so less room for mistakes.
+    -It's definitely the latter. 1% of the total set is only like 20 items.
+    -Tried running it again on 95%. While there was a slight decrease in accuracy (expected), I was able to look over the results and found some correlations
+    -Works best on single labels; works alright on labels that are often clustered together.
+    -Going to save a training file on the OVR classifier, then run both classifiers over the entire dataset and compare results
+    -While the OVR classifier has an overall better accuracy, I'm not sure about the individual labels
+-Training has been finished for the OVRLR classifier, will try testing both now
+-Wrote a class to import the pretrained classifier and do the classification, should work although untested
