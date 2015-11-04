@@ -55,3 +55,4 @@ class ClassifyPotentialScholarshipsClassStatus(object):
 
 
 ClassifyPotentialScholarshipsClassStatus(1)
+ClassifyPotentialScholarshipsClassStatus(2)
