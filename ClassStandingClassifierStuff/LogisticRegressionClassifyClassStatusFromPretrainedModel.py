@@ -1,7 +1,7 @@
 import pandas
 import pickle
 import numpy
-from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
+from ClassStandingClassifierStuff.MakeDataSet import MakeDataSet
 
 
 class LogisticRegressionClassifyClassStatusFromPretrainedModel(object):
@@ -12,8 +12,8 @@ class LogisticRegressionClassifyClassStatusFromPretrainedModel(object):
         self.testingDataTextList = testingDataTextList
         self.testingDataIdsList = testingDataIdsList
 
-        self.testing = MakeDataSetClassifyClassStatus.makeDataSet(labels='', dataTextList=self.testingDataTextList,
-                                                                  idsList=self.testingDataIdsList)
+        self.testing = MakeDataSet.makeDataSet(labels='', dataTextList=self.testingDataTextList,
+                                               idsList=self.testingDataIdsList)
 
         self.dataFrame = self.makeDataFrame()
 

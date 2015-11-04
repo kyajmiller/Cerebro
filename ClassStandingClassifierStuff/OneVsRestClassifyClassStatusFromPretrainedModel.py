@@ -1,7 +1,7 @@
 import pandas
 import pickle
 import numpy
-from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
+from ClassStandingClassifierStuff.MakeDataSet import MakeDataSet
 
 
 class OneVsRestClassifyClassStatusFromPretrainedModel(object):
@@ -11,8 +11,8 @@ class OneVsRestClassifyClassStatusFromPretrainedModel(object):
         self.testingDataTextList = testingDataTextList
         self.testingDataIdsList = testingDataIdsList
 
-        self.testingSet = MakeDataSetClassifyClassStatus.makeDataSet(labels='', dataTextList=self.testingDataTextList,
-                                                                      idsList=self.testingDataIdsList)
+        self.testingSet = MakeDataSet.makeDataSet(labels='', dataTextList=self.testingDataTextList,
+                                                  idsList=self.testingDataIdsList)
 
         self.dataFrame = self.makeDataFrame()
 

@@ -4,7 +4,7 @@ import itertools
 import pickle
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.linear_model import LogisticRegression
-from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
+from ClassStandingClassifierStuff.MakeDataSet import MakeDataSet
 
 
 class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
@@ -14,7 +14,7 @@ class OneVsRestClassifyClassStatusPreviouslyUntrained(object):
         self.idsList = idsList
         self.trainingPercentage = trainingPercentage
 
-        self.trainingSet, self.testingSet = MakeDataSetClassifyClassStatus.makeMultilabelTrainingAndTestingSet(
+        self.trainingSet, self.testingSet = MakeDataSet.makeMultilabelTrainingAndTestingSet(
             self.dataTextList, self.labelsList, self.idsList, self.trainingPercentage)
 
         self.dataFrame = self.makeDataFrame()

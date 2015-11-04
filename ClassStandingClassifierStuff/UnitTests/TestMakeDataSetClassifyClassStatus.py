@@ -1,6 +1,6 @@
 import unittest
 import math
-from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
+from ClassStandingClassifierStuff.MakeDataSet import MakeDataSet
 from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
     GetDatabaseInfoScholarshipsWithClassStatuses
 
@@ -18,7 +18,7 @@ class TestStringMethods(unittest.TestCase):
         badClassStatusDataTextList = badClassStatusDB.getConcatenatedDescriptionsEligibilities()
 
         trainingPercentage = 0.9
-        trainingSetAndTestingSet = MakeDataSetClassifyClassStatus.makeBinaryLabelTrainingAndTestingSet(
+        trainingSetAndTestingSet = MakeDataSet.makeBinaryLabelTrainingAndTestingSet(
             firstLabel=desiredClassStatus, secondLabel='Other', firstLabelTextList=goodClassStatusDataTextList,
             secondLabelTextList=badClassStatusDataTextList, firstLabelIdsList=goodClassStatusIds,
             secondLabelIdsList=badClassStatusIds, trainingPercentage=trainingPercentage)
@@ -40,7 +40,7 @@ class TestStringMethods(unittest.TestCase):
         badClassStatusDataTextList = badClassStatusDB.getConcatenatedDescriptionsEligibilities()
 
         trainingPercentage = 2
-        trainingSetAndTestingSet = MakeDataSetClassifyClassStatus.makeBinaryLabelTrainingAndTestingSet(
+        trainingSetAndTestingSet = MakeDataSet.makeBinaryLabelTrainingAndTestingSet(
             firstLabel=desiredClassStatus, secondLabel='Other', firstLabelTextList=goodClassStatusDataTextList,
             secondLabelTextList=badClassStatusDataTextList, firstLabelIdsList=goodClassStatusIds,
             secondLabelIdsList=badClassStatusIds, trainingPercentage=trainingPercentage)
@@ -53,10 +53,10 @@ class TestStringMethods(unittest.TestCase):
         idsList = GetDatabaseInfoScholarshipsWithClassStatuses().getScholarshipsWithClassStatusIdsList()
         trainingPercentage = 0.9
 
-        trainingSet, testingSet = MakeDataSetClassifyClassStatus.makeMultilabelTrainingAndTestingSet(dataTextList,
-                                                                                                     labelsList,
-                                                                                                     idsList,
-                                                                                                     trainingPercentage)
+        trainingSet, testingSet = MakeDataSet.makeMultilabelTrainingAndTestingSet(dataTextList,
+                                                                                  labelsList,
+                                                                                  idsList,
+                                                                                  trainingPercentage)
         totalSetSize = len(trainingSet) + len(testingSet)
 
         self.assertEqual(math.ceil(totalSetSize * trainingPercentage), len(trainingSet))
@@ -67,10 +67,10 @@ class TestStringMethods(unittest.TestCase):
         idsList = GetDatabaseInfoScholarshipsWithClassStatuses().getScholarshipsWithClassStatusIdsList()
         trainingPercentage = 0.9
 
-        trainingSet, testingSet = MakeDataSetClassifyClassStatus.makeMultilabelTrainingAndTestingSet(dataTextList,
-                                                                                                     labelsList,
-                                                                                                     idsList,
-                                                                                                     trainingPercentage)
+        trainingSet, testingSet = MakeDataSet.makeMultilabelTrainingAndTestingSet(dataTextList,
+                                                                                  labelsList,
+                                                                                  idsList,
+                                                                                  trainingPercentage)
 
         trainingLabels = [trainingInstance['label'] for trainingInstance in trainingSet]
         self.assertEqual(type(trainingLabels[1]), list)

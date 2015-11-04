@@ -3,7 +3,7 @@ import itertools
 import numpy
 import pickle
 from sklearn.linear_model import LogisticRegression
-from ClassStandingClassifierStuff.MakeDataSetClassifyClassStatus import MakeDataSetClassifyClassStatus
+from ClassStandingClassifierStuff.MakeDataSet import MakeDataSet
 from ClassStandingClassifierStuff.GetDatabaseInfoScholarshipsWithClassStatuses import \
     GetDatabaseInfoScholarshipsWithClassStatuses
 
@@ -25,7 +25,7 @@ class LogisticRegressionClassifyClassStatusFromPreviouslyUntrainedModel(object):
         badClassStatusIds = badClassStatusDB.getScholarshipsWithClassStatusIdsList()
         badClassStatusDataTextList = badClassStatusDB.getConcatenatedDescriptionsEligibilities()
 
-        trainingTestingList = MakeDataSetClassifyClassStatus.makeBinaryLabelTrainingAndTestingSet(
+        trainingTestingList = MakeDataSet.makeBinaryLabelTrainingAndTestingSet(
             firstLabel=self.classStatus, secondLabel=self.badLabel, firstLabelTextList=goodClassStatusDataTextList,
             secondLabelTextList=badClassStatusDataTextList, firstLabelIdsList=goodClassStatusIds,
             secondLabelIdsList=badClassStatusIds, trainingPercentage=0.8)

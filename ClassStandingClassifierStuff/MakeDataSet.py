@@ -4,11 +4,11 @@ from random import shuffle
 import math
 
 
-class MakeDataSetClassifyClassStatus(object):
+class MakeDataSet(object):
     @staticmethod
     def makeMultilabelTrainingAndTestingSet(dataTextList, labelsList, idsList, trainingPercentage=0.8):
         if trainingPercentage > 0 and trainingPercentage < 1:
-            dataSet = MakeDataSetClassifyClassStatus.makeDataSet(labelsList, dataTextList, idsList)
+            dataSet = MakeDataSet.makeDataSet(labelsList, dataTextList, idsList)
             shuffle(dataSet)
 
             numTotalEntries = len(dataSet)
@@ -28,10 +28,10 @@ class MakeDataSetClassifyClassStatus(object):
                                              firstLabelIdsList, secondLabelIdsList, trainingPercentage=0.8):
         if trainingPercentage > 0 and trainingPercentage < 1:
             fullDataSet = []
-            firstLabelDataset = MakeDataSetClassifyClassStatus.makeDataSet(firstLabel, firstLabelTextList,
-                                                                                    firstLabelIdsList)
-            secondLabelDataset = MakeDataSetClassifyClassStatus.makeDataSet(secondLabel, secondLabelTextList,
-                                                                                     secondLabelIdsList)
+            firstLabelDataset = MakeDataSet.makeDataSet(firstLabel, firstLabelTextList,
+                                                        firstLabelIdsList)
+            secondLabelDataset = MakeDataSet.makeDataSet(secondLabel, secondLabelTextList,
+                                                         secondLabelIdsList)
 
             for dataLine in firstLabelDataset:
                 fullDataSet.append(dataLine)
@@ -67,8 +67,8 @@ class MakeDataSetClassifyClassStatus(object):
 
             features = []
 
-            ngramsList = MakeDataSetClassifyClassStatus.getNgrams(dataText, getUnigrams=True, getBigrams=True,
-                                                                           getTrigrams=False)
+            ngramsList = MakeDataSet.getNgrams(dataText, getUnigrams=True, getBigrams=True,
+                                               getTrigrams=False)
             unigrams = ngramsList[0]
             bigrams = ngramsList[1]
 
