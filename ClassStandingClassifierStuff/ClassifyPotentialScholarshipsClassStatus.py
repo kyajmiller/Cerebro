@@ -52,7 +52,8 @@ class ClassifyPotentialScholarshipsClassStatus(object):
         for prediction, potentialScholarshipId in zip(self.predictedClassStatuses, self.potentialScholarshipIdsList):
             prediction = ', '.join(prediction)
             self.db.insertUpdateOrDelete(
-                "update dbo.ClassifiedPotentialScholarships set ClassStatusPrediction='" + prediction + "' where PotentialScholarshipId='" + potentialScholarshipId + "'")
+                "update dbo.ClassifiedPotentialScholarships set ClassStatusPrediction='" + prediction + "' where PotentialScholarshipId='" + str(
+                    potentialScholarshipId) + "'")
 
 
 ClassifyPotentialScholarshipsClassStatus(1)
