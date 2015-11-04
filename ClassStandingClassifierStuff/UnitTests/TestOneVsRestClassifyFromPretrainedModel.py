@@ -18,11 +18,11 @@ class TestStringMethods(unittest.TestCase):
         testClassifier = OneVsRestClassifyFromPretrainedModel(pretrainedOVRLRModelFilePath,
                                                               pretrainedOVRLRFeaturesValueCountsIndexesFilePath,
                                                               dataTextList, idsList)
-        predictions, ids = testClassifier.getPredictionsAndIds()
+        predictions = testClassifier.getPredictions()
 
         # insert results into db
         db = SUDBConnect()
-        for scholarshipWithClassStatusID, prediction in zip(ids, predictions):
+        for scholarshipWithClassStatusID, prediction in zip(idsList, predictions):
             prediction = ', '.join(prediction)
             db.insertUpdateOrDelete(
                 "update dbo.ScholarshipsWithClassStatuses set OneVsRestClassifierPrediction='" + prediction + "' where ScholarshipsWithClassStatusId = '" + str(
