@@ -20,6 +20,7 @@ CREATE TABLE [dbo].[IefaLeadsTrainingItems]
 [BadScholarship] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [NormalTestPredictedTag] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 [SponsorTestPredictedTag] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-[InfoTestPredictedTag] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+[InfoTestPredictedTag] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+[InfoText] [nvarchar] (max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
