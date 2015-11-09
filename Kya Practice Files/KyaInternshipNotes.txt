@@ -1847,3 +1847,14 @@ the new db with the classifier stuff
     quarters next
 -All of the grant forward stuff died. I am sad now.
 -Splitting everything into halves seems to have solved the previous problem. Forgot to convert the tuples into strings but it's okay
+
+11/9 Notes:
+-Not really sure what to do today, for once
+-Will start out by checking the status of the stuff I tried classifying last time
+-Then ask don-E what to try next.
+-Oooookay it looks like nothing got saved last time, so will have to rerun the classifier. Not sure if stuff didn't get saved because
+it didn't go through, or if I didn't tell it to save it... from the looks of it, it just might not have gone through, because it should be calling
+the save function. Will have to wait and see.
+-Okay, it seems to be working nowish.
+-Interestingly enough, the default classification seems to be Senior. When all else fails, it just defaults to Senior. Will have to clean that up a bit
+-When don-E comes back from wherever he went, ask what to do next
