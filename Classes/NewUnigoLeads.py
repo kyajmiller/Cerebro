@@ -11,6 +11,7 @@ class UnigoLeads(object):
         self.driver.implicitly_wait(2)
 
         self.logIn()
+        self.expandSeeMore()
 
         self.unigoLeadsArray = []
 
@@ -31,6 +32,20 @@ class UnigoLeads(object):
             self.driver.find_element_by_name('Password').send_keys('sasgcoders626')
             self.driver.find_element_by_css_selector('button.button.action').click()
             self.driver.implicitly_wait(2)
+
+    def expandSeeMore(self):
+        if self.checkIfSeeMoreButtonExists():
+            seeMoreButtonExistence = True
+            while seeMoreButtonExistence:
+                self.driver.find_element_by_xpath("//a[@data-bind='click: showMoreScholarships']").click()
+                seeMoreButtonExistence = self.checkIfSeeMoreButtonExists()
+
+    def checkIfSeeMoreButtonExists(self):
+        seeMoreButton = self.driver.find_elements_by_xpath("//a[@data-bind='click: showMoreScholarships']")
+        if seeMoreButton != []:
+            return True
+        else:
+            return False
 
 
 UnigoLeads()
