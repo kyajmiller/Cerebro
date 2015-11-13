@@ -11,9 +11,20 @@ class UnigoLeads(object):
         self.driver.implicitly_wait(2)
 
         self.logIn()
-        self.expandSeeMore()
+        self.getLeads()
 
         self.unigoLeadsArray = []
+
+    def getLeads(self):
+        self.expandSeeMore()
+        self.driver.implicitly_wait(2)
+
+        arrayOfAmountObjects = self.driver.find_elements_by_xpath(
+            "//div[@class='amount']/span[@data-bind='text: Aequitas.toCurrency(DollarAmount)']")
+        arrayOfTitleObjects = self.driver.find_elements_by_xpath(
+            "//h4[@data-bind='text: $parent.resultLayout ? shortTitle : Title']")
+        arrayOfDeadlineObjects = self.driver.find_elements_by_xpath(
+            "//h4[@data-bind='text: $parent.resultLayout ? shortTitle : Title']")
 
     def logIn(self):
         if self.driver.find_elements_by_link_text('Log in'):
