@@ -7,7 +7,7 @@ from Classes.ProcessFastWebLeads import ProcessFastWebLeads
 from Classes.ProcessCollegeGreenLightLeads import ProcessCollegeGreenLightLeads
 from Classes.ProcessCheggLeads import ProcessCheggLeads
 
-ProcessScholarsiteLeads.getScholarsiteLeadsAndInsertIntoDB()
+# ProcessScholarsiteLeads.getScholarsiteLeadsAndInsertIntoDB()
 ProcessScholarships360Leads.getScholarships360LeadsAndInsertIntoDatabase()
 ProcessIefaLeads.getIefaLeadsAndInsertIntoDB()
 ProcessGoodCallLeads.getGoodCallLeadsAndInsertIntoDB()
