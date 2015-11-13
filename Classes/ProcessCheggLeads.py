@@ -9,5 +9,4 @@ class ProcessCheggLeads(object):
         for leadArray in cheggLeadsArrays:
             InsertCheggLeadArrayIntoCheggLeadsDB(leadArray)
 
-
-ProcessCheggLeads.getCheggLeadsAndInsertIntoDB()
+# ProcessCheggLeads.getCheggLeadsAndInsertIntoDB()
