@@ -12,6 +12,8 @@ class UnigoLeads(object):
 
         self.logIn()
 
+        self.unigoLeadsArray = []
+
     def logIn(self):
         if self.driver.find_elements_by_link_text('Log in'):
             self.driver.find_element_by_link_text('Log in').click()
