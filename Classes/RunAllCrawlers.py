@@ -1,0 +1,17 @@
+from Classes.ProcessScholarsiteLeads import ProcessScholarsiteLeads
+from Classes.ProcessScholarships360Leads import ProcessScholarships360Leads
+from Classes.ProcessIefaLeads import ProcessIefaLeads
+from Classes.ProcessGoodCallLeads import ProcessGoodCallLeads
+from Classes.ProcessFatomeiLeads import ProcessFatomeiLeads
+from Classes.ProcessFastWebLeads import ProcessFastWebLeads
+from Classes.ProcessCollegeGreenLightLeads import ProcessCollegeGreenLightLeads
+from Classes.ProcessCheggLeads import ProcessCheggLeads
+
+ProcessScholarsiteLeads.getScholarsiteLeadsAndInsertIntoDB()
+ProcessScholarships360Leads.getScholarships360LeadsAndInsertIntoDatabase()
+ProcessIefaLeads.getIefaLeadsAndInsertIntoDB()
+ProcessGoodCallLeads.getGoodCallLeadsAndInsertIntoDB()
+ProcessFatomeiLeads.getFatomeiLeadsAndInsertIntoDB()
+ProcessFastWebLeads.getFastWebLeadsAndInsertIntoDB()
+ProcessCollegeGreenLightLeads.getCollegeGreenLightLeadsAndInsertIntoDB()
+ProcessCheggLeads.getCheggLeadsAndInsertIntoDB()
