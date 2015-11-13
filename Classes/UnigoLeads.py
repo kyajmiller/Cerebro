@@ -29,9 +29,6 @@ class UnigoLeads(object):
         arrayOfDeadlineObjects = self.driver.find_elements_by_xpath(
             "//h4[@data-bind='text: $parent.resultLayout ? shortTitle : Title']")
 
-        arrayOfClickResultObjects = self.driver.find_elements_by_xpath(
-            "//a[@data-bind='click: function(scholarship, event) { $parent.showScholarshipDetail(scholarship, event) }']")
-
         titlesList = self.getTitlesList(arrayOfTitleObjects)
         amountsList = self.getAmountsList(arrayOfAmountObjects)
         deadlinesList = self.getDeadlinesList(arrayOfDeadlineObjects)
