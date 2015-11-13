@@ -1858,3 +1858,14 @@ the save function. Will have to wait and see.
 -Okay, it seems to be working nowish.
 -Interestingly enough, the default classification seems to be Senior. When all else fails, it just defaults to Senior. Will have to clean that up a bit
 -When don-E comes back from wherever he went, ask what to do next
+
+11/13 Notes:
+-I really really hate being sick
+-wait for don-E to come in, figure out what major thing to do next
+-In the meantime, check to see if there are any webscrapers that need to be built
+-Need to rewrite unigoLeads class, they changed the website!
+-having a lot of problems getting it to expand all of the things and then get the leads. It's trying to do both at the same time, which
+ends up making it not expand out all of the scholarships so it only grabs the stuff on the first page. Its really stupid.
+-Okay, there's something really up with unigo. Dunno why it's being bad but it's being bad. They might have put something on their site that is
+blocking my webscraper
+-Made a class to run all the webcrawlers while I'm gone. Godspeed, VPN. Godspeed.
