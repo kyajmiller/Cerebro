@@ -9,5 +9,4 @@ class ProcessIefaLeads(object):
         for leadArray in iefaLeadsArrays:
             InsertIefaLeadArrayIntoIefaLeadsDB(leadArray)
 
-
-ProcessIefaLeads.getIefaLeadsAndInsertIntoDB()
+# ProcessIefaLeads.getIefaLeadsAndInsertIntoDB()
