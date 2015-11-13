@@ -9,5 +9,4 @@ class ProcessScholarsiteLeads(object):
         for leadArray in scholarsiteLeadsArrays:
             InsertScholarsiteLeadsArrayIntoScholarsiteLeadsDB(leadArray)
 
-
-ProcessScholarsiteLeads.getScholarsiteLeadsAndInsertIntoDB()
+# ProcessScholarsiteLeads.getScholarsiteLeadsAndInsertIntoDB()
