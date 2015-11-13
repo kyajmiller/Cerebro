@@ -145,4 +145,3 @@ class UnigoLeads(object):
             return False
 
 
-UnigoLeads()
