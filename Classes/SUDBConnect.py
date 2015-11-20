@@ -2,7 +2,8 @@ import pyodbc
 
 
 class SUDBConnect(object):
-    def __init__(self, server='SUDB-DEV', database='Spiderman', destination='database'):
+    def __init__(self, server='SUDB-DEV', database='Spiderman', destination='database',
+                 filesystemPath='C:\crawlyjones'):
         self.destination = destination
         self.server = server
         self.database = database
