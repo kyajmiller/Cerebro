@@ -1869,3 +1869,15 @@ ends up making it not expand out all of the scholarships so it only grabs the st
 -Okay, there's something really up with unigo. Dunno why it's being bad but it's being bad. They might have put something on their site that is
 blocking my webscraper
 -Made a class to run all the webcrawlers while I'm gone. Godspeed, VPN. Godspeed.
+
+11/20 Notes:
+-Got some ideas from don-E about how I could improve my classifier.
+-Some short term goals:
+    -update the db insert class to allow an option to write to disk instead of inserting into db
+    "Update the module that inserts sql into the database to also allow you to write it to disk.
+    The file should be named with the site(or abbreviation) and/or date of some sort.
+    You can do this by adding an option parameter saying desitination=database and then also do filesystem, maybe eventually to the web!
+    If filesystem is chosen will need to provide a path also (make the default c:\crawlyjones)
+    The file format should have a header row which tells the names of the parameters
+    The fields should be delimitead by asci character 1 and the last field should be character asci character 2.
+    Thus we should be able to go to a folder and slurp up all the files into 1 big file with all of the rows."
