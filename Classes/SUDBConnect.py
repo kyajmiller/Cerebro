@@ -8,25 +8,26 @@ class SUDBConnect(object):
         self.destination = destination
         self.server = server
         self.database = database
-        self.okayToRun = False
+        self.okayToRunDatabase = False
+        self.okayToRunFilesystem = False
 
         if self.destination == 'database':
             connectionString = r'Driver={SQL Server};Server=%s;Database=%s;Trusted_Connection=yes;' % (
                 self.server, self.database)
             self.cnxn = pyodbc.connect(connectionString)
-            self.okayToRun = True
+            self.okayToRunDatabase = True
         elif self.destination == 'filesystem' and self.filesystemPath != 'C:\crawlyjones':
-            self.okayToRun = True
+            self.okayToRunFilesystem = True
 
     def getRows(self, sql):
-        if self.okayToRun:
+        if self.okayToRunDatabase:
             cursor = self.cnxn.cursor()
             cursor.execute(sql)
             rows = cursor.fetchall()
             return rows
 
     def insertUpdateOrDelete(self, sql):
-        if self.okayToRun:
+        if self.okayToRunDatabase:
             cursor = self.cnxn.cursor()
             cursor.execute(sql)
             cursor.commit()
