@@ -2,7 +2,8 @@ import pyodbc
 
 
 class SUDBConnect(object):
-    def __init__(self, server='SUDB-DEV', database='Spiderman'):
+    def __init__(self, server='SUDB-DEV', database='Spiderman', destination='database'):
+        self.destination = destination
         self.server = server
         self.database = database
         connectionString = r'Driver={SQL Server};Server=%s;Database=%s;Trusted_Connection=yes;' % (
