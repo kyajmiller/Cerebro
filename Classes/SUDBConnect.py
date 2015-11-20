@@ -19,16 +19,18 @@ class SUDBConnect(object):
             self.okayToRun = True
 
     def getRows(self, sql):
-        cursor = self.cnxn.cursor()
-        cursor.execute(sql)
-        rows = cursor.fetchall()
-        return rows
+        if self.okayToRun:
+            cursor = self.cnxn.cursor()
+            cursor.execute(sql)
+            rows = cursor.fetchall()
+            return rows
 
     def insertUpdateOrDelete(self, sql):
-        cursor = self.cnxn.cursor()
-        cursor.execute(sql)
-        cursor.commit()
-        pass
+        if self.okayToRun:
+            cursor = self.cnxn.cursor()
+            cursor.execute(sql)
+            cursor.commit()
+            pass
 
     def getAllTestCases(self):
         return self.getRows("Select * from DepartmentTestCases")
