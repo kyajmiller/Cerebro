@@ -1,5 +1,6 @@
 import pyodbc
 
+
 class SUDBConnect(object):
     def __init__(self, server='SUDB-DEV', database='Spiderman'):
         self.server = server
