@@ -4,12 +4,19 @@ import pyodbc
 class SUDBConnect(object):
     def __init__(self, server='SUDB-DEV', database='Spiderman', destination='database',
                  filesystemPath='C:\crawlyjones'):
+        self.filesystemPath = filesystemPath
         self.destination = destination
         self.server = server
         self.database = database
-        connectionString = r'Driver={SQL Server};Server=%s;Database=%s;Trusted_Connection=yes;' % (
-            self.server, self.database)
-        self.cnxn = pyodbc.connect(connectionString)
+        self.okayToRun = False
+
+        if self.destination == 'database':
+            connectionString = r'Driver={SQL Server};Server=%s;Database=%s;Trusted_Connection=yes;' % (
+                self.server, self.database)
+            self.cnxn = pyodbc.connect(connectionString)
+            self.okayToRun = True
+        elif self.destination == 'filesystem' and self.filesystemPath != 'C:\crawlyjones':
+            self.okayToRun = True
 
     def getRows(self, sql):
         cursor = self.cnxn.cursor()
