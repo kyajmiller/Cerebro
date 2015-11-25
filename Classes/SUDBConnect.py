@@ -37,7 +37,12 @@ class SUDBConnect(object):
         filein = open('filepath', 'r')
         lines = filein.readlines()
         lines = [line.strip() for line in lines]
+        filein.close()
         return lines
+
+    def openOutputFile(self, filepath):
+        fileout = open('filepath', 'w')
+        return fileout
 
     def getAllTestCases(self):
         return self.getRowsDB("Select * from DepartmentTestCases")
