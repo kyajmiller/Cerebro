@@ -33,6 +33,12 @@ class SUDBConnect(object):
             cursor.commit()
             pass
 
+    def openFileReturnAllLines(self, filepath):
+        filein = open('filepath', 'r')
+        lines = filein.readlines()
+        lines = [line.strip() for line in lines]
+        return lines
+
     def getAllTestCases(self):
         return self.getRowsDB("Select * from DepartmentTestCases")
 
