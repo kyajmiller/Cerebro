@@ -23,6 +23,12 @@ class TestStringMethods(unittest.TestCase):
         rows = db.getRows("select * from dbo.Tests where Regex='kitty'")
         self.assertEqual(len(rows), 0)
 
+    def test_ConnectToDifferentDB(self):
+        db = SUDBConnect(database='ScholarshipUniverse')
+        rows = db.getRows("select * from dbo.PotentialScholarships")
+        self.assertIsNotNone(rows)
+        self.assertGreater(len(rows), 0)
+
 
 if __name__ == '__main__':
     unittest.main()
