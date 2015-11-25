@@ -1,4 +1,5 @@
 import pyodbc
+import re
 
 
 class SUDBConnect(object):
@@ -33,16 +34,45 @@ class SUDBConnect(object):
             cursor.commit()
             pass
 
-    def openFileReturnAllLines(self, filepath):
-        filein = open('filepath', 'r')
+    def openFileReturnAllLines(self, fileName):
+        filePath = self.filesystemPath + ('\%s' % fileName)
+        filein = open(filePath, 'r')
         lines = filein.readlines()
         lines = [line.strip() for line in lines]
         filein.close()
         return lines
 
-    def openOutputFile(self, filepath):
-        fileout = open('filepath', 'w')
+    def openFileReturnEntriesNoHeader(self, fileName):
+        allLines = self.openFileReturnAllLines(fileName)
+        entriesOnly = allLines[1:]
+        return entriesOnly
+
+    def openOutputFile(self, fileName):
+        filePath = self.filesystemPath + ('\%s' % fileName)
+        fileout = open(filePath, 'a')
         return fileout
+
+    def getColumns(self, fileInLines):
+        headerRow = fileInLines[0]
+        removeEndEntryDelimiter = re.sub(chr(2), '', headerRow)
+        headerRow = removeEndEntryDelimiter
+        columns = headerRow.split(chr(1))
+        return columns
+
+    def insertEntry(self, fileName, columns, values):
+        outputFile = self.openOutputFile(fileName)
+        allExistingLinesWithHeader = self.openFileReturnAllLines(fileName)
+
+        if len(columns) == len(values):
+            if len(allExistingLinesWithHeader) == 0:
+                headerRow = chr(1).join(columns)
+                headerRow = '%s%s' % (headerRow, chr(2))
+                outputFile.write(headerRow)
+            elif len(allExistingLinesWithHeader) > 1:
+                valuesRow = chr(1).join(values)
+                valuesRow = '%s%s' % (valuesRow, chr(2))
+                outputFile.write(valuesRow)
+
 
     def getAllTestCases(self):
         return self.getRowsDB("Select * from DepartmentTestCases")
