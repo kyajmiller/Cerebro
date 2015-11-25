@@ -33,7 +33,18 @@ class TestStringMethods(unittest.TestCase):
         filesystemPath = 'C:\crawlyjones'
         fileName = 'sudbconnecttest.txt'
         totalFilePath = '%s\%s' % (filesystemPath, fileName)
-        print(totalFilePath)
+
+        # try writing to file, read back in file, see what happens
+        writeFile = open(totalFilePath, 'w')
+        writeFile.write('cheese')
+        writeFile.close()
+
+        readFile = open(totalFilePath, 'r+')
+        fileData = readFile.read()
+        self.assertEqual(fileData, 'cheese')
+        readFile.close()
+
+
 
 if __name__ == '__main__':
     unittest.main()
