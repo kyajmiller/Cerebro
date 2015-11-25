@@ -16,7 +16,7 @@ class SUDBConnect(object):
                 self.server, self.database)
             self.cnxn = pyodbc.connect(connectionString)
             self.okayToRunDatabase = True
-        elif self.destination == 'filesystem' and self.filesystemPath != 'C:\crawlyjones':
+        elif self.destination == 'filesystem':
             self.okayToRunFilesystem = True
 
     def getRows(self, sql):
