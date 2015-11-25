@@ -58,6 +58,12 @@ class SUDBConnect(object):
 
         return fileData
 
+    def insertEntries(self, fileName, columns, values):
+        fileOut = self.openFile(fileName, 'a')
+        currentContents = self.readFile(fileName, 'readlines')
+        if len(currentContents) == 0:
+            pass
+
     '''
     def openFileReturnAllLines(self, fileName):
         filePath = self.filesystemPath + ('\%s' % fileName)
