@@ -5,7 +5,7 @@ import re
 class SUDBConnect(object):
     def __init__(self, server='SUDB-DEV', database='Spiderman', destination='database',
                  filesystemPath='C:\crawlyjones'):
-        self.filesystemPath = filesystemPath
+        self.fileSystemPath = filesystemPath
         self.destination = destination
         self.server = server
         self.database = database
@@ -34,6 +34,12 @@ class SUDBConnect(object):
             cursor.commit()
             pass
 
+    def openFile(self, fileName, mode='r'):
+        filePath = '%s\%s' % (self.fileSystemPath, fileName)
+        fileIn = open(filePath, mode)
+        return fileIn
+
+    '''
     def openFileReturnAllLines(self, fileName):
         filePath = self.filesystemPath + ('\%s' % fileName)
         filein = open(filePath, 'r')
@@ -73,7 +79,7 @@ class SUDBConnect(object):
                 valuesRow = '%s%s' % (valuesRow, chr(2))
                 outputFile.write(valuesRow)
 
-
+    '''
     def getAllTestCases(self):
         return self.getRowsDB("Select * from DepartmentTestCases")
 
