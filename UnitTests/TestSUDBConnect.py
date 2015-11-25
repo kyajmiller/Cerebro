@@ -49,6 +49,17 @@ class TestStringMethods(unittest.TestCase):
         fileIn = db.openFile('sudbconnecttest.txt', 'r')
         self.assertIsNotNone(fileIn)
 
+    def test_WriteAndReadFile(self):
+        file = 'sudbconnecttest.txt'
+        db = SUDBConnect(destination='filesystem')
+        valueToWrite = 'kitty'
+        db.writeFile(file, valueToWrite)
+
+        fileData = db.readFile(file)
+        self.assertIsNotNone(fileData)
+        self.assertEqual(fileData, 'kitty')
+
+
 
 if __name__ == '__main__':
     unittest.main()
