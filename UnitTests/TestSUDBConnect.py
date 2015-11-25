@@ -29,6 +29,11 @@ class TestStringMethods(unittest.TestCase):
         self.assertIsNotNone(rows)
         self.assertGreater(len(rows), 0)
 
+    def test_seeIfCanFindFilesAtAll(self):
+        filesystemPath = 'C:\crawlyjones'
+        fileName = 'sudbconnecttest.txt'
+        totalFilePath = '%s\%s' % (filesystemPath, fileName)
+        print(totalFilePath)
 
 if __name__ == '__main__':
     unittest.main()
