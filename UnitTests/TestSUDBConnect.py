@@ -44,6 +44,11 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(fileData, 'cheese')
         readFile.close()
 
+    def test_OpenFile(self):
+        db = SUDBConnect(destination='filesystem')
+        fileIn = db.openFile('sudbconnecttest.txt', 'r')
+        self.assertIsNotNone(fileIn)
+
 
 if __name__ == '__main__':
     unittest.main()
