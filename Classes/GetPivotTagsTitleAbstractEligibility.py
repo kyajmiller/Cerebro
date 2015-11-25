@@ -8,7 +8,7 @@ class GetPivotTagsTitleAbstractEligibility(object):
         db = SUDBConnect()
         titles = []
 
-        rows = db.getRows("select Name from dbo.PivotTags")
+        rows = db.getRowsDB("select Name from dbo.PivotTags")
         for row in rows:
             titles.append(row.Name)
         return titles
@@ -18,7 +18,7 @@ class GetPivotTagsTitleAbstractEligibility(object):
         db = SUDBConnect()
         abstracts = []
 
-        rows = db.getRows("select Abstract from dbo.PivotTags")
+        rows = db.getRowsDB("select Abstract from dbo.PivotTags")
         for row in rows:
             abstracts.append(row.Abstract)
         return abstracts
@@ -28,7 +28,7 @@ class GetPivotTagsTitleAbstractEligibility(object):
         db = SUDBConnect()
         eligibilities = []
 
-        rows = db.getRows("select Eligibility from dbo.PivotTags")
+        rows = db.getRowsDB("select Eligibility from dbo.PivotTags")
         for row in rows:
             eligibilities.append(row.Eligibility)
         return eligibilities
@@ -38,7 +38,7 @@ class GetPivotTagsTitleAbstractEligibility(object):
         db = SUDBConnect()
         tags = []
 
-        rows = db.getRows("select Tag from dbo.PivotTags")
+        rows = db.getRowsDB("select Tag from dbo.PivotTags")
         for row in rows:
             tags.append(row.Tag)
         return tags

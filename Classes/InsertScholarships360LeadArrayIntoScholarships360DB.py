@@ -18,11 +18,11 @@ class InsertScholarships360LeadArrayIntoScholarships360DB(object):
         self.sourceText = self.scholarships360LeadArray[9]
 
         if not self.checkIfAlreadyInDB():
-            self.db.insertUpdateOrDelete(
+            self.db.insertUpdateOrDeleteDB(
                 "INSERT INTO dbo.Scholarships360Leads (Name, Url, Description, Eligibility, Amount, AmountInfo, Deadline, DeadlineInfo, SourceWebsite, SourceText) VALUES (N'" + self.name + "', N'" + self.url + "', N'" + self.description + "', N'" + self.eligibility + "', N'" + self.amount + "', N'" + self.amountInfo + "', N'" + self.deadline + "', N'" + self.deadlineInfo + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
 
     def checkIfAlreadyInDB(self):
-        matchingRow = self.db.getRows(
+        matchingRow = self.db.getRowsDB(
             "select * from dbo.Scholarships360Leads where Name='" + self.name + "' and Description='" + self.description + "'")
         if matchingRow != []:
             return True

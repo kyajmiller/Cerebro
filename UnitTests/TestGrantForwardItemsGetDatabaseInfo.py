@@ -16,7 +16,7 @@ class TestStringMethods(unittest.TestCase):
         testDescription = firstList[1]
 
         # test
-        rows = db.getRows("select * from dbo.GrantForwardItems where Keyword='" + keyword + "'")
+        rows = db.getRowsDB("select * from dbo.GrantForwardItems where Keyword='" + keyword + "'")
         title = CleanText.cleanALLtheText(rows[0].Name)
         description = CleanText.cleanALLtheText(rows[0].Description)
 
@@ -32,7 +32,7 @@ class TestStringMethods(unittest.TestCase):
         firstCombo = testListConcatenatedDescriptionEligibility[0]
 
         # test
-        rows = db.getRows("select * from dbo.GrantForwardItems where Keyword='" + keyword + "'")
+        rows = db.getRowsDB("select * from dbo.GrantForwardItems where Keyword='" + keyword + "'")
         description = CleanText.cleanALLtheText(rows[0].Description)
         eligibility = CleanText.cleanALLtheText(rows[0].Eligibility)
         testCombo = '%s %s' % (description, eligibility)

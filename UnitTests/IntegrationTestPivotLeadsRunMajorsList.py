@@ -24,7 +24,7 @@ class TestStringMethods(unittest.TestCase):
         PivotLeadsRunMajorsList()
 
         # test
-        rows = db.getRows("select * from dbo.PivotLeads")
+        rows = db.getRowsDB("select * from dbo.PivotLeads")
         self.assertGreaterEqual(len(rows), 100)
 
 

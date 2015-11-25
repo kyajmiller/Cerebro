@@ -16,7 +16,7 @@ class TestStringMethods(unittest.TestCase):
         testAbstract = firstList[1]
 
         # test
-        rows = db.getRows("select * from dbo.PivotLeads where Keyword='" + keyword + "'")
+        rows = db.getRowsDB("select * from dbo.PivotLeads where Keyword='" + keyword + "'")
         title = CleanText.cleanALLtheText(rows[0].Name)
         abstract = CleanText.cleanALLtheText(rows[0].Abstract)
 

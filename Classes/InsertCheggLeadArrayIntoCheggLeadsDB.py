@@ -18,11 +18,11 @@ class InsertCheggLeadArrayIntoCheggLeadsDB(object):
         self.sourceText = self.cheggLeadArray[9]
 
         if not self.checkIfAlreadyInDatabase():
-            self.db.insertUpdateOrDelete(
+            self.db.insertUpdateOrDeleteDB(
                 "insert into dbo.CheggLeads (Name, Url, Deadline, Amount, Eligibility, ApplicationOverview, Description, Sponsor, SourceWebsite, SourceText) values (N'" + self.name + "', N'" + self.url + "', N'" + self.deadline + "', N'" + self.amount + "', N'" + self.eligibility + "', N'" + self.applicationOverview + "', N'" + self.description + "', N'" + self.sponsor + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
 
     def checkIfAlreadyInDatabase(self):
-        matchingRow = self.db.getRows(
+        matchingRow = self.db.getRowsDB(
             "select * from dbo.CheggLeads where Name='" + self.name + "' and Url='" + self.url + "'")
         if matchingRow != []:
             return True

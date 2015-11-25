@@ -8,7 +8,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
   def testSUDBConnect(self):
       db=SUDBConnect()
-      rows=db.getRows("select * from tests")
+      rows = db.getRowsDB("select * from tests")
       self.assertIsNotNone(rows)
   def testgetTestCases(self):
       db=SUDBConnect()
@@ -30,17 +30,17 @@ class TestDatabaseFunctions(unittest.TestCase):
       self.assertNotEqual(firstRow,secondRow)
   def testInsertState(self):
       db=SUDBConnect()
-      db.insertUpdateOrDelete("delete from  dbo.JustTests where TestValue='testit'")
-      row=db.getRows("select * from JustTests where testvalue='testit'")
+      db.insertUpdateOrDeleteDB("delete from  dbo.JustTests where TestValue='testit'")
+      row = db.getRowsDB("select * from JustTests where testvalue='testit'")
       self.assertEqual(0,row.__len__())
-      db.insertUpdateOrDelete("INSERT INTO dbo.JustTests(  TestValue )VALUES  (  'testit'  )")
-      row=db.getRows("select * from JustTests where testvalue='testit'")
+      db.insertUpdateOrDeleteDB("INSERT INTO dbo.JustTests(  TestValue )VALUES  (  'testit'  )")
+      row = db.getRowsDB("select * from JustTests where testvalue='testit'")
       self.assertIsNotNone(row)
   def testInsertIntoJustCase(self):
       db=SUDBConnect()
-      db.insertUpdateOrDelete("delete from  dbo.JustTests where TestValue='dubmthing'")
+      db.insertUpdateOrDeleteDB("delete from  dbo.JustTests where TestValue='dubmthing'")
       db.insertIntoJustTests("dubmthing")
-      rows=db.getRows("select * from justtests where testvalue ='dubmthing'")
+      rows = db.getRowsDB("select * from justtests where testvalue ='dubmthing'")
       self.assertEqual("dubmthing",rows[0].TestValue)
 if __name__ == '__main__':
     unittest.main()

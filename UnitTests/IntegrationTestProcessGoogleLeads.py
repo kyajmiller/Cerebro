@@ -9,7 +9,7 @@ class TestStringMethods(unittest.TestCase):
         ProcessGoogleLeads(
             GoogleLeads('engineering scholarships').processSearchResultsAndReturnArrayOfGoogleLeads())
         db = SUDBConnect()
-        rows = db.getRows("select * from dbo.GoogleLeads")
+        rows = db.getRowsDB("select * from dbo.GoogleLeads")
         self.assertGreater(len(rows), 10)
 
 if __name__ == '__main__':

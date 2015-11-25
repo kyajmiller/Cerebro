@@ -8,7 +8,7 @@ class UnigoLeadsGetDatabaseInfo(object):
     def getUnigoLeadsIds(self):
         unigoLeadsIds = []
 
-        rows = self.db.getRows("select UnigoLeadId from dbo.UnigoLeads")
+        rows = self.db.getRowsDB("select UnigoLeadId from dbo.UnigoLeads")
         for row in rows:
             unigoLeadsIds.append(row.UnigoLeadId)
 
@@ -17,7 +17,7 @@ class UnigoLeadsGetDatabaseInfo(object):
     def getRequirements(self):
         requirements = []
 
-        rows = self.db.getRows("select Requirements from dbo.UnigoLeads")
+        rows = self.db.getRowsDB("select Requirements from dbo.UnigoLeads")
         for row in rows:
             requirements.append(row.Requirements)
 
@@ -26,7 +26,7 @@ class UnigoLeadsGetDatabaseInfo(object):
     def getSponsors(self):
         sponsors = []
 
-        rows = self.db.getRows("select * from dbo.UnigoLeads")
+        rows = self.db.getRowsDB("select * from dbo.UnigoLeads")
         for row in rows:
             sponsors.append(row.Sponsor)
 
@@ -35,7 +35,7 @@ class UnigoLeadsGetDatabaseInfo(object):
     def getAdditionalInfo(self):
         additionalInfo = []
 
-        rows = self.db.getRows("select * from dbo.UnigoLeads")
+        rows = self.db.getRowsDB("select * from dbo.UnigoLeads")
         for row in rows:
             additionalInfo.append(row.AdditionalInfo)
 

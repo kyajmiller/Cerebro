@@ -8,7 +8,7 @@ class GoogleLeadsUpdateEmptyLinkBody(object):
         self.db = SUDBConnect()
         self.listOfEmptyLinkBodyLinks = []
 
-        rowsWithEmptyLinkBody = self.db.getRows("select * from dbo.GoogleLeads where ISNULL(LinkBody, '') = ''")
+        rowsWithEmptyLinkBody = self.db.getRowsDB("select * from dbo.GoogleLeads where ISNULL(LinkBody, '') = ''")
         if len(rowsWithEmptyLinkBody) >= 1:
             for row in rowsWithEmptyLinkBody:
                 self.listOfEmptyLinkBodyLinks.append(row.Link)
@@ -17,5 +17,5 @@ class GoogleLeadsUpdateEmptyLinkBody(object):
             for link in self.listOfEmptyLinkBodyLinks:
                 linkbody = RipPage.getPageSource(link)
                 linkbody = CleanText.cleanALLtheText(linkbody)
-                self.db.insertUpdateOrDelete(
+                self.db.insertUpdateOrDeleteDB(
                     "update dbo.GoogleLeads set LinkBody='" + linkbody + "', DateBodyGenerated=GETDATE() where Link='" + link + "'")

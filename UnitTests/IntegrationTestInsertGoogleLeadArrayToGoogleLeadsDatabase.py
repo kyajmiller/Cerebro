@@ -9,13 +9,13 @@ class TestStringMethods(unittest.TestCase):
         InsertGoogleLeadArrayIntoGoogleLeadsDatabase(fakeGoogleLeadsArray)
 
         db = SUDBConnect()
-        rows = db.getRows("select * from dbo.GoogleLeads where Title='title'")
+        rows = db.getRowsDB("select * from dbo.GoogleLeads where Title='title'")
         self.assertIsNotNone(rows)
         self.assertEqual('title', rows[0].Title)
         self.assertEqual('link', rows[0].Link)
         self.assertEqual('description', rows[0].Description)
 
-        db.insertUpdateOrDelete("delete from dbo.GoogleLeads where Title='title'")
+        db.insertUpdateOrDeleteDB("delete from dbo.GoogleLeads where Title='title'")
 
 
 if __name__ == '__main__':

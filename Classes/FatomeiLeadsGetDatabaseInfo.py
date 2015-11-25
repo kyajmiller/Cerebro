@@ -10,11 +10,11 @@ class FatomeiLeadsGetDatabaseInfo(object):
         titles = []
 
         if self.tag:
-            rows = self.db.getRows("select Name from dbo.FatomeiLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select Name from dbo.FatomeiLeads where Tag='" + self.tag + "'")
             for row in rows:
                 titles.append(row.Name)
         else:
-            rows = self.db.getRows("select Name from dbo.FatomeiLeads")
+            rows = self.db.getRowsDB("select Name from dbo.FatomeiLeads")
             for row in rows:
                 titles.append(row.Name)
 
@@ -24,11 +24,11 @@ class FatomeiLeadsGetDatabaseInfo(object):
         descriptions = []
 
         if self.tag:
-            rows = self.db.getRows("select Description from dbo.FatomeiLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select Description from dbo.FatomeiLeads where Tag='" + self.tag + "'")
             for row in rows:
                 descriptions.append(row.Description)
         else:
-            rows = self.db.getRows("select Description from dbo.FatomeiLeads")
+            rows = self.db.getRowsDB("select Description from dbo.FatomeiLeads")
             for row in rows:
                 descriptions.append(row.Description)
 
@@ -38,11 +38,11 @@ class FatomeiLeadsGetDatabaseInfo(object):
         sourceTexts = []
 
         if self.tag:
-            rows = self.db.getRows("select SourceText from dbo.FatomeiLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select SourceText from dbo.FatomeiLeads where Tag='" + self.tag + "'")
             for row in rows:
                 sourceTexts.append(row.SourceText)
         else:
-            rows = self.db.getRows("select SourceText from dbo.FatomeiLeads")
+            rows = self.db.getRowsDB("select SourceText from dbo.FatomeiLeads")
             for row in rows:
                 sourceTexts.append(row.SourceText)
 
@@ -52,11 +52,11 @@ class FatomeiLeadsGetDatabaseInfo(object):
         fatomeiLeadIds = []
 
         if self.tag:
-            rows = self.db.getRows("select FatomeiLeadId from dbo.FatomeiLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select FatomeiLeadId from dbo.FatomeiLeads where Tag='" + self.tag + "'")
             for row in rows:
                 fatomeiLeadIds.append(row.FatomeiLeadId)
         else:
-            rows = self.db.getRows("select FatomeiLeadId from dbo.FatomeiLeads")
+            rows = self.db.getRowsDB("select FatomeiLeadId from dbo.FatomeiLeads")
             for row in rows:
                 fatomeiLeadIds.append(row.FatomeiLeadId)
 

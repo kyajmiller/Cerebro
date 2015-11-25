@@ -4,7 +4,7 @@ from Classes.SUDBConnect import SUDBConnect
 def getEmptyTagAbstracts():
     db = SUDBConnect()
 
-    emptyTagRows = db.getRows("select * from dbo.PivotTags where ISNULL(Tag, '') = ''")
+    emptyTagRows = db.getRowsDB("select * from dbo.PivotTags where ISNULL(Tag, '') = ''")
     emptyTagAbstracts = []
     for row in emptyTagRows:
         emptyTagAbstracts.append(row.Abstract)
@@ -14,7 +14,7 @@ def getEmptyTagAbstracts():
 
 def insertTag(abstract, tag):
     db = SUDBConnect()
-    db.insertUpdateOrDelete("update dbo.PivotTags set Tag='" + tag + "' where Abstract='" + abstract + "'")
+    db.insertUpdateOrDeleteDB("update dbo.PivotTags set Tag='" + tag + "' where Abstract='" + abstract + "'")
 
 
 abstractsList = getEmptyTagAbstracts()

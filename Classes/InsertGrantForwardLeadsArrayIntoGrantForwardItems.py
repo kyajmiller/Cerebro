@@ -18,11 +18,11 @@ class InsertGrantForwardLeadsArrayIntoGrantForwardItems(object):
         self.opportunitySourceText = self.grantForwardLeadArray[10]
 
         if not self.checkIfAlreadyInDatabase():
-            self.db.insertUpdateOrDelete(
+            self.db.insertUpdateOrDeleteDB(
                 "insert into dbo.GrantForwardItems (Keyword, Url, Name, Description, Sponsor, Amount, Eligibility, SubmissionInfo, Categories, OpportunitySourceLink, OpportunitySourceText) values (N'" + self.keyword + "', N'" + self.url + "', N'" + self.name + "', N'" + self.description + "', N'" + self.sponsor + "', N'" + self.amount + "', N'" + self.eligibility + "', N'" + self.submissionInfo + "', N'" + self.categories + "', N'" + self.opportunitySourceLink + "', N'" + self.opportunitySourceText + "')")
 
     def checkIfAlreadyInDatabase(self):
-        matchingRow = self.db.getRows(
+        matchingRow = self.db.getRowsDB(
             "select * from dbo.GrantForwardItems where Keyword='" + self.keyword + "' and Url='" + self.url + "'")
         if matchingRow != []:
             return True

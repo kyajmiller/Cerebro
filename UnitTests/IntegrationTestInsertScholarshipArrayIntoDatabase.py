@@ -7,11 +7,11 @@ from Classes.SUDBConnect import SUDBConnect
 class TestStringMethods(unittest.TestCase):
     def test_InsertScholarshipArrayIntoDatabase(self):
         db = SUDBConnect()
-        db.insertUpdateOrDelete(
+        db.insertUpdateOrDeleteDB(
             "delete from dbo.LinkCrawlerHrefs where linkurl='http://colleges.fastweb.com/d-foreign-languages-literatures-and-linguistics'")
         InsertScholarshipArrayIntoDatabase.doInsert(PullPageLinkTitleDescriptionToArray(
             'http://colleges.fastweb.com/d-foreign-languages-literatures-and-linguistics').doArray())
-        rows = db.getRows(
+        rows = db.getRowsDB(
             "select * from LinkCrawlerHrefs where linkurl='http://colleges.fastweb.com/d-foreign-languages-literatures-and-linguistics'")
         self.assertEqual(rows[0].LinkUrl, 'http://colleges.fastweb.com/d-foreign-languages-literatures-and-linguistics')
 

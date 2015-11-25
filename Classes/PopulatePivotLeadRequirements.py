@@ -35,5 +35,5 @@ class PopulatePivotLeadRequirements(PopulateRequirements):
                 self.insertDueDateIntoPivotLeads(pivotLeadId, dueDate)
 
     def insertDueDateIntoPivotLeads(self, pivotLeadId, dueDate):
-        self.db.insertUpdateOrDelete(
+        self.db.insertUpdateOrDeleteDB(
             "update dbo.PivotLeads set DueDate='" + dueDate + "' where PivotLeadId='" + pivotLeadId + "'")

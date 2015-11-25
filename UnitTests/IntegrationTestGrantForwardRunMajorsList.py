@@ -24,7 +24,7 @@ class TestStringMethods(unittest.TestCase):
         GrantForwardRunMajorsList()
 
         # test
-        rows = db.getRows("select * from dbo.GrantForwardItems")
+        rows = db.getRowsDB("select * from dbo.GrantForwardItems")
         self.assertGreaterEqual(len(rows), 100)
 
 

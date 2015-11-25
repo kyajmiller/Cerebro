@@ -11,36 +11,36 @@ class TestStringMethods(unittest.TestCase):
 
         # test
         db = SUDBConnect()
-        db.insertUpdateOrDelete(testQuery)
+        db.insertUpdateOrDeleteDB(testQuery)
 
-        rows = db.getRows("select * from dbo.Tests where Regex='testquery'")
+        rows = db.getRowsDB("select * from dbo.Tests where Regex='testquery'")
         testRegexValue = rows[0].Regex
         self.assertEqual('testquery', testRegexValue)
 
         # tear down
-        db.insertUpdateOrDelete("delete from dbo.Tests where Regex='testquery'")
+        db.insertUpdateOrDeleteDB("delete from dbo.Tests where Regex='testquery'")
 
     def test_PutThingInTablesUpdate(self):
         # setup
         db = SUDBConnect()
         createTestRow = PutThingsInTables('Tests', ['Regex', 'AttributeId'],
                                           ['rowToUpdate', '94']).createSQLQueryInsert()
-        db.insertUpdateOrDelete(createTestRow)
+        db.insertUpdateOrDeleteDB(createTestRow)
         self.assertIsNotNone("%s" % createTestRow)
-        rows = db.getRows("select * from dbo.Tests where Regex='rowToUpdate'")
+        rows = db.getRowsDB("select * from dbo.Tests where Regex='rowToUpdate'")
         testRegexValue = rows[0].Regex
         self.assertEqual('rowToUpdate', testRegexValue)
 
         # test
         updateQuery = PutThingsInTables('Tests', ['Regex'], ['thisCellWasUpdated'], whereColumnNames=['AttributeId'],
                                         whereValues=['94']).createSQLQueryUpdate()
-        db.insertUpdateOrDelete(updateQuery)
-        rows = db.getRows("select * from dbo.Tests where AttributeId='94'")
+        db.insertUpdateOrDeleteDB(updateQuery)
+        rows = db.getRowsDB("select * from dbo.Tests where AttributeId='94'")
         testUpdatedValue = rows[0].Regex
         self.assertEqual('thisCellWasUpdated', testUpdatedValue)
 
         # tear down
-        db.insertUpdateOrDelete("delete from dbo.Tests where AttributeId='94'")
+        db.insertUpdateOrDeleteDB("delete from dbo.Tests where AttributeId='94'")
 
 if __name__ == '__main__':
     unittest.main()

@@ -10,11 +10,11 @@ class MastersInEducationLeadsGetDatabaseInfo(object):
         titles = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.MastersInEducationLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.MastersInEducationLeads where Tag='" + self.tag + "'")
             for row in rows:
                 titles.append(row.Name)
         else:
-            rows = self.db.getRows("select * from dbo.MastersInEducationLeads")
+            rows = self.db.getRowsDB("select * from dbo.MastersInEducationLeads")
             for row in rows:
                 titles.append(row.Name)
 
@@ -24,11 +24,11 @@ class MastersInEducationLeadsGetDatabaseInfo(object):
         descriptions = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.MastersInEducationLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.MastersInEducationLeads where Tag='" + self.tag + "'")
             for row in rows:
                 descriptions.append(row.Description)
         else:
-            rows = self.db.getRows("select * from dbo.MastersInEducationLeads")
+            rows = self.db.getRowsDB("select * from dbo.MastersInEducationLeads")
             for row in rows:
                 descriptions.append(row.Description)
 
@@ -38,11 +38,11 @@ class MastersInEducationLeadsGetDatabaseInfo(object):
         mastersInEducationLeadIds = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.MastersInEducationLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.MastersInEducationLeads where Tag='" + self.tag + "'")
             for row in rows:
                 mastersInEducationLeadIds.append(row.MastersInEducationLeadId)
         else:
-            rows = self.db.getRows("select * from dbo.MastersInEducationLeads")
+            rows = self.db.getRowsDB("select * from dbo.MastersInEducationLeads")
             for row in rows:
                 mastersInEducationLeadIds.append(row.MastersInEducationLeadId)
 

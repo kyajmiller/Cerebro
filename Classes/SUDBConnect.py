@@ -19,14 +19,14 @@ class SUDBConnect(object):
         elif self.destination == 'filesystem':
             self.okayToRunFilesystem = True
 
-    def getRows(self, sql):
+    def getRowsDB(self, sql):
         if self.okayToRunDatabase:
             cursor = self.cnxn.cursor()
             cursor.execute(sql)
             rows = cursor.fetchall()
             return rows
 
-    def insertUpdateOrDelete(self, sql):
+    def insertUpdateOrDeleteDB(self, sql):
         if self.okayToRunDatabase:
             cursor = self.cnxn.cursor()
             cursor.execute(sql)
@@ -34,13 +34,13 @@ class SUDBConnect(object):
             pass
 
     def getAllTestCases(self):
-        return self.getRows("Select * from DepartmentTestCases")
+        return self.getRowsDB("Select * from DepartmentTestCases")
 
     def getNumberOfTestCases(self, numberToGet):
-        return self.getRows("Select top " + str(numberToGet) + " * from DepartmentTestCases")
+        return self.getRowsDB("Select top " + str(numberToGet) + " * from DepartmentTestCases")
 
     def getNumberOfRandomTestCases(self, numberToGet):
-        return self.getRows("Select top " + str(numberToGet) + " * from DepartmentTestCases order by newid()")
+        return self.getRowsDB("Select top " + str(numberToGet) + " * from DepartmentTestCases order by newid()")
 
     def insertIntoJustTests(self, valToInsert):
-        self.insertUpdateOrDelete("insert into justtests(testvalue) values ('" + str(valToInsert) + "')")
+        self.insertUpdateOrDeleteDB("insert into justtests(testvalue) values ('" + str(valToInsert) + "')")

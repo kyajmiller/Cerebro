@@ -10,11 +10,11 @@ class FastWebLeadsGetDatabaseInfo(object):
         titles = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.FastWebLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.FastWebLeads where Tag='" + self.tag + "'")
             for row in rows:
                 titles.append(row.Name)
         else:
-            rows = self.db.getRows("select * from dbo.FastWebLeads")
+            rows = self.db.getRowsDB("select * from dbo.FastWebLeads")
             for row in rows:
                 titles.append(row.Name)
 
@@ -24,11 +24,11 @@ class FastWebLeadsGetDatabaseInfo(object):
         descriptions = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.FastWebLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.FastWebLeads where Tag='" + self.tag + "'")
             for row in rows:
                 descriptions.append(row.Description)
         else:
-            rows = self.db.getRows("select * from dbo.FastWebLeads")
+            rows = self.db.getRowsDB("select * from dbo.FastWebLeads")
             for row in rows:
                 descriptions.append(row.Description)
 
@@ -38,11 +38,11 @@ class FastWebLeadsGetDatabaseInfo(object):
         sourceTexts = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.FastWebLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.FastWebLeads where Tag='" + self.tag + "'")
             for row in rows:
                 sourceTexts.append(row.SourceText)
         else:
-            rows = self.db.getRows("select * from dbo.FastWebLeads")
+            rows = self.db.getRowsDB("select * from dbo.FastWebLeads")
             for row in rows:
                 sourceTexts.append(row.SourceText)
 
@@ -52,11 +52,11 @@ class FastWebLeadsGetDatabaseInfo(object):
         fastWebLeadsIds = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.FastWebLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.FastWebLeads where Tag='" + self.tag + "'")
             for row in rows:
                 fastWebLeadsIds.append(row.FastWebLeadId)
         else:
-            rows = self.db.getRows("select * from dbo.FastWebLeads")
+            rows = self.db.getRowsDB("select * from dbo.FastWebLeads")
             for row in rows:
                 fastWebLeadsIds.append(row.FastWebLeadId)
 
@@ -66,11 +66,11 @@ class FastWebLeadsGetDatabaseInfo(object):
         sponsors = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.FastWebLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.FastWebLeads where Tag='" + self.tag + "'")
             for row in rows:
                 sponsors.append(row.Sponsor)
         else:
-            rows = self.db.getRows("select * from dbo.FastWebLeads")
+            rows = self.db.getRowsDB("select * from dbo.FastWebLeads")
             for row in rows:
                 sponsors.append(row.Sponsor)
 

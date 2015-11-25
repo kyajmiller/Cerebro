@@ -8,25 +8,25 @@ class TestStringMethods(unittest.TestCase):
     def test_GoogleLeadsUpdateEmptyLinkBody(self):
         # set up
         db = SUDBConnect()
-        db.insertUpdateOrDelete(
+        db.insertUpdateOrDeleteDB(
             "delete from dbo.GoogleLeads where Link='http://colleges.fastweb.com/d-foreign-languages-literatures-and-linguistics'")
 
         fakegoogleleadsarray = ['title', 'http://colleges.fastweb.com/d-foreign-languages-literatures-and-linguistics',
                                 'description']
         InsertGoogleLeadArrayIntoGoogleLeadsDatabase(fakegoogleleadsarray)
-        rows1 = db.getRows(
+        rows1 = db.getRowsDB(
             "select * from dbo.GoogleLeads where Link='http://colleges.fastweb.com/d-foreign-languages-literatures-and-linguistics'")
         self.assertEqual('title', rows1[0].Title)
 
         # actual test of class
         GoogleLeadsUpdateEmptyLinkBody()
-        rows2 = db.getRows(
+        rows2 = db.getRowsDB(
             "select * from dbo.GoogleLeads where Link='http://colleges.fastweb.com/d-foreign-languages-literatures-and-linguistics'")
         self.assertEqual('title', rows2[0].Title)
         self.assertGreater(len(rows2[0].LinkBody), 10)
 
         # tear down
-        db.insertUpdateOrDelete(
+        db.insertUpdateOrDeleteDB(
             "delete from dbo.GoogleLeads where Link='http://colleges.fastweb.com/d-foreign-languages-literatures-and-linguistics'")
 
 

@@ -8,7 +8,7 @@ class TestStringMethods(unittest.TestCase):
     def test_ProcessPivotLeads(self):
         ProcessPivotLeads(PivotLeads('engineering', isTest=True).processSearchResultsAndMakeLeadArray())
         db = SUDBConnect()
-        rows = db.getRows("select * from dbo.PivotLeads where Keyword='engineering'")
+        rows = db.getRowsDB("select * from dbo.PivotLeads where Keyword='engineering'")
         self.assertGreaterEqual(len(rows), 10)
 
 

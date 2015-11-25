@@ -8,7 +8,7 @@ class ClassifyPotentialScholarshipsClassStatus(object):
     def __init__(self, whichHalfToDo):
         self.whichHalfToDo = whichHalfToDo
         self.db = SUDBConnect()
-        self.rows = self.db.getRows("select * from dbo.ClassifiedPotentialScholarships")
+        self.rows = self.db.getRowsDB("select * from dbo.ClassifiedPotentialScholarships")
 
         self.oneVsRestPretrainedModelFile = 'OneVsRestLRTrainedClassifiers/OneVsRestLRTrainedModel'
         self.oneVsRestPretrainedFeaturesValueCountsFile = 'OneVsRestLRTrainedClassifiers/OneVsRestLRTrainedFeaturesValueCounts'
@@ -51,7 +51,7 @@ class ClassifyPotentialScholarshipsClassStatus(object):
     def insertResultsIntoDB(self):
         for prediction, potentialScholarshipId in zip(self.predictedClassStatuses, self.potentialScholarshipIdsList):
             prediction = ', '.join(prediction)
-            self.db.insertUpdateOrDelete(
+            self.db.insertUpdateOrDeleteDB(
                 "update dbo.ClassifiedPotentialScholarships set ClassStatusPrediction='" + prediction + "' where PotentialScholarshipId='" + str(
                     potentialScholarshipId) + "'")
 

@@ -11,16 +11,16 @@ class GetDatabaseInfoScholarshipsWithClassStatuses(object):
         self.db = SUDBConnect()
 
         if self.requirementNeeded == 'Senior':
-            self.rows = self.db.getRows(
+            self.rows = self.db.getRowsDB(
                 "select * from dbo.ScholarshipsWithClassStatuses where RequirementNeeded like '%Senior%' and RequirementNeeded not like '%High School Senior%'")
         elif self.requirementNeeded and self.useNot:
-            self.rows = self.db.getRows(
+            self.rows = self.db.getRowsDB(
                 "select * from dbo.ScholarshipsWithClassStatuses where RequirementNeeded not like '" + self.formattedRequirementNeeded + "'")
         elif self.requirementNeeded:
-            self.rows = self.db.getRows(
+            self.rows = self.db.getRowsDB(
                 "select * from dbo.ScholarshipsWithClassStatuses where RequirementNeeded like '" + self.formattedRequirementNeeded + "'")
         else:
-            self.rows = self.db.getRows("select * from dbo.ScholarshipsWithClassStatuses")
+            self.rows = self.db.getRowsDB("select * from dbo.ScholarshipsWithClassStatuses")
 
     def getScholarshipDescriptionsList(self):
         scholarshipDescriptionsList = []

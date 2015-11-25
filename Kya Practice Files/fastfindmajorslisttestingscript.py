@@ -2,14 +2,14 @@ from Classes.GetFastFindMajorsList import GetFastFindMajorsList
 from Classes.SUDBConnect import SUDBConnect
 
 db = SUDBConnect()
-rows = db.getRows(
+rows = db.getRowsDB(
     "SELECT REPLACE(ValueShown, '(' + OtherValuesToCheck + ')','') as Major FROM dbo.FastFindLists WHERE AttributeId =417")
 majorslist = []
 
 for row in rows:
     majorslist.append(row.Major)
 
-rows = db.getRows("SELECT DISTINCT Keyword FROM dbo.GrantForwardItems")
+rows = db.getRowsDB("SELECT DISTINCT Keyword FROM dbo.GrantForwardItems")
 existingkeywordslist = []
 
 for row in rows:

@@ -35,5 +35,5 @@ class PopulateGrantForwardRequirements(PopulateRequirements):
                 self.insertDueDateIntoGrantForwardItems(grantForwardItemId, dueDate)
 
     def insertDueDateIntoGrantForwardItems(self, grantForwardItemId, dueDate):
-        self.db.insertUpdateOrDelete(
+        self.db.insertUpdateOrDeleteDB(
             "update dbo.GrantForwardItems set DueDate='" + dueDate + "' where GrantForwardItemId='" + grantForwardItemId + "'")

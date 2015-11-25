@@ -24,7 +24,7 @@ class TestStringMethods(unittest.TestCase):
         db = SUDBConnect()
         for scholarshipWithClassStatusID, prediction in zip(idsList, predictions):
             prediction = ', '.join(prediction)
-            db.insertUpdateOrDelete(
+            db.insertUpdateOrDeleteDB(
                 "update dbo.ScholarshipsWithClassStatuses set OneVsRestClassifierPrediction='" + prediction + "' where ScholarshipsWithClassStatusId = '" + str(
                     scholarshipWithClassStatusID) + "'")
 

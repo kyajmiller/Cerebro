@@ -9,6 +9,6 @@ class InsertScholarshipArrayIntoDatabase(object):
         title = scholarshipArray[1]
         description = scholarshipArray[2]
         db = SUDBConnect()
-        db.insertUpdateOrDelete(
+        db.insertUpdateOrDeleteDB(
             "INSERT INTO dbo.LinkCrawlerHrefs ( QuestionId, LinkUrl, LinkName, LinkDescription, LinkBody, ProcessUsed, IsBadLink, InsertDate, UpdateDate) VALUES  ( 0, '" + url + "', '" + title + "', '" + description + "', '', 0, 0, GETDATE(), GETDATE())")
         return None

@@ -7,7 +7,7 @@ class DatabaseHelper(SUDBConnect):
     @staticmethod
     def UseOnlyFirstRegex(attributeId, stringToScan):
         DB = SUDBConnect()
-        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx from RegExHelpers')
+        rows = DB.getRowsDB(' Select ' + str(attributeId) + ' , RegEx from RegExHelpers')
         searchCriteria = ''
         if len(rows) >= 1:
             searchCriteria = rows[0].RegEx
@@ -17,7 +17,7 @@ class DatabaseHelper(SUDBConnect):
     @staticmethod
     def useOnlyOneRegexHelper(attributeId, stringToScan):
         DB = SUDBConnect()
-        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegExHelper from RegExHelpers')
+        rows = DB.getRowsDB(' Select ' + str(attributeId) + ' , RegExHelper from RegExHelpers')
         searchCriteria = ''
         if len(rows) >= 1:
             searchCriteria = rows[0].RegExHelper
@@ -27,7 +27,7 @@ class DatabaseHelper(SUDBConnect):
     @staticmethod
     def useOnlyFirstRegexAndRegexHelper(attributeId, stringToScan):
         DB = SUDBConnect()
-        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
+        rows = DB.getRowsDB(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
         searchCriteriaRegex = ''
         searchCriteriaRegexHelper = ''
         doBothMatch = False
@@ -43,7 +43,7 @@ class DatabaseHelper(SUDBConnect):
     @staticmethod
     def useAllRegex(attributeId, stringToScan):
         DB = SUDBConnect()
-        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx from RegExHelpers')
+        rows = DB.getRowsDB(' Select ' + str(attributeId) + ' , RegEx from RegExHelpers')
         regExArray = []
         if len(rows) >= 1:
             for row in rows:
@@ -55,7 +55,7 @@ class DatabaseHelper(SUDBConnect):
     @staticmethod
     def useAllRegexHelper(attributeId, stringToScan):
         DB = SUDBConnect()
-        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegExHelper from RegExHelpers')
+        rows = DB.getRowsDB(' Select ' + str(attributeId) + ' , RegExHelper from RegExHelpers')
         regExHelperArray = []
         if len(rows) >= 1:
             for row in rows:
@@ -67,7 +67,7 @@ class DatabaseHelper(SUDBConnect):
     @staticmethod
     def useAllRegexAndRegexHelper(attributeId, stringToScan):
         DB = SUDBConnect()
-        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
+        rows = DB.getRowsDB(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
         regExArray = []
         regExHelperArray = []
         if len(rows) >= 1:
@@ -87,7 +87,7 @@ class DatabaseHelper(SUDBConnect):
     @staticmethod
     def useOnlyFirstRegexTrue(attributeId, stringToScan):
         DB = SUDBConnect()
-        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
+        rows = DB.getRowsDB(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
         regEx = ''
         if len(rows) >= 1:
             regEx = rows[0].RegEx
@@ -96,7 +96,7 @@ class DatabaseHelper(SUDBConnect):
     @staticmethod
     def useOnlyFirstRegexHelperTrue(attributeId, stringToScan):
         DB = SUDBConnect()
-        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
+        rows = DB.getRowsDB(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
         regExHelper = ''
         if len(rows) >= 1:
             regExHelper = rows[0].RegExHelper
@@ -105,7 +105,7 @@ class DatabaseHelper(SUDBConnect):
     @staticmethod
     def useOnlyFirstRegexTrueRegexHelperTrue(attributeId, stringToScan):
         DB = SUDBConnect()
-        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
+        rows = DB.getRowsDB(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
         regEx = ''
         regExHelper = ''
         if len(rows) >= 1:
@@ -127,7 +127,7 @@ class DatabaseHelper(SUDBConnect):
     @staticmethod
     def useOnlyFirstRegexTrueRegexHelperFalse(attributeId, stringToScan):
         DB = SUDBConnect()
-        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
+        rows = DB.getRowsDB(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
         regEx = ''
         regExHelper = ''
         if len(rows) >= 1:
@@ -149,7 +149,7 @@ class DatabaseHelper(SUDBConnect):
     @staticmethod
     def useOnlyFirstRegexFalseRegexHelperTrue(attributeId, stringToScan):
         DB = SUDBConnect()
-        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
+        rows = DB.getRowsDB(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
         regEx = ''
         regExHelper = ''
         if len(rows) >= 1:
@@ -171,7 +171,7 @@ class DatabaseHelper(SUDBConnect):
     @staticmethod
     def useOnlyFirstRegexFalseRegexHelperFalse(attributeId, stringToScan):
         DB = SUDBConnect()
-        rows = DB.getRows(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
+        rows = DB.getRowsDB(' Select ' + str(attributeId) + ' , RegEx, RegExHelper from RegExHelpers')
         regEx = ''
         regExHelper = ''
         if len(rows) >= 1:

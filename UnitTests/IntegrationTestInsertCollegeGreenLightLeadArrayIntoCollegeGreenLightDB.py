@@ -10,11 +10,11 @@ class TestStringMethods(unittest.TestCase):
         fakeLeadArray = ['name', 'amount', 'deadline', 'sponsor', 'description', 'requirements', 'url', 'sourceWebsite',
                          'sourceText']
         db = SUDBConnect()
-        db.insertUpdateOrDelete("delete from dbo.CollegeGreenLightLeads where Name='name'")
+        db.insertUpdateOrDeleteDB("delete from dbo.CollegeGreenLightLeads where Name='name'")
 
         # test
         InsertCollegeGreenLightLeadArrayIntoCollegeGreenLightDB(fakeLeadArray)
-        row = db.getRows("select * from dbo.CollegeGreenLightLeads where Name='name'")
+        row = db.getRowsDB("select * from dbo.CollegeGreenLightLeads where Name='name'")
         testRow = row[0]
         self.assertEqual('name', testRow.Name)
         self.assertEqual('amount', testRow.Amount)
@@ -27,7 +27,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual('sourceText', testRow.SourceText)
 
         # tear down
-        db.insertUpdateOrDelete("delete from dbo.CollegeGreenLightLeads where Name='name'")
+        db.insertUpdateOrDeleteDB("delete from dbo.CollegeGreenLightLeads where Name='name'")
 
 
 if __name__ == '__main__':

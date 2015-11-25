@@ -27,11 +27,11 @@ class InsertScholarsiteLeadsArrayIntoScholarsiteLeadsDB(object):
         self.tag = 'Scholarship'
 
         if not self.checkIfAlreadyInDB():
-            self.db.insertUpdateOrDelete(
+            self.db.insertUpdateOrDeleteDB(
                 "insert into dbo.ScholarsiteLeads (Name, Amount, Deadline, Requirements, AnnualAwards, Major, AcademicLevel, QualifiedMinorities, EligibleInstitution, EligibleRegion, USCitizen, USResident, ForeignNational, MinimumAge, MaximumAge, ClassRank, MinimumGPA, MinimumACT, MinimumSAT, Tag) values (N'" + self.name + "', N'" + self.amount + "', '" + self.deadline + "', N'" + self.requirements + "', N'" + self.annualAwards + "', N'" + self.major + "', N'" + self.academicLevel + "', N'" + self.qualifiedMinorities + "', N'" + self.eligibleInstitution + "', N'" + self.eligibleRegion + "', N'" + self.usCitizen + "', N'" + self.usResident + "', N'" + self.foreignNational + "', '" + self.minimumAge + "', '" + self.maximumAge + "', N'" + self.classRank + "', N'" + self.minimumGPA + "', N'" + self.minimumACT + "', N'" + self.minimumSAT + "', N'" + self.tag + "')")
 
     def checkIfAlreadyInDB(self):
-        matchingRow = self.db.getRows(
+        matchingRow = self.db.getRowsDB(
             "select * from dbo.ScholarsiteLeads where Name='" + self.name + "' and Requirements='" + self.requirements + "'")
         if matchingRow != []:
             return True

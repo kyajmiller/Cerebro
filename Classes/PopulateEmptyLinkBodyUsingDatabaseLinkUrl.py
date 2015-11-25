@@ -8,7 +8,7 @@ class PopulateEmptyLinkBodyUsingDatabaseLinkUrl(object):
         self.db = SUDBConnect()
         self.linkUrlsList = []
 
-        rowsWithEmptyLinkBody = self.db.getRows("select * from dbo.LinkCrawlerHrefs where ISNULL(LinkBody, '') = ''")
+        rowsWithEmptyLinkBody = self.db.getRowsDB("select * from dbo.LinkCrawlerHrefs where ISNULL(LinkBody, '') = ''")
         if len(rowsWithEmptyLinkBody) >= 1:
             for row in rowsWithEmptyLinkBody:
                 self.linkUrlsList.append(row.LinkUrl)
@@ -17,5 +17,5 @@ class PopulateEmptyLinkBodyUsingDatabaseLinkUrl(object):
             for link in self.linkUrlsList:
                 linkbody = RipPage.getPageSource(link)
                 cleanLinkBody = CleanText.cleanALLtheText(linkbody)
-                self.db.insertUpdateOrDelete(
+                self.db.insertUpdateOrDeleteDB(
                     "UPDATE dbo.LinkCrawlerHrefs SET LinkBody='" + cleanLinkBody + "' WHERE LinkUrl='" + link + "'")

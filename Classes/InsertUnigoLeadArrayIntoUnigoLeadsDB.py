@@ -20,11 +20,11 @@ class InsertUnigoLeadArrayIntoUnigoLeadsDB(object):
         self.sourceText = self.unigoLeadArray[11]
 
         if not self.checkIfAlreadyInDatabase():
-            self.db.insertUpdateOrDelete(
+            self.db.insertUpdateOrDeleteDB(
                 "INSERT INTO dbo.UnigoLeads (Name, Amount, Deadline, Sponsor, AwardAmount, Recipients, Requirements, AdditionalInfo, Contact, Address, SourceWebsite, SourceText) VALUES ( N'" + self.name + "', N'" + self.amount + "', N'" + self.deadline + "', N'" + self.sponsor + "', N'" + self.awardAmount + "', N'" + self.recipients + "', N'" + self.requirements + "', N'" + self.additionalInfo + "', N'" + self.contact + "', N'" + self.address + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
 
     def checkIfAlreadyInDatabase(self):
-        matchingRow = self.db.getRows(
+        matchingRow = self.db.getRowsDB(
             "select Name, AdditionalInfo from dbo.UnigoLeads where Name='" + self.name + "' and AdditionalInfo='" + self.additionalInfo + "'")
         if matchingRow != []:
             return True

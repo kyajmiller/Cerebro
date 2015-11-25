@@ -12,20 +12,20 @@ class GrantForwardItemsGetDatabaseInfo(object):
         titles = []
 
         if self.keyword and self.tag:
-            rows = self.db.getRows(
+            rows = self.db.getRowsDB(
                 "select Name from dbo.GrantForwardItems where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 titles.append(row.Name)
         elif self.keyword:
-            rows = self.db.getRows("select Name from dbo.GrantForwardItems where Keyword='" + self.keyword + "'")
+            rows = self.db.getRowsDB("select Name from dbo.GrantForwardItems where Keyword='" + self.keyword + "'")
             for row in rows:
                 titles.append(row.Name)
         elif self.tag:
-            rows = self.db.getRows("select * from dbo.GrantForwardItems where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.GrantForwardItems where Tag='" + self.tag + "'")
             for row in rows:
                 titles.append(row.Name)
         else:
-            rows = self.db.getRows("select * from dbo.GrantForwardItems")
+            rows = self.db.getRowsDB("select * from dbo.GrantForwardItems")
             for row in rows:
                 titles.append(row.Name)
 
@@ -35,20 +35,21 @@ class GrantForwardItemsGetDatabaseInfo(object):
         descriptions = []
 
         if self.tag and self.keyword:
-            rows = self.db.getRows(
+            rows = self.db.getRowsDB(
                 "select Description from dbo.GrantForwardItems where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 descriptions.append(row.Description)
         elif self.keyword:
-            rows = self.db.getRows("select Description from dbo.GrantForwardItems where Keyword='" + self.keyword + "'")
+            rows = self.db.getRowsDB(
+                "select Description from dbo.GrantForwardItems where Keyword='" + self.keyword + "'")
             for row in rows:
                 descriptions.append(row.Description)
         elif self.tag:
-            rows = self.db.getRows("select * from dbo.GrantForwardItems where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.GrantForwardItems where Tag='" + self.tag + "'")
             for row in rows:
                 descriptions.append(row.Description)
         else:
-            rows = self.db.getRows("select * from dbo.GrantForwardItems")
+            rows = self.db.getRowsDB("select * from dbo.GrantForwardItems")
             for row in rows:
                 descriptions.append(row.Description)
 
@@ -58,20 +59,21 @@ class GrantForwardItemsGetDatabaseInfo(object):
         eligibilities = []
 
         if self.tag and self.keyword:
-            rows = self.db.getRows(
+            rows = self.db.getRowsDB(
                 "select Eligibility from dbo.GrantForwardItems where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 eligibilities.append(row.Eligibility)
         elif self.keyword:
-            rows = self.db.getRows("select Eligibility from dbo.GrantForwardItems where Keyword='" + self.keyword + "'")
+            rows = self.db.getRowsDB(
+                "select Eligibility from dbo.GrantForwardItems where Keyword='" + self.keyword + "'")
             for row in rows:
                 eligibilities.append(row.Eligibility)
         elif self.tag:
-            rows = self.db.getRows("select * from dbo.GrantForwardItems where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.GrantForwardItems where Tag='" + self.tag + "'")
             for row in rows:
                 eligibilities.append(row.Eligibility)
         else:
-            rows = self.db.getRows("select * from dbo.GrantForwardItems")
+            rows = self.db.getRowsDB("select * from dbo.GrantForwardItems")
             for row in rows:
                 eligibilities.append(row.Eligibility)
 
@@ -81,21 +83,21 @@ class GrantForwardItemsGetDatabaseInfo(object):
         grantForwardItemIds = []
 
         if self.tag and self.keyword:
-            rows = self.db.getRows(
+            rows = self.db.getRowsDB(
                 "select GrantForwardItemId from dbo.GrantForwardItems where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 grantForwardItemIds.append(str(row.GrantForwardItemId))
         elif self.keyword:
-            rows = self.db.getRows(
+            rows = self.db.getRowsDB(
                 "select GrantForwardItemId from dbo.GrantForwardItems where Keyword='" + self.keyword + "'")
             for row in rows:
                 grantForwardItemIds.append(str(row.GrantForwardItemId))
         elif self.tag:
-            rows = self.db.getRows("select * from dbo.GrantForwardItems where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.GrantForwardItems where Tag='" + self.tag + "'")
             for row in rows:
                 grantForwardItemIds.append(row.GrantForwardItemId)
         else:
-            rows = self.db.getRows("select * from dbo.GrantForwardItems")
+            rows = self.db.getRowsDB("select * from dbo.GrantForwardItems")
             for row in rows:
                 grantForwardItemIds.append(row.GrantForwardItemId)
 
@@ -105,21 +107,21 @@ class GrantForwardItemsGetDatabaseInfo(object):
         sourceTexts = []
 
         if self.tag and self.keyword:
-            rows = self.db.getRows(
+            rows = self.db.getRowsDB(
                 "select OpportunitySourceText from dbo.GrantForwardItems where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 sourceTexts.append(row.OpportunitySourceText)
         elif self.keyword:
-            rows = self.db.getRows(
+            rows = self.db.getRowsDB(
                 "select OpportunitySourceText from dbo.GrantForwardItems where Keyword='" + self.keyword + "'")
             for row in rows:
                 sourceTexts.append(row.OpportunitySourceText)
         elif self.tag:
-            rows = self.db.getRows("select *from dbo.GrantForwardItems where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select *from dbo.GrantForwardItems where Tag='" + self.tag + "'")
             for row in rows:
                 sourceTexts.append(row.OpportunitySourceText)
         else:
-            rows = self.db.getRows("select * from dbo.GrantForwardItems")
+            rows = self.db.getRowsDB("select * from dbo.GrantForwardItems")
             for row in rows:
                 sourceTexts.append(row.OpportunitySourceText)
 
@@ -129,20 +131,20 @@ class GrantForwardItemsGetDatabaseInfo(object):
         sponsors = []
 
         if self.tag and self.keyword:
-            rows = self.db.getRows(
+            rows = self.db.getRowsDB(
                 "select * from dbo.GrantForwardItems where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 sponsors.append(row.Sponsor)
         elif self.keyword:
-            rows = self.db.getRows("select * from dbo.GrantForwrdItems where Keyword='" + self.keyword + "'")
+            rows = self.db.getRowsDB("select * from dbo.GrantForwrdItems where Keyword='" + self.keyword + "'")
             for row in rows:
                 sponsors.append(row.Sponsor)
         elif self.tag:
-            rows = self.db.getRows("select * from dbo.GrantForwardItems where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.GrantForwardItems where Tag='" + self.tag + "'")
             for row in rows:
                 sponsors.append(row.Sponsor)
         else:
-            rows = self.db.getRows("select * from dbo.GrantForwardItems")
+            rows = self.db.getRowsDB("select * from dbo.GrantForwardItems")
             for row in rows:
                 sponsors.append(row.Sponsor)
 
@@ -185,11 +187,11 @@ class GrantForwardItemsGetDatabaseInfo(object):
         keywords = []
 
         if tag:
-            rows = db.getRows("select distinct Keyword from dbo.GrantForwardItems where Tag='" + tag + "'")
+            rows = db.getRowsDB("select distinct Keyword from dbo.GrantForwardItems where Tag='" + tag + "'")
             for row in rows:
                 keywords.append(row.Keyword)
         else:
-            rows = db.getRows("select distinct Keyword from dbo.GrantForwardItems")
+            rows = db.getRowsDB("select distinct Keyword from dbo.GrantForwardItems")
             for row in rows:
                 keywords.append(row.Keyword)
 

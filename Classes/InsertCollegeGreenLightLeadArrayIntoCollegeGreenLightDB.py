@@ -17,11 +17,11 @@ class InsertCollegeGreenLightLeadArrayIntoCollegeGreenLightDB(object):
         self.sourceText = self.collegeGreenLightLeadArray[8]
 
         if not self.checkIfAlreadyInDatabase():
-            self.db.insertUpdateOrDelete(
+            self.db.insertUpdateOrDeleteDB(
                 "INSERT INTO dbo.CollegeGreenLightLeads (Name, Amount, Deadline, Sponsor, Description, Requirements, Url, SourceWebsite, SourceText) VALUES  (N'" + self.name + "', N'" + self.amount + "', N'" + self.deadline + "', N'" + self.sponsor + "', N'" + self.description + "', N'" + self.requirements + "', N'" + self.url + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
 
     def checkIfAlreadyInDatabase(self):
-        matchingRow = self.db.getRows(
+        matchingRow = self.db.getRowsDB(
             "select * from dbo.CollegeGreenLightLeads where Name='" + self.name + "' and Url='" + self.url + "'")
         if matchingRow != []:
             return True

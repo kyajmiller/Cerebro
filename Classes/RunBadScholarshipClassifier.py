@@ -21,4 +21,4 @@ class RunBadScholarshipClassifier(object):
             id = idsList[i]
             updateQuery = PutThingsInTables(tableName, ['BadScholarship'], [badScholarship],
                                             whereColumnNames=[idColumnName], whereValues=[id]).createSQLQueryUpdate()
-            self.db.insertUpdateOrDelete(updateQuery)
+            self.db.insertUpdateOrDeleteDB(updateQuery)

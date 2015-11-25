@@ -10,11 +10,11 @@ class IefaLeadsGetDatabaseInfo(object):
         titles = []
 
         if self.tag:
-            rows = self.db.getRows("select Name from dbo.IefaLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select Name from dbo.IefaLeads where Tag='" + self.tag + "'")
             for row in rows:
                 titles.append(row.Name)
         else:
-            rows = self.db.getRows("select Name from dbo.IefaLeads")
+            rows = self.db.getRowsDB("select Name from dbo.IefaLeads")
             for row in rows:
                 titles.append(row.Name)
 
@@ -24,11 +24,11 @@ class IefaLeadsGetDatabaseInfo(object):
         descriptions = []
 
         if self.tag:
-            rows = self.db.getRows("select Description from dbo.IefaLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select Description from dbo.IefaLeads where Tag='" + self.tag + "'")
             for row in rows:
                 descriptions.append(row.Description)
         else:
-            rows = self.db.getRows("select Description from dbo.IefaLeads")
+            rows = self.db.getRowsDB("select Description from dbo.IefaLeads")
             for row in rows:
                 descriptions.append(row.Description)
 
@@ -38,11 +38,11 @@ class IefaLeadsGetDatabaseInfo(object):
         otherCriteria = []
 
         if self.tag:
-            rows = self.db.getRows("select OtherCriteria from dbo.IefaLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select OtherCriteria from dbo.IefaLeads where Tag='" + self.tag + "'")
             for row in rows:
                 otherCriteria.append(row.OtherCriteria)
         else:
-            rows = self.db.getRows("select OtherCriteria from dbo.IefaLeads")
+            rows = self.db.getRowsDB("select OtherCriteria from dbo.IefaLeads")
             for row in rows:
                 otherCriteria.append(row.OtherCriteria)
 
@@ -52,11 +52,11 @@ class IefaLeadsGetDatabaseInfo(object):
         iefaLeadsIds = []
 
         if self.tag:
-            rows = self.db.getRows("select IefaLeadId from dbo.IefaLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select IefaLeadId from dbo.IefaLeads where Tag='" + self.tag + "'")
             for row in rows:
                 iefaLeadsIds.append(str(row.IefaLeadId))
         else:
-            rows = self.db.getRows("select IefaLeadId from dbo.IefaLeads")
+            rows = self.db.getRowsDB("select IefaLeadId from dbo.IefaLeads")
             for row in rows:
                 iefaLeadsIds.append(str(row.IefaLeadId))
 
@@ -66,11 +66,11 @@ class IefaLeadsGetDatabaseInfo(object):
         sponsors = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.IefaLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.IefaLeads where Tag='" + self.tag + "'")
             for row in rows:
                 sponsors.append(row.Sponsor)
         else:
-            rows = self.db.getRows("select * from dbo.IefaLeads")
+            rows = self.db.getRowsDB("select * from dbo.IefaLeads")
             for row in rows:
                 sponsors.append(row.Sponsor)
 

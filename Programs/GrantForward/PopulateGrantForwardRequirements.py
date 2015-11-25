@@ -76,16 +76,16 @@ class PopulateGrantForwardRequirements(object):
         attributeId = '417'
         attributeValue = major
 
-        self.db.insertUpdateOrDelete(
+        self.db.insertUpdateOrDeleteDB(
             "insert into dbo.GrantForwardRequirements (GrantForwardId, AttributeId, AttributeValue) values ('" + grantForwardItemId + "', '" + attributeId + "', '" + attributeValue + "')")
 
     def insertGPAIntoGrantForwardRequirements(self, grantForwardItemId, gpa):
         attributeId = '1'
         attributeValue = gpa
 
-        self.db.insertUpdateOrDelete(
+        self.db.insertUpdateOrDeleteDB(
             "insert into dbo.GrantForwardRequirements (GrantForwardId, AttributeId, AttributeValue) values ('" + grantForwardItemId + "', '" + attributeId + "', '" + attributeValue + "')")
 
     def insertDueDateIntoGrantForwardItems(self, grantForwardItemId, dueDate):
-        self.db.insertUpdateOrDelete(
+        self.db.insertUpdateOrDeleteDB(
             "update dbo.GrantForwardItems set DueDate='" + dueDate + "' where GrantForwardItemId='" + grantForwardItemId + "'")

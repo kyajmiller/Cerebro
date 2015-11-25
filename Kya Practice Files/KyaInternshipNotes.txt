@@ -1881,3 +1881,16 @@ blocking my webscraper
     The file format should have a header row which tells the names of the parameters
     The fields should be delimitead by asci character 1 and the last field should be character asci character 2.
     Thus we should be able to go to a folder and slurp up all the files into 1 big file with all of the rows."
+
+11/23 Notes:
+-So far, for updating the data insert class, I've added in some optional parameters, which will let you choose filesystem or db, and an optional
+parameter of where to put the file system
+-Need to test that putting in these parameters hasn't broken the original function of the class
+
+11/25 Notes:
+-Need to actually do work today
+-Test the SUDBConnect class, make sure original functionality still intact
+-Wrote unit test for SUDBConnect, thought we already had tests for it but couldn't find them; verified that it still works
+-Now need to add in similar functions to connect to a textfile and write in stuff
+-Made a file in C:/ crawlyjones to store files
+

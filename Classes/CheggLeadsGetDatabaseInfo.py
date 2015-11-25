@@ -10,11 +10,11 @@ class CheggLeadsGetDatabaseInfo(object):
         cheggLeadsIds = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.CheggLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.CheggLeads where Tag='" + self.tag + "'")
             for row in rows:
                 cheggLeadsIds.append(row.CheggLeadId)
         else:
-            rows = self.db.getRows("select * from dbo.CheggLeads")
+            rows = self.db.getRowsDB("select * from dbo.CheggLeads")
             for row in rows:
                 cheggLeadsIds.append(row.CheggLeadId)
 
@@ -25,11 +25,11 @@ class CheggLeadsGetDatabaseInfo(object):
         titles = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.CheggLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.CheggLeads where Tag='" + self.tag + "'")
             for row in rows:
                 titles.append(row.Name)
         else:
-            rows = self.db.getRows("select * from dbo.CheggLeads")
+            rows = self.db.getRowsDB("select * from dbo.CheggLeads")
             for row in rows:
                 titles.append(row.Name)
         return titles
@@ -38,11 +38,11 @@ class CheggLeadsGetDatabaseInfo(object):
         eligibilities = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.CheggLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.CheggLeads where Tag='" + self.tag + "'")
             for row in rows:
                 eligibilities.append(row.Eligibility)
         else:
-            rows = self.db.getRows("select * from dbo.CheggLeads")
+            rows = self.db.getRowsDB("select * from dbo.CheggLeads")
             for row in rows:
                 eligibilities.append(row.Eligibility)
         return eligibilities
@@ -51,11 +51,11 @@ class CheggLeadsGetDatabaseInfo(object):
         applicationOverviews = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.CheggLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.CheggLeads where Tag='" + self.tag + "'")
             for row in rows:
                 applicationOverviews.append(row.ApplicationOverview)
         else:
-            rows = self.db.getRows("select * from dbo.CheggLeads")
+            rows = self.db.getRowsDB("select * from dbo.CheggLeads")
             for row in rows:
                 applicationOverviews.append(row.ApplicationOverview)
         return applicationOverviews
@@ -64,11 +64,11 @@ class CheggLeadsGetDatabaseInfo(object):
         descriptions = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.CheggLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.CheggLeads where Tag='" + self.tag + "'")
             for row in rows:
                 descriptions.append(row.Description)
         else:
-            rows = self.db.getRows("select * from dbo.CheggLeads")
+            rows = self.db.getRowsDB("select * from dbo.CheggLeads")
             for row in rows:
                 descriptions.append(row.Description)
         return descriptions
@@ -77,11 +77,11 @@ class CheggLeadsGetDatabaseInfo(object):
         sponsors = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.CheggLeads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.CheggLeads where Tag='" + self.tag + "'")
             for row in rows:
                 sponsors.append(row.Sponsor)
         else:
-            rows = self.db.getRows("select * from dbo.CheggLeads")
+            rows = self.db.getRowsDB("select * from dbo.CheggLeads")
             for row in rows:
                 sponsors.append(row.Sponsor)
 

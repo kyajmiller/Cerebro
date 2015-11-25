@@ -20,11 +20,11 @@ class InsertFastWebLeadIntoFastWebLeadsDB(object):
         self.sourceText = self.fastWebLeadArray[11]
 
         if not self.checkIfAlreadyInDatabase():
-            self.db.insertUpdateOrDelete(
+            self.db.insertUpdateOrDeleteDB(
                 "insert into dbo.FastWebLeads (Name, Url, Sponsor, Amount, Deadline, Description, AwardType, NumAwards, Majors, AdditionalInfo, SourceWebsite, SourceText) values (N'" + self.name + "', N'" + self.url + "', N'" + self.sponsor + "', N'" + self.amount + "', N'" + self.deadline + "', N'" + self.description + "', N'" + self.awardType + "', N'" + self.numAwards + "', N'" + self.majors + "', N'" + self.additionalInfo + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
 
     def checkIfAlreadyInDatabase(self):
-        matchingRow = self.db.getRows(
+        matchingRow = self.db.getRowsDB(
             "select * from dbo.FastWebLeads where Name='" + self.name + "' and Url='" + self.url + "'")
         if matchingRow != []:
             return True

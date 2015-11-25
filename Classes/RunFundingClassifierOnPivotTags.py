@@ -23,5 +23,5 @@ class RunFundingClassifierOnPivotTags(object):
         for i in range(len(predictedTags)):
             predictedTag = predictedTags[i]
             pivotTagId = str(i + 1)
-            db.insertUpdateOrDelete(
+            db.insertUpdateOrDeleteDB(
                 "update dbo.PivotTags set Predicted='" + predictedTag + "' where PivotTagId='" + pivotTagId + "'")

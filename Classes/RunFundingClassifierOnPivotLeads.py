@@ -18,7 +18,7 @@ class RunFundingClassifierOnPivotLeads(object):
             for i in range(len(predictedTags)):
                 tag = predictedTags[i]
                 pivotLeadId = listPivotLeadIds[i]
-                db.insertUpdateOrDelete(
+                db.insertUpdateOrDeleteDB(
                     "update dbo.PivotLeads set Tag='" + tag + "' where PivotLeadId='" + pivotLeadId + "'")
 
 

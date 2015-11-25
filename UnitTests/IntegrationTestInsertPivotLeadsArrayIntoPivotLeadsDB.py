@@ -11,7 +11,7 @@ class TestStringMethods(unittest.TestCase):
         InsertPivotLeadsArrayIntoPivotLeadsDB(fakepivotleadsarray)
 
         db = SUDBConnect()
-        rows = db.getRows("select * from dbo.PivotLeads where Url='url'")
+        rows = db.getRowsDB("select * from dbo.PivotLeads where Url='url'")
         self.assertIsNotNone(rows)
 
         self.assertEqual('keyword', rows[0].Keyword)
@@ -28,7 +28,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual('source website', rows[0].SourceWebsite)
         self.assertEqual('source text', rows[0].SourceText)
 
-        db.insertUpdateOrDelete("delete from dbo.PivotLeads where Url='url'")
+        db.insertUpdateOrDeleteDB("delete from dbo.PivotLeads where Url='url'")
 
 
 if __name__ == '__main__':

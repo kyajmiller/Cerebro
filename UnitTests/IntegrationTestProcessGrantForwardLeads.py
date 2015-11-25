@@ -9,7 +9,7 @@ class TestStringMethods(unittest.TestCase):
         ProcessGrantForwardLeads(
             GrantForwardLeads('engineering', isTest=True).processSearchResultsAndMakeLeadArray())
         db = SUDBConnect()
-        rows = db.getRows("select * from dbo.GrantForwardItems")
+        rows = db.getRowsDB("select * from dbo.GrantForwardItems")
         self.assertGreaterEqual(len(rows), 10)
 
     def test_ProcessGrantForwardLeadsNoResults(self):

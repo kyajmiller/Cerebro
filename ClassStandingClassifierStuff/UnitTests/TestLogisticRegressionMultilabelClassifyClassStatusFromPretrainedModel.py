@@ -38,7 +38,7 @@ class TestStringMethods(unittest.TestCase):
         predictions = [prediction[1] for prediction in idsAndPredictionsList]
         for scholarshipWithClassStatusID, prediction in zip(ids, predictions):
             prediction = ', '.join(prediction)
-            db.insertUpdateOrDelete(
+            db.insertUpdateOrDeleteDB(
                 "update dbo.ScholarshipsWithClassStatuses set EnsembleClassifierPrediction='" + prediction + "' where ScholarshipsWithClassStatusId = '" + str(
                     scholarshipWithClassStatusID) + "'")
 

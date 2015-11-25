@@ -23,11 +23,11 @@ class InsertIefaLeadArrayIntoIefaLeadsDB(object):
         self.sourceText = self.iefaLeadArray[14]
 
         if not self.checkIfAlreadyInDatabase():
-            self.db.insertUpdateOrDelete(
+            self.db.insertUpdateOrDeleteDB(
                 "INSERT INTO dbo.IefaLeads (Name, Url, Sponsor, SubmissionDeadline, Majors, Amount, Description, OtherCriteria, NumberAwards, HostInstitution, Includes, NationalityRequired, HostCountries, SourceWebsite, SourceText) VALUES  (N'" + self.name + "', N'" + self.url + "', N'" + self.sponsor + "', N'" + self.submissionDeadline + "', N'" + self.majors + "', N'" + self.amount + "', N'" + self.description + "', N'" + self.otherCriteria + "', N'" + self.numberAwards + "', N'" + self.hostInstitution + "', N'" + self.includes + "', N'" + self.nationalityRequired + "', N'" + self.hostCountries + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
 
     def checkIfAlreadyInDatabase(self):
-        matchingRow = self.db.getRows(
+        matchingRow = self.db.getRowsDB(
             "select * from dbo.IefaLeads where Name='" + self.name + "' and Description='" + self.description + "'")
         if matchingRow != []:
             return True

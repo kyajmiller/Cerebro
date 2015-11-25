@@ -85,7 +85,7 @@ class TestStringMethods(unittest.TestCase):
         iefaLeadTrainingIdList = []
         actualBad = []
         concatenatedDescriptionOCList = []
-        rows = db.getRows("select * from dbo.IefaLeadsTrainingItems where BadScholarship!='Maybe'")
+        rows = db.getRowsDB("select * from dbo.IefaLeadsTrainingItems where BadScholarship!='Maybe'")
         for row in rows:
             sponsorsList.append(row.Sponsor)
             descriptionList.append(row.Description)
@@ -108,7 +108,7 @@ class TestStringMethods(unittest.TestCase):
         for i in range(len(predictedBad)):
             iefaLeadTrainingId = iefaLeadTrainingIdList[i]
             predicted = predictedBad[i]
-            db.insertUpdateOrDelete(
+            db.insertUpdateOrDeleteDB(
                 "update dbo.IefaLeadsTrainingItems set NormalTestPredictedTag='" + predicted + "' where IefaLeadTrainingId='" + iefaLeadTrainingId + "'")
 
     def test_SponsorOnly(self):
@@ -120,7 +120,7 @@ class TestStringMethods(unittest.TestCase):
         iefaLeadTrainingIdList = []
         actualBad = []
         concatenatedDescriptionOCList = []
-        rows = db.getRows("select * from dbo.IefaLeadsTrainingItems where BadScholarship!='Maybe'")
+        rows = db.getRowsDB("select * from dbo.IefaLeadsTrainingItems where BadScholarship!='Maybe'")
         for row in rows:
             sponsorsList.append(row.Sponsor)
             descriptionList.append(row.Description)
@@ -143,7 +143,7 @@ class TestStringMethods(unittest.TestCase):
         for i in range(len(sponsorPredictedBad)):
             iefaLeadTrainingId = iefaLeadTrainingIdList[i]
             predicted = sponsorPredictedBad[i]
-            db.insertUpdateOrDelete(
+            db.insertUpdateOrDeleteDB(
                 "update dbo.IefaLeadsTrainingItems set SponsorTestPredictedTag='" + predicted + "' where IefaLeadTrainingId='" + iefaLeadTrainingId + "'")
 
     def test_infoTextOnly(self):
@@ -155,7 +155,7 @@ class TestStringMethods(unittest.TestCase):
         iefaLeadTrainingIdList = []
         actualBad = []
         concatenatedDescriptionOCList = []
-        rows = db.getRows("select * from dbo.IefaLeadsTrainingItems")
+        rows = db.getRowsDB("select * from dbo.IefaLeadsTrainingItems")
         for row in rows:
             sponsorsList.append(row.Sponsor)
             descriptionList.append(row.Description)
@@ -178,7 +178,7 @@ class TestStringMethods(unittest.TestCase):
         for i in range(len(infoTextPredictedBad)):
             iefaLeadTrainingId = iefaLeadTrainingIdList[i]
             predicted = infoTextPredictedBad[i]
-            db.insertUpdateOrDelete(
+            db.insertUpdateOrDeleteDB(
                 "update dbo.IefaLeadsTrainingItems set InfoTestPredictedTag='" + predicted + "' where IefaLeadTrainingId='" + iefaLeadTrainingId + "'")
 
     def test_infoTextOnlyNoInsert(self):
@@ -190,7 +190,7 @@ class TestStringMethods(unittest.TestCase):
         iefaLeadTrainingIdList = []
         actualBad = []
         concatenatedDescriptionOCList = []
-        rows = db.getRows("select * from dbo.IefaLeadsTrainingItems where BadScholarship!='Maybe'")
+        rows = db.getRowsDB("select * from dbo.IefaLeadsTrainingItems where BadScholarship!='Maybe'")
         for row in rows:
             sponsorsList.append(row.Sponsor)
             descriptionList.append(row.Description)

@@ -19,4 +19,4 @@ class RunFundingClassifier(object):
             id = idsList[i]
             updateQuery = PutThingsInTables(tableName, ['Tag'], [tag], whereColumnNames=[idColumnName],
                                             whereValues=[id]).createSQLQueryUpdate()
-            self.db.insertUpdateOrDelete(updateQuery)
+            self.db.insertUpdateOrDeleteDB(updateQuery)

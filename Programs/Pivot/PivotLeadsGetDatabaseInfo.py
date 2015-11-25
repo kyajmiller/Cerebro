@@ -12,12 +12,12 @@ class PivotLeadsGetDatabaseInfo(object):
         titles = []
 
         if self.tag:
-            rows = self.db.getRows(
+            rows = self.db.getRowsDB(
                 "select Name from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 titles.append(row.Name)
         else:
-            rows = self.db.getRows("select Name from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+            rows = self.db.getRowsDB("select Name from dbo.PivotLeads where Keyword='" + self.keyword + "'")
             for row in rows:
                 titles.append(row.Name)
         return titles
@@ -26,12 +26,12 @@ class PivotLeadsGetDatabaseInfo(object):
         abstracts = []
 
         if self.tag:
-            rows = self.db.getRows(
+            rows = self.db.getRowsDB(
                 "select Abstract from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 abstracts.append(row.Abstract)
         else:
-            rows = self.db.getRows("select Abstract from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+            rows = self.db.getRowsDB("select Abstract from dbo.PivotLeads where Keyword='" + self.keyword + "'")
             for row in rows:
                 abstracts.append(row.Abstract)
         return abstracts
@@ -40,12 +40,12 @@ class PivotLeadsGetDatabaseInfo(object):
         eligibilities = []
 
         if self.tag:
-            rows = self.db.getRows(
+            rows = self.db.getRowsDB(
                 "select Eligibility from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 eligibilities.append(row.Eligibility)
         else:
-            rows = self.db.getRows("select Eligibility from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+            rows = self.db.getRowsDB("select Eligibility from dbo.PivotLeads where Keyword='" + self.keyword + "'")
             for row in rows:
                 eligibilities.append(row.Eligibility)
         return eligibilities
@@ -53,7 +53,7 @@ class PivotLeadsGetDatabaseInfo(object):
     def getTags(self):
         tags = []
 
-        rows = self.db.getRows("select Tag from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+        rows = self.db.getRowsDB("select Tag from dbo.PivotLeads where Keyword='" + self.keyword + "'")
         for row in rows:
             tags.append(row.Tag)
         return tags
@@ -62,12 +62,12 @@ class PivotLeadsGetDatabaseInfo(object):
         pivotLeadIds = []
 
         if self.tag:
-            rows = self.db.getRows(
+            rows = self.db.getRowsDB(
                 "select PivotLeadId from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 pivotLeadIds.append(row.PivotLeadId)
         else:
-            rows = self.db.getRows("select PivotLeadId from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+            rows = self.db.getRowsDB("select PivotLeadId from dbo.PivotLeads where Keyword='" + self.keyword + "'")
             for row in rows:
                 pivotLeadIds.append(row.PivotLeadId)
         return pivotLeadIds
@@ -76,12 +76,12 @@ class PivotLeadsGetDatabaseInfo(object):
         sourceTexts = []
 
         if self.tag:
-            rows = self.db.getRows(
+            rows = self.db.getRowsDB(
                 "select SourceText from dbo.PivotLeads where Keyword='" + self.keyword + "' and Tag='" + self.tag + "'")
             for row in rows:
                 sourceTexts.append(row.SourceText)
         else:
-            rows = self.db.getRows("select SourceText from dbo.PivotLeads where Keyword='" + self.keyword + "'")
+            rows = self.db.getRowsDB("select SourceText from dbo.PivotLeads where Keyword='" + self.keyword + "'")
             for row in rows:
                 sourceTexts.append(row.SourceText)
         return sourceTexts
@@ -144,11 +144,11 @@ class PivotLeadsGetDatabaseInfo(object):
         db = SUDBConnect()
         keywords = []
         if tag:
-            rows = db.getRows("select distinct Keyword from dbo.PivotLeads where Tag='" + tag + "'")
+            rows = db.getRowsDB("select distinct Keyword from dbo.PivotLeads where Tag='" + tag + "'")
             for row in rows:
                 keywords.append(row.Keyword)
         else:
-            rows = db.getRows("select distinct Keyword from dbo.PivotLeads")
+            rows = db.getRowsDB("select distinct Keyword from dbo.PivotLeads")
             for row in rows:
                 keywords.append(row.Keyword)
 

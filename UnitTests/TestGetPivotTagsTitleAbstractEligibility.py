@@ -12,7 +12,7 @@ class TestStringMethods(unittest.TestCase):
         firstItem = testConcatenatAbstractEligibility[0]
 
         # test
-        rows = db.getRows("select * from dbo.PivotTags")
+        rows = db.getRowsDB("select * from dbo.PivotTags")
         title = rows[0].Name
         abstract = rows[0].Abstract
         eligibility = rows[0].Eligibility
@@ -31,7 +31,7 @@ class TestStringMethods(unittest.TestCase):
         testeligibility = firstList[2]
 
         # test
-        rows = db.getRows("select * from dbo.PivotTags")
+        rows = db.getRowsDB("select * from dbo.PivotTags")
         title = CleanText.cleanALLtheText(rows[0].Name)
         abstract = CleanText.cleanALLtheText(rows[0].Abstract)
         eligibility = CleanText.cleanALLtheText(rows[0].Eligibility)

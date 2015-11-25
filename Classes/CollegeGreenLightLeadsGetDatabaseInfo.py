@@ -8,7 +8,7 @@ class CollegeGreenLightLeadsGetDatabaseInfo(object):
     def getDescriptions(self):
         descriptions = []
 
-        rows = self.db.getRows("select Description from dbo.CollegeGreenLightLeads")
+        rows = self.db.getRowsDB("select Description from dbo.CollegeGreenLightLeads")
         for row in rows:
             descriptions.append(row.Description)
 
@@ -17,7 +17,7 @@ class CollegeGreenLightLeadsGetDatabaseInfo(object):
     def getSourceTexts(self):
         sourceTexts = []
 
-        rows = self.db.getRows("select SourceText from dbo.CollegeGreenLightLeads")
+        rows = self.db.getRowsDB("select SourceText from dbo.CollegeGreenLightLeads")
         for row in rows:
             sourceTexts.append(row.SourceText)
 
@@ -26,7 +26,7 @@ class CollegeGreenLightLeadsGetDatabaseInfo(object):
     def getCollegeGreenLightLeadsIds(self):
         collegeGreenLightLeadIds = []
 
-        rows = self.db.getRows("select CollegeGreenLightLeadId from dbo.CollegeGreenLightLeads")
+        rows = self.db.getRowsDB("select CollegeGreenLightLeadId from dbo.CollegeGreenLightLeads")
         for row in rows:
             collegeGreenLightLeadIds.append(str(row.CollegeGreenLightLeadId))
 
@@ -35,7 +35,7 @@ class CollegeGreenLightLeadsGetDatabaseInfo(object):
     def getSponsors(self):
         sponsors = []
 
-        rows = self.db.getRows("select * from dbo.CollegeGreenLightLeads")
+        rows = self.db.getRowsDB("select * from dbo.CollegeGreenLightLeads")
         for row in rows:
             sponsors.append(row.Sponsor)
 

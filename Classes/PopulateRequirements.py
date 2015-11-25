@@ -73,11 +73,11 @@ class PopulateRequirements(object):
         insertValues = [leadId, attributeId, gpa]
         sqlQuery = PutThingsInTables(self.requirementsTableName, self.requirementsTableColumns,
                                      insertValues).createSQLQueryInsert()
-        self.db.insertUpdateOrDelete(sqlQuery)
+        self.db.insertUpdateOrDeleteDB(sqlQuery)
 
     def insertMajorsIntoRequirements(self, leadId, majors):
         attributeId = '417'
         insertValues = [leadId, attributeId, majors]
         sqlQuery = PutThingsInTables(self.requirementsTableName, self.requirementsTableColumns,
                                      insertValues).createSQLQueryInsert()
-        self.db.insertUpdateOrDelete(sqlQuery)
+        self.db.insertUpdateOrDeleteDB(sqlQuery)

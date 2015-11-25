@@ -14,11 +14,11 @@ class InsertMastersInEducationArrayIntoDB(object):
         self.sourceText = mastersInEducationLeadArray[5]
 
         if not self.checkIfAlreadyInDatabase():
-            self.db.insertUpdateOrDelete(
+            self.db.insertUpdateOrDeleteDB(
                 "INSERT INTO dbo.MastersInEducationLeads (Name, Deadline, Amount, Description, SourceWebsite, SourceText) VALUES (N'" + self.name + "', N'" + self.deadline + "', N'" + self.amount + "', N'" + self.description + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
 
     def checkIfAlreadyInDatabase(self):
-        matchingRow = self.db.getRows(
+        matchingRow = self.db.getRowsDB(
             "select * from dbo.MastersInEducationLeads where Name='" + self.name + "' and Description='" + self.description + "'")
         if matchingRow != []:
             return True

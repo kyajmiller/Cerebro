@@ -7,7 +7,7 @@ class GetFastFindMajorsList(object):
     def getDefaultList():
         fastFindMajorsList = []
         db = SUDBConnect()
-        rows = db.getRows(
+        rows = db.getRowsDB(
             "select replace( ValueShown, '(' + OtherValuesToCheck + ')', '') as Major from dbo.FastFindLists where AttributeId=417")
         for row in rows:
             fastFindMajorsList.append(row.Major)
@@ -21,7 +21,7 @@ class GetFastFindMajorsList(object):
         fastFindMajorsList = GetFastFindMajorsList.getDefaultList()
         db = SUDBConnect
 
-        rows = db.getRows("SELECT DISTINCT Keyword FROM dbo.GrantForwardItems")
+        rows = db.getRowsDB("SELECT DISTINCT Keyword FROM dbo.GrantForwardItems")
         existingKeywordsInTable = []
         for row in rows:
             existingKeywordsInTable.append(' ' + row.Keyword)
@@ -38,7 +38,7 @@ class GetFastFindMajorsList(object):
         fastFindMajorsList = GetFastFindMajorsList.getDefaultList()
         db = SUDBConnect()
 
-        rows = db.getRows("SELECT DISTINCT Keyword FROM dbo.PivotLeads")
+        rows = db.getRowsDB("SELECT DISTINCT Keyword FROM dbo.PivotLeads")
         existingKeywordsInTable = []
         for row in rows:
             existingKeywordsInTable.append(' ' + row.Keyword)

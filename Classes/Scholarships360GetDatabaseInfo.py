@@ -10,11 +10,11 @@ class Scholarship360LeadsGetDatabaseInfo(object):
         scholarships360LeadsIds = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.Scholarships360Leads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.Scholarships360Leads where Tag='" + self.tag + "'")
             for row in rows:
                 scholarships360LeadsIds.append(row.Scholarship360LeadId)
         else:
-            rows = self.db.getRows("select * from dbo.Scholarships360Leads")
+            rows = self.db.getRowsDB("select * from dbo.Scholarships360Leads")
             for row in rows:
                 scholarships360LeadsIds.append(row.Scholarship360LeadId)
 
@@ -24,11 +24,11 @@ class Scholarship360LeadsGetDatabaseInfo(object):
         descriptions = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.Scholarships360Leads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.Scholarships360Leads where Tag='" + self.tag + "'")
             for row in rows:
                 descriptions.append(row.Description)
         else:
-            rows = self.db.getRows("select * from dbo.Scholarships360Leads")
+            rows = self.db.getRowsDB("select * from dbo.Scholarships360Leads")
             for row in rows:
                 descriptions.append(row.Description)
 
@@ -38,11 +38,11 @@ class Scholarship360LeadsGetDatabaseInfo(object):
         titles = []
 
         if self.tag:
-            rows = self.db.getRows("select * from dbo.Scholarships360Leads where Tag='" + self.tag + "'")
+            rows = self.db.getRowsDB("select * from dbo.Scholarships360Leads where Tag='" + self.tag + "'")
             for row in rows:
                 titles.append(row.Name)
         else:
-            rows = self.db.getRows("select * from dbo.Scholarships360Leads")
+            rows = self.db.getRowsDB("select * from dbo.Scholarships360Leads")
             for row in rows:
                 titles.append(row.Name)
 

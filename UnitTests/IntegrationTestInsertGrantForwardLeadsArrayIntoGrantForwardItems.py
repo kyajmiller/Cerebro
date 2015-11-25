@@ -11,7 +11,7 @@ class TestStringMethods(unittest.TestCase):
         InsertGrantForwardLeadsArrayIntoGrantForwardItems(fakegrantforwardleadarray)
 
         db = SUDBConnect()
-        rows = db.getRows("select * from dbo.GrantForwardItems where Url='url'")
+        rows = db.getRowsDB("select * from dbo.GrantForwardItems where Url='url'")
         self.assertIsNotNone(rows)
         self.assertEqual('keyword', rows[0].Keyword)
         self.assertEqual('url', rows[0].Url)
@@ -24,7 +24,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual('opportunity source link', rows[0].OpportunitySourceLink)
         self.assertEqual('opportunity source text', rows[0].OpportunitySourceText)
 
-        db.insertUpdateOrDelete("delete from dbo.GrantForwardItems where Url='url'")
+        db.insertUpdateOrDeleteDB("delete from dbo.GrantForwardItems where Url='url'")
 
 
 if __name__ == '__main__':

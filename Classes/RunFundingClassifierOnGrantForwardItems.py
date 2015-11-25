@@ -19,7 +19,7 @@ class GrantForwardItemsRunFundingClassifier(object):
             for i in range(len(predictedTags)):
                 tag = predictedTags[i]
                 grantForwardItemId = listGrantForwardItemIds[i]
-                db.insertUpdateOrDelete(
+                db.insertUpdateOrDeleteDB(
                     "update dbo.GrantForwardItems set Tag='" + tag + "' where GrantForwardItemId='" + grantForwardItemId + "'")
 
 

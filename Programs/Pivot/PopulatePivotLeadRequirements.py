@@ -75,16 +75,16 @@ class PopulatePivotLeadRequirements(object):
         attributeId = '417'
         attributeValue = major
 
-        self.db.insertUpdateOrDelete(
+        self.db.insertUpdateOrDeleteDB(
             "insert into dbo.PivotLeadRequirements (PivotLeadId, AttributeId, AttributeValue) values ('" + pivotLeadId + "', '" + attributeId + "', '" + attributeValue + "')")
 
     def insertGPAIntoPivotLeadsRequirements(self, pivotLeadId, gpa):
         attributeId = '1'
         attributeValue = gpa
 
-        self.db.insertUpdateOrDelete(
+        self.db.insertUpdateOrDeleteDB(
             "insert into dbo.PivotLeadRequirements (PivotLeadId, AttributeId, AttributeValue) values ('" + pivotLeadId + "', '" + attributeId + "', '" + attributeValue + "')")
 
     def insertDueDateIntoPivotLeads(self, pivotLeadId, dueDate):
-        self.db.insertUpdateOrDelete(
+        self.db.insertUpdateOrDeleteDB(
             "update dbo.PivotLeads set DueDate='" + dueDate + "' where PivotLeadId='" + pivotLeadId + "'")

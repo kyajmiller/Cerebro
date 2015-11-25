@@ -291,7 +291,7 @@ class ClassifyBadScholarships(object):
     def getCountriesList(self):
         countriesList = []
 
-        rows = self.db.getRows("select distinct Country from dbo.CountriesAndCapitals")
+        rows = self.db.getRowsDB("select distinct Country from dbo.CountriesAndCapitals")
         for row in rows:
             countriesList.append(row.Country)
 
@@ -300,7 +300,7 @@ class ClassifyBadScholarships(object):
     def getCountryCapitalsList(self):
         countryCapitalsList = []
 
-        rows = self.db.getRows("select distinct Capital from dbo.CountriesAndCapitals")
+        rows = self.db.getRowsDB("select distinct Capital from dbo.CountriesAndCapitals")
         for row in rows:
             countryCapitalsList.append(row.Capital)
 
@@ -309,7 +309,7 @@ class ClassifyBadScholarships(object):
     def getStatesList(self):
         statesList = []
 
-        rows = self.db.getRows("select distinct State from dbo.USCitiesStates")
+        rows = self.db.getRowsDB("select distinct State from dbo.USCitiesStates")
         for row in rows:
             statesList.append(row.State)
 
@@ -318,7 +318,7 @@ class ClassifyBadScholarships(object):
     def getUSCitiesList(self):
         usCitiesList = []
 
-        rows = self.db.getRows("select distinct City from dbo.USCitiesStates")
+        rows = self.db.getRowsDB("select distinct City from dbo.USCitiesStates")
         for row in rows:
             usCitiesList.append(row.City)
 
@@ -327,7 +327,7 @@ class ClassifyBadScholarships(object):
     def getDemonymsList(self):
         demonymsList = []
 
-        rows = self.db.getRows('select distinct Demonym from dbo.CountriesAndCapitals')
+        rows = self.db.getRowsDB('select distinct Demonym from dbo.CountriesAndCapitals')
         for row in rows:
             demonymsList.append(row.Demonym)
 
