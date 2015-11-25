@@ -39,11 +39,10 @@ class TestStringMethods(unittest.TestCase):
         writeFile.write('cheese')
         writeFile.close()
 
-        readFile = open(totalFilePath, 'r+')
+        readFile = open(totalFilePath, 'r')
         fileData = readFile.read()
         self.assertEqual(fileData, 'cheese')
         readFile.close()
-
 
 
 if __name__ == '__main__':
