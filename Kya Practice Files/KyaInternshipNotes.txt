@@ -1893,4 +1893,7 @@ parameter of where to put the file system
 -Wrote unit test for SUDBConnect, thought we already had tests for it but couldn't find them; verified that it still works
 -Now need to add in similar functions to connect to a textfile and write in stuff
 -Made a file in C:/ crawlyjones to store files
+-Playing with unit tests. Found out that everytime you want to switch between writing and reading, you need to close and then reopen the file. Can't
+do both at the same time. Will need to add that to all functions
+-It's going well so far. Opens, reads, and writes to file. Yay
 
