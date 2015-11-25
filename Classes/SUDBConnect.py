@@ -39,6 +39,25 @@ class SUDBConnect(object):
         fileIn = open(filePath, mode)
         return fileIn
 
+    def writeFile(self, fileName, value):
+        fileOut = self.openFile(fileName, 'w')
+        fileOut.write(value)
+        fileOut.close()
+
+    def readFile(self, fileName, mode='read'):
+        fileIn = self.openFile(fileName)
+
+        fileData = None
+
+        if mode == 'read':
+            fileData = fileIn.read()
+            fileIn.close()
+        elif mode == 'readlines':
+            fileData = fileIn.readlines()
+            fileIn.close()
+
+        return fileData
+
     '''
     def openFileReturnAllLines(self, fileName):
         filePath = self.filesystemPath + ('\%s' % fileName)
