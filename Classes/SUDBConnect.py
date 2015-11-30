@@ -82,13 +82,13 @@ class SUDBConnect(object):
         return valuesList
 
     def insertSingleEntry(self, fileName, columns, values):
-        fileOut = self.openFile(fileName, 'a')
         currentContents = self.readFile(fileName, 'read')
         if len(currentContents) == 0:
             headerLine = self.createHeaderLine(columns)
             self.appendToFile(fileName, headerLine)
-            self.appendToFile()
-        else:
+
+        entry = self.createEntry(values)
+        self.appendToFile(fileName, entry)
 
 
     '''
