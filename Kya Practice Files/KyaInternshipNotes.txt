@@ -1897,3 +1897,13 @@ parameter of where to put the file system
 do both at the same time. Will need to add that to all functions
 -It's going well so far. Opens, reads, and writes to file. Yay
 
+11/30 Notes:
+-Need to figure out a way to insert rows into the given file.
+    -Going to require columns and values, like the sql
+    -If file is empty, then make a header row with the columns, then write the rows
+-After that, need to figure out how to read in the rows. Don't want it to return the header column
+    -Once figure out how to read in an entire row (return a list of all column values for that row), need to figure out
+    how to return only values in a particular column
+    -Might be able to do something like 'select id, name from blah' but it's a little pointless since it'll have to grab
+    the whole row list anyway and then filter it out... and in order to do anything computational with it anyway it'll
+    need to still assign one value at a time, so yeah. Might not need this after all
