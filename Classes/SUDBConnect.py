@@ -42,7 +42,7 @@ class SUDBConnect(object):
         fileIn = open(filePath, mode)
         return fileIn
 
-    def writeFile(self, fileName, value):
+    def writeToFile(self, fileName, value):
         fileOut = self.openFile(fileName, 'w')
         fileOut.write(value)
         fileOut.close()
