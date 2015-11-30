@@ -60,16 +60,17 @@ class TestStringMethods(unittest.TestCase):
         self.assertIsNotNone(fileData)
         self.assertEqual(fileData, 'kitty')
 
-    def test_CreateHeaderLine(self):
+    def test_CreateHeaderLineAndCreateColumnsFromHeaderLine(self):
         columns = ['guen', 'alex', 'cassie', 'peter']
         db = SUDBConnect()
-        testHeader = db.createHeaderLine(columns)
-        print(testHeader)
+        headerLine = db.createHeaderLine(columns)
+        testHeader = chr(1).join(columns)
+        testHeader = '%s%s' % (testHeader, chr(2))
+        self.assertEqual(headerLine, testHeader)
 
-        # break down testHeader to make sure it can be split up right
-        testHeader = re.sub(chr(2), '', testHeader)
-        testColumns = testHeader.split(chr(1))
-        self.assertEqual(testColumns, columns)
+        # break down headerLine to make sure it can be split up right
+        testColumns = db.getColumnsFromHeaderLine(headerLine)
+        self.assertEqual(columns, testColumns)
 
 
 
