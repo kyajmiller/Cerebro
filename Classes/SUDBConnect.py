@@ -81,8 +81,15 @@ class SUDBConnect(object):
         valuesList = entry.split(self.columnsDelimiter)
         return valuesList
 
-    def getEntries(self, fileName):
+    def getColumnsAndEntriesLists(self, fileName):
+        fileData = self.readFile(fileName)
+        fileLines = fileData.split(self.entriesDelimiter)
+        headerLine = fileLines[0]
+        entryLines = fileLines[1:]
 
+        columns = self.getColumnsFromHeaderLine(headerLine)
+        entryValueLists = [self.getEntryValuesListFromEntry(entryLine) for entryLine in entryLines]
+        return columns, entryValueLists
 
     def insertSingleEntry(self, fileName, columns, values):
         values = [str(value) for value in values]
