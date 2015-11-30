@@ -67,7 +67,7 @@ class SUDBConnect(object):
         return fileData
 
     def clearFile(self, fileName):
-
+        self.writeToFile(fileName, '')
 
     def createHeaderLine(self, columns):
         headerLine = self.columnsDelimiter.join(columns)
