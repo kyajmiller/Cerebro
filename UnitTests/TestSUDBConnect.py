@@ -54,7 +54,7 @@ class TestStringMethods(unittest.TestCase):
         file = 'sudbconnecttest.txt'
         db = SUDBConnect(destination='filesystem')
         valueToWrite = 'kitty'
-        db.writeFile(file, valueToWrite)
+        db.writeToFile(file, valueToWrite)
 
         fileData = db.readFile(file)
         self.assertIsNotNone(fileData)
