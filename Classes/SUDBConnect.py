@@ -42,8 +42,8 @@ class SUDBConnect(object):
         fileIn = open(filePath, mode)
         return fileIn
 
-    def writeToFile(self, fileName, value):
-        fileOut = self.openFile(fileName, 'w')
+    def appendToFile(self, fileName, value):
+        fileOut = self.openFile(fileName, 'a')
         fileOut.write(value)
         fileOut.close()
 
@@ -81,11 +81,15 @@ class SUDBConnect(object):
         valuesList = entry.split(self.columnsDelimiter)
         return valuesList
 
-    def insertEntries(self, fileName, columns, values):
+    def insertSingleEntry(self, fileName, columns, values):
         fileOut = self.openFile(fileName, 'a')
         currentContents = self.readFile(fileName, 'read')
         if len(currentContents) == 0:
             headerLine = self.createHeaderLine(columns)
+            self.appendToFile(fileName, headerLine)
+            self.appendToFile()
+        else:
+
 
     '''
     def openFileReturnAllLines(self, fileName):
