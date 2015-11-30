@@ -84,6 +84,8 @@ class SUDBConnect(object):
     def getColumnsAndEntriesLists(self, fileName):
         fileData = self.readFile(fileName)
         fileLines = fileData.split(self.entriesDelimiter)
+        if fileLines[-1] == '':
+            del fileLines[-1]
         headerLine = fileLines[0]
         entryLines = fileLines[1:]
 
