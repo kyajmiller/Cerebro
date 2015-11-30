@@ -77,7 +77,7 @@ class TestStringMethods(unittest.TestCase):
         testColumns = db.getColumnsFromHeaderLine(headerLine)
         self.assertEqual(columns, testColumns)
 
-    def test_InsertAnEntry(self):
+    def test_InsertAnEntryAndGetColumnsAndEntriesLists(self):
         file = 'sudbconnecttest.txt'
         db = SUDBConnect(destination='filesystem')
         db.clearFile(file)
@@ -89,7 +89,10 @@ class TestStringMethods(unittest.TestCase):
             valuesToInsert = [catNamesList[i], catAgesList[i]]
             db.insertSingleEntry(file, columns, valuesToInsert)
 
-            # expectedEntries = [['guen', '4'], ['alex', '2'], ['cassie', '6'], ['peter', '4']]
+        testColumns, testEntriesLists = db.getColumnsAndEntriesLists(file)
+        expectedEntries = [['guen', '4'], ['alex', '2'], ['cassie', '6'], ['peter', '4']]
+        self.assertEqual(columns, testColumns)
+        self.assertEqual(expectedEntries, testEntriesLists)
 
 
 
