@@ -1,4 +1,5 @@
 import unittest
+import re
 from Classes.SUDBConnect import SUDBConnect
 
 
@@ -58,6 +59,17 @@ class TestStringMethods(unittest.TestCase):
         fileData = db.readFile(file)
         self.assertIsNotNone(fileData)
         self.assertEqual(fileData, 'kitty')
+
+    def test_CreateHeaderLine(self):
+        columns = ['guen', 'alex', 'cassie', 'peter']
+        db = SUDBConnect()
+        testHeader = db.createHeaderLine(columns)
+        print(testHeader)
+
+        # break down testHeader to make sure it can be split up right
+        testHeader = re.sub(chr(2), '', testHeader)
+        testColumns = testHeader.split(chr(1))
+        self.assertEqual(testColumns, columns)
 
 
 
