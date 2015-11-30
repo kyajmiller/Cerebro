@@ -12,6 +12,9 @@ class SUDBConnect(object):
         self.okayToRunDatabase = False
         self.okayToRunFilesystem = False
 
+        self.columnsDelimiter = chr(1)
+        self.entriesDelimiter = chr(2)
+
         if self.destination == 'database':
             connectionString = r'Driver={SQL Server};Server=%s;Database=%s;Trusted_Connection=yes;' % (
                 self.server, self.database)
@@ -58,9 +61,14 @@ class SUDBConnect(object):
 
         return fileData
 
+    def createHeaderLine(self, columns):
+        headerLine = self.columnsDelimiter.join(columns)
+        headerLine = '%s%s' % (headerLine, self.entriesDelimiter)
+        return headerLine
+
     def insertEntries(self, fileName, columns, values):
         fileOut = self.openFile(fileName, 'a')
-        currentContents = self.readFile(fileName, 'readlines')
+        currentContents = self.readFile(fileName, 'read')
         if len(currentContents) == 0:
             pass
 
