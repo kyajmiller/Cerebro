@@ -47,6 +47,11 @@ class SUDBConnect(object):
         fileOut.write(value)
         fileOut.close()
 
+    def writeToFile(self, fileName, value):
+        fileOut = self.openFile(fileName, 'w')
+        fileOut.write(value)
+        fileOut.close()
+
     def readFile(self, fileName, mode='read'):
         fileIn = self.openFile(fileName)
 
@@ -60,6 +65,9 @@ class SUDBConnect(object):
             fileIn.close()
 
         return fileData
+
+    def clearFile(self, fileName):
+
 
     def createHeaderLine(self, columns):
         headerLine = self.columnsDelimiter.join(columns)
