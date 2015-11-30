@@ -66,11 +66,16 @@ class SUDBConnect(object):
         headerLine = '%s%s' % (headerLine, self.entriesDelimiter)
         return headerLine
 
+    def getColumnsFromHeaderLine(self, headerLine):
+        headerLine = re.sub(self.entriesDelimiter, '', headerLine)
+        columns = headerLine.split(self.columnsDelimiter)
+        return columns
+
     def insertEntries(self, fileName, columns, values):
         fileOut = self.openFile(fileName, 'a')
         currentContents = self.readFile(fileName, 'read')
         if len(currentContents) == 0:
-            pass
+            headerLine = self.createHeaderLine(columns)
 
     '''
     def openFileReturnAllLines(self, fileName):
