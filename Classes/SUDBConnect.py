@@ -90,6 +90,8 @@ class SUDBConnect(object):
         return valuesList
 
     def insertSingleEntry(self, fileName, columns, values):
+        values = [str(value) for value in values]
+
         currentContents = self.readFile(fileName, 'read')
         if len(currentContents) == 0:
             headerLine = self.createHeaderLine(columns)
