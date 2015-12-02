@@ -43,6 +43,7 @@ class SUDBConnect(object):
         fileIn = open(filePath, mode)
         return fileIn
 
+    '''
     def appendToFile(self, fileName, value):
         fileOut = self.openFile(fileName, 'a')
         fileOut.write(value)
@@ -138,6 +139,7 @@ class SUDBConnect(object):
         identityCounter = self.getIdentityCounter(fileName)
         identityCounter = self.incrementIdentityCounter(identityCounter)
         return identityCounter
+    '''
 
     def getAllTestCases(self):
         return self.getRowsDB("Select * from DepartmentTestCases")
