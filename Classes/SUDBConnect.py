@@ -134,6 +134,11 @@ class SUDBConnect(object):
             identityCounter += incrementationValue
         return identityCounter
 
+    def updateIdentityCounter(self, fileName):
+        identityCounter = self.getIdentityCounter(fileName)
+        identityCounter = self.incrementIdentityCounter(identityCounter)
+        return identityCounter
+
 
 
 
