@@ -108,10 +108,10 @@ class SUDBConnect(object):
     def getRowsFS(self, fileName, columns='*', whereValues=None):
         pass
 
-    def insertIdentityCounter(self, currentIdentityCounter=0):
+    def insertIdentityCounter(self, fileName, currentIdentityCounter=0):
         identityCounterString = '%sIdentityCounter:%s%s' % (
-        self.identityCounterDelimiter, currentIdentityCounter, self.identityCounterDelimiter)
-        self.appendToFile(identityCounterString)
+            self.identityCounterDelimiter, currentIdentityCounter, self.identityCounterDelimiter)
+        self.appendToFile(fileName, identityCounterString)
 
 
 
