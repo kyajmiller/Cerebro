@@ -50,6 +50,13 @@ class TestStringMethods(unittest.TestCase):
         fileIn = db.openFile('sudbconnecttest.txt', 'r')
         self.assertIsNotNone(fileIn)
 
+    def test_convertURL(self):
+        testURL = 'www.google.com'
+        db = SUDBConnect()
+        convertURL = db.convertURL(testURL)
+        expectedURL = 'www((dot))google((dot))com'
+        self.assertEqual(expectedURL, convertURL)
+
     '''
     def test_ClearFileAppendLineAndReadFile(self):
         file = 'sudbconnecttest.txt'
