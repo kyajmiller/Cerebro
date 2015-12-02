@@ -4,7 +4,7 @@ import re
 
 class SUDBConnect(object):
     def __init__(self, server='SUDB-DEV', database='Spiderman', destination='database',
-                 filesystemPath='C:\Cerebro'):
+                 filesystemPath='c:\Cerebro'):
         self.fileSystemPath = filesystemPath
         self.destination = destination
         self.server = server
