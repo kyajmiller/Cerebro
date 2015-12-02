@@ -48,6 +48,11 @@ class SUDBConnect(object):
         headerLine = '%s%s%s' % (self.entriesDelimiter, headerLine, self.entriesDelimiter)
         return headerLine
 
+    def createEntryLine(self, values):
+        entryLine = self.columnsDelimiter.join(values)
+        entryLine = '%s%s%s' % (self.entriesDelimiter, entryLine, self.entriesDelimiter)
+        return entryLine
+
     '''
     def appendToFile(self, fileName, value):
         fileOut = self.openFile(fileName, 'a')
