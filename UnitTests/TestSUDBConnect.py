@@ -67,6 +67,17 @@ class TestStringMethods(unittest.TestCase):
         expectedURL = 'https((col))((fs))((fs))news((dot))ycombinator((dot))com((fs))item((ques))id=7824462'
         self.assertEqual(expectedURL, convertURL)
 
+    def test_CreateFilePath(self):
+        db = SUDBConnect()
+        user = 'Kya'
+        website = 'KyasCatPage'
+        fileName = 'cats.txt'
+        filePath = db.createFilePath(user, website, fileName)
+        expectedFilePath = 'c:\Cerebro\%s\%s\%s' % (user, website, fileName)
+        self.assertEqual(expectedFilePath, filePath)
+
+
+
     '''
     def test_ClearFileAppendLineAndReadFile(self):
         file = 'sudbconnecttest.txt'
