@@ -14,6 +14,7 @@ class SUDBConnect(object):
 
         self.columnsDelimiter = chr(1)
         self.entriesDelimiter = chr(2)
+        self.identityCounterDelimiter = chr(3)
 
         if self.destination == 'database':
             connectionString = r'Driver={SQL Server};Server=%s;Database=%s;Trusted_Connection=yes;' % (
@@ -103,6 +104,15 @@ class SUDBConnect(object):
 
         entry = self.createEntry(values)
         self.appendToFile(fileName, entry)
+
+    def getRowsFS(self, fileName, columns='*', whereValues=None):
+        pass
+
+    def insertIdentityCounter(self, currentIdentityCounter=0):
+        identityCounterString = '%sIdentityCounter:%s%s' % (
+        self.identityCounterDelimiter, currentIdentityCounter, self.identityCounterDelimiter)
+        self.appendToFile(identityCounterString)
+
 
 
     '''
