@@ -1907,3 +1907,48 @@ do both at the same time. Will need to add that to all functions
     -Might be able to do something like 'select id, name from blah' but it's a little pointless since it'll have to grab
     the whole row list anyway and then filter it out... and in order to do anything computational with it anyway it'll
     need to still assign one value at a time, so yeah. Might not need this after all
+
+12/2 Notes:
+-I really want to implement a similar functionality with the filesystem as we have with the current sql used with SUDBConnect.
+-So I want to be able to have something to .getRows(whatKindOfRows) and something to insertUpdateOrDelete(whatKindofRows)
+-Currently, in order to grab rows, SQL needs: tableName, whatToGetFromRow, whichRowsToLookAt
+    -for example: 'select * from dbo.Tests where id='cat'' or something
+    -So will have to have argument for fileName, and optional arguments of columnsToGet and a list of values to match in the column
+    -The last one might be a total pain in the ass
+-Just realized I need to have some sort of identity marker like in sql. Will have it work similarly to the default
+incrementation of 1. Not sure how to store current values... could have a value that always gets stored at the end of the file, and everytime its
+rewritten that value is read in, incremented by however much, and reappended to the end of the file... bleh
+
+-Okay, completely nuke what I had before, because it turns out what I had in mind and what don-E wants me to make are completely
+different
+-Instead of having a single file for each website and each scholarship having its own entry, each website will have its own
+directory and each scholarship will have its own file
+-This is both a lot easier than what I was thinking, but different enough logically that it'll be hard
+-Won't have to worry about identity stuff, which is awesome.
+-If I do want to have an identity thing, can do it based on time created.
+-So, in the Cerebro directory, a directory will be created for each user. In that directory, another directory will be created for the
+given website. That website directory will store the individual files for the individual scholarships
+-Need to figure out a way to write a file in a given place, as well as create a directory if it doesn't already exist.
+-Filepath will be something like Cerebro\user\website\file
+-The file names will be the name of the website, the url of the page, and the date the file was created/when the scholarship was mined
+    -Everything created before now will not have a date associated with it, which is okay. Default date will be today (12/2/2015)
+    -So it'll look something like website-url-YYYYMMDD.txt
+-The url needs to be normalized so that it can go in the name of the document. There are a lot of illegal characters that need to be
+removed and replaced.
+    -Illegal characters: <, >, :, ", /, \, |, ?, *
+    -Also need to remove periods (.) - will probably end up replacing periods with commas , unless they're particularly common in urls
+    -Replace ? with (ques)
+
+Replacement conventions:
+- . = ((dot))
+- < = ((less))
+- > = ((great))
+- : = ((col))
+- " = ((dq))
+- / = ((fs))
+- \ = ((bs))
+- | = ((pipe))
+- ? = ((ques))
+- * = ((ast))
+
+These should be okay to use in file names
