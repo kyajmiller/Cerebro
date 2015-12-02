@@ -50,6 +50,7 @@ class TestStringMethods(unittest.TestCase):
         fileIn = db.openFile('sudbconnecttest.txt', 'r')
         self.assertIsNotNone(fileIn)
 
+    '''
     def test_ClearFileAppendLineAndReadFile(self):
         file = 'sudbconnecttest.txt'
         db = SUDBConnect(destination='filesystem')
@@ -102,7 +103,7 @@ class TestStringMethods(unittest.TestCase):
         db = SUDBConnect(destination='filesystem')
         db.clearFile(file)
         columns = ['testId', 'animals']
-
+    '''
 
 
 
