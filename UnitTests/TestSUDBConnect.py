@@ -89,10 +89,21 @@ class TestStringMethods(unittest.TestCase):
             valuesToInsert = [catNamesList[i], catAgesList[i]]
             db.insertSingleEntry(file, columns, valuesToInsert)
 
-        testColumns, testEntriesLists = db.getColumnsAndEntriesLists(file)
+        testColumns, testEntriesLists = db.getColumnsEntriesAndIdentityCounter(file)
         expectedEntries = [['guen', '4'], ['alex', '2'], ['cassie', '6'], ['peter', '4']]
         self.assertEqual(columns, testColumns)
         self.assertEqual(expectedEntries, testEntriesLists)
+
+    def test_fileSystemGetRows(self):
+        # want to build something similar to the .getRows for the database destination, will use this space to test
+        # this isn't a real unit test
+        # start out by making a file to use, will comment out this next section so it doesn't get overwritten later
+        file = 'sudbconnectGetRowsTest.txt'
+        db = SUDBConnect(destination='filesystem')
+        db.clearFile(file)
+        columns = ['testId', 'animals']
+
+
 
 
 
