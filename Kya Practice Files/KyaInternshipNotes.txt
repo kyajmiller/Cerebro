@@ -1950,5 +1950,7 @@ Replacement conventions:
 - | = ((pipe))
 - ? = ((ques))
 - * = ((ast))
+- - = ((dash))
 
 These should be okay to use in file names
+-Convert url seems to be working perfectly fine, which is good
