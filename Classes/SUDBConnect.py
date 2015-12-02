@@ -68,6 +68,11 @@ class SUDBConnect(object):
 
         return url
 
+    def createFileName(self, website, convertedURL, date):
+        fileName = '-'.join([website, convertedURL, date])
+        return fileName
+
+
     '''
     def appendToFile(self, fileName, value):
         fileOut = self.openFile(fileName, 'a')
