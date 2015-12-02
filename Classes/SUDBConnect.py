@@ -129,6 +129,12 @@ class SUDBConnect(object):
         identityCounter = identityCounterString.split(':', 1)[1]
         return identityCounter
 
+    def incrementIdentityCounter(self, identityCounter, incrementationValue=1):
+        if identityCounter >= 1:
+            identityCounter += incrementationValue
+        return identityCounter
+
+
 
 
     '''
