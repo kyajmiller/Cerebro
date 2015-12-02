@@ -4,7 +4,7 @@ import re
 
 class SUDBConnect(object):
     def __init__(self, server='SUDB-DEV', database='Spiderman', destination='database',
-                 filesystemPath='C:\crawlyjones'):
+                 filesystemPath='C:\Cerebro'):
         self.fileSystemPath = filesystemPath
         self.destination = destination
         self.server = server
@@ -71,6 +71,12 @@ class SUDBConnect(object):
     def createFileName(self, website, convertedURL, date):
         fileName = '-'.join([website, convertedURL, date])
         return fileName
+
+    def createFilePath(self, user, website, fileName):
+        pass
+
+    def writeFile(self, user, website, url, date):
+        pass
 
 
     '''
