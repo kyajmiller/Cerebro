@@ -82,17 +82,27 @@ class SUDBConnect(object):
         valuesList = entry.split(self.columnsDelimiter)
         return valuesList
 
-    def getColumnsAndEntriesLists(self, fileName):
+    def getColumnsEntriesAndIdentityCounter(self, fileName):
         fileData = self.readFile(fileName)
         fileLines = fileData.split(self.entriesDelimiter)
+
+        headerLine = fileLines[0]
+        identyCounterLine = None
+
         if fileLines[-1] == '':
             del fileLines[-1]
-        headerLine = fileLines[0]
-        entryLines = fileLines[1:]
+            entryLines = fileLines[1:]
+        else:
+            entryLines = fileLines[1:-1]
+            identyCounterLine = fileLines[-1]
 
         columns = self.getColumnsFromHeaderLine(headerLine)
         entryValueLists = [self.getEntryValuesListFromEntry(entryLine) for entryLine in entryLines]
-        return columns, entryValueLists
+        return columns, entryValueLists, identyCounterLine
+
+    def getJustEntries(self, fileName):
+        columns, entriesLists, identityCounter = self.getColumnsEntriesAndIdentityCounter(fileName)
+        return entriesLists
 
     def insertSingleEntry(self, fileName, columns, values):
         values = [str(value) for value in values]
@@ -112,6 +122,12 @@ class SUDBConnect(object):
         identityCounterString = '%sIdentityCounter:%s%s' % (
             self.identityCounterDelimiter, currentIdentityCounter, self.identityCounterDelimiter)
         self.appendToFile(fileName, identityCounterString)
+
+    def getIdentityCounter(self, fileName):
+        columns, entryValuesLists, identityCounterLine = self.getColumnsEntriesAndIdentityCounter(fileName)
+        identityCounterString = identityCounterLine.strip(chr(3))
+        identityCounter = identityCounterString.split(':', 1)[1]
+        return identityCounter
 
 
 
