@@ -73,7 +73,8 @@ class SUDBConnect(object):
         return fileName
 
     def createFilePath(self, user, website, fileName):
-        pass
+        filePath = '\\'.join([self.fileSystemPath, user, website, fileName])
+        return filePath
 
     def writeFile(self, user, website, url, date):
         pass
