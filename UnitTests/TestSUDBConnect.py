@@ -46,7 +46,7 @@ class TestStringMethods(unittest.TestCase):
         readFile.close()
 
     def test_OpenFile(self):
-        db = SUDBConnect(destination='filesystem')
+        db = SUDBConnect(destination='filesystem', filesystemPath='c:\crawlyjones')
         fileIn = db.openFile('sudbconnecttest.txt', 'r')
         self.assertIsNotNone(fileIn)
 
