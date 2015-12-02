@@ -62,6 +62,11 @@ class TestStringMethods(unittest.TestCase):
         expectedURL = 'http((col))((fs))((fs))www((dot))google((dot))com'
         self.assertEqual(expectedURL, convertURL)
 
+        testURL3 = 'https://news.ycombinator.com/item?id=7824462'
+        convertURL = db.convertURL(testURL3)
+        expectedURL = 'https((col))((fs))((fs))news((dot))ycombinator((dot))com((fs))item((ques))id=7824462'
+        self.assertEqual(expectedURL, convertURL)
+
     '''
     def test_ClearFileAppendLineAndReadFile(self):
         file = 'sudbconnecttest.txt'
