@@ -1,5 +1,6 @@
 import pyodbc
 import re
+import os
 
 
 class SUDBConnect(object):
@@ -40,8 +41,8 @@ class SUDBConnect(object):
 
     def openFile(self, fileName, mode='r'):
         filePath = '%s\%s' % (self.fileSystemPath, fileName)
-        fileIn = open(filePath, mode)
-        return fileIn
+        openFile = open(filePath, mode)
+        return openFile
 
     def createHeaderLine(self, columns):
         headerLine = self.columnsDelimiter.join(columns)
@@ -90,6 +91,8 @@ class SUDBConnect(object):
         url = self.convertURL(url)
         fileName = self.createFileName(website, url, date)
         filePath = self.createFilePath(user, website, fileName)
+        os.makedirs(os.path.dirname(filePath), exist_ok=True)
+
 
 
 
