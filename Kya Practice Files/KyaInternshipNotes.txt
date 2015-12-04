@@ -1954,3 +1954,9 @@ Replacement conventions:
 
 These should be okay to use in file names
 -Convert url seems to be working perfectly fine, which is good
+
+
+12/4 Notes:
+-Need to figure out how to get column names from tables
+- SELECT name FROM sys.columns WHERE OBJECT_ID = OBJECT_ID('dbo.Tests')
+-Use this sql query, change the table name to whatever it needs to be
