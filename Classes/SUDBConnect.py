@@ -76,6 +76,13 @@ class SUDBConnect(object):
         filePath = '\\'.join([self.fileSystemPath, user, website, fileName])
         return filePath
 
+    def getColumnNamesFromTable(self, tableName):
+        db = SUDBConnect(destination='database')
+        tableName = 'dbo.%s' % tableName
+        rows = db.getRowsDB("select name from sys.columns where object_id = object_id('" + tableName + "')")
+        columnNames = [row.name for row in rows]
+        return columnNames
+
     def writeFile(self, user, website, url, date):
         pass
 
