@@ -91,5 +91,18 @@ class TestStringMethods(unittest.TestCase):
         date = '20151204'
         db.writeFile(columns, values, user, website, url, date)
 
+    def test_readFile(self):
+        db = SUDBConnect(destination='filesystem')
+        user = 'Kya'
+        website = 'KyasTestWebsite'
+        url = 'www.kyastestwebsite.com'
+        date = '20151204'
+        filePath = db.createFilePath(user, website, url, date)
+        columns, values = db.readFileGetColumnsAndData(filePath)
+        expectedColumns = ['animal', 'name']
+        expectedValues = ['kitty', 'guen']
+        self.assertEqual(expectedColumns, columns)
+        self.assertEqual(expectedValues, values)
+
 if __name__ == '__main__':
     unittest.main()
