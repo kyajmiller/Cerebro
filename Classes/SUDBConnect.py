@@ -40,8 +40,7 @@ class SUDBConnect(object):
             pass
 
     def openFile(self, fileName, mode='r'):
-        filePath = '%s\%s' % (self.fileSystemPath, fileName)
-        openFile = open(filePath, mode)
+        openFile = open(fileName, mode)
         return openFile
 
     def readFileGetColumnsAndData(self, filePath):
