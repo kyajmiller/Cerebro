@@ -83,7 +83,7 @@ class SUDBConnect(object):
         columnNames = [row.name for row in rows]
         return columnNames
 
-    def writeFile(self, columns, values, user, website, url, date):
+    def writeFile(self, columns, values, user, website, url, date='20151201'):
         headerLine = self.createHeaderLine(columns)
         entryLine = self.createEntryLine(values)
         fileData = self.entriesDelimiter.join([headerLine, entryLine])
