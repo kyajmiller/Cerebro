@@ -76,6 +76,12 @@ class TestStringMethods(unittest.TestCase):
         expectedFilePath = 'c:\Cerebro\%s\%s\%s' % (user, website, fileName)
         self.assertEqual(expectedFilePath, filePath)
 
+    def test_getColumnNames(self):
+        db = SUDBConnect()
+        tableName = 'Tests'
+        columnNames = db.getColumnNamesFromTable(tableName)
+        self.assertIsNotNone(columnNames)
+
 
 
     '''
