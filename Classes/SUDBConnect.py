@@ -92,7 +92,10 @@ class SUDBConnect(object):
         fileName = self.createFileName(website, url, date)
         filePath = self.createFilePath(user, website, fileName)
         os.makedirs(os.path.dirname(filePath), exist_ok=True)
-
+        with open(filePath, 'w') as fileOut:
+            fileOut.write(headerLine)
+            fileOut.write(entryLine)
+            fileOut.close()
 
 
 
