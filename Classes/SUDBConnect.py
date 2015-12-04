@@ -70,6 +70,7 @@ class SUDBConnect(object):
 
     def createFileName(self, website, convertedURL, date):
         fileName = '-'.join([website, convertedURL, date])
+        fileName = '%s.txt' % fileName
         return fileName
 
     def createFilePath(self, user, website, fileName):
@@ -83,8 +84,13 @@ class SUDBConnect(object):
         columnNames = [row.name for row in rows]
         return columnNames
 
-    def writeFile(self, user, website, url, date):
-        pass
+    def writeFile(self, columns, values, user, website, url, date):
+        headerLine = self.createHeaderLine(columns)
+        entryLine = self.createEntryLine(values)
+        url = self.convertURL(url)
+        fileName = self.createFileName(website, url, date)
+        filePath = self.createFilePath(user, website, fileName)
+
 
 
     '''
