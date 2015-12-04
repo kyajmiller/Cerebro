@@ -44,8 +44,8 @@ class SUDBConnect(object):
         openFile = open(filePath, mode)
         return openFile
 
-    def readFileGetColumnsAndData(self, fileName):
-        fileIn = self.openFile(fileName)
+    def readFileGetColumnsAndData(self, filePath):
+        fileIn = self.openFile(filePath)
         fileData = fileIn.read()
         splitFile = fileData.split(self.entriesDelimiter)
         headerLine = splitFile[0]
@@ -85,12 +85,14 @@ class SUDBConnect(object):
 
         return url
 
-    def createFileName(self, website, convertedURL, date):
-        fileName = '-'.join([website, convertedURL, date])
+    def createFileName(self, website, url, date):
+        url = self.convertURL(url)
+        fileName = '-'.join([website, url, date])
         fileName = '%s.txt' % fileName
         return fileName
 
-    def createFilePath(self, user, website, fileName):
+    def createFilePath(self, user, website, url, date):
+        fileName = self.createFileName(website, url, date)
         filePath = '\\'.join([self.fileSystemPath, user, website, fileName])
         return filePath
 
@@ -105,9 +107,7 @@ class SUDBConnect(object):
         headerLine = self.createHeaderLine(columns)
         entryLine = self.createEntryLine(values)
         fileData = self.entriesDelimiter.join([headerLine, entryLine])
-        url = self.convertURL(url)
-        fileName = self.createFileName(website, url, date)
-        filePath = self.createFilePath(user, website, fileName)
+        filePath = self.createFilePath(user, website, url, date)
         os.makedirs(os.path.dirname(filePath), exist_ok=True)
         with open(filePath, 'w') as fileOut:
             fileOut.write(fileData)
