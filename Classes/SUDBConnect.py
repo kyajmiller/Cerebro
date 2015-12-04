@@ -44,6 +44,24 @@ class SUDBConnect(object):
         openFile = open(filePath, mode)
         return openFile
 
+    def readFileGetColumnsAndData(self, fileName):
+        fileIn = self.openFile(fileName)
+        fileData = fileIn.read()
+        splitFile = fileData.split(self.entriesDelimiter)
+        headerLine = splitFile[0]
+        entryLine = splitFile[1]
+        columns = self.getColumns(headerLine)
+        values = self.getValues(entryLine)
+        return columns, values
+
+    def getColumns(self, headerLine):
+        columns = headerLine.split(self.columnsDelimiter)
+        return columns
+
+    def getValues(self, entryLine):
+        values = entryLine.split(self.columnsDelimiter)
+        return values
+
     def createHeaderLine(self, columns):
         headerLine = self.columnsDelimiter.join(columns)
         return headerLine
