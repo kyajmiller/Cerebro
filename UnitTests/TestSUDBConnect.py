@@ -82,6 +82,17 @@ class TestStringMethods(unittest.TestCase):
         columnNames = db.getColumnNamesFromTable(tableName)
         self.assertIsNotNone(columnNames)
 
+    def test_writeFile(self):
+        db = SUDBConnect(destination='filesystem')
+        columns = ['animal', 'name']
+        values = ['kitty', 'guen']
+        user = 'Kya'
+        website = 'KyasTestWebsite'
+        url = 'www.kyastestwebsite.com'
+        date = '20151204'
+        db.writeFile(columns, values, user, website, url, date)
+
+
 
 
     '''
