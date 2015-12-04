@@ -1,5 +1,4 @@
 import unittest
-import re
 from Classes.SUDBConnect import SUDBConnect
 
 
@@ -91,68 +90,6 @@ class TestStringMethods(unittest.TestCase):
         url = 'www.kyastestwebsite.com'
         date = '20151204'
         db.writeFile(columns, values, user, website, url, date)
-
-
-
-
-    '''
-    def test_ClearFileAppendLineAndReadFile(self):
-        file = 'sudbconnecttest.txt'
-        db = SUDBConnect(destination='filesystem')
-        valueToWrite = 'kitty'
-        db.clearFile(file)
-        fileData = db.readFile(file)
-        self.assertIsNotNone(fileData)
-        self.assertEqual(fileData, '')
-
-        db.appendToFile(file, valueToWrite)
-
-        fileData = db.readFile(file)
-        self.assertIsNotNone(fileData)
-        self.assertEqual(fileData, 'kitty')
-
-    def test_CreateHeaderLineAndCreateColumnsFromHeaderLine(self):
-        columns = ['guen', 'alex', 'cassie', 'peter']
-        db = SUDBConnect()
-        headerLine = db.createHeaderLine(columns)
-        testHeader = chr(1).join(columns)
-        testHeader = '%s%s' % (testHeader, chr(2))
-        self.assertEqual(headerLine, testHeader)
-
-        # break down headerLine to make sure it can be split up right
-        testColumns = db.getColumnsFromHeaderLine(headerLine)
-        self.assertEqual(columns, testColumns)
-
-    def test_InsertAnEntryAndGetColumnsAndEntriesLists(self):
-        file = 'sudbconnecttest.txt'
-        db = SUDBConnect(destination='filesystem')
-        db.clearFile(file)
-        columns = ['cats', 'ages']
-        catNamesList = ['guen', 'alex', 'cassie', 'peter']
-        catAgesList = [4, 2, 6, 4]
-
-        for i in range(len(catNamesList)):
-            valuesToInsert = [catNamesList[i], catAgesList[i]]
-            db.insertSingleEntry(file, columns, valuesToInsert)
-
-        testColumns, testEntriesLists = db.getColumnsEntriesAndIdentityCounter(file)
-        expectedEntries = [['guen', '4'], ['alex', '2'], ['cassie', '6'], ['peter', '4']]
-        self.assertEqual(columns, testColumns)
-        self.assertEqual(expectedEntries, testEntriesLists)
-
-    def test_fileSystemGetRows(self):
-        # want to build something similar to the .getRows for the database destination, will use this space to test
-        # this isn't a real unit test
-        # start out by making a file to use, will comment out this next section so it doesn't get overwritten later
-        file = 'sudbconnectGetRowsTest.txt'
-        db = SUDBConnect(destination='filesystem')
-        db.clearFile(file)
-        columns = ['testId', 'animals']
-    '''
-
-
-
-
 
 if __name__ == '__main__':
     unittest.main()
