@@ -46,12 +46,10 @@ class SUDBConnect(object):
 
     def createHeaderLine(self, columns):
         headerLine = self.columnsDelimiter.join(columns)
-        headerLine = '%s%s%s' % (self.entriesDelimiter, headerLine, self.entriesDelimiter)
         return headerLine
 
     def createEntryLine(self, values):
         entryLine = self.columnsDelimiter.join(values)
-        entryLine = '%s%s%s' % (self.entriesDelimiter, entryLine, self.entriesDelimiter)
         return entryLine
 
     def convertURL(self, url):
@@ -88,13 +86,13 @@ class SUDBConnect(object):
     def writeFile(self, columns, values, user, website, url, date):
         headerLine = self.createHeaderLine(columns)
         entryLine = self.createEntryLine(values)
+        fileData = self.entriesDelimiter.join([headerLine, entryLine])
         url = self.convertURL(url)
         fileName = self.createFileName(website, url, date)
         filePath = self.createFilePath(user, website, fileName)
         os.makedirs(os.path.dirname(filePath), exist_ok=True)
         with open(filePath, 'w') as fileOut:
-            fileOut.write(headerLine)
-            fileOut.write(entryLine)
+            fileOut.write(fileData)
             fileOut.close()
 
 
