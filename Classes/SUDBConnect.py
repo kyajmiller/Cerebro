@@ -14,7 +14,7 @@ class SUDBConnect(object):
         self.okayToRunFilesystem = False
 
         self.columnsDelimiter = chr(1)
-        self.entriesDelimiter = chr(2)
+        self.entriesDelimiter = '%s%s' % (chr(2), chr(10))
         self.identityCounterDelimiter = chr(3)
 
         if self.destination == 'database':
