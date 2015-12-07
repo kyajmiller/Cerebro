@@ -104,5 +104,12 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(expectedColumns, columns)
         self.assertEqual(expectedValues, values)
 
+    def test_getRowValuesToPassToFunction(self):
+        db = SUDBConnect()
+        rows = db.getRowsDB("select * from dbo.Tests")
+        columns = db.getColumnNamesFromTable('Tests')
+        print(rows)
+        print(columns)
+
 if __name__ == '__main__':
     unittest.main()
