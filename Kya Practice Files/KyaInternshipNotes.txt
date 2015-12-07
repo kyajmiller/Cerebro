@@ -1960,3 +1960,10 @@ These should be okay to use in file names
 -Need to figure out how to get column names from tables
 - SELECT name FROM sys.columns WHERE OBJECT_ID = OBJECT_ID('dbo.Tests')
 -Use this sql query, change the table name to whatever it needs to be
+
+12/7 Notes:
+-Need to figure out how to loop through rows, grab all the values of the row in a list, and then pass it to the function to write
+that entry to disk
+-okay, that ended up being 20x easier than I thought it would be, calling the row automatically returns the entire list
+-Running into an issue with writing to file, sometimes it's running into undefined characters, so will have to figure
+out how to filter out all of those things
