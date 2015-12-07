@@ -66,6 +66,7 @@ class SUDBConnect(object):
         return headerLine
 
     def createEntryLine(self, values):
+        values = [str(value) for value in values]
         entryLine = self.columnsDelimiter.join(values)
         return entryLine
 
