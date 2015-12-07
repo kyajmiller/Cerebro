@@ -11,11 +11,16 @@ class WriteTablesToDisk(object):
         self.fileDB = SUDBConnect(destination='filesystem')
         self.columns = self.sqlDB.getColumnNamesFromTable(self.tableName)
         self.rows = self.sqlDB.getRowsDB("select * from dbo.%s" % self.tableName)
-        self.urls = self.sqlDB.getRowsDB("select Url from dbo.%s" % self.tableName)
+        self.urls = self.getUrls()
 
         for row, url in zip(self.rows, self.urls):
             values = row
             self.fileDB.writeFile(self.columns, values, self.user, self.website, url)
 
+    def getUrls(self):
+        urls = []
+        for row in self.rows:
+            urls.append(row.Url)
+        return urls
 
 WriteTablesToDisk('CheggLeads', user='Kya')
