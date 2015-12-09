@@ -20,8 +20,19 @@ class WriteTablesToDisk(object):
     def getUrls(self):
         urls = []
         for row in self.rows:
-            urls.append(row.Url)
+            try:
+                urls.append(row.Url)
+            except:
+                urls.append(row.SourceWebsite)
         return urls
 
 WriteTablesToDisk('CheggLeads', user='Kya')
 WriteTablesToDisk('CollegeGreenLightLeads')
+WriteTablesToDisk('FatomeiLeads')
+WriteTablesToDisk('GoodCallLeads')
+WriteTablesToDisk('IefaLeads')
+WriteTablesToDisk('MastersInEducationLeads')
+WriteTablesToDisk('PivotLeads')
+WriteTablesToDisk('Scholarships360Leads')
+# WriteTablesToDisk('ScholarsiteLeads')
+WriteTablesToDisk('UnigoLeads')
