@@ -68,7 +68,7 @@ class SUDBConnect(object):
         return headerLine
 
     def createEntryLine(self, values):
-        values = [str(value) for value in values]
+        values = [str(str(value).encode(sys.stdout.encoding, errors='replace')) for value in values]
         entryLine = self.columnsDelimiter.join(values)
         return entryLine
 
@@ -108,8 +108,7 @@ class SUDBConnect(object):
     def writeFile(self, columns, values, user, website, url, date='20151201'):
         headerLine = self.createHeaderLine(columns)
         entryLine = self.createEntryLine(values)
-        fileData = str(
-            self.entriesDelimiter.join([headerLine, entryLine]).encode(sys.stdout.encoding, errors='replace'))
+        fileData = self.entriesDelimiter.join([headerLine, entryLine])
         filePath = self.createFilePath(user, website, url, date)
         os.makedirs(os.path.dirname(filePath), exist_ok=True)
         with open(filePath, 'w') as fileOut:
