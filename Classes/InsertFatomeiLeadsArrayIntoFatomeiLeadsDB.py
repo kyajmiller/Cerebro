@@ -14,7 +14,7 @@ class InsertFatomeiLeadsArrayIntoFatomeiLeadsDB(object):
 
         if not self.checkIfAlreadyInDB():
             self.db.insertUpdateOrDeleteDB(
-                "insert into dbo.FatomeiLeads (Name, Description, DueDate, Url, SourceText) values (N'" + self.name + "', N'" + self.description + "', N'" + self.dueDate + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
+                "insert into dbo.FatomeiLeads (Name, Description, DueDate, SourceWebsite, SourceText) values (N'" + self.name + "', N'" + self.description + "', N'" + self.dueDate + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
 
     def checkIfAlreadyInDB(self):
         matchingRow = self.db.getRowsDB(
