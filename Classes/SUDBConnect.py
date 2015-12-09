@@ -113,9 +113,12 @@ class SUDBConnect(object):
         fileData = self.entriesDelimiter.join([headerLine, entryLine])
         filePath = self.createFilePath(user, website, url, date)
         os.makedirs(os.path.dirname(filePath), exist_ok=True)
-        with open(filePath, 'w') as fileOut:
-            fileOut.write(fileData)
-            fileOut.close()
+        try:
+            with open(filePath, 'w') as fileOut:
+                fileOut.write(fileData)
+                fileOut.close()
+        except:
+            pass
 
     def getAllTestCases(self):
         return self.getRowsDB("Select * from DepartmentTestCases")
