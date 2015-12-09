@@ -84,6 +84,8 @@ class SUDBConnect(object):
         url = re.sub('\?', '((ques))', url)
         url = re.sub('\*', '((ast))', url)
         url = re.sub('-', '((dash))', url)
+        url = re.sub('&', '((amp))', url)
+        url = re.sub('=', '((eq))', url)
 
         return url
 
