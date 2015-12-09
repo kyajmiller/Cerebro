@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 import pyodbc
 import re
 import os
+import sys
 
 
 class SUDBConnect(object):
@@ -106,7 +108,8 @@ class SUDBConnect(object):
     def writeFile(self, columns, values, user, website, url, date='20151201'):
         headerLine = self.createHeaderLine(columns)
         entryLine = self.createEntryLine(values)
-        fileData = self.entriesDelimiter.join([headerLine, entryLine])
+        fileData = str(
+            self.entriesDelimiter.join([headerLine, entryLine]).encode(sys.stdout.encoding, errors='replace'))
         filePath = self.createFilePath(user, website, url, date)
         os.makedirs(os.path.dirname(filePath), exist_ok=True)
         with open(filePath, 'w') as fileOut:
