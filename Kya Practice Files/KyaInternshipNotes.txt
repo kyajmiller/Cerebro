@@ -1967,3 +1967,18 @@ that entry to disk
 -okay, that ended up being 20x easier than I thought it would be, calling the row automatically returns the entire list
 -Running into an issue with writing to file, sometimes it's running into undefined characters, so will have to figure
 out how to filter out all of those things
+
+12/9 Notes:
+-Fixed the encoding issue by setting changing the program's encoding so that the output would be encoded correctly. Used:
+# -*- coding: utf-8 -*-
+import sys
+values = [str(str(value).encode(sys.stdout.encoding, errors='replace')) for value in values]
+-which basically encodes the values correctly when converting them to a string, instead of changing the encoding of the entire file
+-this way it looks a lot prettier and will be easier to read back in.
+-ugh, now getting issues with it not being able to make a file for some damn reason. Have no idea why. Probably has something
+to do with the url
+-now that I have written the existing stuff to the disk, need to make it so that future entries into the database will have a date
+associated with them, which I can use to append to future files
+
+-need to update webscrapers because everyone is always fucking changing things
+-start updating Chegg AGAIN
