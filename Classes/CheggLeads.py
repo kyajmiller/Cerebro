@@ -17,10 +17,7 @@ class CheggLeads(object):
 
         self.driver.implicitly_wait(10)
 
-        try:
-            # WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(
-            #    (By.XPATH, "//form[@class='login-form']/input[@class='form-input-lg email-field']")))
-
+        if self.checkIfElementExists("//form[@class='login-form']/input[@class='form-input-lg email-field']"):
             self.driver.find_element_by_xpath(
                 "//form[@class='login-form']/input[@class='form-input-lg email-field']").clear()
             self.driver.find_element_by_xpath(
@@ -31,7 +28,8 @@ class CheggLeads(object):
             self.driver.find_element_by_xpath(
                 "//form[@class='login-form']/input[@class='form-input-lg pass-field']").send_keys('SASGcoders626')
             self.driver.find_element_by_xpath("//input[@class='btn-primary-lg login-button']").click()
-        except:
+
+        elif self.checkIfElementExists("//fieldset/input[@class='txt-input email']"):
             # WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(
             #    (By.XPATH, "//input[@class='txt-input email']")))
             self.driver.find_element_by_xpath(
