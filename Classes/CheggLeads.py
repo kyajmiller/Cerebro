@@ -12,20 +12,44 @@ class CheggLeads(object):
         self.base_url = 'https://www.chegg.com/'
 
         self.driver.get(self.base_url + 'scholarships')
+
         self.driver.find_element_by_link_text('Sign in').click()
 
-        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(
-            (By.XPATH, "//form[@class='login-form']/input[@class='form-input-lg email-field']")))
+        self.driver.implicitly_wait(10)
 
-        self.driver.find_element_by_xpath(
-            "//form[@class='login-form']/input[@class='form-input-lg email-field']").clear()
-        self.driver.find_element_by_xpath(
-            "//form[@class='login-form']/input[@class='form-input-lg email-field']").send_keys('crawlyjones1@gmail.com')
-        self.driver.find_element_by_xpath(
-            "//form[@class='login-form']/input[@class='form-input-lg pass-field']").clear()
-        self.driver.find_element_by_xpath(
-            "//form[@class='login-form']/input[@class='form-input-lg pass-field']").send_keys('SASGcoders626')
-        self.driver.find_element_by_xpath("//input[@class='btn-primary-lg login-button']").click()
+        try:
+            # WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(
+            #    (By.XPATH, "//form[@class='login-form']/input[@class='form-input-lg email-field']")))
+
+            self.driver.find_element_by_xpath(
+                "//form[@class='login-form']/input[@class='form-input-lg email-field']").clear()
+            self.driver.find_element_by_xpath(
+                "//form[@class='login-form']/input[@class='form-input-lg email-field']").send_keys(
+                'crawlyjones1@gmail.com')
+            self.driver.find_element_by_xpath(
+                "//form[@class='login-form']/input[@class='form-input-lg pass-field']").clear()
+            self.driver.find_element_by_xpath(
+                "//form[@class='login-form']/input[@class='form-input-lg pass-field']").send_keys('SASGcoders626')
+            self.driver.find_element_by_xpath("//input[@class='btn-primary-lg login-button']").click()
+        except:
+            # WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(
+            #    (By.XPATH, "//input[@class='txt-input email']")))
+
+            self.driver.find_element_by_xpath(
+                "//input[@class='txt-input email']").clear()
+            self.driver.find_element_by_xpath(
+                "//input[@class='txt-input email']").send_keys('crawlyjones1@gmail.com')
+            self.driver.find_element_by_xpath(
+                "//input[@class='txt-input password']").clear()
+            self.driver.find_element_by_xpath(
+                "//input[@class='txt-input password']").send_keys('SASGcoders626')
+
+
+CheggLeads()
+
+'''
+
+
 
         WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'SCHOLARSHIPS')))
 
@@ -190,4 +214,4 @@ class CheggLeads(object):
             return True
         else:
             return False
-
+'''
