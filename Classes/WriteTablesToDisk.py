@@ -3,7 +3,7 @@ import re
 
 
 class WriteTablesToDisk(object):
-    def __init__(self, tableName, user):
+    def __init__(self, tableName, user='Kya'):
         self.tableName = tableName
         self.user = user
         self.website = re.sub('Leads', '', self.tableName)
@@ -24,3 +24,4 @@ class WriteTablesToDisk(object):
         return urls
 
 WriteTablesToDisk('CheggLeads', user='Kya')
+WriteTablesToDisk('CollegeGreenLightLeads')
