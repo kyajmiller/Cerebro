@@ -34,9 +34,6 @@ class CheggLeads(object):
         except:
             # WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(
             #    (By.XPATH, "//input[@class='txt-input email']")))
-            print(self.checkIfElementExists("//input[@class='txt-input email']"))
-            print(self.checkIfElementExists("//input[@class='txt-input password']"))
-
             self.driver.find_element_by_xpath(
                 "//fieldset/input[@class='txt-input email']").clear()
             self.driver.find_element_by_xpath(
@@ -45,7 +42,7 @@ class CheggLeads(object):
                 "//fieldset/input[@class='txt-input password']").clear()
             self.driver.find_element_by_xpath(
                 "//fieldset/input[@class='txt-input password']").send_keys('SASGcoders626')
-            self.driver.find_element_by_xpath("//input[@class='btn-primary-lg login-button']").click()
+            self.driver.find_element_by_xpath("//button[@class='login-button button flat']").click()
 
     def checkIfElementExists(self, xpath):
         checkElementExists = self.driver.find_elements_by_xpath(xpath)
