@@ -1,5 +1,5 @@
 from Classes.SUDBConnect import SUDBConnect
-
+import time
 
 class InsertCheggLeadArrayIntoCheggLeadsDB(object):
     def __init__(self, cheggLeadArray):
@@ -16,10 +16,14 @@ class InsertCheggLeadArrayIntoCheggLeadsDB(object):
         self.sponsor = self.cheggLeadArray[7]
         self.sourceWebsite = self.cheggLeadArray[8]
         self.sourceText = self.cheggLeadArray[9]
+        self.date = time.strftime('%Y%m%d')
 
         if not self.checkIfAlreadyInDatabase():
             self.db.insertUpdateOrDeleteDB(
-                "insert into dbo.CheggLeads (Name, Url, Deadline, Amount, Eligibility, ApplicationOverview, Description, Sponsor, SourceWebsite, SourceText) values (N'" + self.name + "', N'" + self.url + "', N'" + self.deadline + "', N'" + self.amount + "', N'" + self.eligibility + "', N'" + self.applicationOverview + "', N'" + self.description + "', N'" + self.sponsor + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
+                "insert into dbo.CheggLeads (Name, Url, Deadline, Amount, Eligibility, ApplicationOverview, Description, Sponsor, SourceWebsite, SourceText, Date) values (N'" + self.name + "', N'" + self.url + "', N'" + self.deadline + "', N'" + self.amount + "', N'" + self.eligibility + "', N'" + self.applicationOverview + "', N'" + self.description + "', N'" + self.sponsor + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "')")
+        else:
+            self.db.insertUpdateOrDeleteDB(
+                "update dbo.CheggLeads set Deadline=N'" + self.deadline + "', Amount=N'" + self.amount + "', Eligibility=N'" + self.eligibility + "', ApplicationOverview=N'" + self.applicationOverview + "', Description=N'" + self.description + "', Sponsor=N'" + self.sponsor + "', SourceWebsite=N'" + self.sourceWebsite + "', SourceText=N'" + self.sourceText + "', Date='" + self.date + "'")
 
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
