@@ -23,6 +23,8 @@ class CheggLeads(object):
         numMatches = int(self.driver.find_element_by_xpath("//b[@id='matches__count']").text)
         self.scrollDownUntilDesiredNumResults(numMatches)
 
+        self.resultsArrays = []
+        self.cheggLeadsArrays = []
 
     def checkIfElementExists(self, xpath):
         checkElementExists = self.driver.find_elements_by_xpath(xpath)
@@ -64,23 +66,6 @@ class CheggLeads(object):
         while numberShownScholarships < numResults - 5:
             self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             numberShownScholarships = len(self.driver.find_elements_by_xpath("//a[@class='scholarship__title']"))
-
-
-CheggLeads()
-
-'''
-
-
-
-        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'SCHOLARSHIPS')))
-
-        self.driver.find_element_by_link_text('SCHOLARSHIPS').click()
-        self.driver.implicitly_wait(2)
-
-        self.scrollDownUntilDesiredNumResults(60)
-
-        self.resultsArrays = []
-        self.cheggLeadsArrays = []
 
     def loopOverResultsPagesAndDoStuff(self):
         self.getInfoFromResultsListPage()
@@ -176,12 +161,6 @@ CheggLeads()
         print('Amounts Found: %s' % len(amountsList))
         return amountsList
 
-    def scrollDownUntilDesiredNumResults(self, numResults):
-        numberShownScholarships = self.driver.find_elements_by_xpath("//a[@class='scholarship__title']")
-        while len(numberShownScholarships) < numResults:
-            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            numberShownScholarships = self.driver.find_elements_by_xpath("//a[@class='scholarship__title']")
-
     def getInfoFromScholarshipPage(self, link):
         self.driver.get(link)
         self.driver.implicitly_wait(2)
@@ -228,11 +207,3 @@ CheggLeads()
             return resultPageInfoArray
         else:
             return None
-
-    def checkIfElementExists(self, xpath):
-        checkElementExists = self.driver.find_elements_by_xpath(xpath)
-        if checkElementExists != []:
-            return True
-        else:
-            return False
-'''
