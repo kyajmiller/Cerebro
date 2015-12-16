@@ -1982,3 +1982,19 @@ associated with them, which I can use to append to future files
 
 -need to update webscrapers because everyone is always fucking changing things
 -start updating Chegg AGAIN
+
+12/16 Notes:
+-still working on updating Chegg
+-decided to get around the weird log in thing not working by implementing a while loop that keeps restarting the web
+browser until it gets the right log in page. Is effective so far.
+-now trying to get the number of matches so I can know how far to make the page scroll down before it's done
+-After having too many issues where it's trying to get elements before they load, I have discovered that time.sleep() is literally
+the best thing ever
+-I think I broke the thing but I have no idea how wtf
+-I think it's been sending it to the same damn page every single freaking time
+-I actually don't know what broke it at all this time, checked the leads it's returning, they're giving unique values
+-So something is going wrong with the insert thing
+-realized what the issue was - the update statement didn't have a where statement attached to it, so it was just overwriting every line every time. Really dumb
+-Chegg has been updated
+-Will work on updating CollegeGreenLight Leads now - seems to be completely intact, so just need to run it and update the db
+-collegegreenlightleads finished updating
