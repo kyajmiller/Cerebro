@@ -1,4 +1,5 @@
 from selenium import webdriver
+import time
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -15,7 +16,11 @@ class CheggLeads(object):
         self.driver.find_element_by_link_text("COLLEGES").click()
         self.driver.implicitly_wait(2)
         self.driver.find_element_by_id("scholarships").click()
-        self.driver.implicitly_wait(2)
+        self.driver.implicitly_wait(10)
+
+        time.sleep(5)
+
+        numMatches = int(self.driver.find_element_by_xpath("//b[@id='matches__count']").text)
 
 
     def checkIfElementExists(self, xpath):
