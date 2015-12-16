@@ -21,6 +21,8 @@ class CheggLeads(object):
         time.sleep(5)
 
         numMatches = int(self.driver.find_element_by_xpath("//b[@id='matches__count']").text)
+        print(numMatches)
+        self.scrollDownUntilDesiredNumResults(numMatches)
 
 
     def checkIfElementExists(self, xpath):
@@ -57,6 +59,12 @@ class CheggLeads(object):
         else:
             self.driver.close()
             return False
+
+    def scrollDownUntilDesiredNumResults(self, numResults):
+        numberShownScholarships = len(self.driver.find_elements_by_xpath("//a[@class='scholarship__title']"))
+        while numberShownScholarships < numResults - 5:
+            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            numberShownScholarships = len(self.driver.find_elements_by_xpath("//a[@class='scholarship__title']"))
 
 
 CheggLeads()
