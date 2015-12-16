@@ -10,4 +10,5 @@ class ProcessCollegeGreenLightLeads(object):
         for leadArray in collegeGreenLightLeadsArrays:
             InsertCollegeGreenLightLeadArrayIntoCollegeGreenLightDB(leadArray)
 
-# ProcessCollegeGreenLightLeads.getCollegeGreenLightLeadsAndInsertIntoDB()
+
+ProcessCollegeGreenLightLeads.getCollegeGreenLightLeadsAndInsertIntoDB()
