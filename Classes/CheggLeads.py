@@ -21,7 +21,6 @@ class CheggLeads(object):
         time.sleep(5)
 
         numMatches = int(self.driver.find_element_by_xpath("//b[@id='matches__count']").text)
-        print(numMatches)
         self.scrollDownUntilDesiredNumResults(numMatches)
 
 
