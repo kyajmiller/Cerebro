@@ -12,6 +12,12 @@ class CheggLeads(object):
         while not loggedIn:
             loggedIn = self.openPageAndLogIn()
 
+        self.driver.find_element_by_link_text("COLLEGES").click()
+        self.driver.implicitly_wait(2)
+        self.driver.find_element_by_id("scholarships").click()
+        self.driver.implicitly_wait(2)
+
+
     def checkIfElementExists(self, xpath):
         checkElementExists = self.driver.find_elements_by_xpath(xpath)
         if checkElementExists != []:
@@ -27,7 +33,7 @@ class CheggLeads(object):
 
         self.driver.find_element_by_link_text('Sign in').click()
 
-        self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(2)
 
         if self.checkIfElementExists("//form[@class='login-form']/input[@class='form-input-lg email-field']"):
             self.driver.find_element_by_xpath(
