@@ -8,6 +8,18 @@ from Classes.CleanText import CleanText
 
 class CheggLeads(object):
     def __init__(self):
+        loggedIn = False
+        while not loggedIn:
+            loggedIn = self.openPageAndLogIn()
+
+    def checkIfElementExists(self, xpath):
+        checkElementExists = self.driver.find_elements_by_xpath(xpath)
+        if checkElementExists != []:
+            return True
+        else:
+            return False
+
+    def openPageAndLogIn(self):
         self.driver = webdriver.Firefox()
         self.base_url = 'https://www.chegg.com/'
 
@@ -29,25 +41,12 @@ class CheggLeads(object):
                 "//form[@class='login-form']/input[@class='form-input-lg pass-field']").send_keys('SASGcoders626')
             self.driver.find_element_by_xpath("//input[@class='btn-primary-lg login-button']").click()
 
-        elif self.checkIfElementExists("//fieldset/input[@class='txt-input email']"):
-            # WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(
-            #    (By.XPATH, "//input[@class='txt-input email']")))
-            self.driver.find_element_by_xpath(
-                "//fieldset/input[@class='txt-input email']").clear()
-            self.driver.find_element_by_xpath(
-                "//fieldset/input[@class='txt-input email']").send_keys('crawlyjones1@gmail.com')
-            self.driver.find_element_by_xpath(
-                "//fieldset/input[@class='txt-input password']").clear()
-            self.driver.find_element_by_xpath(
-                "//fieldset/input[@class='txt-input password']").send_keys('SASGcoders626')
-            self.driver.find_element_by_xpath("//button[@class='login-button button flat']").click()
-
-    def checkIfElementExists(self, xpath):
-        checkElementExists = self.driver.find_elements_by_xpath(xpath)
-        if checkElementExists != []:
+        if self.driver.find_elements_by_link_text('COLLEGES') != []:
             return True
         else:
+            self.driver.close()
             return False
+
 
 CheggLeads()
 
