@@ -1,4 +1,5 @@
 from Classes.SUDBConnect import SUDBConnect
+import time
 
 
 class InsertCollegeGreenLightLeadArrayIntoCollegeGreenLightDB(object):
@@ -15,13 +16,14 @@ class InsertCollegeGreenLightLeadArrayIntoCollegeGreenLightDB(object):
         self.url = self.collegeGreenLightLeadArray[6]
         self.sourceWebsite = self.collegeGreenLightLeadArray[7]
         self.sourceText = self.collegeGreenLightLeadArray[8]
+        self.date = time.strftime('%Y%m%d')
 
         if not self.checkIfAlreadyInDatabase():
             self.db.insertUpdateOrDeleteDB(
                 "INSERT INTO dbo.CollegeGreenLightLeads (Name, Amount, Deadline, Sponsor, Description, Requirements, Url, SourceWebsite, SourceText) VALUES  (N'" + self.name + "', N'" + self.amount + "', N'" + self.deadline + "', N'" + self.sponsor + "', N'" + self.description + "', N'" + self.requirements + "', N'" + self.url + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
         else:
             self.db.insertUpdateOrDeleteDB(
-                "update dbo.CollegeGreenLightLeads set Amount='" + self.amount + "', Deadline='" + self.deadline + "', Sponsor='" + self.sponsor + "', Description='" + self.description + "', Requirements='" + self.requirements + "', SourceWebsite='" + self.sourceWebsite + "', SourceText='" + self.sourceText + "' where Name='" + self.name + "' and Url='" + self.url + "'")
+                "update dbo.CollegeGreenLightLeads set Amount='" + self.amount + "', Deadline='" + self.deadline + "', Sponsor='" + self.sponsor + "', Description='" + self.description + "', Requirements='" + self.requirements + "', SourceWebsite='" + self.sourceWebsite + "', SourceText='" + self.sourceText + "', Date='" + self.date + "' where Name='" + self.name + "' and Url='" + self.url + "'")
 
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
