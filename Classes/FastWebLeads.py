@@ -18,14 +18,19 @@ class FastWebLeads(object):
         self.driver.find_element_by_id('user_form_submit').click()
         self.driver.implicitly_wait(2)
 
-        self.driver.find_element_by_link_text('See my matches').click()
+        # self.driver.find_element_by_link_text('See my matches').click()
+        self.driver.find_element_by_css_selector("#primary_nav_scholarships > a > span.primary_link").click()
+        self.driver.implicitly_wait(2)
+        self.driver.find_element_by_css_selector("a.primary-button_140611 > span").click()
         self.driver.implicitly_wait(2)
 
-        self.driver.find_element_by_xpath("//a[text() = 'All Matches']").click()
+        self.driver.find_element_by_link_text("All Matches").click()
         self.driver.implicitly_wait(2)
 
         self.resultPagesArrays = []
         self.fastWebLeads = []
+
+    '''
 
     def getLeads(self):
         self.loopThroughResultsListPages()
@@ -199,4 +204,4 @@ class FastWebLeads(object):
             return True
         else:
             return False
-
+    '''
