@@ -21,17 +21,9 @@ class FastWebLeads(object):
 
         self.driver.get(self.base_url + 'college-scholarships/scholarships?filter=Matched&order=deadline')
         self.driver.implicitly_wait(2)
-        '''
-        self.driver.find_element_by_link_text("All Matches").click()
-        self.driver.implicitly_wait(2)
 
         self.resultPagesArrays = []
         self.fastWebLeads = []
-        '''
-
-
-FastWebLeads()
-'''
 
     def getLeads(self):
         self.loopThroughResultsListPages()
@@ -205,4 +197,3 @@ FastWebLeads()
             return True
         else:
             return False
-'''
