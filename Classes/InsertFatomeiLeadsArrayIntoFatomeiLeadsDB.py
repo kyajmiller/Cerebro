@@ -1,4 +1,5 @@
 from Classes.SUDBConnect import SUDBConnect
+import time
 
 
 class InsertFatomeiLeadsArrayIntoFatomeiLeadsDB(object):
@@ -11,10 +12,14 @@ class InsertFatomeiLeadsArrayIntoFatomeiLeadsDB(object):
         self.dueDate = fatomeiLeadArray[2]
         self.sourceWebsite = fatomeiLeadArray[3]
         self.sourceText = fatomeiLeadArray[4]
+        self.date = time.strftime('%Y%m%d')
 
         if not self.checkIfAlreadyInDB():
             self.db.insertUpdateOrDeleteDB(
                 "insert into dbo.FatomeiLeads (Name, Description, DueDate, SourceWebsite, SourceText) values (N'" + self.name + "', N'" + self.description + "', N'" + self.dueDate + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
+        else:
+            self.db.insertUpdateOrDeleteDB(
+                "update dbo.FatomeiLeads set Description='" + self.description + "', DueDate='" + self.dueDate + "', SourceText='" + self.sourceText + "', Date='" + self.date + "' where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")
 
     def checkIfAlreadyInDB(self):
         matchingRow = self.db.getRowsDB(
