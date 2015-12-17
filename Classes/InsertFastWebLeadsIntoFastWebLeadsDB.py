@@ -1,4 +1,5 @@
 from Classes.SUDBConnect import SUDBConnect
+import time
 
 
 class InsertFastWebLeadIntoFastWebLeadsDB(object):
@@ -18,10 +19,14 @@ class InsertFastWebLeadIntoFastWebLeadsDB(object):
         self.additionalInfo = self.fastWebLeadArray[9]
         self.sourceWebsite = self.fastWebLeadArray[10]
         self.sourceText = self.fastWebLeadArray[11]
+        self.date = time.strftime('%Y%m%d')
 
         if not self.checkIfAlreadyInDatabase():
             self.db.insertUpdateOrDeleteDB(
                 "insert into dbo.FastWebLeads (Name, Url, Sponsor, Amount, Deadline, Description, AwardType, NumAwards, Majors, AdditionalInfo, SourceWebsite, SourceText) values (N'" + self.name + "', N'" + self.url + "', N'" + self.sponsor + "', N'" + self.amount + "', N'" + self.deadline + "', N'" + self.description + "', N'" + self.awardType + "', N'" + self.numAwards + "', N'" + self.majors + "', N'" + self.additionalInfo + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
+        else:
+            self.db.insertUpdateOrDeleteDB(
+                "update dbo.FastWebLeads set Sponsor='" + self.sponsor + "', Amount='" + self.amount + "', Deadline='" + self.deadline + "', Description='" + self.description + "', AwardType='" + self.awardType + "', NumAwards='" + self.numAwards + "', Majors='" + self.majors + "', AdditionalInfo='" + self.additionalInfo + "', SourceWebsite='" + self.sourceWebsite + "', SourceText='" + self.sourceText + "', Date='" + self.date + "' where Name='" + self.name + "' and Url='" + self.url + "'")
 
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
