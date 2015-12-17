@@ -9,4 +9,5 @@ class ProcessGoodCallLeads(object):
         for leadArray in goodCallLeadsArrays:
             InsertGoodCallLeadArrayIntoGoodCallLeadsDB(leadArray)
 
-# ProcessGoodCallLeads.getGoodCallLeadsAndInsertIntoDB()
+
+ProcessGoodCallLeads.getGoodCallLeadsAndInsertIntoDB()
