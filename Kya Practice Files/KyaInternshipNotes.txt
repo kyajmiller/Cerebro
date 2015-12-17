@@ -1998,3 +1998,11 @@ the best thing ever
 -Chegg has been updated
 -Will work on updating CollegeGreenLight Leads now - seems to be completely intact, so just need to run it and update the db
 -collegegreenlightleads finished updating
+
+12/17 Notes:
+-Continue updating and running webscrapers, easy stuff today
+-It's cold outside and that's not fucking okay
+-Work on FastWebLeads; updated
+-Work on Fatomei
+-forgot to make sure that dates are inserted for the new entries, so had to rerun Fatomei/Fastweb/CollegeGreenLight
+-update GoodCall; doesn't seem like much needs to be changed besides the insert program
