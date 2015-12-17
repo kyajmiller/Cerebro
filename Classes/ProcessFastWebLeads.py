@@ -9,4 +9,5 @@ class ProcessFastWebLeads(object):
         for leadArray in fastWebLeadsArrays:
             InsertFastWebLeadIntoFastWebLeadsDB(leadArray)
 
-# ProcessFastWebLeads.getFastWebLeadsAndInsertIntoDB()
+
+ProcessFastWebLeads.getFastWebLeadsAndInsertIntoDB()
