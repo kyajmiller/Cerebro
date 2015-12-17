@@ -30,6 +30,8 @@ class FastWebLeads(object):
         self.resultPagesArrays = []
         self.fastWebLeads = []
 
+
+FastWebLeads()
     '''
 
     def getLeads(self):
