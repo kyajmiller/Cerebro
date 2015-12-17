@@ -1,4 +1,5 @@
 import re
+import time
 from selenium import webdriver
 from Classes.CleanText import CleanText
 from Classes.RipPage import RipPage
@@ -18,21 +19,19 @@ class FastWebLeads(object):
         self.driver.find_element_by_id('user_form_submit').click()
         self.driver.implicitly_wait(2)
 
-        # self.driver.find_element_by_link_text('See my matches').click()
-        self.driver.find_element_by_css_selector("#primary_nav_scholarships > a > span.primary_link").click()
+        self.driver.get(self.base_url + 'college-scholarships/scholarships?filter=Matched&order=deadline')
         self.driver.implicitly_wait(2)
-        self.driver.find_element_by_css_selector("a.primary-button_140611 > span").click()
-        self.driver.implicitly_wait(2)
-
+        '''
         self.driver.find_element_by_link_text("All Matches").click()
         self.driver.implicitly_wait(2)
 
         self.resultPagesArrays = []
         self.fastWebLeads = []
+        '''
 
 
 FastWebLeads()
-    '''
+'''
 
     def getLeads(self):
         self.loopThroughResultsListPages()
@@ -206,4 +205,4 @@ FastWebLeads()
             return True
         else:
             return False
-    '''
+'''
