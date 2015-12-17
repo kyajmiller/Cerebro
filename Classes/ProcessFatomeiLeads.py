@@ -9,4 +9,5 @@ class ProcessFatomeiLeads(object):
         for leadArray in fatomeiLeadsArrays:
             InsertFatomeiLeadsArrayIntoFatomeiLeadsDB(leadArray)
 
-# ProcessFatomeiLeads.getFatomeiLeadsAndInsertIntoDB()
+
+ProcessFatomeiLeads.getFatomeiLeadsAndInsertIntoDB()
