@@ -2006,3 +2006,8 @@ the best thing ever
 -Work on Fatomei
 -forgot to make sure that dates are inserted for the new entries, so had to rerun Fatomei/Fastweb/CollegeGreenLight
 -update GoodCall; doesn't seem like much needs to be changed besides the insert program
+
+12/18 Notes:
+-Have phone interview today, meh
+-Continue updating webscrapers
+-don't know why some of the goodcall leads didn't insert a date properly, need to rerun, hopefully will force it to update things
