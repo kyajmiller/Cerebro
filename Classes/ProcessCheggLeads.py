@@ -34,6 +34,5 @@ class ProcessCheggLeads(object):
             return None
 
 
-
 ProcessCheggLeads.getCheggLeadsAndInsertIntoDB()
 
