@@ -2,9 +2,10 @@ from Classes.SUDBConnect import SUDBConnect
 import time
 
 class InsertCheggLeadArrayIntoCheggLeadsDB(object):
-    def __init__(self, cheggLeadArray, fundingClassification):
+    def __init__(self, cheggLeadArray, fundingClassification, badScholarshipClassification):
         self.cheggLeadArray = cheggLeadArray
         self.fundingClassification = fundingClassification
+        self.badScholarshipClassificaion = badScholarshipClassification
         self.db = SUDBConnect()
 
         self.name = self.cheggLeadArray[0]
