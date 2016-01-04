@@ -10,7 +10,8 @@ class ProcessCheggLeads(object):
         cheggLeadsArrays = CheggLeads().loopOverResultsPagesAndDoStuff()
         predictedFundingTypes = ProcessCheggLeads.classifyFunding(cheggLeadsArrays)
         for leadArray, fundingClassification in zip(cheggLeadsArrays, predictedFundingTypes):
-            InsertCheggLeadArrayIntoCheggLeadsDB(leadArray, fundingClassification)
+            badScholarshipClassification = ProcessCheggLeads.checkBadScholarship(leadArray, fundingClassification)
+            InsertCheggLeadArrayIntoCheggLeadsDB(leadArray, fundingClassification, badScholarshipClassification)
 
     @staticmethod
     def classifyFunding(leadsArrays):
