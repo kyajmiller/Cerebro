@@ -2011,3 +2011,26 @@ the best thing ever
 -Have phone interview today, meh
 -Continue updating webscrapers
 -don't know why some of the goodcall leads didn't insert a date properly, need to rerun, hopefully will force it to update things
+
+1/4 Notes:
+-Have no idea what to do today
+-Thinking about condensing down the webscraping + opportunity classification + bad scholarship + pull out relevant info into
+a single process rather than having to do one then the other and so on
+-So will try reworking the latter processes so it can all be called by the Process class and then everything inserted at once
+-Will start with Chegg just for somewhere to start
+-General things to change:
+    -Once get the leads from the Leads class, pull out the relevant info needed for opportunity classification
+    -ClassifyFundingTypeKeywordBased.py
+    -So far there's a RunFundingClassifierOn <blah> series of classes, would like to get rid of those
+    -Those classes have been removed and rewritten into a series of unit tests
+-So ClassifyFundingTypeKeywordBased works by taking a list of titles and info texts together, then outputs the predicted tags in a list
+-So for the Process class, needs to pull out the title, the relevant pieces of the info text and concatenate them together
+    -It will not need the GetDatabaseInfo classes because it is getting the information directly from the source before it's even
+    inputted into the db
+    -Fixed Chegg so far so that it calls the ClassifyFunding and pushes the results into the Insert class
+-Now need to fix ClassifyBadScholarship, not sure how it will work
+    -Will need to check if the given funding opportunity = Scholarship, if so then classify, if not then whatever
+    -Edited the ClassifyBadScholarhip class to have default parameters of empty list so can call the class and use the
+    classifyOpportunity function without needing to provide all that extra stuff
+    -Added a function to Chegg that does this, returns the decision if there is one, otherwise returns None
+    -Added in the parts to the Insert class, going to do a test run and see how it does
