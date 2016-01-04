@@ -4,14 +4,18 @@ from Classes.ClassifyFundingTypeKeywordBased import ClassifyFundingTypeKeywordBa
 
 class TestStringMethods(unittest.TestCase):
     def test_returnPredictedTagsFakeOpportunity(self):
-        fakeopportunity = ['this is a fake opportunity for a scholarship']
-        testclassify = ClassifyFundingTypeKeywordBased(fakeopportunity)
+        fakeTitle = 'fakeTitle'
+        fakeText = 'this is a fake opportunity for a scholarship'
+        fakeOpportunity = [[fakeTitle, fakeText]]
+        testclassify = ClassifyFundingTypeKeywordBased(fakeOpportunity)
         predictedtag = testclassify.returnPredictedTags()[0]
         self.assertEqual('Scholarship', predictedtag)
 
     def test_returnPredictedTagsFakeOpportunityAnother(self):
-        fakeopportunity = ['this is a fake opportunity for a grant']
-        testclassify = ClassifyFundingTypeKeywordBased(fakeopportunity)
+        fakeTitle = 'fakeTitle'
+        fakeText = 'this is a fake opportunity for a grant'
+        fakeOpportunity = [[fakeTitle, fakeText]]
+        testclassify = ClassifyFundingTypeKeywordBased(fakeOpportunity)
         predictedtag = testclassify.returnPredictedTags()[0]
         self.assertEqual('Grant', predictedtag)
 
