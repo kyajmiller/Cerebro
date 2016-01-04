@@ -31,7 +31,7 @@ class ProcessCheggLeads(object):
             badScholarshipPrediction = badScholarshipClassifier.classifyOpportunity(sponsor, infoText)
             return badScholarshipPrediction
         else:
-            return None
+            return ''
 
 
 ProcessCheggLeads.getCheggLeadsAndInsertIntoDB()
