@@ -37,15 +37,3 @@ class ProcessCheggLeads(object):
 
 ProcessCheggLeads.getCheggLeadsAndInsertIntoDB()
 
-'''
-self.name = self.cheggLeadArray[0]
-        self.url = self.cheggLeadArray[1]
-        self.deadline = self.cheggLeadArray[2]
-        self.amount = self.cheggLeadArray[3]
-        self.eligibility = self.cheggLeadArray[4]
-        self.applicationOverview = self.cheggLeadArray[5]
-        self.description = self.cheggLeadArray[6]
-        self.sponsor = self.cheggLeadArray[7]
-        self.sourceWebsite = self.cheggLeadArray[8]
-        self.sourceText = self.cheggLeadArray[9]
-        '''
