@@ -11,7 +11,7 @@ from Classes.CleanText import CleanText
 
 
 class ClassifyBadScholarships(object):
-    def __init__(self, sponsorsList, infoTextList, test=None):
+    def __init__(self, sponsorsList=[], infoTextList=[], test=None):
         self.test = test
         self.infoTextList = infoTextList
         self.sponsorsList = sponsorsList
