@@ -1,6 +1,7 @@
 import unittest
 from Classes.RunFundingClassifier import RunFundingClassifier
 from Classes.CheggLeadsGetDatabaseInfo import CheggLeadsGetDatabaseInfo
+from Classes.FastWebLeadsGetDatabaseInfo import FastWebLeadsGetDatabaseInfo
 
 
 class TestStringMethods(unittest.TestCase):
@@ -12,6 +13,15 @@ class TestStringMethods(unittest.TestCase):
 
         fundingClassifier = RunFundingClassifier(titleConcatenatedEligibilityApplicationOverviewList)
         fundingClassifier.getPredictedTagsInsertIntoDB(tableName, idColumnName, listCheggLeadsIds)
+
+    def test_RunFundingClassifierOnFastWebLeads(self):
+        titleInfoList = FastWebLeadsGetDatabaseInfo().getTitleConcatenatedDescriptionSourceTextList()
+        listFastWebLeadsIds = FastWebLeadsGetDatabaseInfo().getFastWebLeadsIds()
+        tableName = 'FastWebLeads'
+        idColumnName = 'FastWebLeadId'
+        fundingClassfier = RunFundingClassifier(titleInfoList)
+
+        fundingClassfier.getPredictedTagsInsertIntoDB(tableName, idColumnName, listFastWebLeadsIds)
 
 
 if __name__ == '__main__':
