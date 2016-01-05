@@ -24,10 +24,10 @@ class InsertCollegeGreenLightLeadArrayIntoCollegeGreenLightDB(object):
 
         if not self.checkIfAlreadyInDatabase():
             self.db.insertUpdateOrDeleteDB(
-                "INSERT INTO dbo.CollegeGreenLightLeads (Name, Amount, Deadline, Sponsor, Description, Requirements, Url, SourceWebsite, SourceText, Date) VALUES  (N'" + self.name + "', N'" + self.amount + "', N'" + self.deadline + "', N'" + self.sponsor + "', N'" + self.description + "', N'" + self.requirements + "', N'" + self.url + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "')")
+                "INSERT INTO dbo.CollegeGreenLightLeads (Name, Amount, Deadline, Sponsor, Description, Requirements, Url, SourceWebsite, SourceText, Date, Tag, BadScholarship) VALUES  (N'" + self.name + "', N'" + self.amount + "', N'" + self.deadline + "', N'" + self.sponsor + "', N'" + self.description + "', N'" + self.requirements + "', N'" + self.url + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "', '" + self.fundingClassification + "', '" + self.badScholarshipClassification + "')")
         else:
             self.db.insertUpdateOrDeleteDB(
-                "update dbo.CollegeGreenLightLeads set Amount='" + self.amount + "', Deadline='" + self.deadline + "', Sponsor='" + self.sponsor + "', Description='" + self.description + "', Requirements='" + self.requirements + "', SourceWebsite='" + self.sourceWebsite + "', SourceText='" + self.sourceText + "', Date='" + self.date + "' where Name='" + self.name + "' and Url='" + self.url + "'")
+                "update dbo.CollegeGreenLightLeads set Amount='" + self.amount + "', Deadline='" + self.deadline + "', Sponsor='" + self.sponsor + "', Description='" + self.description + "', Requirements='" + self.requirements + "', SourceWebsite='" + self.sourceWebsite + "', SourceText='" + self.sourceText + "', Date='" + self.date + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassification + "' where Name='" + self.name + "' and Url='" + self.url + "'")
         self.writeFileToDisk()
 
     def writeFileToDisk(self):
