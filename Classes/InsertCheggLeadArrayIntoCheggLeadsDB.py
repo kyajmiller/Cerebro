@@ -35,12 +35,10 @@ class InsertCheggLeadArrayIntoCheggLeadsDB(object):
         tableName = 'CheggLeads'
         user = 'Kya'
         website = re.sub('Leads', '', tableName)
-        sqlDB = SUDBConnect(destination='database')
-        fileDB = SUDBConnect(destination='filesystem')
-        columns = sqlDB.getColumnNamesFromTable(tableName)
-        currentRow = sqlDB.getRowsDB(
+        columns = self.db.getColumnNamesFromTable(tableName)
+        currentRow = self.db.getRowsDB(
             "select * from dbo.CheggLeads where Name='" + self.name + "' and Url='" + self.url + "'")
-        fileDB.writeFile(columns, currentRow, user, website, self.url, self.date)
+        self.fileSystemDB.writeFile(columns, currentRow, user, website, self.url, self.date)
 
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
