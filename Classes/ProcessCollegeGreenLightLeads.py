@@ -28,7 +28,7 @@ class ProcessCollegeGreenLightLeads(object):
     @staticmethod
     def checkBadScholarship(leadArray, fundingClassification):
         if fundingClassification == 'Scholarship':
-            sponsor = leadArray[7]
+            sponsor = leadArray[3]
             infoText = '%s %s' % (leadArray[5], leadArray[6])
             badScholarshipClassifier = ClassifyBadScholarships()
             badScholarshipPrediction = badScholarshipClassifier.classifyOpportunity(sponsor, infoText)
