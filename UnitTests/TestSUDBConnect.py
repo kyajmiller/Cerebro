@@ -1,4 +1,5 @@
 import unittest
+import re
 from Classes.SUDBConnect import SUDBConnect
 
 
@@ -110,6 +111,24 @@ class TestStringMethods(unittest.TestCase):
         columns = db.getColumnNamesFromTable('Tests')
         print(rows)
         print(columns)
+
+    def test_removeOldFile(self):
+        db = SUDBConnect(destination='filesystem')
+        user = 'Kya'
+        website = 'KyasTestWebsite'
+        url = 'www.kyastestwebsite.com'
+        date = '20150000'
+        columns = ['animal', 'name']
+        values = ['kitty', 'guen']
+        db.writeFile(columns, values, user, website, url, date)
+
+        db.removeOldFile(user, website, url)
+
+    def test_stringSearch(self):
+        nameToCheck = 'KyasTestWebsite-www((dot))kyastestwebsite((dot))com'
+        fileToCheck = 'KyasTestWebsite-www((dot))kyastestwebsite((dot))com-20150000.txt'
+        if nameToCheck in fileToCheck:
+            print('match')
 
 if __name__ == '__main__':
     unittest.main()
