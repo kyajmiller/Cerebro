@@ -2034,3 +2034,19 @@ a single process rather than having to do one then the other and so on
     classifyOpportunity function without needing to provide all that extra stuff
     -Added a function to Chegg that does this, returns the decision if there is one, otherwise returns None
     -Added in the parts to the Insert class, going to do a test run and see how it does
+
+1/5 Notes:
+-More steamlining, added functionality to write a file to disk as it inserts the lead into the database
+-Had to add in functionality to SUDBConnect to delete old files if they are similar in name to the file it's trying to write now
+-Basically works as an update system - delete the old file with a different date, write a new one with the new date
+    -The idea is to make sure I don't have twenty million files for the same lead, either if I decide to run the program
+    a million times in one day, or old files from before the update
+    -Then added in a function to the Insert class which calls this functionality, grabs the row that was just inserted into the db, and
+    then writes the file with that row
+        -Decided to have the program insert then grab the row for the sake of consistency - I don't know exactly how I've organized the
+        columns in the table, and I could move them around at any given point - I don't want to have to go in and fix my code
+        every time I edit the table structure, so this will just grab the current format of the row
+        -Time to test this out
+-Chegg seems to be fully finished, now time to apply this to the other sites
+-Added functionality to CollegeGreenLight leads, lets - nvm it broke
+-Goddammit CGLL is broke, need to update webscraper
