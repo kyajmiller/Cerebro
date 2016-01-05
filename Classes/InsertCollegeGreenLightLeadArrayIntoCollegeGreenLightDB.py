@@ -39,7 +39,6 @@ class InsertCollegeGreenLightLeadArrayIntoCollegeGreenLightDB(object):
             "select * from dbo.CollegeGreenLightLeads where Name='" + self.name + "' and Url='" + self.url + "'")[0]
         self.fileSystemDB.writeFile(columns, currentRow, user, website, self.url, self.date)
 
-
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
             "select * from dbo.CollegeGreenLightLeads where Name='" + self.name + "' and Url='" + self.url + "'")
