@@ -15,8 +15,8 @@ class ProcessCheggLeads(object):
 
     @staticmethod
     def classifyFunding(leadsArrays):
-        titlesList = [cheggLeadsArray[0] for cheggLeadsArray in leadsArrays]
-        infoTextList = ['%s %s' % (cheggLeadsArray[4], cheggLeadsArray[5]) for cheggLeadsArray in leadsArrays]
+        titlesList = [leadArray[0] for leadArray in leadsArrays]
+        infoTextList = ['%s %s' % (leadArray[4], leadArray[5]) for leadArray in leadsArrays]
         opportunitiesTitlesAndTexts = [[title, infoText] for title, infoText in zip(titlesList, infoTextList)]
         fundingClassifier = ClassifyFundingTypeKeywordBased(opportunitiesTitlesAndTexts)
         predictedFundingTypes = fundingClassifier.returnPredictedTags()
