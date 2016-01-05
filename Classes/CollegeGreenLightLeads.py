@@ -21,7 +21,7 @@ class CollegeGreenLightLeads(object):
         self.driver.implicitly_wait(2)
         self.driver.find_element_by_link_text('Scholarships').click()
         self.driver.implicitly_wait(2)
-        self.driver.find_element_by_xpath("//td[@class='showAllMatchingScholarships']/div/a[@class='blue_btn']").click()
+        self.driver.find_element_by_xpath("//a[@class='blue_btn']").click()
         self.driver.implicitly_wait(2)
 
         self.collegeGreenLightLeadsArrays = []
