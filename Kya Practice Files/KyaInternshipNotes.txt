@@ -2050,3 +2050,11 @@ a single process rather than having to do one then the other and so on
 -Chegg seems to be fully finished, now time to apply this to the other sites
 -Added functionality to CollegeGreenLight leads, lets - nvm it broke
 -Goddammit CGLL is broke, need to update webscraper
+-So there's something wrong with the goddamn write file thing
+    -Cause it's not writing the CollegeGreenLight stuff to disk for some reason
+    -So need to figure out what's causing that because it's stupid
+    -Okay so there's something wrong with every single one of those urls, dunno what tho
+    -It's just really fucking stupid.
+    -Windows has a cap on how long file names can be. GGWP.
+        -Seriously, wow.
+    -NUKE ALL THE SUBS. MAKE THEM ALL DOTS. FOR CHRISSAKE
