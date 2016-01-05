@@ -22,7 +22,6 @@ class InsertCheggLeadArrayIntoCheggLeadsDB(object):
         self.sourceText = self.cheggLeadArray[9]
         self.date = time.strftime('%Y%m%d')
 
-    def insertToDB(self):
         if not self.checkIfAlreadyInDatabase():
             self.db.insertUpdateOrDeleteDB(
                 "insert into dbo.CheggLeads (Name, Url, Deadline, Amount, Eligibility, ApplicationOverview, Description, Sponsor, SourceWebsite, SourceText, Date, Tag, BadScholarship) values (N'" + self.name + "', N'" + self.url + "', N'" + self.deadline + "', N'" + self.amount + "', N'" + self.eligibility + "', N'" + self.applicationOverview + "', N'" + self.description + "', N'" + self.sponsor + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "', '" + self.fundingClassification + "', '" + self.badScholarshipClassificaion + "')")
