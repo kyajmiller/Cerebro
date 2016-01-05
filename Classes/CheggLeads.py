@@ -1,8 +1,5 @@
 from selenium import webdriver
 import time
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.by import By
 from Classes.RipPage import RipPage
 from Classes.CleanText import CleanText
 
@@ -70,7 +67,6 @@ class CheggLeads(object):
     def loopOverResultsPagesAndDoStuff(self):
         self.getInfoFromResultsListPage()
 
-        print('Beginning CheggLeads array creation...')
         for resultArray in self.resultsArrays:
             title = resultArray[0]
             link = resultArray[1]
@@ -79,7 +75,6 @@ class CheggLeads(object):
 
             self.makeLeadArray(title, link, deadline, amount)
 
-        print('Chegg Leads Created: %s' % len(self.cheggLeadsArrays))
         self.driver.quit()
         return self.cheggLeadsArrays
 
@@ -103,7 +98,6 @@ class CheggLeads(object):
         deadlinesList = self.getDeadlinesList()
         amountsList = self.getAmountsList()
 
-        print('Beginning array creation...')
         for i in range(len(titlesList)):
             title = titlesList[i]
             link = linksList[i]
@@ -112,8 +106,6 @@ class CheggLeads(object):
 
             resultsArray = [title, link, deadline, amount]
             self.resultsArrays.append(resultsArray)
-
-        print('Results arrays: %s' % len(self.resultsArrays))
 
     def getTitlesList(self):
         titlesList = []
@@ -124,7 +116,6 @@ class CheggLeads(object):
 
         titlesList = [CleanText.cleanALLtheText(title) for title in titlesList]
 
-        print('Titles Found: %s' % len(titlesList))
         return titlesList
 
     def getLinksList(self):
@@ -134,7 +125,6 @@ class CheggLeads(object):
         for link in linksDivs:
             linksList.append(link.get_attribute('href'))
 
-        print('Links Found: %s' % len(linksList))
         return linksList
 
     def getDeadlinesList(self):
@@ -146,7 +136,6 @@ class CheggLeads(object):
 
         deadlinesList = [CleanText.cleanALLtheText(deadline) for deadline in deadlinesList]
 
-        print('Deadlines Found: %s' % len(deadlinesList))
         return deadlinesList
 
     def getAmountsList(self):
@@ -158,7 +147,6 @@ class CheggLeads(object):
 
         amountsList = [CleanText.cleanALLtheText(amount) for amount in amountsList]
 
-        print('Amounts Found: %s' % len(amountsList))
         return amountsList
 
     def getInfoFromScholarshipPage(self, link):
