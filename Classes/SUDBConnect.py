@@ -112,6 +112,7 @@ class SUDBConnect(object):
         entryLine = self.createEntryLine(values)
         fileData = self.entriesDelimiter.join([headerLine, entryLine])
         filePath = self.createFilePath(user, website, url, date)
+        self.removeOldFile(user, website, url)
         os.makedirs(os.path.dirname(filePath), exist_ok=True)
         try:
             with open(filePath, 'w') as fileOut:
