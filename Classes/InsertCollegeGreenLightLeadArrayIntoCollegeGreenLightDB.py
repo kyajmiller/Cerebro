@@ -1,5 +1,6 @@
 from Classes.SUDBConnect import SUDBConnect
 import time
+import re
 
 
 class InsertCollegeGreenLightLeadArrayIntoCollegeGreenLightDB(object):
@@ -27,6 +28,17 @@ class InsertCollegeGreenLightLeadArrayIntoCollegeGreenLightDB(object):
         else:
             self.db.insertUpdateOrDeleteDB(
                 "update dbo.CollegeGreenLightLeads set Amount='" + self.amount + "', Deadline='" + self.deadline + "', Sponsor='" + self.sponsor + "', Description='" + self.description + "', Requirements='" + self.requirements + "', SourceWebsite='" + self.sourceWebsite + "', SourceText='" + self.sourceText + "', Date='" + self.date + "' where Name='" + self.name + "' and Url='" + self.url + "'")
+        self.writeFileToDisk()
+
+    def writeFileToDisk(self):
+        tableName = 'CollegeGreenLightLeads'
+        user = 'Kya'
+        website = re.sub('Leads', '', tableName)
+        columns = self.db.getColumnNamesFromTable(tableName)
+        currentRow = self.db.getRowsDB(
+            "select * from dbo.CollegeGreenLightLeads where Name='" + self.name + "' and Url='" + self.url + "'")[0]
+        self.fileSystemDB.writeFile(columns, currentRow, user, website, self.url, self.date)
+
 
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
