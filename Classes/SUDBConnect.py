@@ -114,12 +114,17 @@ class SUDBConnect(object):
         filePath = self.createFilePath(user, website, url, date)
         self.removeOldFile(user, website, url)
         os.makedirs(os.path.dirname(filePath), exist_ok=True)
+        with open(filePath, 'w') as fileOut:
+            fileOut.write(fileData)
+            fileOut.close()
+        '''
         try:
             with open(filePath, 'w') as fileOut:
                 fileOut.write(fileData)
                 fileOut.close()
         except:
             pass
+        '''
 
     def removeOldFile(self, user, website, url):
         url = self.convertURL(url)
