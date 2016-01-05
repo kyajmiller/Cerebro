@@ -120,6 +120,16 @@ class SUDBConnect(object):
         except:
             pass
 
+    def removeOldFile(self, user, website, url):
+        url = self.convertURL(url)
+        nameToCheck = '-'.join([website, url])
+        filePath = '\\'.join([self.fileSystemPath, user, website])
+
+        for filename in os.listdir(filePath):
+            if nameToCheck in filename:
+                os.remove(os.path.join(filePath, filename))
+
+
     def getAllTestCases(self):
         return self.getRowsDB("Select * from DepartmentTestCases")
 
