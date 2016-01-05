@@ -119,14 +119,6 @@ class SUDBConnect(object):
         with open(filePath, 'w') as fileOut:
             fileOut.write(fileData)
             fileOut.close()
-        '''
-        try:
-            with open(filePath, 'w') as fileOut:
-                fileOut.write(fileData)
-                fileOut.close()
-        except:
-            pass
-        '''
 
     def removeOldFile(self, user, website, url):
         url = self.convertURL(url)
