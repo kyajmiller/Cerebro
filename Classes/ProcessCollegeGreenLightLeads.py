@@ -9,8 +9,12 @@ class ProcessCollegeGreenLightLeads(object):
     @staticmethod
     def getCollegeGreenLightLeadsAndInsertIntoDB():
         collegeGreenLightLeadsArrays = CollegeGreenLightLeads().getLeads()
-        for leadArray in collegeGreenLightLeadsArrays:
-            InsertCollegeGreenLightLeadArrayIntoCollegeGreenLightDB(leadArray)
+        predictedFundingTypes = ProcessCollegeGreenLightLeads.classifyFunding(collegeGreenLightLeadsArrays)
+        for leadArray, fundingClassification in zip(collegeGreenLightLeadsArrays, predictedFundingTypes):
+            badScholarshipClassification = ProcessCollegeGreenLightLeads.checkBadScholarship(leadArray,
+                                                                                             fundingClassification)
+            InsertCollegeGreenLightLeadArrayIntoCollegeGreenLightDB(leadArray, fundingClassification,
+                                                                    badScholarshipClassification)
 
     @staticmethod
     def classifyFunding(leadsArrays):
