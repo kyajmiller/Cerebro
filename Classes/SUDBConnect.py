@@ -129,7 +129,6 @@ class SUDBConnect(object):
             if nameToCheck in filename:
                 os.remove(os.path.join(filePath, filename))
 
-
     def getAllTestCases(self):
         return self.getRowsDB("Select * from DepartmentTestCases")
 
