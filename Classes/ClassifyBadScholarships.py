@@ -129,19 +129,11 @@ class ClassifyBadScholarships(object):
         for gpe in regexGPEsFromOrganizations:
             geoPoliticalEntities.append(gpe)
 
-        if len(organizations) > 0:
-            print('Organizations: %s' % organizations)
-        if len(geoPoliticalEntities) > 0:
-            print('GPEs: %s' % geoPoliticalEntities)
-        if len(regexGPEsFromOrganizations) > 0:
-            print('GPEs from Organizations (Regex): %s' % regexGPEsFromOrganizations)
-
         badText = self.scanOrganizations(organizations)
 
         if badText != True:
             badText = self.scanGeoPoliticalEntities(geoPoliticalEntities, infoText)
 
-        print(badText)
         return badText
 
     def parseOranizations(self, sentence):
@@ -269,13 +261,8 @@ class ClassifyBadScholarships(object):
         regexFoundGPEs = self.findGPEsWithRegex(badGPEs)
         for gpe in regexFoundGPEs:
             filteredGPEs.append(gpe)
-        if len(regexFoundGPEs):
-            print('GPEs from GPEs (Regex): %s' % regexFoundGPEs)
 
         filteredGPEs = self.filterOutGPEsDemographicsPhrases(filteredGPEs, infoText)
-
-        if len(filteredGPEs) > 0:
-            print("Filtered GPES: %s" % filteredGPEs)
 
         for gpe in filteredGPEs:
             if gpe not in allowedGPEs:
