@@ -130,5 +130,16 @@ class TestStringMethods(unittest.TestCase):
         if nameToCheck in fileToCheck:
             print('match')
 
+    def test_CGRLLFileCreationWhyDoesItSuck(self):
+        db = SUDBConnect(destination='filesystem')
+        columns = ['sponsor']
+        values = ['BMI Foundation, Inc']
+        user = 'Kya'
+        website = 'CollegeGreenLight'
+        url = 'https://www.collegegreenlight.com/scholarship/listings/BMI-Student-Composer-Awards/-s-d-49468/?sortBy=&reverse=false'
+        # url = 'https://www.collegegreenlight.com/scholarship/listings/BMI-Student-Composer-Awards/-s-d-49468/?'
+        date = '20150000'
+        db.writeFile(columns, values, user, website, url, date)
+
 if __name__ == '__main__':
     unittest.main()
