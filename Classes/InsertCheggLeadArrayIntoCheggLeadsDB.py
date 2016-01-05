@@ -1,5 +1,6 @@
 from Classes.SUDBConnect import SUDBConnect
 import time
+import re
 
 class InsertCheggLeadArrayIntoCheggLeadsDB(object):
     def __init__(self, cheggLeadArray, fundingClassification, badScholarshipClassification):
@@ -7,6 +8,7 @@ class InsertCheggLeadArrayIntoCheggLeadsDB(object):
         self.fundingClassification = fundingClassification
         self.badScholarshipClassificaion = badScholarshipClassification
         self.db = SUDBConnect()
+        self.fileSystemDB = SUDBConnect(destination='filesystem')
 
         self.name = self.cheggLeadArray[0]
         self.url = self.cheggLeadArray[1]
@@ -20,12 +22,25 @@ class InsertCheggLeadArrayIntoCheggLeadsDB(object):
         self.sourceText = self.cheggLeadArray[9]
         self.date = time.strftime('%Y%m%d')
 
+    def insertToDB(self):
         if not self.checkIfAlreadyInDatabase():
             self.db.insertUpdateOrDeleteDB(
                 "insert into dbo.CheggLeads (Name, Url, Deadline, Amount, Eligibility, ApplicationOverview, Description, Sponsor, SourceWebsite, SourceText, Date, Tag, BadScholarship) values (N'" + self.name + "', N'" + self.url + "', N'" + self.deadline + "', N'" + self.amount + "', N'" + self.eligibility + "', N'" + self.applicationOverview + "', N'" + self.description + "', N'" + self.sponsor + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "', '" + self.fundingClassification + "', '" + self.badScholarshipClassificaion + "')")
         else:
             self.db.insertUpdateOrDeleteDB(
                 "update dbo.CheggLeads set Deadline=N'" + self.deadline + "', Amount=N'" + self.amount + "', Eligibility=N'" + self.eligibility + "', ApplicationOverview=N'" + self.applicationOverview + "', Description=N'" + self.description + "', Sponsor=N'" + self.sponsor + "', SourceWebsite=N'" + self.sourceWebsite + "', SourceText=N'" + self.sourceText + "', Date='" + self.date + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassificaion + "' where Name='" + self.name + "' and Url='" + self.url + "'")
+        self.writeFileToDisk()
+
+    def writeFileToDisk(self):
+        tableName = 'CheggLeads'
+        user = 'Kya'
+        website = re.sub('Leads', '', tableName)
+        sqlDB = SUDBConnect(destination='database')
+        fileDB = SUDBConnect(destination='filesystem')
+        columns = sqlDB.getColumnNamesFromTable(tableName)
+        currentRow = sqlDB.getRowsDB(
+            "select * from dbo.CheggLeads where Name='" + self.name + "' and Url='" + self.url + "'")
+        fileDB.writeFile(columns, currentRow, user, website, self.url, self.date)
 
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
