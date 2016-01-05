@@ -3,9 +3,12 @@ import time
 
 
 class InsertCollegeGreenLightLeadArrayIntoCollegeGreenLightDB(object):
-    def __init__(self, collegeGreenLightLeadArray):
+    def __init__(self, collegeGreenLightLeadArray, fundingClassification, badScholarshipClassification):
+        self.badScholarshipClassification = badScholarshipClassification
+        self.fundingClassification = fundingClassification
         self.collegeGreenLightLeadArray = collegeGreenLightLeadArray
         self.db = SUDBConnect()
+        self.fileSystemDB = SUDBConnect(destination='filesystem')
 
         self.name = self.collegeGreenLightLeadArray[0]
         self.amount = self.collegeGreenLightLeadArray[1]
