@@ -73,19 +73,21 @@ class SUDBConnect(object):
         return entryLine
 
     def convertURL(self, url):
-        url = re.sub('\.', '((dot))', url)
-        url = re.sub('<', '((less))', url)
-        url = re.sub('>', '((great))', url)
-        url = re.sub(':', '((col))', url)
-        url = re.sub('"', '((dq))', url)
-        url = re.sub('/', '((fs))', url)
+        url = re.sub('https?://', '', url)
+        # url = re.sub('\.', '((dot))', url)
+        url = re.sub('<', '.', url)
+        url = re.sub('>', '.', url)
+        url = re.sub(':', '.', url)
+        url = re.sub('"', '.', url)
+        url = re.sub('/', '.', url)
         # url = re.sub('\\\\', '((bs))', url)
-        url = re.sub('\|', '((pipe))', url)
-        url = re.sub('\?', '((ques))', url)
-        url = re.sub('\*', '((ast))', url)
-        url = re.sub('-', '((dash))', url)
-        url = re.sub('&', '((amp))', url)
-        url = re.sub('=', '((eq))', url)
+        url = re.sub('\|', '.', url)
+        url = re.sub('\?', '.', url)
+        url = re.sub('\*', '.', url)
+        url = re.sub('-', '.', url)
+        url = re.sub('&', '.', url)
+        url = re.sub('=', '.', url)
+        url = re.sub('%', '.', url)
 
         return url
 
