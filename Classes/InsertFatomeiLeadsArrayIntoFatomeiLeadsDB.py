@@ -32,7 +32,8 @@ class InsertFatomeiLeadsArrayIntoFatomeiLeadsDB(object):
         website = re.sub('Leads', '', tableName)
         columns = self.db.getColumnNamesFromTable(tableName)
         currentRow = self.db.getRowsDB(
-            "select * from dbo.FatomeiLeads where Name='" + self.name + "' and SourceWebsite='" + self.url + "'")[0]
+            "select * from dbo.FatomeiLeads where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")[
+            0]
         self.fileSystemDB.writeFile(columns, currentRow, user, website, self.sourceWebsite, self.date)
 
     def checkIfAlreadyInDB(self):
