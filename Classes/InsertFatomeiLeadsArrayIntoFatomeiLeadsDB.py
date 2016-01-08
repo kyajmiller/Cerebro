@@ -31,10 +31,13 @@ class InsertFatomeiLeadsArrayIntoFatomeiLeadsDB(object):
         user = 'Kya'
         website = re.sub('Leads', '', tableName)
         columns = self.db.getColumnNamesFromTable(tableName)
-        currentRow = self.db.getRowsDB(
-            "select * from dbo.FatomeiLeads where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")[
-            0]
-        self.fileSystemDB.writeFile(columns, currentRow, user, website, self.sourceWebsite, self.date)
+        try:
+            currentRow = self.db.getRowsDB(
+                "select * from dbo.FatomeiLeads where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")[
+                0]
+            self.fileSystemDB.writeFile(columns, currentRow, user, website, self.sourceWebsite, self.date)
+        except IndexError:
+            pass
 
     def checkIfAlreadyInDB(self):
         matchingRow = self.db.getRowsDB(
