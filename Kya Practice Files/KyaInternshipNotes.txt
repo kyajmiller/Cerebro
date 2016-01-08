@@ -2058,3 +2058,14 @@ a single process rather than having to do one then the other and so on
     -Windows has a cap on how long file names can be. GGWP.
         -Seriously, wow.
     -NUKE ALL THE SUBS. MAKE THEM ALL DOTS. FOR CHRISSAKE
+
+1/7 Notes:
+-Update FastWeb for streamlining, run that
+-Update Fatomei next
+
+1/8 Notes:
+-Fatomei is having weird problems, trying to figure out why it's sometimes not wanting to write the files correctly.
+-other than that, not much going on today
+-Had to add a try/except statement to the InsertFatomeiLeads class; for some reason it's having a hard time finding a particular
+entry even though it should have been added just before it's attempting to grab it
+-Hopefully this will at least allow for the rest of the entries to be added
