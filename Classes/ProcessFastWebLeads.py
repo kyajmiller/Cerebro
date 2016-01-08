@@ -16,7 +16,7 @@ class ProcessFastWebLeads(object):
     @staticmethod
     def classifyFunding(leadsArrays):
         titlesList = [leadArray[0] for leadArray in leadsArrays]
-        infoTextList = ['%s %s' % (leadArray[5], leadArray[9]) for leadArray in leadsArrays]
+        infoTextList = [leadArray[5] for leadArray in leadsArrays]
         opportunitiesTitlesAndTexts = [[title, infoText] for title, infoText in zip(titlesList, infoTextList)]
         fundingClassifier = ClassifyFundingTypeKeywordBased(opportunitiesTitlesAndTexts)
         predictedFundingTypes = fundingClassifier.returnPredictedTags()
@@ -26,7 +26,7 @@ class ProcessFastWebLeads(object):
     def checkBadScholarship(leadArray, fundingClassification):
         if fundingClassification == 'Scholarship':
             sponsor = leadArray[2]
-            infoText = '%s %s' % (leadArray[5], leadArray[9])
+            infoText = leadArray[5]
             badScholarshipClassifier = ClassifyBadScholarships()
             badScholarshipPrediction = badScholarshipClassifier.classifyOpportunity(sponsor, infoText)
             return badScholarshipPrediction
