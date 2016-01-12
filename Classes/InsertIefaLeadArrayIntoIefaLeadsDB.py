@@ -23,10 +23,14 @@ class InsertIefaLeadArrayIntoIefaLeadsDB(object):
         self.hostCountries = self.iefaLeadArray[12]
         self.sourceWebsite = self.iefaLeadArray[13]
         self.sourceText = self.iefaLeadArray[14]
+        self.date = time.strftime('%Y%m%d')
 
         if not self.checkIfAlreadyInDatabase():
             self.db.insertUpdateOrDeleteDB(
-                "INSERT INTO dbo.IefaLeads (Name, Url, Sponsor, SubmissionDeadline, Majors, Amount, Description, OtherCriteria, NumberAwards, HostInstitution, Includes, NationalityRequired, HostCountries, SourceWebsite, SourceText) VALUES  (N'" + self.name + "', N'" + self.url + "', N'" + self.sponsor + "', N'" + self.submissionDeadline + "', N'" + self.majors + "', N'" + self.amount + "', N'" + self.description + "', N'" + self.otherCriteria + "', N'" + self.numberAwards + "', N'" + self.hostInstitution + "', N'" + self.includes + "', N'" + self.nationalityRequired + "', N'" + self.hostCountries + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
+                "INSERT INTO dbo.IefaLeads (Name, Url, Sponsor, SubmissionDeadline, Majors, Amount, Description, OtherCriteria, NumberAwards, HostInstitution, Includes, NationalityRequired, HostCountries, SourceWebsite, SourceText, Date) VALUES  (N'" + self.name + "', N'" + self.url + "', N'" + self.sponsor + "', N'" + self.submissionDeadline + "', N'" + self.majors + "', N'" + self.amount + "', N'" + self.description + "', N'" + self.otherCriteria + "', N'" + self.numberAwards + "', N'" + self.hostInstitution + "', N'" + self.includes + "', N'" + self.nationalityRequired + "', N'" + self.hostCountries + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "')")
+        else:
+            self.db.insertUpdateOrDeleteDB(
+                "update dbo.IefaLeads set Sponsor=N'" + self.sponsor + "', SubmissionDeadline=N'" + self.submissionDeadline + "', Majors=N'" + self.majors + "', Amount=N'" + self.amount + "', Description=N'" + self.description + "', OtherCriteria=N'" + self.otherCriteria + "', NumberAwards=N'" + self.numberAwards + "', HostInstitution=N'" + self.hostInstitution + "', Includes=N'" + self.includes + "', NationalityRequired=N'" + self.nationalityRequired + "', HostCountries=N'" + self.hostCountries + "', SourceWebsite=N'" + self.sourceWebsite + "', SourceText=N'" + self.sourceText + "', Date='" + self.date + "' where Name='" + self.name + "' and Url='" + self.url + "'")
         self.writeFileToDisk()
 
     def writeFileToDisk(self):
@@ -40,7 +44,7 @@ class InsertIefaLeadArrayIntoIefaLeadsDB(object):
 
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
-            "select * from dbo.IefaLeads where Name='" + self.name + "' and Description='" + self.description + "'")
+            "select * from dbo.IefaLeads where Name='" + self.name + "' and Url='" + self.url + "'")
         if matchingRow != []:
             return True
         else:
