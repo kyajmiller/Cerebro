@@ -8,8 +8,10 @@ class ProcessIefaLeads(object):
     @staticmethod
     def getIefaLeadsAndInsertIntoDB():
         iefaLeadsArrays = IefaLeads().loopOverResultsPagesAndDoStuff()
-        for leadArray in iefaLeadsArrays:
-            InsertIefaLeadArrayIntoIefaLeadsDB(leadArray)
+        predictedFundingTypes = ProcessIefaLeads.classifyFunding(iefaLeadsArrays)
+        for leadArray, fundingClassification in zip(iefaLeadsArrays, predictedFundingTypes):
+            badScholarshipClassification = ProcessIefaLeads.checkBadScholarship(leadArray, fundingClassification)
+            InsertIefaLeadArrayIntoIefaLeadsDB(leadArray, fundingClassification, badScholarshipClassification)
 
     @staticmethod
     def classifyFunding(leadsArrays):
