@@ -2069,3 +2069,12 @@ a single process rather than having to do one then the other and so on
 -Had to add a try/except statement to the InsertFatomeiLeads class; for some reason it's having a hard time finding a particular
 entry even though it should have been added just before it's attempting to grab it
 -Hopefully this will at least allow for the rest of the entries to be added
+
+1/12 Notes:
+-Update GoodCall
+-Update seems to be okay, had to update the SQL table for this since it didn't have anything for Tag/BadScholarship
+-Finally got GoodCall to run through, time to do the next one
+-Update Iefa?
+-I'd eventually like to update GrantForward, but I'm not sure if I can even still get to it...
+-Need to update IefaLeads, realizing that Iefa hasn't been updated in a very long time...
+-godbless the time module, taking care of cache issues since 2015
