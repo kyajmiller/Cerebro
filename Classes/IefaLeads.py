@@ -7,6 +7,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from Classes.CleanText import CleanText
 from Classes.RipPage import RipPage
+import time
 
 
 class IefaLeads(object):
@@ -32,6 +33,7 @@ class IefaLeads(object):
         self.iefaLeadsArrays = []
 
     def loopOverResultsPagesAndDoStuff(self):
+        time.sleep(5)
         self.getTitlesLinksOnCurrentPage()
 
         if self.isTest:
@@ -45,6 +47,7 @@ class IefaLeads(object):
             while pageCounter < 12:
                 if self.checkIfNextPage():
                     self.goToNextPageUrl()
+                    time.sleep(5)
                     self.getTitlesLinksOnCurrentPage()
                 pageCounter += 1
 
