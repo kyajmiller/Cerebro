@@ -4,9 +4,12 @@ import time
 
 
 class InsertIefaLeadArrayIntoIefaLeadsDB(object):
-    def __init__(self, iefaLeadArray):
+    def __init__(self, iefaLeadArray, fundingClassification, badScholarshipClassification):
         self.iefaLeadArray = iefaLeadArray
+        self.fundingClassification = fundingClassification
+        self.badScholarshipClassificaion = badScholarshipClassification
         self.db = SUDBConnect()
+        self.fileSystemDB = SUDBConnect(destination='filesystem')
 
         self.name = self.iefaLeadArray[0]
         self.url = self.iefaLeadArray[1]
