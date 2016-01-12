@@ -1,4 +1,6 @@
 from Classes.SUDBConnect import SUDBConnect
+import re
+import time
 
 
 class InsertIefaLeadArrayIntoIefaLeadsDB(object):
@@ -25,6 +27,16 @@ class InsertIefaLeadArrayIntoIefaLeadsDB(object):
         if not self.checkIfAlreadyInDatabase():
             self.db.insertUpdateOrDeleteDB(
                 "INSERT INTO dbo.IefaLeads (Name, Url, Sponsor, SubmissionDeadline, Majors, Amount, Description, OtherCriteria, NumberAwards, HostInstitution, Includes, NationalityRequired, HostCountries, SourceWebsite, SourceText) VALUES  (N'" + self.name + "', N'" + self.url + "', N'" + self.sponsor + "', N'" + self.submissionDeadline + "', N'" + self.majors + "', N'" + self.amount + "', N'" + self.description + "', N'" + self.otherCriteria + "', N'" + self.numberAwards + "', N'" + self.hostInstitution + "', N'" + self.includes + "', N'" + self.nationalityRequired + "', N'" + self.hostCountries + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
+        self.writeFileToDisk()
+
+    def writeFileToDisk(self):
+        tableName = 'CheggLeads'
+        user = 'Kya'
+        website = re.sub('Leads', '', tableName)
+        columns = self.db.getColumnNamesFromTable(tableName)
+        currentRow = self.db.getRowsDB(
+            "select * from dbo.CheggLeads where Name='" + self.name + "' and Url='" + self.url + "'")[0]
+        self.fileSystemDB.writeFile(columns, currentRow, user, website, self.url, self.date)
 
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
