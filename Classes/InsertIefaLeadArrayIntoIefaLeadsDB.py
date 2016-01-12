@@ -34,12 +34,12 @@ class InsertIefaLeadArrayIntoIefaLeadsDB(object):
         self.writeFileToDisk()
 
     def writeFileToDisk(self):
-        tableName = 'CheggLeads'
+        tableName = 'IefaLeads'
         user = 'Kya'
         website = re.sub('Leads', '', tableName)
         columns = self.db.getColumnNamesFromTable(tableName)
         currentRow = self.db.getRowsDB(
-            "select * from dbo.CheggLeads where Name='" + self.name + "' and Url='" + self.url + "'")[0]
+            "select * from dbo.IefaLeads where Name='" + self.name + "' and Url='" + self.url + "'")[0]
         self.fileSystemDB.writeFile(columns, currentRow, user, website, self.url, self.date)
 
     def checkIfAlreadyInDatabase(self):
