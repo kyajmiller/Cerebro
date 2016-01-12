@@ -1,11 +1,15 @@
 from Classes.SUDBConnect import SUDBConnect
 import time
+import re
 
 
 class InsertGoodCallLeadArrayIntoGoodCallLeadsDB(object):
-    def __init__(self, goodCallLeadArray):
+    def __init__(self, goodCallLeadArray, fundingClassification, badScholarshipClassification):
         self.goodCallLeadArray = goodCallLeadArray
+        self.fundingClassification = fundingClassification
+        self.badScholarshipClassificaion = badScholarshipClassification
         self.db = SUDBConnect()
+        self.fileSystemDB = SUDBConnect(destination='filesystem')
 
         self.name = goodCallLeadArray[0]
         self.url = goodCallLeadArray[1]
@@ -28,10 +32,20 @@ class InsertGoodCallLeadArrayIntoGoodCallLeadsDB(object):
 
         if not self.checkIfAlreadyInDatabase():
             self.db.insertUpdateOrDeleteDB(
-                "insert into dbo.GoodCallLeads (Name, Url, NumAwards, Amount, Description, Sponsor, ClassStatus, Major, Gender, Ethnicity, Grades, TestScores, Deadline, EssayInfo, SourceWebsite, SourceText, Date) values (N'" + self.name + "', N'" + self.url + "', N'" + self.numAwards + "', N'" + self.amount + "', N'" + self.description + "', N'" + self.sponsor + "', N'" + self.classStatus + "', N'" + self.major + "', N'" + self.gender + "', N'" + self.ethnicity + "', N'" + self.grades + "', N'" + self.testScores + "', N'" + self.deadline + "', N'" + self.essayInfo + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "')")
+                "insert into dbo.GoodCallLeads (Name, Url, NumAwards, Amount, Description, Sponsor, ClassStatus, Major, Gender, Ethnicity, Grades, TestScores, Deadline, EssayInfo, SourceWebsite, SourceText, Date, Tag, BadScholarship) values (N'" + self.name + "', N'" + self.url + "', N'" + self.numAwards + "', N'" + self.amount + "', N'" + self.description + "', N'" + self.sponsor + "', N'" + self.classStatus + "', N'" + self.major + "', N'" + self.gender + "', N'" + self.ethnicity + "', N'" + self.grades + "', N'" + self.testScores + "', N'" + self.deadline + "', N'" + self.essayInfo + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "', '" + self.fundingClassification + "', '" + self.badScholarshipClassificaion + "')")
         else:
             self.db.insertUpdateOrDeleteDB(
-                "update dbo.GoodCallLeads set NumAwards=N'" + self.numAwards + "', Amount=N'" + self.amount + "', Description=N'" + self.description + "', Sponsor=N'" + self.sponsor + "', ClassStatus=N'" + self.classStatus + "', Major=N'" + self.major + "', Gender=N'" + self.gender + "', Ethnicity=N'" + self.ethnicity + "', Grades=N'" + self.grades + "', TestScores=N'" + self.testScores + "', Deadline=N'" + self.deadline + "', EssayInfo=N'" + self.essayInfo + "', SourceWebsite=N'" + self.sourceWebsite + "', SourceText=N'" + self.sourceText + "', Date='" + self.date + "' where Name='" + self.name + "' and Url='" + self.url + "'")
+                "update dbo.GoodCallLeads set NumAwards=N'" + self.numAwards + "', Amount=N'" + self.amount + "', Description=N'" + self.description + "', Sponsor=N'" + self.sponsor + "', ClassStatus=N'" + self.classStatus + "', Major=N'" + self.major + "', Gender=N'" + self.gender + "', Ethnicity=N'" + self.ethnicity + "', Grades=N'" + self.grades + "', TestScores=N'" + self.testScores + "', Deadline=N'" + self.deadline + "', EssayInfo=N'" + self.essayInfo + "', SourceWebsite=N'" + self.sourceWebsite + "', SourceText=N'" + self.sourceText + "', Date='" + self.date + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassificaion + "' where Name='" + self.name + "' and Url='" + self.url + "'")
+        self.writeFileToDisk()
+
+    def writeFileToDisk(self):
+        tableName = 'GoodCallLeads'
+        user = 'Kya'
+        website = re.sub('Leads', '', tableName)
+        columns = self.db.getColumnNamesFromTable(tableName)
+        currentRow = self.db.getRowsDB(
+            "select * from dbo.GoodCallLeads where Name='" + self.name + "' and Url='" + self.url + "'")[0]
+        self.fileSystemDB.writeFile(columns, currentRow, user, website, self.url, self.date)
 
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
