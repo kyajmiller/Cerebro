@@ -8,8 +8,10 @@ class ProcessGoodCallLeads(object):
     @staticmethod
     def getGoodCallLeadsAndInsertIntoDB():
         goodCallLeadsArrays = GoodCallLeads().getLeads()
-        for leadArray in goodCallLeadsArrays:
-            InsertGoodCallLeadArrayIntoGoodCallLeadsDB(leadArray)
+        predictedFundingTypes = ProcessGoodCallLeads.classifyFunding(goodCallLeadsArrays)
+        for leadArray, fundingClassification in zip(goodCallLeadsArrays, predictedFundingTypes):
+            badScholarshipClassification = ProcessGoodCallLeads.checkBadScholarship(leadArray, fundingClassification)
+            InsertGoodCallLeadArrayIntoGoodCallLeadsDB(leadArray, fundingClassification, badScholarshipClassification)
 
     @staticmethod
     def classifyFunding(leadsArrays):
