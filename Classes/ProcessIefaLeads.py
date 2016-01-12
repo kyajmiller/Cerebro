@@ -14,7 +14,7 @@ class ProcessIefaLeads(object):
     @staticmethod
     def classifyFunding(leadsArrays):
         titlesList = [leadArray[0] for leadArray in leadsArrays]
-        infoTextList = ['%s %s' % (leadArray[4], leadArray[5]) for leadArray in leadsArrays]
+        infoTextList = ['%s %s' % (leadArray[6], leadArray[7]) for leadArray in leadsArrays]
         opportunitiesTitlesAndTexts = [[title, infoText] for title, infoText in zip(titlesList, infoTextList)]
         fundingClassifier = ClassifyFundingTypeKeywordBased(opportunitiesTitlesAndTexts)
         predictedFundingTypes = fundingClassifier.returnPredictedTags()
@@ -23,8 +23,8 @@ class ProcessIefaLeads(object):
     @staticmethod
     def checkBadScholarship(leadArray, fundingClassification):
         if fundingClassification == 'Scholarship':
-            sponsor = leadArray[7]
-            infoText = '%s %s' % (leadArray[4], leadArray[5])
+            sponsor = leadArray[2]
+            infoText = '%s %s' % (leadArray[6], leadArray[7])
             badScholarshipClassifier = ClassifyBadScholarships()
             badScholarshipPrediction = badScholarshipClassifier.classifyOpportunity(sponsor, infoText)
             return badScholarshipPrediction
