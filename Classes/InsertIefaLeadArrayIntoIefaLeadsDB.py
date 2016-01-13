@@ -1,4 +1,5 @@
 from Classes.SUDBConnect import SUDBConnect
+from Classes.CleanText import CleanText
 import re
 import time
 
@@ -12,6 +13,7 @@ class InsertIefaLeadArrayIntoIefaLeadsDB(object):
         self.fileSystemDB = SUDBConnect(destination='filesystem')
 
         self.name = self.iefaLeadArray[0]
+        self.name = CleanText.cleanALLtheText(self.name)
         self.url = self.iefaLeadArray[1]
         self.sponsor = self.iefaLeadArray[2]
         self.submissionDeadline = self.iefaLeadArray[3]
