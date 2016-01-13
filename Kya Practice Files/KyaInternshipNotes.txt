@@ -2078,3 +2078,12 @@ entry even though it should have been added just before it's attempting to grab 
 -I'd eventually like to update GrantForward, but I'm not sure if I can even still get to it...
 -Need to update IefaLeads, realizing that Iefa hasn't been updated in a very long time...
 -godbless the time module, taking care of cache issues since 2015
+
+1/13 Notes:
+-Not sure if IefaLeads paused over night when the VPN went down, or if its so fucking slow that it's still running. Holy balls.
+-I would lol if this thing breaks and it really does take that long.
+-Immediately noticed issue - damn thing must have logged out of Iefa over night and so it's not actually getting half of the important stuff
+-So yeah, need to restart it. Lol.
+-Some of these sites are very strange and don't load, I might want to consider implementing some sort of time out proceedure or just hope that
+it will eventually just load on its own
+-Had an issue with CleanText apparently not removing a single quote. Not sure why it's being so weird... if that doesn't help, will use a try/except statement to get around it
