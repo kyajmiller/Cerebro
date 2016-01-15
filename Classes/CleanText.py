@@ -70,7 +70,6 @@ class CleanText(object):
         result = CleanText.removenbsp(result)
         result = CleanText.convertAmpersand(result)
         result = CleanText.replaceSingleQuotesWithTwoSingleQuotes(result)
-        result = CleanText.replaceDoubleQuotesWithTwoSingleQuotes(result)
         result = CleanText.removeMoreLess(result)
         result = CleanText.removeWhiteSpaces(result)
 
