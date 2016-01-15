@@ -13,8 +13,8 @@ class InsertIefaLeadArrayIntoIefaLeadsDB(object):
         self.fileSystemDB = SUDBConnect(destination='filesystem')
 
         self.name = self.iefaLeadArray[0]
-        self.name = CleanText.cleanALLtheText(self.name)
         self.url = self.iefaLeadArray[1]
+        self.url = CleanText.replaceSingleQuotesWithTwoSingleQuotes(self.url)
         self.sponsor = self.iefaLeadArray[2]
         self.submissionDeadline = self.iefaLeadArray[3]
         self.majors = self.iefaLeadArray[4]
