@@ -41,6 +41,10 @@ class CleanText(object):
         return re.sub("'", "''", stringToClean)
 
     @staticmethod
+    def replaceDoubleQuotesWithTwoSingleQuotes(stringToClean):
+        return re.sub('"', "''", stringToClean)
+
+    @staticmethod
     def removeWhiteSpaces(stringToClean):
         result = re.sub(r'\r', '', stringToClean)
         result = re.sub(r'\n\n+', '\n', result)
@@ -66,6 +70,7 @@ class CleanText(object):
         result = CleanText.removenbsp(result)
         result = CleanText.convertAmpersand(result)
         result = CleanText.replaceSingleQuotesWithTwoSingleQuotes(result)
+        result = CleanText.replaceDoubleQuotesWithTwoSingleQuotes(result)
         result = CleanText.removeMoreLess(result)
         result = CleanText.removeWhiteSpaces(result)
 
