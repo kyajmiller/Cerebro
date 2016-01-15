@@ -2087,3 +2087,9 @@ entry even though it should have been added just before it's attempting to grab 
 -Some of these sites are very strange and don't load, I might want to consider implementing some sort of time out proceedure or just hope that
 it will eventually just load on its own
 -Had an issue with CleanText apparently not removing a single quote. Not sure why it's being so weird... if that doesn't help, will use a try/except statement to get around it
+
+1/15 Notes:
+-So it turns out Iefa is stupid and not following proper url etiquette.
+DO NOT PUT FUCKING SINGLE QUOTES IN A FUCKING URL HOLY SHIT WTF
+-At least now I know what was breaking it
+-Yay waiting 4 more hours to verify that it works
