@@ -2093,3 +2093,11 @@ it will eventually just load on its own
 DO NOT PUT FUCKING SINGLE QUOTES IN A FUCKING URL HOLY SHIT WTF
 -At least now I know what was breaking it
 -Yay waiting 4 more hours to verify that it works
+
+1/20 Notes:
+-So it turns out that this thing really does run so slow that when I go home at night it doesn't finish before the VPN expires. RIP.
+-Maybe it'll run through all the way today while I'm actually here and not throw dumb errors
+-I need to do homework...
+-Fucking holy fucking shit why does this keep happening
+-Fucking internet died halfway through, logged out of Iefa, G fuckin G
+-I really hope that this thing will finally run to completion, I really really don't want to have to deal with this again on Friday
