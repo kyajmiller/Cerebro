@@ -2084,7 +2084,7 @@ entry even though it should have been added just before it's attempting to grab 
 -I would lol if this thing breaks and it really does take that long.
 -Immediately noticed issue - damn thing must have logged out of Iefa over night and so it's not actually getting half of the important stuff
 -So yeah, need to restart it. Lol.
--Some of these sites are very strange and don't load, I might want to consider implementing some sort of time out proceedure or just hope that
+-Some of these sites are very strange and don't load, I might want to consider implementing some sort of time out procedure or just hope that
 it will eventually just load on its own
 -Had an issue with CleanText apparently not removing a single quote. Not sure why it's being so weird... if that doesn't help, will use a try/except statement to get around it
 
@@ -2101,3 +2101,20 @@ DO NOT PUT FUCKING SINGLE QUOTES IN A FUCKING URL HOLY SHIT WTF
 -Fucking holy fucking shit why does this keep happening
 -Fucking internet died halfway through, logged out of Iefa, G fuckin G
 -I really hope that this thing will finally run to completion, I really really don't want to have to deal with this again on Friday
+
+1/22 Notes:
+-Oh my fucking god if I can just get a single day where this thing can run through without any errors so that I don't have to
+run it over night and guarantee that the VPN doesn't close, that would be great
+-Yet another day of watching this run
+-Aaaaaaand...
+-omg it's working, lets see if it completes
+-IT'S GOOD
+-IT FINALLY FUCKING RAN THROUGH
+HOLY SHIT YAY
+
+Stuff for next week:
+-Ken wants me to make a log system so we can keep track of when the webcrawlers are run, and how many entries they get
+-Wants at least Website | Date | NumEntries
+-Going to also add in data for how many are new entries and how many are updates
+-Will need to rework the insert classes to return a value (maybe True/False) and then increment a count for updates/new in the Process classes
+-Then when it's done have it save the thing to a new table, probably called dbo.CerebroWebcrawlerLogs
