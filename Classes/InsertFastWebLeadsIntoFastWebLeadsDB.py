@@ -25,14 +25,6 @@ class InsertFastWebLeadIntoFastWebLeadsDB(object):
         self.sourceText = self.fastWebLeadArray[11]
         self.date = time.strftime('%Y%m%d')
 
-        if not self.checkIfAlreadyInDatabase():
-            self.db.insertUpdateOrDeleteDB(
-                "insert into dbo.FastWebLeads (Name, Url, Sponsor, Amount, Deadline, Description, AwardType, NumAwards, Majors, AdditionalInfo, SourceWebsite, SourceText, Date, Tag, BadScholarship) values (N'" + self.name + "', N'" + self.url + "', N'" + self.sponsor + "', N'" + self.amount + "', N'" + self.deadline + "', N'" + self.description + "', N'" + self.awardType + "', N'" + self.numAwards + "', N'" + self.majors + "', N'" + self.additionalInfo + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "', '" + self.fundingClassification + "', '" + self.badScholarshipClassification + "')")
-        else:
-            self.db.insertUpdateOrDeleteDB(
-                "update dbo.FastWebLeads set Sponsor='" + self.sponsor + "', Amount='" + self.amount + "', Deadline='" + self.deadline + "', Description='" + self.description + "', AwardType='" + self.awardType + "', NumAwards='" + self.numAwards + "', Majors='" + self.majors + "', AdditionalInfo='" + self.additionalInfo + "', SourceWebsite='" + self.sourceWebsite + "', SourceText='" + self.sourceText + "', Date='" + self.date + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassification + "' where Name='" + self.name + "' and Url='" + self.url + "'")
-        self.writeFileToDisk()
-
     def writeFileToDisk(self):
         tableName = 'FastWebLeads'
         user = 'Kya'
@@ -48,4 +40,16 @@ class InsertFastWebLeadIntoFastWebLeadsDB(object):
         if matchingRow != []:
             return True
         else:
+            return False
+
+    def insertUpdateLead(self):
+        if not self.checkIfAlreadyInDatabase():
+            self.db.insertUpdateOrDeleteDB(
+                    "insert into dbo.FastWebLeads (Name, Url, Sponsor, Amount, Deadline, Description, AwardType, NumAwards, Majors, AdditionalInfo, SourceWebsite, SourceText, Date, Tag, BadScholarship) values (N'" + self.name + "', N'" + self.url + "', N'" + self.sponsor + "', N'" + self.amount + "', N'" + self.deadline + "', N'" + self.description + "', N'" + self.awardType + "', N'" + self.numAwards + "', N'" + self.majors + "', N'" + self.additionalInfo + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "', '" + self.fundingClassification + "', '" + self.badScholarshipClassification + "')")
+            self.writeFileToDisk()
+            return True
+        else:
+            self.db.insertUpdateOrDeleteDB(
+                    "update dbo.FastWebLeads set Sponsor='" + self.sponsor + "', Amount='" + self.amount + "', Deadline='" + self.deadline + "', Description='" + self.description + "', AwardType='" + self.awardType + "', NumAwards='" + self.numAwards + "', Majors='" + self.majors + "', AdditionalInfo='" + self.additionalInfo + "', SourceWebsite='" + self.sourceWebsite + "', SourceText='" + self.sourceText + "', Date='" + self.date + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassification + "' where Name='" + self.name + "' and Url='" + self.url + "'")
+            self.writeFileToDisk()
             return False
