@@ -22,14 +22,6 @@ class InsertCollegeGreenLightLeadArrayIntoCollegeGreenLightDB(object):
         self.sourceText = self.collegeGreenLightLeadArray[8]
         self.date = time.strftime('%Y%m%d')
 
-        if not self.checkIfAlreadyInDatabase():
-            self.db.insertUpdateOrDeleteDB(
-                "INSERT INTO dbo.CollegeGreenLightLeads (Name, Amount, Deadline, Sponsor, Description, Requirements, Url, SourceWebsite, SourceText, Date, Tag, BadScholarship) VALUES  (N'" + self.name + "', N'" + self.amount + "', N'" + self.deadline + "', N'" + self.sponsor + "', N'" + self.description + "', N'" + self.requirements + "', N'" + self.url + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "', '" + self.fundingClassification + "', '" + self.badScholarshipClassification + "')")
-        else:
-            self.db.insertUpdateOrDeleteDB(
-                "update dbo.CollegeGreenLightLeads set Amount='" + self.amount + "', Deadline='" + self.deadline + "', Sponsor='" + self.sponsor + "', Description='" + self.description + "', Requirements='" + self.requirements + "', SourceWebsite='" + self.sourceWebsite + "', SourceText='" + self.sourceText + "', Date='" + self.date + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassification + "' where Name='" + self.name + "' and Url='" + self.url + "'")
-        self.writeFileToDisk()
-
     def writeFileToDisk(self):
         tableName = 'CollegeGreenLightLeads'
         user = 'Kya'
@@ -45,4 +37,16 @@ class InsertCollegeGreenLightLeadArrayIntoCollegeGreenLightDB(object):
         if matchingRow != []:
             return True
         else:
+            return False
+
+    def insertUpdateLead(self):
+        if not self.checkIfAlreadyInDatabase():
+            self.db.insertUpdateOrDeleteDB(
+                    "INSERT INTO dbo.CollegeGreenLightLeads (Name, Amount, Deadline, Sponsor, Description, Requirements, Url, SourceWebsite, SourceText, Date, Tag, BadScholarship) VALUES  (N'" + self.name + "', N'" + self.amount + "', N'" + self.deadline + "', N'" + self.sponsor + "', N'" + self.description + "', N'" + self.requirements + "', N'" + self.url + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "', '" + self.fundingClassification + "', '" + self.badScholarshipClassification + "')")
+            self.writeFileToDisk()
+            return True
+        else:
+            self.db.insertUpdateOrDeleteDB(
+                    "update dbo.CollegeGreenLightLeads set Amount='" + self.amount + "', Deadline='" + self.deadline + "', Sponsor='" + self.sponsor + "', Description='" + self.description + "', Requirements='" + self.requirements + "', SourceWebsite='" + self.sourceWebsite + "', SourceText='" + self.sourceText + "', Date='" + self.date + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassification + "' where Name='" + self.name + "' and Url='" + self.url + "'")
+            self.writeFileToDisk()
             return False
