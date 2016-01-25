@@ -2,6 +2,7 @@ from Classes.InsertFastWebLeadsIntoFastWebLeadsDB import InsertFastWebLeadIntoFa
 from Classes.FastWebLeads import FastWebLeads
 from Classes.ClassifyFundingTypeKeywordBased import ClassifyFundingTypeKeywordBased
 from Classes.ClassifyBadScholarships import ClassifyBadScholarships
+from Classes.CerebroLogs import CerebroLogs
 
 
 class ProcessFastWebLeads(object):
@@ -9,9 +10,18 @@ class ProcessFastWebLeads(object):
     def getFastWebLeadsAndInsertIntoDB():
         fastWebLeadsArrays = FastWebLeads().getLeads()
         predictedFundingTypes = ProcessFastWebLeads.classifyFunding(fastWebLeadsArrays)
+        totalLeads = len(fastWebLeadsArrays)
+        numNewEntries = 0
+        numUpdates = 0
         for leadArray, fundingClassification in zip(fastWebLeadsArrays, predictedFundingTypes):
             badScholarshipClassification = ProcessFastWebLeads.checkBadScholarship(leadArray, fundingClassification)
-            InsertFastWebLeadIntoFastWebLeadsDB(leadArray, fundingClassification, badScholarshipClassification)
+            newEntryBoolean = InsertFastWebLeadIntoFastWebLeadsDB(leadArray, fundingClassification,
+                                                                  badScholarshipClassification).insertUpdateLead()
+            if newEntryBoolean:
+                numNewEntries += 1
+            else:
+                numUpdates += 1
+        CerebroLogs('FastWeb', totalLeads, numNewEntries, numUpdates)
 
     @staticmethod
     def classifyFunding(leadsArrays):
