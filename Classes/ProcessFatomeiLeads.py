@@ -2,6 +2,7 @@ from Classes.FatomeiLeads import FatomeiLeads
 from Classes.InsertFatomeiLeadsArrayIntoFatomeiLeadsDB import InsertFatomeiLeadsArrayIntoFatomeiLeadsDB
 from Classes.ClassifyFundingTypeKeywordBased import ClassifyFundingTypeKeywordBased
 from Classes.ClassifyBadScholarships import ClassifyBadScholarships
+from Classes.CerebroLogs import CerebroLogs
 
 
 class ProcessFatomeiLeads(object):
@@ -9,9 +10,18 @@ class ProcessFatomeiLeads(object):
     def getFatomeiLeadsAndInsertIntoDB():
         fatomeiLeadsArrays = FatomeiLeads().getFatomeiLeadsArrays()
         predictedFundingTypes = ProcessFatomeiLeads.classifyFunding(fatomeiLeadsArrays)
+        totalLeads = len(fatomeiLeadsArrays)
+        numNewEntries = 0
+        numUpdates = 0
         for leadArray, fundingClassification in zip(fatomeiLeadsArrays, predictedFundingTypes):
             badScholarshipClassification = ProcessFatomeiLeads.checkBadScholarship(leadArray, fundingClassification)
-            InsertFatomeiLeadsArrayIntoFatomeiLeadsDB(leadArray, fundingClassification, badScholarshipClassification)
+            newEntryBoolean = InsertFatomeiLeadsArrayIntoFatomeiLeadsDB(leadArray, fundingClassification,
+                                                                        badScholarshipClassification)
+            if newEntryBoolean:
+                numNewEntries += 1
+            else:
+                numUpdates += 1
+        CerebroLogs('Fatomei', totalLeads, numNewEntries, numUpdates)
 
     @staticmethod
     def classifyFunding(leadsArrays):
