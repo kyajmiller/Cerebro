@@ -2,6 +2,7 @@ from Classes.InsertCheggLeadArrayIntoCheggLeadsDB import InsertCheggLeadArrayInt
 from Classes.CheggLeads import CheggLeads
 from Classes.ClassifyFundingTypeKeywordBased import ClassifyFundingTypeKeywordBased
 from Classes.ClassifyBadScholarships import ClassifyBadScholarships
+from Classes.CerebroLogs import CerebroLogs
 
 
 class ProcessCheggLeads(object):
@@ -9,9 +10,19 @@ class ProcessCheggLeads(object):
     def getCheggLeadsAndInsertIntoDB():
         cheggLeadsArrays = CheggLeads().loopOverResultsPagesAndDoStuff()
         predictedFundingTypes = ProcessCheggLeads.classifyFunding(cheggLeadsArrays)
+        totalLeads = len(cheggLeadsArrays)
+        numNewEntries = 0
+        numUpdates = 0
         for leadArray, fundingClassification in zip(cheggLeadsArrays, predictedFundingTypes):
             badScholarshipClassification = ProcessCheggLeads.checkBadScholarship(leadArray, fundingClassification)
-            InsertCheggLeadArrayIntoCheggLeadsDB(leadArray, fundingClassification, badScholarshipClassification)
+            newEntryBoolean = InsertCheggLeadArrayIntoCheggLeadsDB(leadArray, fundingClassification,
+                                                                   badScholarshipClassification).insertUpdateLead()
+            if newEntryBoolean:
+                numNewEntries += 1
+            else:
+                numUpdates += 1
+        CerebroLogs('Chegg', totalLeads, numNewEntries, numUpdates)
+
 
     @staticmethod
     def classifyFunding(leadsArrays):
