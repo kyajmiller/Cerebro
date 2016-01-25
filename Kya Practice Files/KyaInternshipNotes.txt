@@ -2118,3 +2118,28 @@ Stuff for next week:
 -Going to also add in data for how many are new entries and how many are updates
 -Will need to rework the insert classes to return a value (maybe True/False) and then increment a count for updates/new in the Process classes
 -Then when it's done have it save the thing to a new table, probably called dbo.CerebroWebcrawlerLogs
+
+1/25 Notes:
+-Trying to type without your index finger is really freaking annoying
+-Make the log table that Ken wants, figure out how to increment the things
+-I think I'd like some way to capture how many are done even if it breaks halfway through, but I dunno how... maybe put in a try/except statement
+-Though if it's breaking due to the VPN closing then it's not gonna update the log anyway
+-Maybe have a way to grab the current log row (dunno how?) and have that update every single time there's a success, but not sure if that's reasonable
+-Made the table dbo.CerebroLogs
+    -Columns are CerebroLogId, Website, Date, New, Updated, Total
+-I might want to have the logging be done in its own class eventually, but for now will experiment using Chegg process class
+-Put the logging in its own class. Don't have a way to increment the count as it goes, so it won't work right if the entire leads thing fails, but it's okay
+-Will update some more stuff
+    -Can confirm it's so far working as intended with the new/updates thing
+-Need to add in a column to distinguish between total leads gathered and total leads in the table total
+-Added function to CerebroLogs to get the total number of rows after everything has been done, should work fine now
+    -Was able to go into the table with the existing logs and add in their total amounts, should be done automatically from now on
+    -Will test to make sure it works as intended when run FastWeb
+    -Can confirm works now
+-So something's fucky with Fatomei
+    -For some reason it's not listing anything as being an update (everything is registering as new)
+    -And everything is listed as being updated on 1/8/2016
+    -So wtf
+    -must mean that something isn't being updated correctly...
+    -I really have no idea, it's fucking weird
+    -Will try rewriting the insert class since that seems to be where the issue is, but I don't really see it...
