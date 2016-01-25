@@ -5,9 +5,9 @@ import time
 class CerebroLogs(object):
     def __init__(self, website, totalEntries, numNewEntries, numUpdates):
         self.website = website
-        self.totalEntries = totalEntries
-        self.numNew = numNewEntries
-        self.numUpdates = numUpdates
+        self.totalEntries = str(totalEntries)
+        self.numNew = str(numNewEntries)
+        self.numUpdates = str(numUpdates)
         self.date = time.strftime('%Y%m%d')
         self.db = SUDBConnect()
 
