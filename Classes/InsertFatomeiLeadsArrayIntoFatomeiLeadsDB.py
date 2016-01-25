@@ -18,14 +18,6 @@ class InsertFatomeiLeadsArrayIntoFatomeiLeadsDB(object):
         self.sourceText = fatomeiLeadArray[4]
         self.date = time.strftime('%Y%m%d')
 
-        if not self.checkIfAlreadyInDB():
-            self.db.insertUpdateOrDeleteDB(
-                "insert into dbo.FatomeiLeads (Name, Description, DueDate, SourceWebsite, SourceText, Date, Tag, BadScholarship) values (N'" + self.name + "', N'" + self.description + "', N'" + self.dueDate + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "', '" + self.fundingClassification + "', '" + self.badScholarshipClassification + "')")
-        else:
-            self.db.insertUpdateOrDeleteDB(
-                "update dbo.FatomeiLeads set Description='" + self.description + "', DueDate='" + self.dueDate + "', SourceText='" + self.sourceText + "', Date='" + self.date + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassification + "' where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")
-        self.writeFileToDisk()
-
     def writeFileToDisk(self):
         tableName = 'FatomeiLeads'
         user = 'Kya'
@@ -45,4 +37,16 @@ class InsertFatomeiLeadsArrayIntoFatomeiLeadsDB(object):
         if matchingRow != []:
             return True
         else:
+            return False
+
+    def insertUpdateLead(self):
+        if not self.checkIfAlreadyInDB():
+            self.db.insertUpdateOrDeleteDB(
+                    "insert into dbo.FatomeiLeads (Name, Description, DueDate, SourceWebsite, SourceText, Date, Tag, BadScholarship) values (N'" + self.name + "', N'" + self.description + "', N'" + self.dueDate + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "', '" + self.fundingClassification + "', '" + self.badScholarshipClassification + "')")
+            self.writeFileToDisk()
+            return True
+        else:
+            self.db.insertUpdateOrDeleteDB(
+                    "update dbo.FatomeiLeads set Description='" + self.description + "', DueDate='" + self.dueDate + "', SourceText='" + self.sourceText + "', Date='" + self.date + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassification + "' where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")
+            self.writeFileToDisk()
             return False
