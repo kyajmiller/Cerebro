@@ -33,7 +33,7 @@ class InsertFatomeiLeadsArrayIntoFatomeiLeadsDB(object):
 
     def checkIfAlreadyInDB(self):
         matchingRow = self.db.getRowsDB(
-            "select * from dbo.FatomeiLeads where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")
+                "SELECT * FROM dbo.FatomeiLeads WHERE Name='" + self.name + "' AND SourceWebsite='" + self.sourceWebsite + "'")
         if matchingRow != []:
             return True
         else:
@@ -42,11 +42,11 @@ class InsertFatomeiLeadsArrayIntoFatomeiLeadsDB(object):
     def insertUpdateLead(self):
         if not self.checkIfAlreadyInDB():
             self.db.insertUpdateOrDeleteDB(
-                    "insert into dbo.FatomeiLeads (Name, Description, DueDate, SourceWebsite, SourceText, Date, Tag, BadScholarship) values (N'" + self.name + "', N'" + self.description + "', N'" + self.dueDate + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "', '" + self.fundingClassification + "', '" + self.badScholarshipClassification + "')")
+                "INSERT INTO dbo.FatomeiLeads (Name, Description, DueDate, SourceWebsite, SourceText, Tag, BadScholarship, Date) VALUES (N'" + self.name + "', N'" + self.description + "', N'" + self.dueDate + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', N'" + self.fundingClassification + "', N'" + self.badScholarshipClassification + "', '" + self.date + "')")
             self.writeFileToDisk()
             return True
         else:
             self.db.insertUpdateOrDeleteDB(
-                    "update dbo.FatomeiLeads set Description='" + self.description + "', DueDate='" + self.dueDate + "', SourceText='" + self.sourceText + "', Date='" + self.date + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassification + "' where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")
+                "UPDATE dbo.FatomeiLeads SET Description='" + self.description + "', DueDate='" + self.dueDate + "', SourceText='" + self.sourceText + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassification + "', Date='" + self.date + "' WHERE Name='" + self.name + "' AND SourceWebsite='" + self.sourceWebsite + "'")
             self.writeFileToDisk()
             return False
