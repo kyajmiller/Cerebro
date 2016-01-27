@@ -2,6 +2,7 @@ from Classes.GoodCallLeads import GoodCallLeads
 from Classes.InsertGoodCallLeadArrayIntoGoodCallLeadsDB import InsertGoodCallLeadArrayIntoGoodCallLeadsDB
 from Classes.ClassifyBadScholarships import ClassifyBadScholarships
 from Classes.ClassifyFundingTypeKeywordBased import ClassifyFundingTypeKeywordBased
+from Classes.CerebroLogs import CerebroLogs
 
 
 class ProcessGoodCallLeads(object):
@@ -9,9 +10,18 @@ class ProcessGoodCallLeads(object):
     def getGoodCallLeadsAndInsertIntoDB():
         goodCallLeadsArrays = GoodCallLeads().getLeads()
         predictedFundingTypes = ProcessGoodCallLeads.classifyFunding(goodCallLeadsArrays)
+        totalLeads = len(goodCallLeadsArrays)
+        numNewEntries = 0
+        numUpdates = 0
         for leadArray, fundingClassification in zip(goodCallLeadsArrays, predictedFundingTypes):
             badScholarshipClassification = ProcessGoodCallLeads.checkBadScholarship(leadArray, fundingClassification)
-            InsertGoodCallLeadArrayIntoGoodCallLeadsDB(leadArray, fundingClassification, badScholarshipClassification)
+            newEntryBoolean = InsertGoodCallLeadArrayIntoGoodCallLeadsDB(leadArray, fundingClassification,
+                                                                         badScholarshipClassification).insertUpdateLead()
+            if newEntryBoolean:
+                numNewEntries += 1
+            else:
+                numUpdates += 1
+        CerebroLogs('GoodCall', totalLeads, numNewEntries, numUpdates)
 
     @staticmethod
     def classifyFunding(leadsArrays):
