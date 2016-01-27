@@ -2,6 +2,7 @@ from Classes.IefaLeads import IefaLeads
 from Classes.InsertIefaLeadArrayIntoIefaLeadsDB import InsertIefaLeadArrayIntoIefaLeadsDB
 from Classes.ClassifyFundingTypeKeywordBased import ClassifyFundingTypeKeywordBased
 from Classes.ClassifyBadScholarships import ClassifyBadScholarships
+from Classes.CerebroLogs import CerebroLogs
 
 
 class ProcessIefaLeads(object):
@@ -9,9 +10,18 @@ class ProcessIefaLeads(object):
     def getIefaLeadsAndInsertIntoDB():
         iefaLeadsArrays = IefaLeads().loopOverResultsPagesAndDoStuff()
         predictedFundingTypes = ProcessIefaLeads.classifyFunding(iefaLeadsArrays)
+        totalLeads = len(iefaLeadsArrays)
+        numNewEntries = 0
+        numUpdates = 0
         for leadArray, fundingClassification in zip(iefaLeadsArrays, predictedFundingTypes):
             badScholarshipClassification = ProcessIefaLeads.checkBadScholarship(leadArray, fundingClassification)
-            InsertIefaLeadArrayIntoIefaLeadsDB(leadArray, fundingClassification, badScholarshipClassification)
+            newEntryBoolean = InsertIefaLeadArrayIntoIefaLeadsDB(leadArray, fundingClassification,
+                                                                 badScholarshipClassification).insertUpdateLead()
+            if newEntryBoolean:
+                numNewEntries += 1
+            else:
+                numUpdates += 1
+        CerebroLogs('Iefa', totalLeads, numNewEntries, numUpdates)
 
     @staticmethod
     def classifyFunding(leadsArrays):
