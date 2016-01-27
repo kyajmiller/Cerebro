@@ -2153,5 +2153,6 @@ Stuff for next week:
     that it's not finding any new entries. I'll test it again in a week
 -Afterwards still need to fix MastersInEducation, scholarships360, scholarsite, unigo, iefa
     -Starting Iefa now, not sure if it'll actually run through due to the vpn issues. Otherwise should be okay
+    -Going to try restarting the vpn, maybe that will extend the time long enough for it to complete
 -Then have other new websites to build crawlers for
 -I really want to try getting the parsers implemented though. Might try that first
