@@ -30,14 +30,6 @@ class InsertGoodCallLeadArrayIntoGoodCallLeadsDB(object):
         self.sourceText = goodCallLeadArray[16]
         self.date = time.strftime('%Y%m%d')
 
-        if not self.checkIfAlreadyInDatabase():
-            self.db.insertUpdateOrDeleteDB(
-                "insert into dbo.GoodCallLeads (Name, Url, NumAwards, Amount, Description, Sponsor, ClassStatus, Major, Gender, Ethnicity, Grades, TestScores, Deadline, EssayInfo, SourceWebsite, SourceText, Date, Tag, BadScholarship) values (N'" + self.name + "', N'" + self.url + "', N'" + self.numAwards + "', N'" + self.amount + "', N'" + self.description + "', N'" + self.sponsor + "', N'" + self.classStatus + "', N'" + self.major + "', N'" + self.gender + "', N'" + self.ethnicity + "', N'" + self.grades + "', N'" + self.testScores + "', N'" + self.deadline + "', N'" + self.essayInfo + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "', '" + self.fundingClassification + "', '" + self.badScholarshipClassificaion + "')")
-        else:
-            self.db.insertUpdateOrDeleteDB(
-                "update dbo.GoodCallLeads set NumAwards=N'" + self.numAwards + "', Amount=N'" + self.amount + "', Description=N'" + self.description + "', Sponsor=N'" + self.sponsor + "', ClassStatus=N'" + self.classStatus + "', Major=N'" + self.major + "', Gender=N'" + self.gender + "', Ethnicity=N'" + self.ethnicity + "', Grades=N'" + self.grades + "', TestScores=N'" + self.testScores + "', Deadline=N'" + self.deadline + "', EssayInfo=N'" + self.essayInfo + "', SourceWebsite=N'" + self.sourceWebsite + "', SourceText=N'" + self.sourceText + "', Date='" + self.date + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassificaion + "' where Name='" + self.name + "' and Url='" + self.url + "'")
-        self.writeFileToDisk()
-
     def writeFileToDisk(self):
         tableName = 'GoodCallLeads'
         user = 'Kya'
@@ -53,4 +45,16 @@ class InsertGoodCallLeadArrayIntoGoodCallLeadsDB(object):
         if matchingRow != []:
             return True
         else:
+            return False
+
+    def insertUpdateLead(self):
+        if not self.checkIfAlreadyInDatabase():
+            self.db.insertUpdateOrDeleteDB(
+                    "insert into dbo.GoodCallLeads (Name, Url, NumAwards, Amount, Description, Sponsor, ClassStatus, Major, Gender, Ethnicity, Grades, TestScores, Deadline, EssayInfo, SourceWebsite, SourceText, Date, Tag, BadScholarship) values (N'" + self.name + "', N'" + self.url + "', N'" + self.numAwards + "', N'" + self.amount + "', N'" + self.description + "', N'" + self.sponsor + "', N'" + self.classStatus + "', N'" + self.major + "', N'" + self.gender + "', N'" + self.ethnicity + "', N'" + self.grades + "', N'" + self.testScores + "', N'" + self.deadline + "', N'" + self.essayInfo + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.date + "', '" + self.fundingClassification + "', '" + self.badScholarshipClassificaion + "')")
+            self.writeFileToDisk()
+            return True
+        else:
+            self.db.insertUpdateOrDeleteDB(
+                    "update dbo.GoodCallLeads set NumAwards=N'" + self.numAwards + "', Amount=N'" + self.amount + "', Description=N'" + self.description + "', Sponsor=N'" + self.sponsor + "', ClassStatus=N'" + self.classStatus + "', Major=N'" + self.major + "', Gender=N'" + self.gender + "', Ethnicity=N'" + self.ethnicity + "', Grades=N'" + self.grades + "', TestScores=N'" + self.testScores + "', Deadline=N'" + self.deadline + "', EssayInfo=N'" + self.essayInfo + "', SourceWebsite=N'" + self.sourceWebsite + "', SourceText=N'" + self.sourceText + "', Date='" + self.date + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassificaion + "' where Name='" + self.name + "' and Url='" + self.url + "'")
+            self.writeFileToDisk()
             return False
