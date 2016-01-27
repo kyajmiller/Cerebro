@@ -2143,3 +2143,15 @@ Stuff for next week:
     -must mean that something isn't being updated correctly...
     -I really have no idea, it's fucking weird
     -Will try rewriting the insert class since that seems to be where the issue is, but I don't really see it...
+
+1/27 Notes:
+-Figured out why Fatomei was being weird. Forgot to call the damn insertUpdateLead function that I had moved the executeables to.
+    -The boolean only cares if the thing exists, not if its value is actually True or False. I should fix this.
+    -Fatomei fixed now
+-Need to update and run GoodCall
+    -Goodcall finished, though it's having sort of a weird counting issue. I'm not going to worry about it for now, but I do think it's weird
+    that it's not finding any new entries. I'll test it again in a week
+-Afterwards still need to fix MastersInEducation, scholarships360, scholarsite, unigo, iefa
+    -Starting Iefa now, not sure if it'll actually run through due to the vpn issues. Otherwise should be okay
+-Then have other new websites to build crawlers for
+-I really want to try getting the parsers implemented though. Might try that first
