@@ -16,8 +16,8 @@ class ProcessFatomeiLeads(object):
         for leadArray, fundingClassification in zip(fatomeiLeadsArrays, predictedFundingTypes):
             badScholarshipClassification = ProcessFatomeiLeads.checkBadScholarship(leadArray, fundingClassification)
             newEntryBoolean = InsertFatomeiLeadsArrayIntoFatomeiLeadsDB(leadArray, fundingClassification,
-                                                                        badScholarshipClassification)
-            if newEntryBoolean:
+                                                                        badScholarshipClassification).insertUpdateLead()
+            if newEntryBoolean == True:
                 numNewEntries += 1
             else:
                 numUpdates += 1
