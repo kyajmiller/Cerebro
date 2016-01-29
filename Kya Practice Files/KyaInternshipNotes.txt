@@ -2156,3 +2156,11 @@ Stuff for next week:
     -Going to try restarting the vpn, maybe that will extend the time long enough for it to complete
 -Then have other new websites to build crawlers for
 -I really want to try getting the parsers implemented though. Might try that first
+
+1/29 Notes:
+-So restarting the VPN did fuckall. Apparently it's a lot more concerned with user activity than actual time left. Fuckers.
+-Time to run it again all freaking day.
+-Aaand it randomly logged out again
+-I swear I need to add in a line of code that will check to see if it's logged in...
+-Moved Iefa log in protocol to own function, added a function that every time it goes to a page it makes sure it's logged in. Because fuck this whole
+shit dying because it ain't logged in fuckshit
