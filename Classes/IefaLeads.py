@@ -97,6 +97,7 @@ class IefaLeads(object):
     def goToResultsPageAndGetInfo(self, resultPageLink):
         self.driver.get(resultPageLink)
         self.driver.implicitly_wait(2)
+        self.makeSureLoggedIn()
 
         sponsor = ''
         submissionDeadline = ''
