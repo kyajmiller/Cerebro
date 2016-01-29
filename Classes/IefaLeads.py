@@ -17,12 +17,7 @@ class IefaLeads(object):
         self.driver = webdriver.Firefox()
         self.base_url = 'http://www.iefa.org/'
         self.driver.get(self.base_url + 'scholarships')
-        self.driver.find_element_by_id('LoginForm_username').clear()
-        self.driver.find_element_by_id('LoginForm_username').send_keys('crawlyjones@gmail.com')
-        self.driver.find_element_by_id('LoginForm_password').clear()
-        self.driver.find_element_by_id('LoginForm_password').send_keys('sasgcoders')
-        self.driver.find_element_by_name('yt3').click()
-        self.driver.implicitly_wait(2)
+        self.logIn()
 
         self.driver.find_element_by_xpath("//ul[@id='yw8']/li[@id='scholarshipsLink']/a").click()
         self.driver.implicitly_wait(2)
@@ -241,3 +236,15 @@ class IefaLeads(object):
             return True
         else:
             return False
+
+    def makeSureLoggedIn(self):
+        if self.checkIfElementExists("//a[@class='btn btn-block btn-success btn-large info']"):
+            self.logIn()
+
+    def logIn(self):
+        self.driver.find_element_by_id('LoginForm_username').clear()
+        self.driver.find_element_by_id('LoginForm_username').send_keys('crawlyjones@gmail.com')
+        self.driver.find_element_by_id('LoginForm_password').clear()
+        self.driver.find_element_by_id('LoginForm_password').send_keys('sasgcoders')
+        self.driver.find_element_by_name('yt3').click()
+        self.driver.implicitly_wait(2)
