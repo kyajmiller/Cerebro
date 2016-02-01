@@ -2164,3 +2164,16 @@ Stuff for next week:
 -I swear I need to add in a line of code that will check to see if it's logged in...
 -Moved Iefa log in protocol to own function, added a function that every time it goes to a page it makes sure it's logged in. Because fuck this whole
 shit dying because it ain't logged in fuckshit
+
+2/1 Notes:
+-So Iefa is just annoying as hell. This time it seems like it must have died because the login function must not be applicable to both the normal log in and the on page log in.
+    -So I need to look at that and fix it
+    -I need to reinstall firefox selenium
+    -Okay, so it seems like the first one is called 'yt3' and the per page one is called 'yt1'
+    -I wonder if there's a better selector for that...
+        -Will try "//input[@value='Login']"
+        -Doesn't work
+    -Just changed it so that it checks if the yt3 element is there, if so click, else check if yt1 is there, click
+-Going to try changing some of the cache tricking I had in place before, now that I know a more elegant solution
+-So it turns out that when logging back in, you need to send it back to the page it was supposed to be on
+
