@@ -22,13 +22,13 @@ class IefaLeads(object):
         self.driver.find_element_by_xpath("//ul[@id='yw8']/li[@id='scholarshipsLink']/a").click()
         self.driver.implicitly_wait(2)
         Select(self.driver.find_element_by_id('pageSize')).select_by_visible_text('100')
-        self.goToNextPreviousPageRefreshCache()
+        time.sleep(2)
 
         self.arrayOfTitlesLinksArrays = []
         self.iefaLeadsArrays = []
 
     def loopOverResultsPagesAndDoStuff(self):
-        time.sleep(5)
+        time.sleep(2)
         self.getTitlesLinksOnCurrentPage()
 
         if self.isTest:
@@ -42,7 +42,7 @@ class IefaLeads(object):
             while pageCounter < 12:
                 if self.checkIfNextPage():
                     self.goToNextPageUrl()
-                    time.sleep(5)
+                    time.sleep(2)
                     self.getTitlesLinksOnCurrentPage()
                 pageCounter += 1
 
@@ -201,14 +201,6 @@ class IefaLeads(object):
         else:
             return False
 
-    def goToNextPageClick(self):
-        nextPageButton = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Next >')))
-        try:
-            nextPageButton.click()
-            self.driver.implicitly_wait(2)
-        except ElementNotVisibleException:
-            self.driver.implicitly_wait(2)
-
     def goToNextPageUrl(self):
         nextPageButton = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Next >')))
         try:
@@ -217,19 +209,6 @@ class IefaLeads(object):
             self.driver.implicitly_wait(2)
         except ElementNotVisibleException:
             self.driver.implicitly_wait(2)
-
-    def goToPreviousPage(self):
-        previousPageButton = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.LINK_TEXT, '< Previous')))
-        try:
-            previousPageButton.click()
-            self.driver.implicitly_wait(2)
-        except ElementNotVisibleException:
-            self.driver.implicitly_wait(2)
-
-    def goToNextPreviousPageRefreshCache(self):
-        self.goToNextPageClick()
-        self.goToPreviousPage()
 
     def checkIfElementExists(self, xpath):
         checkElementExists = self.driver.find_elements_by_xpath(xpath)
