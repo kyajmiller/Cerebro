@@ -247,5 +247,8 @@ class IefaLeads(object):
         self.driver.find_element_by_id('LoginForm_username').send_keys('crawlyjones@gmail.com')
         self.driver.find_element_by_id('LoginForm_password').clear()
         self.driver.find_element_by_id('LoginForm_password').send_keys('sasgcoders')
-        self.driver.find_element_by_name('yt3').click()
+        if self.driver.find_elements_by_name('yt3'):
+            self.driver.find_element_by_name('yt3').click()
+        elif self.driver.find_elements_by_name('yt1'):
+            self.driver.find_element_by_name('yt1').click()
         self.driver.implicitly_wait(2)
