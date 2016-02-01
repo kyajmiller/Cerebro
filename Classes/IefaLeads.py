@@ -97,7 +97,7 @@ class IefaLeads(object):
     def goToResultsPageAndGetInfo(self, resultPageLink):
         self.driver.get(resultPageLink)
         self.driver.implicitly_wait(2)
-        self.makeSureLoggedIn()
+        self.makeSureLoggedIn(resultPageLink)
 
         sponsor = ''
         submissionDeadline = ''
@@ -217,9 +217,12 @@ class IefaLeads(object):
         else:
             return False
 
-    def makeSureLoggedIn(self):
+    def makeSureLoggedIn(self, currentPageUrl):
         if self.checkIfElementExists("//a[@class='btn btn-block btn-success btn-large info']"):
             self.logIn()
+            self.driver.get(currentPageUrl)
+            self.driver.implicitly_wait(2)
+            time.sleep(2)
 
     def logIn(self):
         self.driver.find_element_by_id('LoginForm_username').clear()
