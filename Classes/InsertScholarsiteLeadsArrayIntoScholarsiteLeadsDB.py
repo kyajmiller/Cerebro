@@ -1,10 +1,16 @@
 from Classes.SUDBConnect import SUDBConnect
+import time
+import re
 
 
 class InsertScholarsiteLeadsArrayIntoScholarsiteLeadsDB(object):
-    def __init__(self, scholarsiteLeadArray):
+    def __init__(self, scholarsiteLeadArray, fundingClassification, badScholarshipClassification):
         self.scholarsiteLeadArray = scholarsiteLeadArray
+        self.fundingClassification = fundingClassification
+        self.badScholarshipClassificaion = badScholarshipClassification
         self.db = SUDBConnect()
+        self.fileSystemDB = SUDBConnect(destination='filesystem')
+
         self.name = self.scholarsiteLeadArray[0]
         self.amount = self.scholarsiteLeadArray[1]
         self.deadline = self.scholarsiteLeadArray[2]
@@ -24,7 +30,7 @@ class InsertScholarsiteLeadsArrayIntoScholarsiteLeadsDB(object):
         self.minimumGPA = self.scholarsiteLeadArray[16]
         self.minimumACT = self.scholarsiteLeadArray[17]
         self.minimumSAT = self.scholarsiteLeadArray[18]
-        self.tag = 'Scholarship'
+        self.date = time.strftime('%Y%m%d')
 
         if not self.checkIfAlreadyInDB():
             self.db.insertUpdateOrDeleteDB(
