@@ -8,8 +8,11 @@ class ProcessMastersInEducationLeads(object):
     @staticmethod
     def getMastersInEducationLeadsAndInsertIntoDB():
         mastersInEducationLeadsArrays = MastersInEducationLeads().getLeads()
-        for leadArray in mastersInEducationLeadsArrays:
-            InsertMastersInEducationArrayIntoDB(leadArray)
+        predictedFundingTypes = ProcessMastersInEducationLeads.classifyFunding(mastersInEducationLeadsArrays)
+        for leadArray, fundingClassification in zip(mastersInEducationLeadsArrays, predictedFundingTypes):
+            badScholarshipClassification = ProcessMastersInEducationLeads.checkBadScholarship(leadArray,
+                                                                                              fundingClassification)
+            InsertMastersInEducationArrayIntoDB(leadArray, fundingClassification, badScholarshipClassification)
 
     @staticmethod
     def classifyFunding(leadsArrays):
