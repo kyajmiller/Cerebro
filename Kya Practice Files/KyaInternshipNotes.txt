@@ -2177,3 +2177,19 @@ shit dying because it ain't logged in fuckshit
 -Going to try changing some of the cache tricking I had in place before, now that I know a more elegant solution
 -So it turns out that when logging back in, you need to send it back to the page it was supposed to be on
 
+2/3 Notes:
+-I'm just going to stop trying to run iefa for a bit, it's keeping me from doing any other work
+-Need to update MastersInEducation, Scholarships360, Scholarsite, Unigo
+-MastersInEducation doesn't even have an update statement... or a write to disc function.
+-Okay so something in MastersInEducation is broken, that's not good lol
+    -All of the deadlines, descriptions and sourceTexts are the same, which tells me that it's either overwriting everything as it goes or it's just broke
+    -It definitely seems like the very last scholarship is overwriting the information of all the others.
+    -Okay this is weird. I ran through the things, and when they're being pushed to the Process class they're still unique. So that means that something is going wrong either during processing or during insertion
+    -Dunno what tho
+    -I'm just gonna run over everything again and see what happens, this is really odd
+    -I realized why it's stupid, I forgot to put in a where statement when updating. GG.
+-Now time for Scholarships360
+-Need to do Scholarsite
+    -Was able to update everything, but I think scholarsite itself is broken
+    -yeah that entire site must be down, I can't access it at all
+
