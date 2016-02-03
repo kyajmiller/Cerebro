@@ -32,13 +32,6 @@ class InsertScholarsiteLeadsArrayIntoScholarsiteLeadsDB(object):
         self.minimumSAT = self.scholarsiteLeadArray[18]
         self.date = time.strftime('%Y%m%d')
 
-        if not self.checkIfAlreadyInDB():
-            self.db.insertUpdateOrDeleteDB(
-                    "insert into dbo.ScholarsiteLeads (Name, Amount, Deadline, Requirements, AnnualAwards, Major, AcademicLevel, QualifiedMinorities, EligibleInstitution, EligibleRegion, USCitizen, USResident, ForeignNational, MinimumAge, MaximumAge, ClassRank, MinimumGPA, MinimumACT, MinimumSAT, Tag, BadScholarship, Date) values (N'" + self.name + "', N'" + self.amount + "', '" + self.deadline + "', N'" + self.requirements + "', N'" + self.annualAwards + "', N'" + self.major + "', N'" + self.academicLevel + "', N'" + self.qualifiedMinorities + "', N'" + self.eligibleInstitution + "', N'" + self.eligibleRegion + "', N'" + self.usCitizen + "', N'" + self.usResident + "', N'" + self.foreignNational + "', '" + self.minimumAge + "', '" + self.maximumAge + "', N'" + self.classRank + "', N'" + self.minimumGPA + "', N'" + self.minimumACT + "', N'" + self.minimumSAT + "', N'" + self.fundingClassification + "', '" + self.badScholarshipClassificaion + "', '" + self.date + "')")
-        else:
-            self.db.insertUpdateOrDeleteDB(
-                "update dbo.ScholarsiteLeads set Amount=N'" + self.amount + "', Deadline=N'" + self.deadline + "', Requirements=N'" + self.requirements + "', AnnualAwards='" + self.annualAwards + "', Major='" + self.major + "', AcademicLevel=N'" + self.academicLevel + "', QualifiedMinorities=N'" + self.qualifiedMinorities + "', EligibleInstitution=N'" + self.eligibleInstitution + "', EligibleRegion=N'" + self.eligibleRegion + "', USCitizen='" + self.usCitizen + "', USResident='" + self.usResident + "', ForeignNational='" + self.foreignNational + "', MinimumAge='" + self.minimumAge + "', MaximumAge='" + self.maximumAge + "', ClassRank='" + self.classRank + "', MinimumGPA='" + self.minimumGPA + "', MinimumACT='" + self.minimumACT + "', MinimumSAT='" + self.minimumSAT + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassificaion + "', Date='" + self.date + "' where Name='" + self.name + "'")
-
     def checkIfAlreadyInDB(self):
         matchingRow = self.db.getRowsDB(
                 "select * from dbo.ScholarsiteLeads where Name='" + self.name + "'")
@@ -55,3 +48,15 @@ class InsertScholarsiteLeadsArrayIntoScholarsiteLeadsDB(object):
         currentRow = self.db.getRowsDB(
                 "select * from dbo.ScholarsiteLeads where Name='" + self.name + "'")[0]
         self.fileSystemDB.writeFile(columns, currentRow, user, website, '', self.date)
+
+    def insertUpdateLead(self):
+        if not self.checkIfAlreadyInDB():
+            self.db.insertUpdateOrDeleteDB(
+                    "insert into dbo.ScholarsiteLeads (Name, Amount, Deadline, Requirements, AnnualAwards, Major, AcademicLevel, QualifiedMinorities, EligibleInstitution, EligibleRegion, USCitizen, USResident, ForeignNational, MinimumAge, MaximumAge, ClassRank, MinimumGPA, MinimumACT, MinimumSAT, Tag, BadScholarship, Date) values (N'" + self.name + "', N'" + self.amount + "', '" + self.deadline + "', N'" + self.requirements + "', N'" + self.annualAwards + "', N'" + self.major + "', N'" + self.academicLevel + "', N'" + self.qualifiedMinorities + "', N'" + self.eligibleInstitution + "', N'" + self.eligibleRegion + "', N'" + self.usCitizen + "', N'" + self.usResident + "', N'" + self.foreignNational + "', '" + self.minimumAge + "', '" + self.maximumAge + "', N'" + self.classRank + "', N'" + self.minimumGPA + "', N'" + self.minimumACT + "', N'" + self.minimumSAT + "', N'" + self.fundingClassification + "', '" + self.badScholarshipClassificaion + "', '" + self.date + "')")
+            self.writeFileToDisk()
+            return True
+        else:
+            self.db.insertUpdateOrDeleteDB(
+                    "update dbo.ScholarsiteLeads set Amount=N'" + self.amount + "', Deadline=N'" + self.deadline + "', Requirements=N'" + self.requirements + "', AnnualAwards='" + self.annualAwards + "', Major='" + self.major + "', AcademicLevel=N'" + self.academicLevel + "', QualifiedMinorities=N'" + self.qualifiedMinorities + "', EligibleInstitution=N'" + self.eligibleInstitution + "', EligibleRegion=N'" + self.eligibleRegion + "', USCitizen='" + self.usCitizen + "', USResident='" + self.usResident + "', ForeignNational='" + self.foreignNational + "', MinimumAge='" + self.minimumAge + "', MaximumAge='" + self.maximumAge + "', ClassRank='" + self.classRank + "', MinimumGPA='" + self.minimumGPA + "', MinimumACT='" + self.minimumACT + "', MinimumSAT='" + self.minimumSAT + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassificaion + "', Date='" + self.date + "' where Name='" + self.name + "'")
+            self.insertUpdateLead()
+            return False
