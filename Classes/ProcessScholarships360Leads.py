@@ -10,4 +10,5 @@ class ProcessScholarships360Leads(object):
         for leadArray in arrayOfScholarship360Leads:
             InsertScholarships360LeadArrayIntoScholarships360DB(leadArray)
 
-# ProcessScholarships360Leads.getScholarships360LeadsAndInsertIntoDatabase()
+
+ProcessScholarships360Leads.getScholarships360LeadsAndInsertIntoDatabase()
