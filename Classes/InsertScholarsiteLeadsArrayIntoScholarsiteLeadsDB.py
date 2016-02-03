@@ -46,3 +46,12 @@ class InsertScholarsiteLeadsArrayIntoScholarsiteLeadsDB(object):
             return True
         else:
             return False
+
+    def writeFileToDisk(self):
+        tableName = 'ScholarsiteLeads'
+        user = 'Kya'
+        website = re.sub('Leads', '', tableName)
+        columns = self.db.getColumnNamesFromTable(tableName)
+        currentRow = self.db.getRowsDB(
+                "select * from dbo.ScholarsiteLeads where Name='" + self.name + "'")[0]
+        self.fileSystemDB.writeFile(columns, currentRow, user, website, '', self.date)
