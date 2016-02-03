@@ -2,6 +2,7 @@ from Classes.MastersInEducationLeads import MastersInEducationLeads
 from Classes.InsertMastersInEducationArrayIntoDB import InsertMastersInEducationArrayIntoDB
 from Classes.ClassifyFundingTypeKeywordBased import ClassifyFundingTypeKeywordBased
 from Classes.ClassifyBadScholarships import ClassifyBadScholarships
+from Classes.CerebroLogs import CerebroLogs
 
 
 class ProcessMastersInEducationLeads(object):
@@ -9,10 +10,19 @@ class ProcessMastersInEducationLeads(object):
     def getMastersInEducationLeadsAndInsertIntoDB():
         mastersInEducationLeadsArrays = MastersInEducationLeads().getLeads()
         predictedFundingTypes = ProcessMastersInEducationLeads.classifyFunding(mastersInEducationLeadsArrays)
+        totalLeads = len(mastersInEducationLeadsArrays)
+        numNewEntries = 0
+        numUpdates = 0
         for leadArray, fundingClassification in zip(mastersInEducationLeadsArrays, predictedFundingTypes):
             badScholarshipClassification = ProcessMastersInEducationLeads.checkBadScholarship(leadArray,
                                                                                               fundingClassification)
-            InsertMastersInEducationArrayIntoDB(leadArray, fundingClassification, badScholarshipClassification)
+            newEntryBoolean = InsertMastersInEducationArrayIntoDB(leadArray, fundingClassification,
+                                                                  badScholarshipClassification).insertUpdateLead()
+            if newEntryBoolean:
+                numNewEntries += 1
+            else:
+                numUpdates += 1
+        CerebroLogs('MastersInEducation', totalLeads, numNewEntries, numUpdates)
 
     @staticmethod
     def classifyFunding(leadsArrays):
