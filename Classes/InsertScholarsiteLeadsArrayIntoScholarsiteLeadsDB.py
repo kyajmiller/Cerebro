@@ -39,7 +39,6 @@ class InsertScholarsiteLeadsArrayIntoScholarsiteLeadsDB(object):
             self.db.insertUpdateOrDeleteDB(
                 "update dbo.ScholarsiteLeads set Amount=N'" + self.amount + "', Deadline=N'" + self.deadline + "', Requirements=N'" + self.requirements + "', AnnualAwards='" + self.annualAwards + "', Major='" + self.major + "', AcademicLevel=N'" + self.academicLevel + "', QualifiedMinorities=N'" + self.qualifiedMinorities + "', EligibleInstitution=N'" + self.eligibleInstitution + "', EligibleRegion=N'" + self.eligibleRegion + "', USCitizen='" + self.usCitizen + "', USResident='" + self.usResident + "', ForeignNational='" + self.foreignNational + "', MinimumAge='" + self.minimumAge + "', MaximumAge='" + self.maximumAge + "', ClassRank='" + self.classRank + "', MinimumGPA='" + self.minimumGPA + "', MinimumACT='" + self.minimumACT + "', MinimumSAT='" + self.minimumSAT + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassificaion + "', Date='" + self.date + "' where Name='" + self.name + "'")
 
-
     def checkIfAlreadyInDB(self):
         matchingRow = self.db.getRowsDB(
                 "select * from dbo.ScholarsiteLeads where Name='" + self.name + "'")
