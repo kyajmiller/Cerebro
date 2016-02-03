@@ -41,6 +41,8 @@ class InsertMastersInEducationArrayIntoDB(object):
         if not self.checkIfAlreadyInDatabase():
             self.db.insertUpdateOrDeleteDB(
                     "INSERT INTO dbo.MastersInEducationLeads (Name, Deadline, Amount, Description, SourceWebsite, SourceText, Tag, BadScholarship, Date) VALUES (N'" + self.name + "', N'" + self.deadline + "', N'" + self.amount + "', N'" + self.description + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.fundingClassification + "', '" + self.badScholarshipClassificaion + "', '" + self.date + "')")
+            return True
         else:
             self.db.insertUpdateOrDeleteDB(
                 "update dbo.MastersInEducationLeads set Deadline='" + self.deadline + "', Amount='" + self.amount + "', Description='" + self.description + "', SourceText='" + self.sourceText + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassificaion + "', Date='" + self.date + "'")
+            return False
