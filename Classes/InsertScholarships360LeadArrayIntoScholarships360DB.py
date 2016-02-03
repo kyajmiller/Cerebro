@@ -1,10 +1,15 @@
 from Classes.SUDBConnect import SUDBConnect
+import time
+import re
 
 
 class InsertScholarships360LeadArrayIntoScholarships360DB(object):
-    def __init__(self, scholarships360LeadArray):
+    def __init__(self, scholarships360LeadArray, fundingClassification, badScholarshipClassification):
         self.scholarships360LeadArray = scholarships360LeadArray
+        self.fundingClassification = fundingClassification
+        self.badScholarshipClassificaion = badScholarshipClassification
         self.db = SUDBConnect()
+        self.fileSystemDB = SUDBConnect(destination='filesystem')
 
         self.name = self.scholarships360LeadArray[0]
         self.url = self.scholarships360LeadArray[1]
@@ -16,6 +21,7 @@ class InsertScholarships360LeadArrayIntoScholarships360DB(object):
         self.deadlineInfo = self.scholarships360LeadArray[7]
         self.sourceWebsite = self.scholarships360LeadArray[8]
         self.sourceText = self.scholarships360LeadArray[9]
+        self.date = time.strftime('%Y%m%d')
 
         if not self.checkIfAlreadyInDB():
             self.db.insertUpdateOrDeleteDB(
