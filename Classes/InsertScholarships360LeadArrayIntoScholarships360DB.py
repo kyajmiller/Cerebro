@@ -29,8 +29,17 @@ class InsertScholarships360LeadArrayIntoScholarships360DB(object):
 
     def checkIfAlreadyInDB(self):
         matchingRow = self.db.getRowsDB(
-            "select * from dbo.Scholarships360Leads where Name='" + self.name + "' and Description='" + self.description + "'")
+                "select * from dbo.Scholarships360Leads where Name='" + self.name + "' and Url='" + self.url + "'")
         if matchingRow != []:
             return True
         else:
             return False
+
+    def writeFileToDisk(self):
+        tableName = 'Scholarships360Leads'
+        user = 'Kya'
+        website = re.sub('Leads', '', tableName)
+        columns = self.db.getColumnNamesFromTable(tableName)
+        currentRow = self.db.getRowsDB(
+                "select * from dbo.Scholarships360Leads where Name='" + self.name + "' and Url='" + self.url + "'")[0]
+        self.fileSystemDB.writeFile(columns, currentRow, user, website, self.url, self.date)
