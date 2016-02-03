@@ -3,6 +3,7 @@ from Classes.InsertScholarships360LeadArrayIntoScholarships360DB import \
 from Classes.Scholarships360Leads import Scholarships360Leads
 from Classes.ClassifyFundingTypeKeywordBased import ClassifyFundingTypeKeywordBased
 from Classes.ClassifyBadScholarships import ClassifyBadScholarships
+from Classes.CerebroLogs import CerebroLogs
 
 
 class ProcessScholarships360Leads(object):
@@ -10,11 +11,19 @@ class ProcessScholarships360Leads(object):
     def getScholarships360LeadsAndInsertIntoDatabase():
         arrayOfScholarship360Leads = Scholarships360Leads().getLeads()
         predictedFundingTypes = ProcessScholarships360Leads.classifyFunding(arrayOfScholarship360Leads)
+        totalLeads = len(arrayOfScholarship360Leads)
+        numNewEntries = 0
+        numUpdates = 0
         for leadArray, fundingClassification in zip(arrayOfScholarship360Leads, predictedFundingTypes):
             badScholarshipClassification = ProcessScholarships360Leads.checkBadScholarship(leadArray,
                                                                                            fundingClassification)
-            InsertScholarships360LeadArrayIntoScholarships360DB(leadArray, fundingClassification,
-                                                                badScholarshipClassification)
+            newEntryBoolean = InsertScholarships360LeadArrayIntoScholarships360DB(leadArray, fundingClassification,
+                                                                                  badScholarshipClassification).insertUpdateLead()
+            if newEntryBoolean:
+                numNewEntries += 1
+            else:
+                numUpdates += 1
+        CerebroLogs('Scholarships360', totalLeads, numNewEntries, numUpdates)
 
     @staticmethod
     def classifyFunding(leadsArrays):
