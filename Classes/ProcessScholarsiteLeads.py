@@ -2,6 +2,7 @@ from Classes.ScholarsiteLeads import ScholarsiteLeads
 from Classes.InsertScholarsiteLeadsArrayIntoScholarsiteLeadsDB import InsertScholarsiteLeadsArrayIntoScholarsiteLeadsDB
 from Classes.ClassifyBadScholarships import ClassifyBadScholarships
 from Classes.ClassifyFundingTypeKeywordBased import ClassifyFundingTypeKeywordBased
+from Classes.CerebroLogs import CerebroLogs
 
 
 class ProcessScholarsiteLeads(object):
@@ -9,10 +10,18 @@ class ProcessScholarsiteLeads(object):
     def getScholarsiteLeadsAndInsertIntoDB():
         scholarsiteLeadsArrays = ScholarsiteLeads().processResultsPages()
         predictedFundingTypes = ProcessScholarsiteLeads.classifyFunding(scholarsiteLeadsArrays)
+        totalLeads = len(scholarsiteLeadsArrays)
+        numNewEntries = 0
+        numUpdates = 0
         for leadArray, fundingClassification in zip(scholarsiteLeadsArrays, predictedFundingTypes):
             badScholarshipClassification = ProcessScholarsiteLeads.checkBadScholarship(leadArray, fundingClassification)
-            InsertScholarsiteLeadsArrayIntoScholarsiteLeadsDB(leadArray, fundingClassification,
-                                                              badScholarshipClassification)
+            newEntryBoolean = InsertScholarsiteLeadsArrayIntoScholarsiteLeadsDB(leadArray, fundingClassification,
+                                                                                badScholarshipClassification).insertUpdateLead()
+            if newEntryBoolean:
+                numNewEntries += 1
+            else:
+                numUpdates += 1
+        CerebroLogs('Scholarsite', totalLeads, numNewEntries, numUpdates)
 
     @staticmethod
     def classifyFunding(leadsArrays):
