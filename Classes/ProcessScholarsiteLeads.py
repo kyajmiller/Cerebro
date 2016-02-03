@@ -8,8 +8,11 @@ class ProcessScholarsiteLeads(object):
     @staticmethod
     def getScholarsiteLeadsAndInsertIntoDB():
         scholarsiteLeadsArrays = ScholarsiteLeads().processResultsPages()
-        for leadArray in scholarsiteLeadsArrays:
-            InsertScholarsiteLeadsArrayIntoScholarsiteLeadsDB(leadArray)
+        predictedFundingTypes = ProcessScholarsiteLeads.classifyFunding(scholarsiteLeadsArrays)
+        for leadArray, fundingClassification in zip(scholarsiteLeadsArrays, predictedFundingTypes):
+            badScholarshipClassification = ProcessScholarsiteLeads.checkBadScholarship(leadArray, fundingClassification)
+            InsertScholarsiteLeadsArrayIntoScholarsiteLeadsDB(leadArray, fundingClassification,
+                                                              badScholarshipClassification)
 
     @staticmethod
     def classifyFunding(leadsArrays):
