@@ -45,6 +45,6 @@ class InsertMastersInEducationArrayIntoDB(object):
             return True
         else:
             self.db.insertUpdateOrDeleteDB(
-                "update dbo.MastersInEducationLeads set Deadline='" + self.deadline + "', Amount='" + self.amount + "', Description='" + self.description + "', SourceText='" + self.sourceText + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassificaion + "', Date='" + self.date + "'")
+                    "update dbo.MastersInEducationLeads set Deadline='" + self.deadline + "', Amount='" + self.amount + "', Description='" + self.description + "', SourceText='" + self.sourceText + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassificaion + "', Date='" + self.date + "' where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")
             self.writeFileToDisk()
             return False
