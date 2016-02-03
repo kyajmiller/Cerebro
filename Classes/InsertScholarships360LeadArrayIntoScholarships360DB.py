@@ -25,7 +25,10 @@ class InsertScholarships360LeadArrayIntoScholarships360DB(object):
 
         if not self.checkIfAlreadyInDB():
             self.db.insertUpdateOrDeleteDB(
-                "INSERT INTO dbo.Scholarships360Leads (Name, Url, Description, Eligibility, Amount, AmountInfo, Deadline, DeadlineInfo, SourceWebsite, SourceText) VALUES (N'" + self.name + "', N'" + self.url + "', N'" + self.description + "', N'" + self.eligibility + "', N'" + self.amount + "', N'" + self.amountInfo + "', N'" + self.deadline + "', N'" + self.deadlineInfo + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
+                    "INSERT INTO dbo.Scholarships360Leads (Name, Url, Description, Eligibility, Amount, AmountInfo, Deadline, DeadlineInfo, SourceWebsite, SourceText, Tag, BadScholarship, Date) VALUES (N'" + self.name + "', N'" + self.url + "', N'" + self.description + "', N'" + self.eligibility + "', N'" + self.amount + "', N'" + self.amountInfo + "', N'" + self.deadline + "', N'" + self.deadlineInfo + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.fundingClassification + "', '" + self.badScholarshipClassificaion + "', '" + self.date + "')")
+        else:
+            self.db.insertUpdateOrDeleteDB(
+                "update dbo.Scholarships360Leads set Description=N'" + self.description + "', Eligibility=N'" + self.eligibility + "', Amount=N'" + self.amount + "', AmountInfo=N'" + self.amountInfo + "', Deadline=N'" + self.deadline + "', DeadlineInfo=N'" + self.deadlineInfo + "', SourceWebsite='" + self.sourceWebsite + "', SourceText=N'" + self.sourceText + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassificaion + "', Date='" + self.date + "'")
 
     def checkIfAlreadyInDB(self):
         matchingRow = self.db.getRowsDB(
