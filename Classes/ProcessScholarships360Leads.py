@@ -9,8 +9,12 @@ class ProcessScholarships360Leads(object):
     @staticmethod
     def getScholarships360LeadsAndInsertIntoDatabase():
         arrayOfScholarship360Leads = Scholarships360Leads().getLeads()
-        for leadArray in arrayOfScholarship360Leads:
-            InsertScholarships360LeadArrayIntoScholarships360DB(leadArray)
+        predictedFundingTypes = ProcessScholarships360Leads.classifyFunding(arrayOfScholarship360Leads)
+        for leadArray, fundingClassification in zip(arrayOfScholarship360Leads, predictedFundingTypes):
+            badScholarshipClassification = ProcessScholarships360Leads.checkBadScholarship(leadArray,
+                                                                                           fundingClassification)
+            InsertScholarships360LeadArrayIntoScholarships360DB(leadArray, fundingClassification,
+                                                                badScholarshipClassification)
 
     @staticmethod
     def classifyFunding(leadsArrays):
