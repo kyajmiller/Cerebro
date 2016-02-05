@@ -63,8 +63,8 @@ class UnigoLeads(object):
                 leadArray = [title, amount, deadline, sponsor, awardAmount, recipients, requirements, additionalInfo,
                              contact, address, sourceWebsite, sourceText]
                 unigoLeadsArray.append(leadArray)
-
-        self.driver.quit()
+        time.sleep(5)
+        # self.driver.quit()
         return unigoLeadsArray
 
     def getTitlesList(self, arrayOfTitleObjects):
