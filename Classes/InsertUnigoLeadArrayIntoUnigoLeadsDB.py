@@ -27,7 +27,10 @@ class InsertUnigoLeadArrayIntoUnigoLeadsDB(object):
 
         if not self.checkIfAlreadyInDatabase():
             self.db.insertUpdateOrDeleteDB(
-                "INSERT INTO dbo.UnigoLeads (Name, Amount, Deadline, Sponsor, AwardAmount, Recipients, Requirements, AdditionalInfo, Contact, Address, SourceWebsite, SourceText) VALUES ( N'" + self.name + "', N'" + self.amount + "', N'" + self.deadline + "', N'" + self.sponsor + "', N'" + self.awardAmount + "', N'" + self.recipients + "', N'" + self.requirements + "', N'" + self.additionalInfo + "', N'" + self.contact + "', N'" + self.address + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "')")
+                    "INSERT INTO dbo.UnigoLeads (Name, Amount, Deadline, Sponsor, AwardAmount, Recipients, Requirements, AdditionalInfo, Contact, Address, SourceWebsite, SourceText, Tag, BadScholarship, Date) VALUES ( N'" + self.name + "', N'" + self.amount + "', N'" + self.deadline + "', N'" + self.sponsor + "', N'" + self.awardAmount + "', N'" + self.recipients + "', N'" + self.requirements + "', N'" + self.additionalInfo + "', N'" + self.contact + "', N'" + self.address + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', '" + self.fundingClassification + "', '" + self.badScholarshipClassificaion + "', '" + self.date + "')")
+        else:
+            self.db.insertUpdateOrDeleteDB(
+                "update dbo.UnigoLeads set Amount=N'" + self.amount + "', Deadline=N'" + self.deadline + "', Sponsor=N'" + self.sponsor + "', AwardAmount=N'" + self.awardAmount + "', Recipients=N'" + self.recipients + "', Requirements=N'" + self.requirements + "', AdditionalInfo=N'" + self.additionalInfo + "', Contact=N'" + self.contact + "', Address=N'" + self.address + "', SourceText=N'" + self.sourceText + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassificaion + "', Date='" + self.date + "' where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")
 
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
