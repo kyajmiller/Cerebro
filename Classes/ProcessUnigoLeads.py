@@ -8,8 +8,10 @@ class ProcessUnigoLeads(object):
     @staticmethod
     def getUnigoLeadsAndInsertIntoDB():
         unigoLeadsArrays = UnigoLeads().getLeads()
-        for leadArray in unigoLeadsArrays:
-            InsertUnigoLeadArrayIntoUnigoLeadsDB(leadArray)
+        predictedFundingTypes = ProcessUnigoLeads.classifyFunding(unigoLeadsArrays)
+        for leadArray, fundingClassification in zip(unigoLeadsArrays, predictedFundingTypes):
+            badScholarshipClassification = ProcessUnigoLeads.checkBadScholarship(leadArray, fundingClassification)
+            InsertUnigoLeadArrayIntoUnigoLeadsDB(leadArray, fundingClassification, badScholarshipClassification)
 
     @staticmethod
     def classifyFunding(leadsArrays):
