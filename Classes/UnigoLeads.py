@@ -1,6 +1,7 @@
 from selenium import webdriver
 from Classes.RipPage import RipPage
 from Classes.CleanText import CleanText
+import time
 
 
 class UnigoLeads(object):
@@ -23,9 +24,9 @@ class UnigoLeads(object):
         arrayOfAmountObjects = self.driver.find_elements_by_xpath(
             "//div[@class='amount']/span[@data-bind='text: Aequitas.toCurrency(DollarAmount)']")
         arrayOfTitleObjects = self.driver.find_elements_by_xpath(
-            "//h4[@data-bind='text: $parent.resultLayout ? shortTitle : Title']")
+                "//h4[@data-bind='text: Title']")
         arrayOfDeadlineObjects = self.driver.find_elements_by_xpath(
-            "//h4[@data-bind='text: $parent.resultLayout ? shortTitle : Title']")
+                "//span[@class='calendar']")
 
         titlesList = self.getTitlesList(arrayOfTitleObjects)
         amountsList = self.getAmountsList(arrayOfAmountObjects)
@@ -128,6 +129,7 @@ class UnigoLeads(object):
             seeMoreButtonExistence = True
             while seeMoreButtonExistence:
                 self.driver.find_element_by_xpath("//a[@data-bind='click: showMoreScholarships']").click()
+                time.sleep(1)
                 seeMoreButtonExistence = self.checkIfSeeMoreButtonExists()
 
     def checkIfSeeMoreButtonExists(self):
@@ -143,5 +145,3 @@ class UnigoLeads(object):
             return True
         else:
             return False
-
-
