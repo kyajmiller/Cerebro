@@ -2,6 +2,7 @@ from Classes.InsertUnigoLeadArrayIntoUnigoLeadsDB import InsertUnigoLeadArrayInt
 from Classes.UnigoLeads import UnigoLeads
 from Classes.ClassifyFundingTypeKeywordBased import ClassifyFundingTypeKeywordBased
 from Classes.ClassifyBadScholarships import ClassifyBadScholarships
+from Classes.CerebroLogs import CerebroLogs
 
 
 class ProcessUnigoLeads(object):
@@ -9,9 +10,18 @@ class ProcessUnigoLeads(object):
     def getUnigoLeadsAndInsertIntoDB():
         unigoLeadsArrays = UnigoLeads().getLeads()
         predictedFundingTypes = ProcessUnigoLeads.classifyFunding(unigoLeadsArrays)
+        totalLeads = len(unigoLeadsArrays)
+        numNewEntries = 0
+        numUpdates = 0
         for leadArray, fundingClassification in zip(unigoLeadsArrays, predictedFundingTypes):
             badScholarshipClassification = ProcessUnigoLeads.checkBadScholarship(leadArray, fundingClassification)
-            InsertUnigoLeadArrayIntoUnigoLeadsDB(leadArray, fundingClassification, badScholarshipClassification)
+            newEntryBoolean = InsertUnigoLeadArrayIntoUnigoLeadsDB(leadArray, fundingClassification,
+                                                                   badScholarshipClassification).insertUpdateLead()
+            if newEntryBoolean:
+                numNewEntries += 1
+            else:
+                numUpdates += 1
+        CerebroLogs('Unigo', totalLeads, numNewEntries, numUpdates)
 
     @staticmethod
     def classifyFunding(leadsArrays):
