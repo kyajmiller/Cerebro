@@ -18,7 +18,7 @@ class UnigoLeads(object):
 
     def getLeads(self):
         self.expandSeeMore()
-        self.driver.implicitly_wait(2)
+        time.sleep(2)
         unigoLeadsArray = []
 
         arrayOfAmountObjects = self.driver.find_elements_by_xpath(
