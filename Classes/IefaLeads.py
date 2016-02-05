@@ -123,6 +123,7 @@ class IefaLeads(object):
 
         if self.checkIfElementExists("//p[@id='award-fieldofstudy']"):
             majors = self.driver.find_element_by_xpath("//p[@id='award-fieldofstudy']").get_attribute('textContent')
+            majors = re.sub('Unrestricted', '', majors)
 
         if self.checkIfElementExists("//p[@id='award-amount']"):
             awardAmount = self.driver.find_element_by_xpath("//p[@id='award-amount']").get_attribute('textContent')
@@ -154,10 +155,12 @@ class IefaLeads(object):
         if self.checkIfElementExists("//th[text() = 'Nationality Required']/following-sibling::td"):
             nationalityRequired = self.driver.find_element_by_xpath(
                 "//th[text() = 'Nationality Required']/following-sibling::td").get_attribute('textContent')
+            nationalityRequired = re.sub('Unrestricted', '', nationalityRequired)
 
         if self.checkIfElementExists("//th[text() = 'Host Countries']/following-sibling::td"):
             hostCountries = self.driver.find_element_by_xpath(
                 "//th[text() = 'Host Countries']/following-sibling::td").get_attribute('textContent')
+            hostCountries = re.sub('Unrestricted', '', hostCountries)
 
         if self.checkIfElementExists("//th[text() = 'Link']/following-sibling::td/a"):
             sourceWebsite = self.driver.find_element_by_xpath(
