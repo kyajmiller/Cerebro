@@ -1,10 +1,15 @@
 from Classes.SUDBConnect import SUDBConnect
+import time
+import re
 
 
 class InsertUnigoLeadArrayIntoUnigoLeadsDB(object):
-    def __init__(self, unigoLeadArray):
+    def __init__(self, unigoLeadArray, fundingClassification, badScholarshipClassification):
         self.unigoLeadArray = unigoLeadArray
+        self.fundingClassification = fundingClassification
+        self.badScholarshipClassificaion = badScholarshipClassification
         self.db = SUDBConnect()
+        self.fileSystemDB = SUDBConnect(destination='filesystem')
 
         self.name = self.unigoLeadArray[0]
         self.amount = self.unigoLeadArray[1]
@@ -18,6 +23,7 @@ class InsertUnigoLeadArrayIntoUnigoLeadsDB(object):
         self.address = self.unigoLeadArray[9]
         self.sourceWebsite = self.unigoLeadArray[10]
         self.sourceText = self.unigoLeadArray[11]
+        self.date = time.strftime('%Y%m%d')
 
         if not self.checkIfAlreadyInDatabase():
             self.db.insertUpdateOrDeleteDB(
