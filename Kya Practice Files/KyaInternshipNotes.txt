@@ -2207,4 +2207,7 @@ shit dying because it ain't logged in fuckshit
     -For some godawful reason my getResultPageInfo doesn't actually check if the element exists before trying to grab it... that's really not good lol
 -I have no fucking idea why this fucking thing likes to decide that it's just gonna quit randomly, but holy fucking balls wtf
 -I need to see if there's any possible way to grab the urls cause this is bullshit
-
+-So for some reason, after it finishes the very last scholarship it just dies. I don't know why it's not just moving into the store function
+-maybe I just should remove the closing function cause it's being stupid
+    -goddammit you can't complain that the connection was closed if there's nothing to close it
+    -I hope this works because otherwise it's just being really really stupid for no reason
