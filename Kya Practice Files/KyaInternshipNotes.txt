@@ -2193,3 +2193,18 @@ shit dying because it ain't logged in fuckshit
     -Was able to update everything, but I think scholarsite itself is broken
     -yeah that entire site must be down, I can't access it at all
 
+2/5 Notes:
+-I think for once Iefa may have managed to run through overnight without dying. Maybe.
+-Going to update IefaLeads so that it doesn't pass 'unrestricted' as an argument to majors
+-Scholarsite is still down, so I'm pretty sure it's just gone now
+-Need to update Unigo
+-So UnigoLeads is being weird. It logs in, scrolls down, but when it's trying to transition from the scrolling to doing other things, it's getting a fatal error
+    -So need to figure out how to fix that
+    -After running the debugger, I'm that much more confused lol. It's able to progress just fine when stepping through it, which makes me wonder if it's just a timing error or what
+    -I see what's happening
+    -After it gets the stuff on the page, it's supposed to loop through the titles in the titles list, but it's not getting anything, which just makes the connection close
+    -So just need to update the xpath for the titles
+    -For some godawful reason my getResultPageInfo doesn't actually check if the element exists before trying to grab it... that's really not good lol
+-I have no fucking idea why this fucking thing likes to decide that it's just gonna quit randomly, but holy fucking balls wtf
+-I need to see if there's any possible way to grab the urls cause this is bullshit
+
