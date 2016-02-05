@@ -31,8 +31,18 @@ class InsertUnigoLeadArrayIntoUnigoLeadsDB(object):
 
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
-            "select Name, AdditionalInfo from dbo.UnigoLeads where Name='" + self.name + "' and AdditionalInfo='" + self.additionalInfo + "'")
+                "select Name, AdditionalInfo from dbo.UnigoLeads where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")
         if matchingRow != []:
             return True
         else:
             return False
+
+    def writeFileToDisk(self):
+        tableName = 'UnigoLeads'
+        user = 'Kya'
+        website = re.sub('Leads', '', tableName)
+        columns = self.db.getColumnNamesFromTable(tableName)
+        currentRow = self.db.getRowsDB(
+                "select * from dbo.UnigoLeads where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")[
+            0]
+        self.fileSystemDB.writeFile(columns, currentRow, user, website, self.sourceWebsite, self.date)
