@@ -80,21 +80,41 @@ class UnigoLeads(object):
         return deadlinesList
 
     def getResultPageInfo(self):
-        sponsor = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
-            "//div/p/strong[text() = 'Awarded By']/../../following-sibling::div/p").get_attribute('textContent'))
-        awardAmount = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
-            "//div/p/strong[text() = 'Award Amount']/../../following-sibling::div/p").get_attribute('textContent'))
-        recipients = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
-            "//div/p/strong[text() = 'Recipients']/../../following-sibling::div/p").get_attribute('textContent'))
-        requirements = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
-            "//div/p/strong[text() = 'Requirements']/../../following-sibling::div").get_attribute('textContent'))
-        additionalInfo = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
-            "//div/p/strong[text() = 'Additional Information']/../../following-sibling::div/p").get_attribute(
-            'textContent'))
-        contact = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
-            "//div/p/strong[text() = 'Contact']/../../following-sibling::div/p").get_attribute('textContent'))
-        address = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
-            "//div/p/strong[text() = 'Address']/../../following-sibling::div").get_attribute('textContent'))
+        sponsor = ''
+        awardAmount = ''
+        recipients = ''
+        requirements = ''
+        additionalInfo = ''
+        contact = ''
+        address = ''
+
+        if self.checkIfElementExists("//div/p/strong[text() = 'Awarded By']/../../following-sibling::div/p"):
+            sponsor = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
+                    "//div/p/strong[text() = 'Awarded By']/../../following-sibling::div/p").get_attribute(
+                'textContent'))
+        if self.checkIfElementExists("//div/p/strong[text() = 'Award Amount']/../../following-sibling::div/p"):
+            awardAmount = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
+                    "//div/p/strong[text() = 'Award Amount']/../../following-sibling::div/p").get_attribute(
+                'textContent'))
+        if self.checkIfElementExists("//div/p/strong[text() = 'Recipients']/../../following-sibling::div/p"):
+            recipients = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
+                    "//div/p/strong[text() = 'Recipients']/../../following-sibling::div/p").get_attribute(
+                'textContent'))
+        if self.checkIfElementExists("//div/p/strong[text() = 'Requirements']/../../following-sibling::div"):
+            requirements = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
+                    "//div/p/strong[text() = 'Requirements']/../../following-sibling::div").get_attribute(
+                'textContent'))
+        if self.checkIfElementExists(
+                "//div/p/strong[text() = 'Additional Information']/../../following-sibling::div/p"):
+            additionalInfo = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
+                    "//div/p/strong[text() = 'Additional Information']/../../following-sibling::div/p").get_attribute(
+                    'textContent'))
+        if self.checkIfElementExists("//div/p/strong[text() = 'Contact']/../../following-sibling::div/p"):
+            contact = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
+                    "//div/p/strong[text() = 'Contact']/../../following-sibling::div/p").get_attribute('textContent'))
+        if self.checkIfElementExists("//div/p/strong[text() = 'Address']/../../following-sibling::div"):
+            address = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
+                    "//div/p/strong[text() = 'Address']/../../following-sibling::div").get_attribute('textContent'))
         if self.checkIfElementExists("//a[@class='button secondary']"):
             sourceWebsite = self.driver.find_element_by_xpath("//a[@class='button secondary']").get_attribute('href')
             sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(sourceWebsite))
