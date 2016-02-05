@@ -153,6 +153,7 @@ class UnigoLeads(object):
                 seeMoreButtonExistence = self.checkIfSeeMoreButtonExists()
 
     def checkIfSeeMoreButtonExists(self):
+        time.sleep(1)
         seeMoreButton = self.driver.find_elements_by_xpath("//a[@data-bind='click: showMoreScholarships']")
         if seeMoreButton != []:
             return True
