@@ -120,8 +120,8 @@ class UnigoLeads(object):
         if self.checkIfElementExists("//div/p/strong[text() = 'Address']/../../following-sibling::div"):
             address = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
                     "//div/p/strong[text() = 'Address']/../../following-sibling::div").get_attribute('textContent'))
-        if self.checkIfElementExists("//a[@class='button secondary']"):
-            sourceWebsite = self.driver.find_element_by_xpath("//a[@class='button secondary']").get_attribute('href')
+        if self.checkIfElementExists("//a[@class='button cta']"):
+            sourceWebsite = self.driver.find_element_by_xpath("//a[@class='button cta']").get_attribute('href')
             sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(sourceWebsite))
         else:
             sourceWebsite = ''
