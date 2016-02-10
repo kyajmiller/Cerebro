@@ -12,9 +12,8 @@ class UnigoLeads(object):
         self.driver.implicitly_wait(2)
 
         self.logIn()
-        self.getLeads()
 
-        self.unigoLeadsArray = []
+        self.unigoLeadsArrayThing = []
 
     def getLeads(self):
         self.expandSeeMore()
@@ -49,22 +48,28 @@ class UnigoLeads(object):
                 self.driver.implicitly_wait(2)
 
                 resultPageArray = self.getResultPageInfo()
-                sponsor = resultPageArray[0]
-                awardAmount = resultPageArray[1]
-                recipients = resultPageArray[2]
-                requirements = resultPageArray[3]
-                additionalInfo = resultPageArray[4]
-                contact = resultPageArray[5]
-                address = resultPageArray[6]
-                sourceWebsite = resultPageArray[7]
-                sourceText = resultPageArray[8]
+                self.makeLead(title, amount, deadline, resultPageArray)
 
-                leadArray = [title, amount, deadline, sponsor, awardAmount, recipients, requirements, additionalInfo,
-                             contact, address, sourceWebsite, sourceText]
-                self.unigoLeadsArray.append(leadArray)
         time.sleep(5)
         # self.driver.quit()
-        return self.unigoLeadsArray
+        return self.unigoLeadsArrayThing
+
+    def makeLead(self, title, amount, deadline, resultPageArray):
+        sponsor = resultPageArray[0]
+        awardAmount = resultPageArray[1]
+        recipients = resultPageArray[2]
+        requirements = resultPageArray[3]
+        additionalInfo = resultPageArray[4]
+        contact = resultPageArray[5]
+        address = resultPageArray[6]
+        sourceWebsite = resultPageArray[7]
+        sourceText = resultPageArray[8]
+        url = resultPageArray[9]
+
+        leadArray = [title, amount, deadline, sponsor, awardAmount, recipients, requirements, additionalInfo,
+                     contact, address, sourceWebsite, sourceText, url]
+
+        self.unigoLeadsArrayThing.append(leadArray)
 
     def getTitlesList(self, arrayOfTitleObjects):
         titlesList = [titleObject.get_attribute('textContent') for titleObject in arrayOfTitleObjects]
@@ -79,6 +84,7 @@ class UnigoLeads(object):
         return deadlinesList
 
     def getResultPageInfo(self):
+        url = self.driver.current_url
         sponsor = ''
         awardAmount = ''
         recipients = ''
@@ -122,7 +128,7 @@ class UnigoLeads(object):
             sourceText = ''
 
         resultPageArray = [sponsor, awardAmount, recipients, requirements, additionalInfo, contact, address,
-                           sourceWebsite, sourceText]
+                           sourceWebsite, sourceText, url]
         return resultPageArray
 
     def logIn(self):
