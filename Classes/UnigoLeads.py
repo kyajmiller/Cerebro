@@ -55,19 +55,20 @@ class UnigoLeads(object):
         return self.unigoLeadsArrayThing
 
     def makeLead(self, title, amount, deadline, resultPageArray):
-        sponsor = resultPageArray[0]
-        awardAmount = resultPageArray[1]
-        recipients = resultPageArray[2]
-        requirements = resultPageArray[3]
-        additionalInfo = resultPageArray[4]
-        contact = resultPageArray[5]
-        address = resultPageArray[6]
-        sourceWebsite = resultPageArray[7]
-        sourceText = resultPageArray[8]
-        url = resultPageArray[9]
+        url = resultPageArray[0]
+        sponsor = resultPageArray[1]
+        awardAmount = resultPageArray[2]
+        recipients = resultPageArray[3]
+        requirements = resultPageArray[4]
+        additionalInfo = resultPageArray[5]
+        contact = resultPageArray[6]
+        address = resultPageArray[7]
+        deadlineInformation = resultPageArray[8]
+        sourceWebsite = resultPageArray[9]
+        sourceText = resultPageArray[10]
 
-        leadArray = [title, amount, deadline, sponsor, awardAmount, recipients, requirements, additionalInfo,
-                     contact, address, sourceWebsite, sourceText, url]
+        leadArray = [title, amount, deadline, url, sponsor, awardAmount, recipients, requirements, additionalInfo,
+                     contact, address, deadlineInformation, sourceWebsite, sourceText]
 
         self.unigoLeadsArrayThing.append(leadArray)
 
