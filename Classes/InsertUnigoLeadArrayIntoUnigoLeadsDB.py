@@ -29,6 +29,7 @@ class InsertUnigoLeadArrayIntoUnigoLeadsDB(object):
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
                 "select * from dbo.UnigoLeads where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")
+        # "select * from dbo.UnigoLeads where Name='" + self.name + "' and Url='" + self.url + "'"
         if matchingRow != []:
             return True
         else:
@@ -42,6 +43,7 @@ class InsertUnigoLeadArrayIntoUnigoLeadsDB(object):
         currentRow = self.db.getRowsDB(
                 "select * from dbo.UnigoLeads where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")[
             0]
+        # "select * from dbo.UnigoLeads where Name='" + self.name + "' and Url='" + self.url + "'"
         self.fileSystemDB.writeFile(columns, currentRow, user, website, self.name, self.date)
 
     def insertUpdateLead(self):
@@ -53,5 +55,6 @@ class InsertUnigoLeadArrayIntoUnigoLeadsDB(object):
         else:
             self.db.insertUpdateOrDeleteDB(
                     "update dbo.UnigoLeads set Amount=N'" + self.amount + "', Deadline=N'" + self.deadline + "', Sponsor=N'" + self.sponsor + "', AwardAmount=N'" + self.awardAmount + "', Recipients=N'" + self.recipients + "', Requirements=N'" + self.requirements + "', AdditionalInfo=N'" + self.additionalInfo + "', Contact=N'" + self.contact + "', Address=N'" + self.address + "', SourceText=N'" + self.sourceText + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassificaion + "', Date='" + self.date + "', Url='" + self.url + "' where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")
+            # "update dbo.UnigoLeads set Amount=N'" + self.amount + "', Deadline=N'" + self.deadline + "', Sponsor=N'" + self.sponsor + "', AwardAmount=N'" + self.awardAmount + "', Recipients=N'" + self.recipients + "', Requirements=N'" + self.requirements + "', AdditionalInfo=N'" + self.additionalInfo + "', Contact=N'" + self.contact + "', Address=N'" + self.address + "', SourceWebsite='" + self.sourceWebsite + "', SourceText=N'" + self.sourceText + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassificaion + "', Date='" + self.date + "' where Name='" + self.name + "' and Url='" + self.url + "'")
             self.writeFileToDisk()
             return False
