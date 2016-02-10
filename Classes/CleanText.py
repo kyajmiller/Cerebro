@@ -77,7 +77,6 @@ class CleanText(object):
         result = CleanText.convertAmpersand(result)
         result = CleanText.replaceSingleQuotesWithTwoSingleQuotes(result)
         result = CleanText.removeMoreLess(result)
-        result = CleanText.removeArrows(result)
         result = CleanText.removeWhiteSpaces(result)
 
         return result
