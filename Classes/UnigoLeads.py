@@ -2,6 +2,7 @@ from selenium import webdriver
 from Classes.RipPage import RipPage
 from Classes.CleanText import CleanText
 import time
+import re
 
 
 class UnigoLeads(object):
@@ -99,6 +100,7 @@ class UnigoLeads(object):
             sponsor = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
                     "//div/p/strong[text() = 'Awarded By']/../../following-sibling::div/p").get_attribute(
                 'textContent'))
+            sponsor = re.sub('» More Info', '', sponsor)
         if self.checkIfElementExists("//div/p/strong[text() = 'Award Amount']/../../following-sibling::div/p"):
             awardAmount = CleanText.cleanALLtheText(self.driver.find_element_by_xpath(
                     "//div/p/strong[text() = 'Award Amount']/../../following-sibling::div/p").get_attribute(
