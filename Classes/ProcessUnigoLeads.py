@@ -26,7 +26,7 @@ class ProcessUnigoLeads(object):
     @staticmethod
     def classifyFunding(leadsArrays):
         titlesList = [leadArray[0] for leadArray in leadsArrays]
-        infoTextList = ['%s %s' % (leadArray[6], leadArray[7]) for leadArray in leadsArrays]
+        infoTextList = ['%s %s' % (leadArray[7], leadArray[8]) for leadArray in leadsArrays]
         opportunitiesTitlesAndTexts = [[title, infoText] for title, infoText in zip(titlesList, infoTextList)]
         fundingClassifier = ClassifyFundingTypeKeywordBased(opportunitiesTitlesAndTexts)
         predictedFundingTypes = fundingClassifier.returnPredictedTags()
@@ -35,8 +35,8 @@ class ProcessUnigoLeads(object):
     @staticmethod
     def checkBadScholarship(leadArray, fundingClassification):
         if fundingClassification == 'Scholarship':
-            sponsor = leadArray[3]
-            infoText = '%s %s' % (leadArray[6], leadArray[7])
+            sponsor = leadArray[4]
+            infoText = '%s %s' % (leadArray[7], leadArray[8])
             badScholarshipClassifier = ClassifyBadScholarships()
             badScholarshipPrediction = badScholarshipClassifier.classifyOpportunity(sponsor, infoText)
             return badScholarshipPrediction
