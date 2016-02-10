@@ -7,7 +7,7 @@ class InsertUnigoLeadArrayIntoUnigoLeadsDB(object):
     def __init__(self, unigoLeadArray, fundingClassification, badScholarshipClassification):
         self.unigoLeadArray = unigoLeadArray
         self.fundingClassification = fundingClassification
-        self.badScholarshipClassificaion = badScholarshipClassification
+        self.badScholarshipClassification = badScholarshipClassification
         self.db = SUDBConnect()
         self.fileSystemDB = SUDBConnect(destination='filesystem')
 
@@ -55,7 +55,7 @@ class InsertUnigoLeadArrayIntoUnigoLeadsDB(object):
             return True
         else:
             self.db.insertUpdateOrDeleteDB(
-                    "update dbo.UnigoLeads set Amount=N'" + self.amount + "', Deadline=N'" + self.deadline + "', Sponsor=N'" + self.sponsor + "', AwardAmount=N'" + self.awardAmount + "', Recipients=N'" + self.recipients + "', Requirements=N'" + self.requirements + "', AdditionalInfo=N'" + self.additionalInfo + "', Contact=N'" + self.contact + "', Address=N'" + self.address + "', DeadlineInformation=N'" + self.deadlineInformation + "', SourceText=N'" + self.sourceText + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassificaion + "', Date='" + self.date + "', Url='" + self.url + "' where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")
+                    "update dbo.UnigoLeads set Amount=N'" + self.amount + "', Deadline=N'" + self.deadline + "', Sponsor=N'" + self.sponsor + "', AwardAmount=N'" + self.awardAmount + "', Recipients=N'" + self.recipients + "', Requirements=N'" + self.requirements + "', AdditionalInfo=N'" + self.additionalInfo + "', Contact=N'" + self.contact + "', Address=N'" + self.address + "', DeadlineInformation=N'" + self.deadlineInformation + "', SourceText=N'" + self.sourceText + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassification + "', Date='" + self.date + "', Url='" + self.url + "' where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")
             # "update dbo.UnigoLeads set Amount=N'" + self.amount + "', Deadline=N'" + self.deadline + "', Sponsor=N'" + self.sponsor + "', AwardAmount=N'" + self.awardAmount + "', Recipients=N'" + self.recipients + "', Requirements=N'" + self.requirements + "', AdditionalInfo=N'" + self.additionalInfo + "', Contact=N'" + self.contact + "', Address=N'" + self.address + "', DeadlineInformation=N'" + self.deadlineInformation + "', SourceWebsite='" + self.sourceWebsite + "', SourceText=N'" + self.sourceText + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassificaion + "', Date='" + self.date + "' where Name='" + self.name + "' and Url='" + self.url + "'")
             self.writeFileToDisk()
             return False
