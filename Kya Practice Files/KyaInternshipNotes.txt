@@ -2211,3 +2211,24 @@ shit dying because it ain't logged in fuckshit
 -maybe I just should remove the closing function cause it's being stupid
     -goddammit you can't complain that the connection was closed if there's nothing to close it
     -I hope this works because otherwise it's just being really really stupid for no reason
+
+2/10 Notes:
+-lol so taking out the driver.quit() call fixed the thing.
+    -I legit don't know why that's even necessary, but whatever. Problem fixed for now and shit.
+-goddammit so something in Cerebro logs didn't get called right. Ugh.
+-Like I don't even know. It seems like it's not passing the leads to the Process class, which is odd...
+-going to run it again and see if anything changes cause that's fucking weird.
+-Should debug it I guess.
+-wtf that's weird as hell. For some reason it's not appending the lead array to the self.UnigoLeadsArray object, claims it doesn't exist
+    -I have no freaking idea
+-I think part of the issue is that I'm calling UnigoLeads.getLeads as an executeable, and the class itself is calling it...
+    -Will try removing it and see what happens
+    -That would also explain why it's having a hard time finding the self.UnigoLeadsArray thing because I wasn't declaring it until after the call to getLeads
+    -This should be able to fix it, I think
+-Going to add in way to grab the url of the current page so that, well, yeah. Current page url.
+-Need to grab one more thing from the results pages - deadline information
+-Also the damn source website thing isn't working cause none of the pages are doing the rip page thing
+    -Because the damn xpath is wrong... should be "//a[@class='button cta']"
+    -Updated it, need to stop and rerun
+    -Added deadline information, had to rearrange stuff
+-Having issues with the sql statements now that it's time to insert stuff, dunno what's up so just rewrote them, hopefully it works...
