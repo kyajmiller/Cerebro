@@ -135,8 +135,7 @@ class UnigoLeads(object):
             sourceText = ''
 
         resultPageArray = [url, sponsor, awardAmount, recipients, requirements, additionalInfo, contact, address,
-                           deadlineInformation
-                           sourceWebsite, sourceText]
+                           deadlineInformation, sourceWebsite, sourceText]
         return resultPageArray
 
     def logIn(self):
