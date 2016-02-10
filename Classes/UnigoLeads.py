@@ -19,7 +19,6 @@ class UnigoLeads(object):
     def getLeads(self):
         self.expandSeeMore()
         time.sleep(2)
-        unigoLeadsArray = []
 
         arrayOfAmountObjects = self.driver.find_elements_by_xpath(
             "//div[@class='amount']/span[@data-bind='text: Aequitas.toCurrency(DollarAmount)']")
@@ -62,10 +61,10 @@ class UnigoLeads(object):
 
                 leadArray = [title, amount, deadline, sponsor, awardAmount, recipients, requirements, additionalInfo,
                              contact, address, sourceWebsite, sourceText]
-                unigoLeadsArray.append(leadArray)
+                self.unigoLeadsArray.append(leadArray)
         time.sleep(5)
         # self.driver.quit()
-        return unigoLeadsArray
+        return self.unigoLeadsArray
 
     def getTitlesList(self, arrayOfTitleObjects):
         titlesList = [titleObject.get_attribute('textContent') for titleObject in arrayOfTitleObjects]
