@@ -15,6 +15,7 @@ class InsertUnigoLeadArrayIntoUnigoLeadsDB(object):
         self.amount = self.unigoLeadArray[1]
         self.deadline = self.unigoLeadArray[2]
         self.url = self.unigoLeadArray[3]
+        self.url = re.sub("'", '', self.url)
         self.sponsor = self.unigoLeadArray[4]
         self.awardAmount = self.unigoLeadArray[5]
         self.recipients = self.unigoLeadArray[6]
@@ -24,6 +25,7 @@ class InsertUnigoLeadArrayIntoUnigoLeadsDB(object):
         self.address = self.unigoLeadArray[10]
         self.deadlineInformation = self.unigoLeadArray[11]
         self.sourceWebsite = self.unigoLeadArray[12]
+        self.sourceWebsite = re.sub("'", '', self.sourceWebsite)
         self.sourceText = self.unigoLeadArray[13]
         self.date = time.strftime('%Y%m%d')
 
