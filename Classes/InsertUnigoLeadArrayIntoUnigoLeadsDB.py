@@ -31,7 +31,7 @@ class InsertUnigoLeadArrayIntoUnigoLeadsDB(object):
 
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
-                "select * from dbo.UnigoLeads where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")
+                "select * from dbo.UnigoLeads where Name='" + self.name + "' and Url='" + self.url + "'")
         # "select * from dbo.UnigoLeads where Name='" + self.name + "' and Url='" + self.url + "'"
         if matchingRow != []:
             return True
@@ -44,10 +44,10 @@ class InsertUnigoLeadArrayIntoUnigoLeadsDB(object):
         website = re.sub('Leads', '', tableName)
         columns = self.db.getColumnNamesFromTable(tableName)
         currentRow = self.db.getRowsDB(
-                "select * from dbo.UnigoLeads where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")[
+                "select * from dbo.UnigoLeads where Name='" + self.name + "' and Url='" + self.url + "'")[
             0]
         # "select * from dbo.UnigoLeads where Name='" + self.name + "' and Url='" + self.url + "'"
-        self.fileSystemDB.writeFile(columns, currentRow, user, website, self.name, self.date)
+        self.fileSystemDB.writeFile(columns, currentRow, user, website, self.url, self.date)
 
     def insertUpdateLead(self):
         if not self.checkIfAlreadyInDatabase():
@@ -57,7 +57,7 @@ class InsertUnigoLeadArrayIntoUnigoLeadsDB(object):
             return True
         else:
             self.db.insertUpdateOrDeleteDB(
-                    "UPDATE dbo.UnigoLeads SET Amount=N'" + self.amount + "', Deadline=N'" + self.deadline + "', Url='" + self.url + "', Sponsor=N'" + self.sponsor + "', AwardAmount=N'" + self.awardAmount + "', Recipients=N'" + self.recipients + "', Requirements=N'" + self.requirements + "', AdditionalInfo=N'" + self.additionalInfo + "', Contact=N'" + self.contact + "', Address=N'" + self.address + "', DeadlineInformation=N'" + self.deadlineInformation + "', SourceText=N'" + self.sourceText + "', Tag=N'" + self.fundingClassification + "', BadScholarship=N'" + self.badScholarshipClassification + "', Date='" + self.date + "' WHERE Name=N'" + self.name + "' AND SourceWebsite=N'" + self.sourceWebsite + "'")
+                    "UPDATE dbo.UnigoLeads SET Amount=N'" + self.amount + "', Deadline=N'" + self.deadline + "', Sponsor=N'" + self.sponsor + "', AwardAmount=N'" + self.awardAmount + "', Recipients=N'" + self.recipients + "', Requirements=N'" + self.requirements + "', AdditionalInfo=N'" + self.additionalInfo + "', Contact=N'" + self.contact + "', Address=N'" + self.address + "', DeadlineInformation=N'" + self.deadlineInformation + "', SourceWebsite=N'" + self.sourceWebsite + "', SourceText=N'" + self.sourceText + "', Tag=N'" + self.fundingClassification + "', BadScholarship=N'" + self.badScholarshipClassification + "', Date='" + self.date + "' WHERE Name=N'" + self.name + "' AND Url='" + self.url + "'")
             # UPDATE dbo.UnigoLeads SET Amount=N'" + self.amount + "', Deadline=N'" + self.deadline + "', Url='" + self.url + "', Sponsor=N'" + self.sponsor + "', AwardAmount=N'" + self.awardAmount + "', Recipients=N'" + self.recipients + "', Requirements=N'" + self.requirements + "', AdditionalInfo=N'" + self.additionalInfo + "', Contact=N'" + self.contact + "', Address=N'" + self.address + "', DeadlineInformation=N'" + self.deadlineInformation + "', SourceText=N'" + self.sourceText + "', Tag=N'" + self.fundingClassification + "', BadScholarship=N'" + self.badScholarshipClassification + "', Date='" + self.date + "' WHERE Name=N'" + self.name + "' AND SourceWebsite=N'" + self.sourceWebsite + "'
             # UPDATE dbo.UnigoLeads SET Amount=N'" + self.amount + "', Deadline=N'" + self.deadline + "', Sponsor=N'" + self.sponsor + "', AwardAmount=N'" + self.awardAmount + "', Recipients=N'" + self.recipients + "', Requirements=N'" + self.requirements + "', AdditionalInfo=N'" + self.additionalInfo + "', Contact=N'" + self.contact + "', Address=N'" + self.address + "', DeadlineInformation=N'" + self.deadlineInformation + "', SourceWebsite=N'" + self.sourceWebsite + "', SourceText=N'" + self.sourceText + "', Tag=N'" + self.fundingClassification + "', BadScholarship=N'" + self.badScholarshipClassification + "', Date='" + self.date + "' WHERE Name=N'" + self.name + "' AND Url=N'" + self.url + "'
             self.writeFileToDisk()
