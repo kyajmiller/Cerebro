@@ -52,7 +52,7 @@ class UnigoLeads(object):
                 self.makeLead(title, amount, deadline, resultPageArray)
 
         time.sleep(5)
-        # self.driver.quit()
+        self.driver.quit()
         return self.unigoLeadsArrayThing
 
     def makeLead(self, title, amount, deadline, resultPageArray):
