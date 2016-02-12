@@ -2232,3 +2232,12 @@ shit dying because it ain't logged in fuckshit
     -Updated it, need to stop and rerun
     -Added deadline information, had to rearrange stuff
 -Having issues with the sql statements now that it's time to insert stuff, dunno what's up so just rewrote them, hopefully it works...
+
+2/12 Notes:
+-For fuck's sake I think unigo is doing the same shit with putting in single quotes to the damn thing. wtf holy shit don't do that
+-Finally ran through
+-Need to update the sql queries so that it updates via page url and not source website, then gg
+-Unigo finally fixed, yay
+-Need to build new webcraweler thing, perhaps
+
+-
