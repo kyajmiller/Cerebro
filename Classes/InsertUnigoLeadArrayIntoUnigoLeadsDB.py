@@ -50,7 +50,7 @@ class InsertUnigoLeadArrayIntoUnigoLeadsDB(object):
     def insertUpdateLead(self):
         if not self.checkIfAlreadyInDatabase():
             self.db.insertUpdateOrDeleteDB(
-                    "INSERT INTO dbo.UnigoLeads (Name, Amount, Deadline, Url, Sponsor, AwardAmount, Recipients, Requirements, AdditionalInfo, Contact, Address, DeadlineInformation, SourceWebsite, SourceText, Tag, BadScholarship, Date) VALUES (N'" + self.name + "', N'" + self.amount + "', N'" + self.deadline + "', N'" + self.url + "', N'" + self.sponsor + "', N'" + self.awardAmount + "', N'" + self.recipients + "', N'" + self.requirements + "', N'" + self.additionalInfo + "', N'" + self.contact + "', N'" + self.address + "', N'" + self.deadlineInformation + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', N'" + self.fundingClassification + "', N'" + self.badScholarship + "', '" + self.date + "')")
+                    "INSERT INTO dbo.UnigoLeads (Name, Amount, Deadline, Url, Sponsor, AwardAmount, Recipients, Requirements, AdditionalInfo, Contact, Address, DeadlineInformation, SourceWebsite, SourceText, Tag, BadScholarship, Date) VALUES (N'" + self.name + "', N'" + self.amount + "', N'" + self.deadline + "', N'" + self.url + "', N'" + self.sponsor + "', N'" + self.awardAmount + "', N'" + self.recipients + "', N'" + self.requirements + "', N'" + self.additionalInfo + "', N'" + self.contact + "', N'" + self.address + "', N'" + self.deadlineInformation + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', N'" + self.fundingClassification + "', N'" + self.badScholarshipClassification + "', '" + self.date + "')")
             self.writeFileToDisk()
             return True
         else:
