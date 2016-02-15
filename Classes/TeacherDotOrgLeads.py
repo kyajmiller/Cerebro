@@ -23,10 +23,8 @@ class TeacherDotOrgLeads(object):
             if i == 0:
                 description = self.driver.find_element_by_xpath("//div[@class='intro']/p").get_attribute('textContent')
                 sourceWebsite = self.driver.find_element_by_xpath("//div[@class='intro']/p/a").get_attribute('href')
-                requirementsListDivs = self.driver.find_elements_by_xpath(
-                    "//div[@class='intro']/following-sibling::*[1][self::ul]/li")
-                requirements = [requirementsListDiv.get_attribute('textContent') for requirementsListDiv in
-                                requirementsListDivs]
+                requirements = self.driver.find_element_by_xpath(
+                    "//div[@class='intro']/following-sibling::*[1][self::ul]").get_attribute('textContent')
             else:
                 j = i + 1
                 description = self.driver.find_element_by_xpath(
