@@ -18,6 +18,15 @@ class TeacherDotOrgLeads(object):
         for i in range(len(titleDivs)):
             title = titleDivs[i].get_attribute('textContent')
 
+            if i == 0:
+                description = self.driver.find_element_by_xpath("//div[@class='intro']").get_attribute('textContent')
+
+    def checkIfElementExists(self, xpath):
+        checkElementExists = self.driver.find_elements_by_xpath(xpath)
+        if checkElementExists != []:
+            return True
+        else:
+            return False
 
 
 TeacherDotOrgLeads()
