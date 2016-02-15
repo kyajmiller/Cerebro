@@ -15,5 +15,9 @@ class TeacherDotOrgLeads(object):
     def getLeads(self):
         titleDivs = self.driver.find_elements_by_xpath("//h3[not(ancestor::div[@id='scholarship_intro_859'])]")
 
+        for i in range(len(titleDivs)):
+            title = titleDivs[i].get_attribute('textContent')
+
+
 
 TeacherDotOrgLeads()
