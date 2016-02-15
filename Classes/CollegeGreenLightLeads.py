@@ -19,6 +19,7 @@ class CollegeGreenLightLeads(object):
         self.driver.find_element_by_name('password').send_keys('sasgcoders626')
         self.driver.find_element_by_xpath("//button[@type='submit']").click()
         self.driver.implicitly_wait(2)
+        self.skipPromoPage()
         self.driver.find_element_by_link_text('Scholarships').click()
         self.driver.implicitly_wait(2)
         self.driver.find_element_by_xpath("//a[@class='blue_btn']").click()
@@ -112,3 +113,8 @@ class CollegeGreenLightLeads(object):
             return True
         else:
             return False
+
+    def skipPromoPage(self):
+        if self.checkIfElementExists("//a[@id='noThanks']") and self.checkIfElementExists("//button[@id='continue']"):
+            self.driver.find_element_by_xpath("//a[@id='noThanks']").click()
+            self.driver.implicitly_wait(2)
