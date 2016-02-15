@@ -17,7 +17,6 @@ class TeacherDotOrgLeads(object):
 
         for i in range(len(titleDivs)):
             title = titleDivs[i].get_attribute('textContent')
-            description = ''
             requirements = ''
             sourceWebsite = ''
 
