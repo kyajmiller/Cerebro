@@ -2240,4 +2240,33 @@ shit dying because it ain't logged in fuckshit
 -Unigo finally fixed, yay
 -Need to build new webcraweler thing, perhaps
 
--
+2/15 Notes:
+-Build new webcrawler cause why not
+-Then build other new one
+-Then maybe do some extraction stuff.
+-Update CollegeGreenLight to deal with promotion page
+    -made a function called skipPromoPage, will need to be edited as this stuff changes
+-First webcrawler: www.teacher.org/scholarships-grants/
+    -This page is laid out stupid, no obvious organization
+    -Gives me cancer the same way Fatomei does
+        -fml
+    -Title divs: "//h3[not(ancestor::div[@id='scholarship_intro_859'])]" .textContent
+    -Seriously, there's no hierarchical organization whatsoever
+    holy shit that's so bad
+    -I really really really really really hate this site
+    -first p that follows title
+    -second p that follows title in cases where there's two ps "//h3[not(ancestor::div[@id='scholarship_intro_859'])]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]"
+        -Need to figure out how to match these second ps with the titles, but I might have an idea
+        -I wonder if it's possible to take a value i, and write string interpolation into the xpath
+        -so something like "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]" % i, i = 2
+            -lol it works
+            -so what to do: loop through title divs, for i in range(len(numTitleDivs)
+                description = "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[1]" % i
+                other thing = "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]" % i
+
+            -To make sure
+            -beans = driver.find_elements_by_xpath("//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[1]" % i)
+                -this is the first sibling
+            -cheese = driver.find_elements_by_xpath("//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]" % i)
+                -this is the second sibling
+
