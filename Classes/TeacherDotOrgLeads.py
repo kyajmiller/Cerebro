@@ -52,9 +52,8 @@ class TeacherDotOrgLeads(object):
                             'href')
 
             sourceText = RipPage.getPageSource(sourceWebsite)
-
-
-
+            leadArray = [title, description, requirements, sourceWebsite, sourceText]
+            self.teacherDotOrgLeadArrays.append(leadArray)
 
     def checkIfElementExists(self, xpath):
         checkElementExists = self.driver.find_elements_by_xpath(xpath)
@@ -64,4 +63,4 @@ class TeacherDotOrgLeads(object):
             return False
 
 
-TeacherDotOrgLeads()
+TeacherDotOrgLeads().getLeads()
