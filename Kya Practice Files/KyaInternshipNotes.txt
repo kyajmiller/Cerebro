@@ -2270,3 +2270,4 @@ shit dying because it ain't logged in fuckshit
             -cheese = driver.find_elements_by_xpath("//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]" % i)
                 -this is the second sibling
 
+            for the second one, will need to do something like if cheese != [], otherStuff = cheese[0].get_attribute('textContet')
