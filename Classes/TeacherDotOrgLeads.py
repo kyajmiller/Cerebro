@@ -16,7 +16,8 @@ class TeacherDotOrgLeads(object):
         pass
 
     def getTitleDivs(self):
-        pass
+        titleDivs = self.driver.find_elements_by_xpath("//h3[not(ancestor::div[@id='scholarship_intro_859'])]")
+        return titleDivs
 
 
 TeacherDotOrgLeads()
