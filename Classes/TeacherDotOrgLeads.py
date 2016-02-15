@@ -10,5 +10,13 @@ class TeacherDotOrgLeads(object):
         self.driver.get(self.base_url)
         self.driver.implicitly_wait(2)
 
+        self.teacherDotOrgLeadArrays = []
+
+    def getLeads(self):
+        pass
+
+    def getTitleDivs(self):
+        pass
+
 
 TeacherDotOrgLeads()
