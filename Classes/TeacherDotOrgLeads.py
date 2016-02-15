@@ -49,7 +49,14 @@ class TeacherDotOrgLeads(object):
                             'href')
 
             sourceText = RipPage.getPageSource(sourceWebsite)
+
+            title = CleanText.cleanALLtheText(title)
+            description = CleanText.cleanALLtheText(description)
+            requirements = CleanText.cleanALLtheText(requirements)
+            sourceText = CleanText.cleanALLtheText(sourceText)
+
             leadArray = [title, description, requirements, sourceWebsite, sourceText]
+
             self.teacherDotOrgLeadArrays.append(leadArray)
 
     def checkIfElementExists(self, xpath):
