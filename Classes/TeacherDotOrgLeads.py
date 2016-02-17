@@ -21,47 +21,49 @@ class TeacherDotOrgLeads(object):
             sourceWebsite = ''
             description = ''
 
-            if i == 0:
-                description = self.driver.find_element_by_xpath("//div[@class='intro']/p").get_attribute('textContent')
-                sourceWebsite = self.driver.find_element_by_xpath("//div[@class='intro']/p/a").get_attribute('href')
-                requirements = self.driver.find_element_by_xpath(
-                    "//div[@class='intro']/following-sibling::*[1][self::ul]").get_attribute('textContent')
-            else:
-                j = i + 1
-                if self.checkIfElementExists(
+            if title != 'Quick Links' and title != 'About Us':
+                if i == 0:
+                    description = self.driver.find_element_by_xpath("//div[@class='intro']/p").get_attribute(
+                        'textContent')
+                    sourceWebsite = self.driver.find_element_by_xpath("//div[@class='intro']/p/a").get_attribute('href')
+                    requirements = self.driver.find_element_by_xpath(
+                            "//div[@class='intro']/following-sibling::*[1][self::ul]").get_attribute('textContent')
+                else:
+                    j = i + 1
+                    if self.checkIfElementExists(
                                 "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[1]" % j):
-                    description = self.driver.find_element_by_xpath(
+                        description = self.driver.find_element_by_xpath(
                             "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[1]" % j).get_attribute(
                             'textContent')
-                if self.checkIfElementExists(
-                                "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]" % j):
-                    requirements = self.driver.find_element_by_xpath(
-                            "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]" % j).get_attribute(
-                        'textContent')
-
-                if self.checkIfElementExists(
-                                "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[1]/a" % j):
-                    sourceWebsite = self.driver.find_element_by_xpath(
-                        "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[1]/a" % j).get_attribute(
-                        'href')
-                elif self.checkIfElementExists(
-                                "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]" % j):
                     if self.checkIfElementExists(
-                                    "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]/a" % j):
+                                "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]" % j):
+                        requirements = self.driver.find_element_by_xpath(
+                            "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]" % j).get_attribute(
+                                'textContent')
+
+                    if self.checkIfElementExists(
+                                "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[1]/a" % j):
                         sourceWebsite = self.driver.find_element_by_xpath(
-                            "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]/a" % j).get_attribute(
-                            'href')
+                                "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[1]/a" % j).get_attribute(
+                                'href')
+                    elif self.checkIfElementExists(
+                                "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]" % j):
+                        if self.checkIfElementExists(
+                                    "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]/a" % j):
+                            sourceWebsite = self.driver.find_element_by_xpath(
+                                    "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]/a" % j).get_attribute(
+                                    'href')
 
-            sourceText = RipPage.getPageSource(sourceWebsite)
+                sourceText = RipPage.getPageSource(sourceWebsite)
 
-            title = CleanText.cleanALLtheText(title)
-            description = CleanText.cleanALLtheText(description)
-            requirements = CleanText.cleanALLtheText(requirements)
-            sourceText = CleanText.cleanALLtheText(sourceText)
+                title = CleanText.cleanALLtheText(title)
+                description = CleanText.cleanALLtheText(description)
+                requirements = CleanText.cleanALLtheText(requirements)
+                sourceText = CleanText.cleanALLtheText(sourceText)
 
-            leadArray = [title, description, requirements, sourceWebsite, sourceText]
+                leadArray = [title, description, requirements, sourceWebsite, sourceText]
 
-            self.teacherDotOrgLeadArrays.append(leadArray)
+                self.teacherDotOrgLeadArrays.append(leadArray)
         self.driver.close()
         return self.teacherDotOrgLeadArrays
 
