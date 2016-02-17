@@ -5,7 +5,7 @@ from Classes.CleanText import CleanText
 
 class MastersInEducationLeads(object):
     def __init__(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome('C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe')
         self.base_url = 'http://www.mastersineducation.net'
         self.driver.get(self.base_url + '/scholarships')
         self.driver.implicitly_wait(2)
