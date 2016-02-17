@@ -69,4 +69,3 @@ class TeacherDotOrgLeads(object):
             return False
 
 
-TeacherDotOrgLeads().getLeads()
