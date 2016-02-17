@@ -16,3 +16,4 @@ class InsertTeacherDotOrgLeadArrayIntoTeacherDotOrgDB(object):
         self.requirements = teacherDotOrgLeadArray[2]
         self.sourceWebsite = teacherDotOrgLeadArray[3]
         self.sourceText = teacherDotOrgLeadArray[4]
+        self.date = time.strftime('%Y%m%d')
