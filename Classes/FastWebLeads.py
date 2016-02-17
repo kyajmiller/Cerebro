@@ -7,7 +7,7 @@ from Classes.RipPage import RipPage
 
 class FastWebLeads(object):
     def __init__(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome('C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe')
         self.base_url = 'http://www.fastweb.com/'
 
         self.driver.get(self.base_url)
