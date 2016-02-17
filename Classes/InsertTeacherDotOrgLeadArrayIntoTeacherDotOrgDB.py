@@ -39,7 +39,7 @@ class InsertTeacherDotOrgLeadArrayIntoTeacherDotOrgDB(object):
     def insertUpdateLead(self):
         if not self.checkIfAlreadyInDatabase():
             self.db.insertUpdateOrDeleteDB(
-                    "insert into dbo.TeacherDotOrgLeads (Name, Description, Requirements, SourceWebsite, SourceText, FundingClassification, BadScholarship, Date) values (N'" + self.name + "', N'" + self.description + "', N'" + self.requirements + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', N'" + self.fundingClassification + "', N'" + self.badScholarship + "', '" + self.date + "')")
+                    "insert into dbo.TeacherDotOrgLeads (Name, Description, Requirements, SourceWebsite, SourceText, FundingClassification, BadScholarship, Date) values (N'" + self.name + "', N'" + self.description + "', N'" + self.requirements + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', N'" + self.fundingClassification + "', N'" + self.badScholarshipClassification + "', '" + self.date + "')")
             self.writeFileToDisk()
             return True
         else:
