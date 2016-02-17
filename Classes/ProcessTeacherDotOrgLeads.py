@@ -43,3 +43,6 @@ class ProcessTeacherDotOrgLeads(object):
             return badScholarshipPrediction
         else:
             return ''
+
+
+ProcessTeacherDotOrgLeads.getTeacherDotOrgLeadsAndInsertIntoDB()
