@@ -6,7 +6,7 @@ from Classes.RipPage import RipPage
 
 class Scholarships360Leads(object):
     def __init__(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome('C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe')
         self.base_url = 'https://scholarships360.org/'
 
         self.driver.get(self.base_url + 'discover-scholarships')
