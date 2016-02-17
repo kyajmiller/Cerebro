@@ -9,7 +9,7 @@ from Classes.CleanText import CleanText
 class ScholarsiteLeads(object):
     def __init__(self, isTest=False):
         self.isTest = isTest
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome('C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe')
         self.base_url = "http://scholarsite.com/"
 
         self.driver.get(self.base_url + "/index.php?lang=en-US")
