@@ -27,9 +27,11 @@ class TeacherDotOrgLeads(object):
                     "//div[@class='intro']/following-sibling::*[1][self::ul]").get_attribute('textContent')
             else:
                 j = i + 1
-                description = self.driver.find_element_by_xpath(
-                    "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[1]" % j).get_attribute(
-                    'textContent')
+                if self.checkIfElementExists(
+                        "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[1]"):
+                    description = self.driver.find_element_by_xpath(
+                            "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[1]" % j).get_attribute(
+                            'textContent')
                 if self.checkIfElementExists(
                                 "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]" % j):
                     requirements = self.driver.find_element_by_xpath(
