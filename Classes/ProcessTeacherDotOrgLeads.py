@@ -9,6 +9,20 @@ class ProcessTeacherDotOrgLeads(object):
     @staticmethod
     def getTeacherDotOrgLeadsAndInsertIntoDB():
         teacherDotOrgLeadArrays = TeacherDotOrgLeads().getLeads()
+        predictedFundingTypes = ProcessTeacherDotOrgLeads.classifyFunding(teacherDotOrgLeadArrays)
+        totalLeads = len(teacherDotOrgLeadArrays)
+        numNewEntries = 0
+        numUpdates = 0
+        for leadArray, fundingClassification in zip(teacherDotOrgLeadArrays, predictedFundingTypes):
+            badScholarshipClassification = ProcessTeacherDotOrgLeads.checkBadScholarship(leadArray,
+                                                                                         fundingClassification)
+            newEntryBoolean = InsertTeacherDotOrgLeadArrayIntoTeacherDotOrgDB(leadArray, fundingClassification,
+                                                                              badScholarshipClassification).insertUpdateLead()
+            if newEntryBoolean:
+                numNewEntries += 1
+            else:
+                numUpdates += 1
+        CerebroLogs('TeacherDotOrg', totalLeads, numNewEntries, numUpdates)
 
     @staticmethod
     def classifyFunding(leadsArrays):
