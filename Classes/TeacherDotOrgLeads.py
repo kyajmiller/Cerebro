@@ -19,6 +19,7 @@ class TeacherDotOrgLeads(object):
             title = titleDivs[i].get_attribute('textContent')
             requirements = ''
             sourceWebsite = ''
+            description = ''
 
             if i == 0:
                 description = self.driver.find_element_by_xpath("//div[@class='intro']/p").get_attribute('textContent')
@@ -61,6 +62,7 @@ class TeacherDotOrgLeads(object):
             leadArray = [title, description, requirements, sourceWebsite, sourceText]
 
             self.teacherDotOrgLeadArrays.append(leadArray)
+        self.driver.close()
         return self.teacherDotOrgLeadArrays
 
     def checkIfElementExists(self, xpath):
