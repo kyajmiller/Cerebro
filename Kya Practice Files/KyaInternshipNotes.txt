@@ -2284,3 +2284,8 @@ shit dying because it ain't logged in fuckshit
     -but firefox is being really weird with it
     -yeah wtf
     -going to try restarting compy and see what happens cause this is strange
+-so firefox is just broke now. need to rewrite things to work with chromedriver, had to install that
+-I think teacher.org is just down or something, or generally being stupid
+    -Site is just stupid. don-E took a look at it and their page is messed up, sometimes it works, sometimes it doesn't. Just be patient I guess.
+    -Oh lol
+    -So apparently one of the divs is also returning something like 'quick links' and 'about us'. Might need to filter that out
