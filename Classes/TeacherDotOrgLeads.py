@@ -5,7 +5,7 @@ from Classes.RipPage import RipPage
 
 class TeacherDotOrgLeads(object):
     def __init__(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome('C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe')
         self.base_url = 'http://www.teacher.org/scholarships-grants/'
         self.driver.get(self.base_url)
         self.driver.implicitly_wait(2)
@@ -33,7 +33,8 @@ class TeacherDotOrgLeads(object):
                 if self.checkIfElementExists(
                                 "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]" % j):
                     requirements = self.driver.find_element_by_xpath(
-                        "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]" % j)
+                            "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[2][(preceding-sibling::*[1][self::p])]" % j).get_attribute(
+                        'textContent')
 
                 if self.checkIfElementExists(
                                 "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[1]/a" % j):
@@ -67,3 +68,5 @@ class TeacherDotOrgLeads(object):
         else:
             return False
 
+
+TeacherDotOrgLeads().getLeads()
