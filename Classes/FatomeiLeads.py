@@ -6,7 +6,7 @@ from Classes.RipPage import RipPage
 class FatomeiLeads(object):
     def __init__(self, isTest=False):
         self.isTest = isTest
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome('C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe')
         self.base_url = "https://www.fatomei.com/"
         self.driver.get(self.base_url + '/')
         self.driver.implicitly_wait(2)
