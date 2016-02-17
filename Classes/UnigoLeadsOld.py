@@ -5,7 +5,7 @@ from Classes.CleanText import CleanText
 
 class UnigoLeads(object):
     def __init__(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome('C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe')
         self.base_url = "https://www.unigo.com/"
         self.driver.get(self.base_url + "match/scholarshipresult#/login")
         self.driver.implicitly_wait(2)
