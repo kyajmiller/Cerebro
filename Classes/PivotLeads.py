@@ -7,7 +7,7 @@ class PivotLeads(object):
     def __init__(self, searchTerm, isTest=False):
         self.searchTerm = searchTerm
         self.isTest = isTest
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome('C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe')
         self.base_url = 'http://pivot.cos.com/'
 
         self.arrayOfResultsPageArrays = []
