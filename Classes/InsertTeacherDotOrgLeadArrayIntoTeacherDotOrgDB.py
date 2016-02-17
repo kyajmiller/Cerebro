@@ -27,3 +27,11 @@ class InsertTeacherDotOrgLeadArrayIntoTeacherDotOrgDB(object):
                 "select * from dbo.TeacherDotOrgLeads where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")[
             0]
         self.fileSystemDB.writeFile(columns, currentRow, user, website, self.sourceWebsite, self.date)
+
+    def checkIfAlreadyInDatabase(self):
+        matchingRow = self.db.getRowsDB(
+                "select * from dbo.TeacherDotOrgLeads where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")
+        if matchingRow != []:
+            return True
+        else:
+            return False
