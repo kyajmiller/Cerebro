@@ -2275,3 +2275,12 @@ shit dying because it ain't logged in fuckshit
     -get the sourceWebsite depending on where in the description/requirements section it appears, get source text
     -time to test
         -seems to be working fine!
+
+2/17 Notes:
+-Need to make table for TeacherDotOrgLeads
+-Wrote the insert and process classes for TeacherDotOrg
+-This is really strange. Compy was having no problem before with going to the site, now it can't access it
+    -When I access it through chrome it's fine
+    -but firefox is being really weird with it
+    -yeah wtf
+    -going to try restarting compy and see what happens cause this is strange
