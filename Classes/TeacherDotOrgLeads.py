@@ -58,6 +58,7 @@ class TeacherDotOrgLeads(object):
             leadArray = [title, description, requirements, sourceWebsite, sourceText]
 
             self.teacherDotOrgLeadArrays.append(leadArray)
+        return self.teacherDotOrgLeadArrays
 
     def checkIfElementExists(self, xpath):
         checkElementExists = self.driver.find_elements_by_xpath(xpath)
@@ -66,5 +67,3 @@ class TeacherDotOrgLeads(object):
         else:
             return False
 
-
-TeacherDotOrgLeads().getLeads()
