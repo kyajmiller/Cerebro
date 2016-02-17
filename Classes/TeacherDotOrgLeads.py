@@ -28,7 +28,7 @@ class TeacherDotOrgLeads(object):
             else:
                 j = i + 1
                 if self.checkIfElementExists(
-                        "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[1]"):
+                                "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[1]" % j):
                     description = self.driver.find_element_by_xpath(
                             "//h3[not(ancestor::div[@id='scholarship_intro_859'])][%s]/following-sibling::p[1]" % j).get_attribute(
                             'textContent')
