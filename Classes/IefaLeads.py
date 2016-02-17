@@ -14,7 +14,7 @@ class IefaLeads(object):
     def __init__(self, isTest=False):
         self.isTest = isTest
 
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome('C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe')
         self.base_url = 'http://www.iefa.org/'
         self.driver.get(self.base_url + 'scholarships')
         self.logIn()
