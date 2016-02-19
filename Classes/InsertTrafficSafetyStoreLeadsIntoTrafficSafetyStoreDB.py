@@ -18,3 +18,4 @@ class InsertTrafficSafetyStoreLeadsIntoTrafficSafetyStoreDB(object):
         self.deadline = trafficSafetyStoreLeadArray[4]
         self.sourceWebsite = trafficSafetyStoreLeadArray[5]
         self.sourceText = trafficSafetyStoreLeadArray[6]
+        self.date = time.strftime('%Y%m%d')
