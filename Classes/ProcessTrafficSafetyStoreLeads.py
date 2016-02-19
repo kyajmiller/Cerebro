@@ -45,3 +45,6 @@ class ProcessTrafficSafetyStoreLeads(object):
             return badScholarshipPrediction
         else:
             return ''
+
+
+ProcessTrafficSafetyStoreLeads.getTrafficSafetyStoreLeadsAndInsertIntoDB()
