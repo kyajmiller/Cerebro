@@ -12,6 +12,7 @@ class TrafficSafetyStoreLeads(object):
 
     def getLeads(self):
         titleDivs = self.driver.find_elements_by_xpath("//h2[@class='col-xs-12']")
+        titlesList = [titleDiv.get_attribute('textContent') for titleDiv in titleDivs]
 
     def checkIfElementExists(self, xpath):
         checkElementExists = self.driver.find_elements_by_xpath(xpath)
