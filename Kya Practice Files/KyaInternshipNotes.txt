@@ -2289,3 +2289,15 @@ shit dying because it ain't logged in fuckshit
     -Site is just stupid. don-E took a look at it and their page is messed up, sometimes it works, sometimes it doesn't. Just be patient I guess.
     -Oh lol
     -So apparently one of the divs is also returning something like 'quick links' and 'about us'. Might need to filter that out
+
+2/19 Notes:
+-need to make more webcrawlers, work on paper stuff
+-fml I want to go home
+-not going to make one for https://app.oregonstudentaid.gov/catalog/default.aspx because wayyyy too specific to Oregon to be worth crawling for UA students
+    -Also completely lacking any sort of links or outside information
+-Will make quick crawler for https://www.trafficsafetystore.com/resources/teen-safe-driving-scholarships, doesn't have very many but I'm so bored
+-for some stupid reason it's still infinitely easier to deal with xpath testing and stuff by using firefox...
+-TrafficSafetyStoreLeads is going pretty well, it's still completely untested but it's an extremely simple website to deal with
+    -made table
+    -all of the appropriate classes written, just need to test and make sure the webscraper actually works
+    -that's totally done now
