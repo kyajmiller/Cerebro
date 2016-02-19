@@ -1,6 +1,7 @@
 from selenium import webdriver
 from Classes.CleanText import CleanText
 from Classes.RipPage import RipPage
+import re
 
 
 class TrafficSafetyStoreLeads(object):
@@ -29,6 +30,8 @@ class TrafficSafetyStoreLeads(object):
     def getDescriptionsList(self):
         descriptionDivs = self.driver.find_elements_by_xpath("//div[@class='col-md-10 col-md-offset-1']/div[1]/p[1]")
         descriptionsList = [descriptionDiv.get_attribute('textContent') for descriptionDiv in descriptionDivs]
+
+        descriptionsList = [re.sub('Details: ', '', description) for description in descriptionsList]
 
         descriptionsList = [CleanText.cleanALLtheText(description) for description in descriptionsList]
 
