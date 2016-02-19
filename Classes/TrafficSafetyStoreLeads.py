@@ -61,6 +61,8 @@ class TrafficSafetyStoreLeads(object):
         deadlineDivs = self.driver.find_elements_by_xpath("//div[@class='col-md-10 col-md-offset-1']/div[2]/p[2]")
         deadlinesList = [deadlineDiv.get_attribute('textContent') for deadlineDiv in deadlineDivs]
 
+        deadlinesList = [re.sub('Deadline: ', '', deadline) for deadline in deadlinesList]
+
         deadlinesList = [CleanText.cleanALLtheText(deadline) for deadline in deadlinesList]
 
         return deadlinesList
