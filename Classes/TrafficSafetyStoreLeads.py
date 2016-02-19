@@ -13,10 +13,10 @@ class TrafficSafetyStoreLeads(object):
     def getLeads(self):
         titlesList = self.getTitlesList()
         descriptionsList = self.getDescriptionsList()
+        eligibilitiesList = self.getEligibilitiesList()
         awardsList = self.getAwardsList()
 
-        eligibilityDivs = self.driver.find_elements_by_xpath("//div[@class='col-md-10 col-md-offset-1']/div[1]/p[2]")
-        eligbilitiesList = [eligibilityDiv.get_attribute('textContent') for eligibilityDiv in eligibilityDivs]
+
 
 
 
@@ -49,6 +49,14 @@ class TrafficSafetyStoreLeads(object):
         awardsList = [CleanText.cleanALLtheText(award) for award in awardsList]
 
         return awardsList
+
+    def getEligibilitiesList(self):
+        eligibilityDivs = self.driver.find_elements_by_xpath("//div[@class='col-md-10 col-md-offset-1']/div[1]/p[2]")
+        eligbilitiesList = [eligibilityDiv.get_attribute('textContent') for eligibilityDiv in eligibilityDivs]
+
+        eligbilitiesList = [CleanText.cleanALLtheText(eligibility) for eligibility in eligbilitiesList]
+
+        return eligbilitiesList
 
     def checkIfElementExists(self, xpath):
         checkElementExists = self.driver.find_elements_by_xpath(xpath)
