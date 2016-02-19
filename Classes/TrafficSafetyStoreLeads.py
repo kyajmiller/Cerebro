@@ -73,6 +73,8 @@ class TrafficSafetyStoreLeads(object):
 
         deadlinesList = [re.sub('Deadline: ', '', deadline) for deadline in deadlinesList]
 
+        deadlinesList = [re.sub('\(.*?\)', '', deadline) for deadline in deadlinesList]
+
         deadlinesList = [CleanText.cleanALLtheText(deadline) for deadline in deadlinesList]
 
         return deadlinesList
