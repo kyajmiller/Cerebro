@@ -37,3 +37,15 @@ class InsertTrafficSafetyStoreLeadsIntoTrafficSafetyStoreDB(object):
             return True
         else:
             return False
+
+    def insertUpdateLead(self):
+        if not self.checkIfAlreadyInDatabase():
+            self.db.insertUpdateOrDeleteDB(
+                    "insert into dbo.TrafficSafetyStoreLeads (Name, Description, Eligibility, Awards, Deadline, SourceWebsite, SourceText, FundingClassification, BadScholarship, Date) values (N'" + self.name + "', N'" + self.description + "', N'" + self.eligibility + "', N'" + self.award + "', N'" + self.deadline + "', N'" + self.sourceWebsite + "', N'" + self.sourceText + "', N'" + self.fundingClassification + "', N'" + self.badScholarshipClassification + "', '" + self.date + "')")
+            self.writeFileToDisk()
+            return True
+        else:
+            self.db.insertUpdateOrDeleteDB(
+                    "update dbo.TrafficSafetyStoreLeads set Description=N'" + self.description + "', Eligibility=N'" + self.eligibility + "', Awards=N'" + self.award + "', Deadline=N'" + self.deadline + "', SourceText=N'" + self.sourceText + "', FundingClassification='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassification + "', Date='" + self.date + "' where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")
+            self.writeFileToDisk()
+            return False
