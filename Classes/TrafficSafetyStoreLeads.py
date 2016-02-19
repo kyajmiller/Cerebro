@@ -11,11 +11,8 @@ class TrafficSafetyStoreLeads(object):
         self.driver.implicitly_wait(2)
 
     def getLeads(self):
-        titleDivs = self.driver.find_elements_by_xpath("//h2[@class='col-xs-12']")
-        titlesList = [titleDiv.get_attribute('textContent') for titleDiv in titleDivs]
-
-        descriptionDivs = self.driver.find_elements_by_xpath("//div[@class='col-md-10 col-md-offset-1']/div[1]/p[1]")
-        descriptionsList = [descriptionDiv.get_attribute('textContent') for descriptionDiv in descriptionDivs]
+        titlesList = self.getTitlesList()
+        descriptionsList = self.getDescriptionsList()
 
         eligibilityDivs = self.driver.find_elements_by_xpath("//div[@class='col-md-10 col-md-offset-1']/div[1]/p[2]")
         eligbilitiesList = [eligibilityDiv.get_attribute('textContent') for eligibilityDiv in eligibilityDivs]
@@ -36,6 +33,14 @@ class TrafficSafetyStoreLeads(object):
         titlesList = [CleanText.cleanALLtheText(title) for title in titlesList]
 
         return titlesList
+
+    def getDescriptionsList(self):
+        descriptionDivs = self.driver.find_elements_by_xpath("//div[@class='col-md-10 col-md-offset-1']/div[1]/p[1]")
+        descriptionsList = [descriptionDiv.get_attribute('textContent') for descriptionDiv in descriptionDivs]
+
+        descriptionsList = [CleanText.cleanALLtheText(description) for description in descriptionsList]
+
+        return descriptionsList
 
     def checkIfElementExists(self, xpath):
         checkElementExists = self.driver.find_elements_by_xpath(xpath)
