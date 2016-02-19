@@ -17,6 +17,9 @@ class TrafficSafetyStoreLeads(object):
         descriptionDivs = self.driver.find_elements_by_xpath("//div[@class='col-md-10 col-md-offset-1']/div[1]/p[1]")
         descriptionsList = [descriptionDiv.get_attribute('textContent') for descriptionDiv in descriptionDivs]
 
+        eligibilityDivs = self.driver.find_elements_by_xpath("//div[@class='col-md-10 col-md-offset-1']/div[1]/p[2]")
+        eligbilitiesList = [eligibilityDiv.get_attribute('textContent') for eligibilityDiv in eligibilityDivs]
+
     def checkIfElementExists(self, xpath):
         checkElementExists = self.driver.find_elements_by_xpath(xpath)
         if checkElementExists != []:
