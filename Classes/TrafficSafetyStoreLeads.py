@@ -41,6 +41,8 @@ class TrafficSafetyStoreLeads(object):
         awardDivs = self.driver.find_elements_by_xpath("//div[@class='col-md-10 col-md-offset-1']/div[2]/p[1]")
         awardsList = [awardDiv.get_attribute('textContent') for awardDiv in awardDivs]
 
+        awardsList = [re.sub('Awards: ', '', award) for award in awardsList]
+
         awardsList = [CleanText.cleanALLtheText(award) for award in awardsList]
 
         return awardsList
