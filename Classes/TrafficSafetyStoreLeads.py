@@ -51,6 +51,8 @@ class TrafficSafetyStoreLeads(object):
         eligibilityDivs = self.driver.find_elements_by_xpath("//div[@class='col-md-10 col-md-offset-1']/div[1]/p[2]")
         eligbilitiesList = [eligibilityDiv.get_attribute('textContent') for eligibilityDiv in eligibilityDivs]
 
+        eligbilitiesList = [re.sub('Who can apply\? ', '', eligibility) for eligibility in eligbilitiesList]
+
         eligbilitiesList = [CleanText.cleanALLtheText(eligibility) for eligibility in eligbilitiesList]
 
         return eligbilitiesList
