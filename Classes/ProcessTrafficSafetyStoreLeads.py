@@ -10,6 +10,21 @@ class ProcessTrafficSafetyStoreLeads(object):
     @staticmethod
     def getTrafficSafetyStoreLeadsAndInsertIntoDB():
         trafficSafetyStoreLeadArrays = TrafficSafetyStoreLeads().getLeads()
+        predictedFundingTypes = ProcessTrafficSafetyStoreLeads.classifyFunding(trafficSafetyStoreLeadArrays)
+        totalLeads = len(trafficSafetyStoreLeadArrays)
+        numNewEntries = 0
+        numUpdates = 0
+        for leadArray, fundingClassification in zip(trafficSafetyStoreLeadArrays, predictedFundingTypes):
+            badScholarshipClassification = ProcessTrafficSafetyStoreLeads.checkBadScholarship(leadArray,
+                                                                                              fundingClassification)
+            newEntryBoolean = InsertTrafficSafetyStoreLeadsIntoTrafficSafetyStoreDB(leadArray, fundingClassification,
+                                                                                    badScholarshipClassification).insertUpdateLead()
+            if newEntryBoolean:
+                numNewEntries += 1
+            else:
+                numUpdates += 1
+        CerebroLogs('TrafficSafetyStore', totalLeads, numNewEntries, numUpdates)
+
 
     @staticmethod
     def classifyFunding(leadsArrays):
