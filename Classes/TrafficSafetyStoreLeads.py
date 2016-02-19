@@ -16,15 +16,7 @@ class TrafficSafetyStoreLeads(object):
         eligibilitiesList = self.getEligibilitiesList()
         awardsList = self.getAwardsList()
         deadlinesList = self.getDeadlinesList()
-
-
-
-
-
-
-
-        sourceWebsiteDivs = self.driver.find_elements_by_xpath("//div[@class='col-xs-8 col-xs-offset-2']/a")
-        sourceWebsitesList = [sourceWebsiteDiv.get_attribute('href') for sourceWebsiteDiv in sourceWebsiteDivs]
+        sourceWebsitesList, sourceTextsList = self.getSourceWebsitesAndSourceTexts()
 
     def getTitlesList(self):
         titleDivs = self.driver.find_elements_by_xpath("//h2[@class='col-xs-12']")
@@ -65,6 +57,14 @@ class TrafficSafetyStoreLeads(object):
         deadlinesList = [CleanText.cleanALLtheText(deadline) for deadline in deadlinesList]
 
         return deadlinesList
+
+    def getSourceWebsitesAndSourceTexts(self):
+        sourceWebsiteDivs = self.driver.find_elements_by_xpath("//div[@class='col-xs-8 col-xs-offset-2']/a")
+        sourceWebsitesList = [sourceWebsiteDiv.get_attribute('href') for sourceWebsiteDiv in sourceWebsiteDivs]
+
+        sourceTextsList = [RipPage.getPageSource(sourceWebsite) for sourceWebsite in sourceWebsitesList]
+
+        return sourceWebsitesList, sourceTextsList
 
     def checkIfElementExists(self, xpath):
         checkElementExists = self.driver.find_elements_by_xpath(xpath)
