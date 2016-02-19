@@ -9,3 +9,13 @@ class TrafficSafetyStoreLeads(object):
         self.base_url = 'https://www.trafficsafetystore.com/resources/teen-safe-driving-scholarships'
         self.driver.get(self.base_url)
         self.driver.implicitly_wait(2)
+
+    def getLeads(self):
+        titleDivs = self.driver.find_elements_by_xpath("//h2[@class='col-xs-12']")
+
+    def checkIfElementExists(self, xpath):
+        checkElementExists = self.driver.find_elements_by_xpath(xpath)
+        if checkElementExists != []:
+            return True
+        else:
+            return False
