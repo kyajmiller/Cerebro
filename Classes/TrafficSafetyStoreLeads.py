@@ -83,6 +83,8 @@ class TrafficSafetyStoreLeads(object):
 
         sourceTextsList = [RipPage.getPageSource(sourceWebsite) for sourceWebsite in sourceWebsitesList]
 
+        sourceTextsList = [CleanText.cleanALLtheText(sourceText) for sourceText in sourceTextsList]
+
         return sourceWebsitesList, sourceTextsList
 
     def checkIfElementExists(self, xpath):
