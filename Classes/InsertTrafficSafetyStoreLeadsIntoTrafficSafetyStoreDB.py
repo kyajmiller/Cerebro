@@ -19,3 +19,13 @@ class InsertTrafficSafetyStoreLeadsIntoTrafficSafetyStoreDB(object):
         self.sourceWebsite = trafficSafetyStoreLeadArray[5]
         self.sourceText = trafficSafetyStoreLeadArray[6]
         self.date = time.strftime('%Y%m%d')
+
+    def writeFileToDisk(self):
+        tableName = 'TrafficSafetyStoreLeads'
+        user = 'Kya'
+        website = re.sub('Leads', '', tableName)
+        columns = self.db.getColumnNamesFromTable(tableName)
+        currentRow = self.db.getRowsDB(
+                "select * from dbo.TrafficSafetyStoreLeads where Name='" + self.name + "' and SourceWebsite='" + self.sourceWebsite + "'")[
+            0]
+        self.fileSystemDB.writeFile(columns, currentRow, user, website, self.sourceWebsite, self.date)
