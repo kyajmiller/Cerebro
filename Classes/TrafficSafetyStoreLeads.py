@@ -11,6 +11,8 @@ class TrafficSafetyStoreLeads(object):
         self.driver.get(self.base_url)
         self.driver.implicitly_wait(2)
 
+        self.trafficSafetyStoryLeadArrays = []
+
     def getLeads(self):
         titlesList = self.getTitlesList()
         descriptionsList = self.getDescriptionsList()
@@ -18,6 +20,14 @@ class TrafficSafetyStoreLeads(object):
         awardsList = self.getAwardsList()
         deadlinesList = self.getDeadlinesList()
         sourceWebsitesList, sourceTextsList = self.getSourceWebsitesAndSourceTexts()
+
+        for i in range(len(titlesList)):
+            leadArray = [titlesList[i], descriptionsList[i], eligibilitiesList[i], awardsList[i], deadlinesList[i],
+                         sourceWebsitesList[i], sourceTextsList[i]]
+            self.trafficSafetyStoryLeadArrays.append(leadArray)
+
+        self.driver.close()
+        return self.trafficSafetyStoryLeadArrays
 
     def getTitlesList(self):
         titleDivs = self.driver.find_elements_by_xpath("//h2[@class='col-xs-12']")
