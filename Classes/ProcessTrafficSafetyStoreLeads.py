@@ -38,7 +38,7 @@ class ProcessTrafficSafetyStoreLeads(object):
     @staticmethod
     def checkBadScholarship(leadArray, fundingClassification):
         if fundingClassification == 'Scholarship':
-            sponsor = leadArray[7]
+            sponsor = ''
             infoText = '%s %s' % (leadArray[1], leadArray[2])
             badScholarshipClassifier = ClassifyBadScholarships()
             badScholarshipPrediction = badScholarshipClassifier.classifyOpportunity(sponsor, infoText)
