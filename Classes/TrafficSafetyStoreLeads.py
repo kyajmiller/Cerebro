@@ -20,6 +20,12 @@ class TrafficSafetyStoreLeads(object):
         eligibilityDivs = self.driver.find_elements_by_xpath("//div[@class='col-md-10 col-md-offset-1']/div[1]/p[2]")
         eligbilitiesList = [eligibilityDiv.get_attribute('textContent') for eligibilityDiv in eligibilityDivs]
 
+        awardDivs = self.driver.find_elements_by_xpath("//div[@class='col-md-10 col-md-offset-1']/div[2]/p[1]")
+        awardsList = [awardDiv.get_attribute('textContent') for awardDiv in awardDivs]
+
+        deadlineDivs = self.driver.find_elements_by_xpath("//div[@class='col-md-10 col-md-offset-1']/div[2]/p[2]")
+        deadlinesList = [deadlineDiv.get_attribute('textContent') for deadlineDiv in deadlineDivs]
+
     def checkIfElementExists(self, xpath):
         checkElementExists = self.driver.find_elements_by_xpath(xpath)
         if checkElementExists != []:
