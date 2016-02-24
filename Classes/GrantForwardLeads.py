@@ -85,36 +85,38 @@ class GrantForwardLeads(object):
         deadline = ''
 
         if self.checkIfElementExists("//div[@id = 'field-description']/div[@class = 'content-collapsed']"):
-            descriptionDiv = self.driver.find_element_by_xpath(
-                "//div[@id = 'field-description']/div[@class = 'content-collapsed']")
-            description = CleanText.cleanALLtheText(descriptionDiv.get_attribute('textContent'))
+            description = self.driver.find_element_by_xpath(
+                "//div[@id = 'field-description']/div[@class = 'content-collapsed']").get_attribute('textContent')
+            description = CleanText.cleanALLtheText(description)
 
         if self.checkIfElementExists("//div[@class = 'sponsor-content']/div/a"):
-            sponsorDiv = self.driver.find_element_by_xpath("//div[@class = 'sponsor-content']/div/a")
-            sponsor = CleanText.cleanALLtheText(sponsorDiv.get_attribute('textContent'))
+            sponsor = self.driver.find_element_by_xpath("//div[@class = 'sponsor-content']/div/a").get_attribute(
+                'textContent')
+            sponsor = CleanText.cleanALLtheText(sponsor)
 
         if self.checkIfElementExists("//div[@id = 'field-amount_info']/div[@class = 'content-collapsed']"):
-            amountDiv = self.driver.find_element_by_xpath(
-                "//div[@id = 'field-amount_info']/div[@class = 'content-collapsed']")
-            amount = CleanText.cleanALLtheText(amountDiv.get_attribute('textContent'))
+            amount = self.driver.find_element_by_xpath(
+                "//div[@id = 'field-amount_info']/div[@class = 'content-collapsed']").get_attribute('textContent')
+            amount = CleanText.cleanALLtheText(amount)
 
         if self.checkIfElementExists("//div[@id = 'field-eligibility']/div[@class = 'content-collapsed']"):
-            eligibilityDiv = self.driver.find_element_by_xpath(
-                "//div[@id = 'field-eligibility']/div[@class = 'content-collapsed']")
-            eligibility = CleanText.cleanALLtheText(eligibilityDiv.get_attribute('textContent'))
+            eligibility = self.driver.find_element_by_xpath(
+                "//div[@id = 'field-eligibility']/div[@class = 'content-collapsed']").get_attribute('textContent')
+            eligibility = CleanText.cleanALLtheText(eligibility)
 
         if self.checkIfElementExists("//div[@id = 'field-submission_info']/div[@class = 'content-collapsed']"):
-            submissionInfoDiv = self.driver.find_element_by_xpath(
-                "//div[@id = 'field-submission_info']/div[@class = 'content-collapsed']")
-            submissionInfo = CleanText.cleanALLtheText(submissionInfoDiv.get_attribute('textContent'))
+            submissionInfo = self.driver.find_element_by_xpath(
+                "//div[@id = 'field-submission_info']/div[@class = 'content-collapsed']").get_attribute('textContent')
+            submissionInfo = CleanText.cleanALLtheText(submissionInfo)
 
         if self.checkIfElementExists("//div[@id = 'field-subjects']/ul"):
-            categoriesDiv = self.driver.find_element_by_xpath("//div[@id = 'field-subjects']/ul")
-            categories = CleanText.cleanALLtheText(categoriesDiv.get_attribute('textContent'))
+            categories = self.driver.find_element_by_xpath("//div[@id = 'field-subjects']/ul").get_attribute(
+                'textContent')
+            categories = CleanText.cleanALLtheText(categories)
 
         if self.checkIfElementExists("//a[@class = 'source-link btn btn-warning']"):
-            sourceWebsiteDiv = self.driver.find_element_by_xpath("//a[@class = 'source-link btn btn-warning']")
-            sourceWebsite = sourceWebsiteDiv.get_attribute('href')
+            sourceWebsite = self.driver.find_element_by_xpath(
+                "//a[@class = 'source-link btn btn-warning']").get_attribute('href')
             sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(sourceWebsite))
 
         if self.checkIfElementExists("//div[@class='table-responsive deadline-tables']/table/tbody"):
