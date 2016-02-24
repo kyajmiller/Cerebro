@@ -4,9 +4,12 @@ import re
 
 
 class InsertGrantForwardLeadsArrayIntoGrantForwardItems(object):
-    def __init__(self, grantForwardLeadArray):
+    def __init__(self, grantForwardLeadArray, fundingClassification, badScholarshipClassification):
         self.grantForwardLeadArray = grantForwardLeadArray
+        self.fundingClassification = fundingClassification
+        self.badScholarshipClassificaion = badScholarshipClassification
         self.db = SUDBConnect()
+        self.fileSystemDB = SUDBConnect(destination='filesystem')
 
         self.keyword = self.grantForwardLeadArray[0]
         self.url = self.grantForwardLeadArray[1]
@@ -19,6 +22,7 @@ class InsertGrantForwardLeadsArrayIntoGrantForwardItems(object):
         self.categories = self.grantForwardLeadArray[8]
         self.opportunitySourceLink = self.grantForwardLeadArray[9]
         self.opportunitySourceText = self.grantForwardLeadArray[10]
+        self.date = time.strftime('%Y%m%d')
 
         if not self.checkIfAlreadyInDatabase():
             self.db.insertUpdateOrDeleteDB(
