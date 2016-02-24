@@ -14,8 +14,11 @@ class GrantForwardLeads(object):
         self.arrayOfResultsPageArrays = []
 
         self.driver.get(self.base_url + '/index')
-        self.driver.find_element_by_id('keyword').clear()
-        self.driver.find_element_by_id('keyword').send_keys(self.searchTerm)
+        self.driver.find_element_by_xpath(
+            "//input[@class='input-lg form-control js-basic-search-text ui-autocomplete-input']").clear()
+        self.driver.find_element_by_xpath(
+            "//input[@class='input-lg form-control js-basic-search-text ui-autocomplete-input']").send_keys(
+            self.searchTerm)
         self.driver.find_element_by_xpath('//div[2]/button').click()
         self.driver.implicitly_wait(2)
 
