@@ -80,40 +80,43 @@ class GrantForwardLeads(object):
         submissionInfo = ''
         categories = ''
         sourceWebsite = ''
+        sourceText = ''
 
         if self.checkIfElementExists("//div[@id = 'field-description']/div[@class = 'content-collapsed']"):
             descriptionDiv = self.driver.find_element_by_xpath(
                 "//div[@id = 'field-description']/div[@class = 'content-collapsed']")
-            description = descriptionDiv.get_attribute('textContent')
+            description = CleanText.cleanALLtheText(descriptionDiv.get_attribute('textContent'))
 
         if self.checkIfElementExists("//div[@class = 'sponsor-content']/div/a"):
             sponsorDiv = self.driver.find_element_by_xpath("//div[@class = 'sponsor-content']/div/a")
-            sponsor = sponsorDiv.get_attribute('textContent')
+            sponsor = CleanText.cleanALLtheText(sponsorDiv.get_attribute('textContent'))
 
         if self.checkIfElementExists("//div[@id = 'field-amount_info']/div[@class = 'content-collapsed']"):
             amountDiv = self.driver.find_element_by_xpath(
                 "//div[@id = 'field-amount_info']/div[@class = 'content-collapsed']")
-            amount = amountDiv.get_attribute('textContent')
+            amount = CleanText.cleanALLtheText(amountDiv.get_attribute('textContent'))
 
         if self.checkIfElementExists("//div[@id = 'field-eligibility']/div[@class = 'content-collapsed']"):
             eligibilityDiv = self.driver.find_element_by_xpath(
                 "//div[@id = 'field-eligibility']/div[@class = 'content-collapsed']")
-            eligibility = eligibilityDiv.get_attribute('textContent')
+            eligibility = CleanText.cleanALLtheText(eligibilityDiv.get_attribute('textContent'))
 
         if self.checkIfElementExists("//div[@id = 'field-submission_info']/div[@class = 'content-collapsed']"):
             submissionInfoDiv = self.driver.find_element_by_xpath(
                 "//div[@id = 'field-submission_info']/div[@class = 'content-collapsed']")
-            submissionInfo = submissionInfoDiv.get_attribute('textContent')
+            submissionInfo = CleanText.cleanALLtheText(submissionInfoDiv.get_attribute('textContent'))
 
         if self.checkIfElementExists("//div[@id = 'field-subjects']/ul"):
             categoriesDiv = self.driver.find_element_by_xpath("//div[@id = 'field-subjects']/ul")
-            categories = categoriesDiv.get_attribute('textContent')
+            categories = CleanText.cleanALLtheText(categoriesDiv.get_attribute('textContent'))
 
         if self.checkIfElementExists("//a[@class = 'source-link btn btn-warning']"):
             sourceWebsiteDiv = self.driver.find_element_by_xpath("//a[@class = 'source-link btn btn-warning']")
             sourceWebsite = sourceWebsiteDiv.get_attribute('href')
+            sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(sourceWebsite))
 
-        resultPageInfo = [description, sponsor, amount, eligibility, submissionInfo, categories, sourceWebsite]
+        resultPageInfo = [description, sponsor, amount, eligibility, submissionInfo, categories, sourceWebsite,
+                          sourceText]
         return resultPageInfo
 
     def checkIfNextPage(self):
