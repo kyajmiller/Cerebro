@@ -110,8 +110,8 @@ class GrantForwardLeads(object):
             categories = categoriesDiv.get_attribute('textContent')
 
         if self.checkIfElementExists("//a[@class = 'source-link btn btn-warning']"):
-            opportunitySourceLinkDiv = self.driver.find_element_by_xpath("//a[@class = 'source-link btn btn-warning']")
-            sourceWebsite = opportunitySourceLinkDiv.get_attribute('href')
+            sourceWebsiteDiv = self.driver.find_element_by_xpath("//a[@class = 'source-link btn btn-warning']")
+            sourceWebsite = sourceWebsiteDiv.get_attribute('href')
 
         resultPageInfo = [description, sponsor, amount, eligibility, submissionInfo, categories, sourceWebsite]
         return resultPageInfo
