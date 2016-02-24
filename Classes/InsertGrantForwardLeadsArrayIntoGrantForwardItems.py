@@ -35,3 +35,12 @@ class InsertGrantForwardLeadsArrayIntoGrantForwardItems(object):
             return True
         else:
             return False
+
+    def writeFileToDisk(self):
+        tableName = 'GrantForwardLeads'
+        user = 'Kya'
+        website = re.sub('Leads', '', tableName)
+        columns = self.db.getColumnNamesFromTable(tableName)
+        currentRow = self.db.getRowsDB(
+                "select * from dbo.GrantForwardLeads where Name='" + self.name + "' and Url='" + self.url + "'")[0]
+        self.fileSystemDB.writeFile(columns, currentRow, user, website, self.url, self.date)
