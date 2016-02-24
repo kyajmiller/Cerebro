@@ -21,7 +21,7 @@ class GetFastFindMajorsList(object):
         fastFindMajorsList = GetFastFindMajorsList.getDefaultList()
         db = SUDBConnect
 
-        rows = db.getRowsDB("SELECT DISTINCT Keyword FROM dbo.GrantForwardItems")
+        rows = db.getRowsDB("SELECT DISTINCT Keyword FROM dbo.GrantForwardLeads")
         existingKeywordsInTable = []
         for row in rows:
             existingKeywordsInTable.append(' ' + row.Keyword)
