@@ -56,17 +56,17 @@ class GrantForwardLeads(object):
         resultPageInfo = self.goToResultPageAndPullInformation(url)
 
         keyword = CleanText.cleanALLtheText(self.searchTerm)
-        description = CleanText.cleanALLtheText(resultPageInfo[0])
-        sponsor = CleanText.cleanALLtheText(resultPageInfo[1])
-        amount = CleanText.cleanALLtheText(resultPageInfo[2])
-        eligibility = CleanText.cleanALLtheText(resultPageInfo[3])
-        submissionInfo = CleanText.cleanALLtheText(resultPageInfo[4])
-        categories = CleanText.cleanALLtheText(resultPageInfo[5])
-        opportunitySourceLink = resultPageInfo[6]
-        opportunitySourceText = CleanText.cleanALLtheText(RipPage.getPageSource(opportunitySourceLink))
+        description = resultPageInfo[0]
+        sponsor = resultPageInfo[1]
+        amount = resultPageInfo[2]
+        eligibility = resultPageInfo[3]
+        submissionInfo = resultPageInfo[4]
+        categories = resultPageInfo[5]
+        sourceWebsite = resultPageInfo[6]
+        sourceText = resultPageInfo[7]
 
         singleLeadArray = [keyword, url, name, description, sponsor, amount, eligibility, submissionInfo, categories,
-                           opportunitySourceLink, opportunitySourceText]
+                           sourceWebsite, sourceText]
 
         self.arrayOfGrantForwardLeads.append(singleLeadArray)
 
