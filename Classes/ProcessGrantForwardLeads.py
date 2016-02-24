@@ -46,3 +46,6 @@ class ProcessGrantForwardLeads(object):
             return badScholarshipPrediction
         else:
             return ''
+
+
+ProcessGrantForwardLeads.getGrantForwardLeadsInsertIntoDB()
