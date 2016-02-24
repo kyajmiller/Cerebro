@@ -19,9 +19,9 @@ class GetFastFindMajorsList(object):
     @staticmethod
     def getGrantForwardItemsList():
         fastFindMajorsList = GetFastFindMajorsList.getDefaultList()
-        db = SUDBConnect
+        db = SUDBConnect()
 
-        rows = db.getRowsDB("SELECT DISTINCT Keyword FROM dbo.GrantForwardLeads")
+        rows = db.getRowsDB("select distinct Keyword from dbo.GrantForwardLeads")
         existingKeywordsInTable = []
         for row in rows:
             existingKeywordsInTable.append(' ' + row.Keyword)
