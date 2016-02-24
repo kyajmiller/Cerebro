@@ -79,7 +79,7 @@ class GrantForwardLeads(object):
         eligibility = ''
         submissionInfo = ''
         categories = ''
-        opportunitySourceLink = ''
+        sourceWebsite = ''
 
         if self.checkIfElementExists("//div[@id = 'field-description']/div[@class = 'content-collapsed']"):
             descriptionDiv = self.driver.find_element_by_xpath(
@@ -111,9 +111,9 @@ class GrantForwardLeads(object):
 
         if self.checkIfElementExists("//a[@class = 'source-link btn btn-warning']"):
             opportunitySourceLinkDiv = self.driver.find_element_by_xpath("//a[@class = 'source-link btn btn-warning']")
-            opportunitySourceLink = opportunitySourceLinkDiv.get_attribute('href')
+            sourceWebsite = opportunitySourceLinkDiv.get_attribute('href')
 
-        resultPageInfo = [description, sponsor, amount, eligibility, submissionInfo, categories, opportunitySourceLink]
+        resultPageInfo = [description, sponsor, amount, eligibility, submissionInfo, categories, sourceWebsite]
         return resultPageInfo
 
     def checkIfNextPage(self):
