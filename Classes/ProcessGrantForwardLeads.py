@@ -7,18 +7,25 @@ from Classes.CerebroLogs import CerebroLogs
 
 
 class ProcessGrantForwardLeads(object):
-    def __init__(self, arrayOfGrantForwardLeads):
-        self.arrayOfGrantForwardLeads = arrayOfGrantForwardLeads
-
-        for grantForwardLeadArray in self.arrayOfGrantForwardLeads:
-            InsertGrantForwardLeadsArrayIntoGrantForwardItems(grantForwardLeadArray)
-
     @staticmethod
     def getGrantForwardLeadsInsertIntoDB():
         majorsList = GetFastFindMajorsList.getGrantForwardItemsList()
         for major in majorsList:
             grantForwardLeadsArrays = GrantForwardLeads(major).processSearchResultsAndMakeLeadArray()
             predictedFundingTypes = ProcessGrantForwardLeads.classifyFunding(grantForwardLeadsArrays)
+            totalLeads = len(grantForwardLeadsArrays)
+            numNewEntries = 0
+            numUpdates = 0
+            for leadArray, fundingClassification in zip(grantForwardLeadsArrays, predictedFundingTypes):
+                badScholarshipClassification = ProcessGrantForwardLeads.checkBadScholarship(leadArray,
+                                                                                            fundingClassification)
+                newEntryBoolean = InsertGrantForwardLeadsArrayIntoGrantForwardItems(leadArray, fundingClassification,
+                                                                                    badScholarshipClassification).insertUpdateLead()
+                if newEntryBoolean == True:
+                    numNewEntries += 1
+                else:
+                    numUpdates += 1
+            CerebroLogs('GrantForward (%s)' % major, totalLeads, numNewEntries, numUpdates)
 
     @staticmethod
     def classifyFunding(leadsArrays):
