@@ -64,9 +64,10 @@ class GrantForwardLeads(object):
         categories = resultPageInfo[5]
         sourceWebsite = resultPageInfo[6]
         sourceText = resultPageInfo[7]
+        deadline = resultPageInfo[8]
 
         singleLeadArray = [keyword, url, name, description, sponsor, amount, eligibility, submissionInfo, categories,
-                           sourceWebsite, sourceText]
+                           sourceWebsite, sourceText, deadline]
 
         self.arrayOfGrantForwardLeads.append(singleLeadArray)
 
@@ -81,6 +82,7 @@ class GrantForwardLeads(object):
         categories = ''
         sourceWebsite = ''
         sourceText = ''
+        deadline = ''
 
         if self.checkIfElementExists("//div[@id = 'field-description']/div[@class = 'content-collapsed']"):
             descriptionDiv = self.driver.find_element_by_xpath(
@@ -115,8 +117,13 @@ class GrantForwardLeads(object):
             sourceWebsite = sourceWebsiteDiv.get_attribute('href')
             sourceText = CleanText.cleanALLtheText(RipPage.getPageSource(sourceWebsite))
 
+        if self.checkIfElementExists("//div[@class='table-responsive deadline-tables']/table/tbody"):
+            deadline = self.driver.find_element_by_xpath(
+                "//div[@class='table-responsive deadline-tables']/table/tbody").get_attribute('textContent')
+            deadline = CleanText.cleanALLtheText(deadline)
+
         resultPageInfo = [description, sponsor, amount, eligibility, submissionInfo, categories, sourceWebsite,
-                          sourceText]
+                          sourceText, deadline]
         return resultPageInfo
 
     def checkIfNextPage(self):
