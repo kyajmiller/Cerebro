@@ -30,7 +30,7 @@ class InsertGrantForwardLeadsArrayIntoGrantForwardItems(object):
 
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
-            "select * from dbo.GrantForwardItems where Keyword='" + self.keyword + "' and Url='" + self.url + "'")
+                "select * from dbo.GrantForwardItems where Name='" + self.name + "' and Url='" + self.url + "'")
         if matchingRow != []:
             return True
         else:
