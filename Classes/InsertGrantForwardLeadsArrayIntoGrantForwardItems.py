@@ -50,6 +50,6 @@ class InsertGrantForwardLeadsArrayIntoGrantForwardItems(object):
             return True
         else:
             self.db.insertUpdateOrDeleteDB(
-                    "update dbo.CheggLeads set Deadline=N'" + self.deadline + "', Amount=N'" + self.amount + "', Eligibility=N'" + self.eligibility + "', ApplicationOverview=N'" + self.applicationOverview + "', Description=N'" + self.description + "', Sponsor=N'" + self.sponsor + "', SourceWebsite=N'" + self.sourceWebsite + "', SourceText=N'" + self.sourceText + "', Date='" + self.date + "', Tag='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassification + "' where Name='" + self.name + "' and Url='" + self.url + "'")
+                    "update dbo.GrantForwardLeads set Name=N'" + self.name + "', Description=N'" + self.description + "', Sponsor=N'" + self.sponsor + "', Amount=N'" + self.amount + "', Eligibility=N'" + self.eligibility + "', SubmissionInfo=N'" + self.submissionInfo + "', Categories=N'" + self.categories + "', SourceWebsite='" + self.sourceWebsite + "', SourceText=N'" + self.sourceText + "', Deadline=N'" + self.deadline + "', FundingClassification='" + self.fundingClassification + "', BadScholarship='" + self.badScholarshipClassification + "', Date='" + self.date + "' where Keyword='" + self.keyword + "' and Url='" + self.url + "'")
             self.writeFileToDisk()
             return False
