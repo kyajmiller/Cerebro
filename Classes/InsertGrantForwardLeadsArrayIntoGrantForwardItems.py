@@ -25,10 +25,6 @@ class InsertGrantForwardLeadsArrayIntoGrantForwardItems(object):
         self.deadline = ''
         self.date = time.strftime('%Y%m%d')
 
-        if not self.checkIfAlreadyInDatabase():
-            self.db.insertUpdateOrDeleteDB(
-                "insert into dbo.GrantForwardItems (Keyword, Url, Name, Description, Sponsor, Amount, Eligibility, SubmissionInfo, Categories, OpportunitySourceLink, OpportunitySourceText) values (N'" + self.keyword + "', N'" + self.url + "', N'" + self.name + "', N'" + self.description + "', N'" + self.sponsor + "', N'" + self.amount + "', N'" + self.eligibility + "', N'" + self.submissionInfo + "', N'" + self.categories + "', N'" + self.opportunitySourceLink + "', N'" + self.opportunitySourceText + "')")
-
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
                 "select * from dbo.GrantForwardItems where Name='" + self.name + "' and Url='" + self.url + "'")
