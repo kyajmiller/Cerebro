@@ -5,8 +5,7 @@ from Classes.RipPage import RipPage
 
 
 class GrantForwardLeads(object):
-    def __init__(self, searchTerm, isTest=False):
-        self.isTest = isTest
+    def __init__(self, searchTerm):
         self.searchTerm = searchTerm
         self.driver = webdriver.Chrome('C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe')
         self.base_url = 'https://www.grantforward.com/'
@@ -24,14 +23,13 @@ class GrantForwardLeads(object):
         self.getTitlesAndLinksFromSearchResults()
 
         if self.arrayOfResultsPagesLinks != []:
-            if self.isTest != True:
+            isThereNextPage = self.checkIfNextPage()
+            pageCount = 2
+            while isThereNextPage == True and pageCount <= 10:
+                self.goToNextPage()
+                self.getTitlesAndLinksFromSearchResults()
                 isThereNextPage = self.checkIfNextPage()
-                pageCount = 2
-                while isThereNextPage == True and pageCount <= 10:
-                    self.goToNextPage()
-                    self.getTitlesAndLinksFromSearchResults()
-                    isThereNextPage = self.checkIfNextPage()
-                    pageCount += 1
+                pageCount += 1
 
             for singleResultArray in self.arrayOfResultsPageArrays:
                 self.makeLeadArrayAndAddToGrantForwardLeads(singleResultArray)
