@@ -24,8 +24,6 @@ class MastersInEducationLeads(object):
         return self.mastersInEducationLeadsArrays
 
     def loopOverPages(self):
-        # self.getEditorsPicks()
-
         self.driver.find_element_by_xpath("//section[@class='scholarships']/ul[@class='tabs base']/li[2]").click()
         self.driver.implicitly_wait(2)
         self.getScholarshipsPicks()
@@ -34,6 +32,8 @@ class MastersInEducationLeads(object):
             self.goToNextPage()
             self.getScholarshipsPicks()
             nextScholarshipPage = self.checkIfNextPage()
+
+        self.getEditorsPicks()
 
     def makeLeadArray(self, resultArray):
         title = resultArray[0]
@@ -49,6 +49,9 @@ class MastersInEducationLeads(object):
         self.mastersInEducationLeadsArrays.append(mastersInEducationLeadArray)
 
     def getEditorsPicks(self):
+        self.driver.get(self.base_url + '/scholarships')
+        self.driver.implicitly_wait(2)
+
         visibleClickyDivs = self.driver.find_elements_by_xpath(
             "//section[@class='scholarships']/div[@class='tab h-results']/div[@class='h-result js-has-toggle']/div[@class='h-result-header js-toggle']")
         for clickyDiv in visibleClickyDivs:
