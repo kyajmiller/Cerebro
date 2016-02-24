@@ -5,6 +5,7 @@ class InsertGrantForwardLeadsArrayIntoGrantForwardItems(object):
     def __init__(self, grantForwardLeadArray):
         self.grantForwardLeadArray = grantForwardLeadArray
         self.db = SUDBConnect()
+
         self.keyword = self.grantForwardLeadArray[0]
         self.url = self.grantForwardLeadArray[1]
         self.name = self.grantForwardLeadArray[2]
