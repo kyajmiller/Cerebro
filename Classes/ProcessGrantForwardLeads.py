@@ -18,11 +18,12 @@ class ProcessGrantForwardLeads(object):
         majorsList = GetFastFindMajorsList.getGrantForwardItemsList()
         for major in majorsList:
             grantForwardLeadsArrays = GrantForwardLeads(major).processSearchResultsAndMakeLeadArray()
+            predictedFundingTypes = ProcessGrantForwardLeads.classifyFunding(grantForwardLeadsArrays)
 
     @staticmethod
     def classifyFunding(leadsArrays):
-        titlesList = [leadArray[0] for leadArray in leadsArrays]
-        infoTextList = [leadArray[1] for leadArray in leadsArrays]
+        titlesList = [leadArray[2] for leadArray in leadsArrays]
+        infoTextList = ['%s %s %s' % (leadArray[3], leadArray[6], leadArray[7]) for leadArray in leadsArrays]
         opportunitiesTitlesAndTexts = [[title, infoText] for title, infoText in zip(titlesList, infoTextList)]
         fundingClassifier = ClassifyFundingTypeKeywordBased(opportunitiesTitlesAndTexts)
         predictedFundingTypes = fundingClassifier.returnPredictedTags()
@@ -31,8 +32,8 @@ class ProcessGrantForwardLeads(object):
     @staticmethod
     def checkBadScholarship(leadArray, fundingClassification):
         if fundingClassification == 'Scholarship':
-            sponsor = ''
-            infoText = leadArray[1]
+            sponsor = leadArray[4]
+            infoText = '%s %s %s' % (leadArray[3], leadArray[6], leadArray[7])
             badScholarshipClassifier = ClassifyBadScholarships()
             badScholarshipPrediction = badScholarshipClassifier.classifyOpportunity(sponsor, infoText)
             return badScholarshipPrediction
