@@ -27,7 +27,7 @@ class InsertGrantForwardLeadsArrayIntoGrantForwardItems(object):
 
     def checkIfAlreadyInDatabase(self):
         matchingRow = self.db.getRowsDB(
-                "select * from dbo.GrantForwardItems where Name='" + self.name + "' and Url='" + self.url + "'")
+                "select * from dbo.GrantForwardItems where Keyword='" + self.keyword + "' and Url='" + self.url + "'")
         if matchingRow != []:
             return True
         else:
@@ -39,7 +39,8 @@ class InsertGrantForwardLeadsArrayIntoGrantForwardItems(object):
         website = re.sub('Leads', '', tableName)
         columns = self.db.getColumnNamesFromTable(tableName)
         currentRow = self.db.getRowsDB(
-                "select * from dbo.GrantForwardLeads where Name='" + self.name + "' and Url='" + self.url + "'")[0]
+                "select * from dbo.GrantForwardLeads where Keyword='" + self.keyword + "' and Url='" + self.url + "'")[
+            0]
         self.fileSystemDB.writeFile(columns, currentRow, user, website, self.url, self.date)
 
     def insertUpdateLead(self):
