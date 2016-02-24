@@ -2301,3 +2301,26 @@ shit dying because it ain't logged in fuckshit
     -made table
     -all of the appropriate classes written, just need to test and make sure the webscraper actually works
     -that's totally done now
+
+2/24 Notes:
+-Need to fix whatever's wrong with MastersInEducationLeads
+-After that I really don't have anything to do. I guess I could start implementing the parsers but I don't want to do that right now...
+    -Will probably do paper writing. That would be a good thing
+-I really dont know why this website is having a problem
+    -It's supposed to expand the editors picks then click over to the scholarships tab
+    -but when the scholarships tab clicking is supposed to happen, it doesn't happen
+    -ended up just disabling the editors picks thing for now, which works.
+    -may try putting the editors picks grabber at the end
+        -in order to make this work, get scholarships first, then send browser back to first page to get editors picks. Clicking the tabs after things are expanded is throwing too many errors,
+        this is able to get around it just fine
+-Need to update GrantForward stuff, see if I can even still access that site (can access)
+    -completely need to rework this
+    -Move everything into Process class so it all gets done with one execution
+    -holy shit I really just want to nuke this entire thing and rewrite
+    -nuked database, made new one
+    -finished some updating, now running, hopefully the xpaths of the various things are correct...
+
+
+- checkout this website for ken http://jlvcollegecounseling.com/resources/scholarships-lists/
+
+
