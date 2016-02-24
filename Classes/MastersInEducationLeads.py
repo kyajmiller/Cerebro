@@ -27,6 +27,7 @@ class MastersInEducationLeads(object):
         self.getEditorsPicks()
 
         self.driver.find_element_by_xpath("//section[@id='main-content']/div/section/ul/li[2]").click()
+        # "//section[@class='scholarships']/ul[@class='tabs base']/li[2]"
         self.driver.implicitly_wait(2)
         self.getScholarshipsPicks()
         nextScholarshipPage = self.checkIfNextPage()
