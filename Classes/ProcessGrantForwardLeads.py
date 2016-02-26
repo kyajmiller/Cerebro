@@ -25,7 +25,8 @@ class ProcessGrantForwardLeads(object):
                     numNewEntries += 1
                 else:
                     numUpdates += 1
-            CerebroLogs('GrantForward', totalLeads, numNewEntries, numUpdates)
+            CerebroLogs('GrantForward', totalLeads, numNewEntries, numUpdates,
+                        useDifferentWebsiteName='GrantForward (%s)' % major)
 
     @staticmethod
     def classifyFunding(leadsArrays):
