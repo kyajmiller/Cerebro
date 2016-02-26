@@ -3,11 +3,12 @@ import time
 
 
 class CerebroLogs(object):
-    def __init__(self, website, totalNewUpdated, numNewEntries, numUpdates):
+    def __init__(self, website, totalNewUpdated, numNewEntries, numUpdates, useDifferentWebsiteName=False):
         self.website = website
         self.totalEntries = str(totalNewUpdated)
         self.numNew = str(numNewEntries)
         self.numUpdates = str(numUpdates)
+        self.useDifferentWebsiteName = useDifferentWebsiteName
         self.date = time.strftime('%Y%m%d')
         self.db = SUDBConnect()
 
