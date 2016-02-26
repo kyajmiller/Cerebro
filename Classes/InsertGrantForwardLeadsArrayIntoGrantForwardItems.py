@@ -22,7 +22,7 @@ class InsertGrantForwardLeadsArrayIntoGrantForwardItems(object):
         self.categories = self.grantForwardLeadArray[8]
         self.sourceWebsite = self.grantForwardLeadArray[9]
         self.sourceText = self.grantForwardLeadArray[10]
-        self.deadline = ''
+        self.deadline = self.grantForwardLeadArray[11]
         self.date = time.strftime('%Y%m%d')
 
     def checkIfAlreadyInDatabase(self):
