@@ -14,12 +14,13 @@ class CerebroLogs(object):
 
         totalLeadsInTable = self.getTotalLeadsInTable()
 
-        if not self.useDifferentWebsiteName:
-            self.db.insertUpdateOrDeleteDB(
-                "insert into dbo.CerebroLogs (Website, Date, New, Updated, TotalNewUpdated, TotalLeads) values ('" + self.website + "', '" + self.date + "', '" + self.numNew + "', '" + self.numUpdates + "', '" + self.totalEntries + "', '" + totalLeadsInTable + "')")
-        else:
-            self.db.insertUpdateOrDeleteDB(
-                "insert into dbo.CerebroLogs (Website, Date, New, Updated, TotalNewUpdated, TotalLeads) values ('" + self.useDifferentWebsiteName + "', '" + self.date + "', '" + self.numNew + "', '" + self.numUpdates + "', '" + self.totalEntries + "', '" + totalLeadsInTable + "')")
+        if self.totalEntries > 0:
+            if not self.useDifferentWebsiteName:
+                self.db.insertUpdateOrDeleteDB(
+                        "insert into dbo.CerebroLogs (Website, Date, New, Updated, TotalNewUpdated, TotalLeads) values ('" + self.website + "', '" + self.date + "', '" + self.numNew + "', '" + self.numUpdates + "', '" + self.totalEntries + "', '" + totalLeadsInTable + "')")
+            else:
+                self.db.insertUpdateOrDeleteDB(
+                        "insert into dbo.CerebroLogs (Website, Date, New, Updated, TotalNewUpdated, TotalLeads) values ('" + self.useDifferentWebsiteName + "', '" + self.date + "', '" + self.numNew + "', '" + self.numUpdates + "', '" + self.totalEntries + "', '" + totalLeadsInTable + "')")
 
     def getTotalLeadsInTable(self):
         tableName = '%sLeads' % self.website
